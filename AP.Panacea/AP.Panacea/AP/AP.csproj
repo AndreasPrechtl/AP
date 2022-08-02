@@ -1,0 +1,479 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{0636E427-8A9C-4973-998A-90A071D2D638}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>AP</RootNamespace>
+    <AssemblyName>AP</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <Prefer32Bit>false</Prefer32Bit>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <DefineConstants Condition="'$(TargetFrameworkVersion)' == 'v4.0'">fx40</DefineConstants>
+    <DefineConstants Condition="'$(TargetFrameworkVersion)' == 'v4.5'">fx45</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>AP.pfx</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=4.4.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\AP.Herbst.Website\packages\EntityFramework.5.0.0\lib\net40\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Collections\CollectionsHelper.cs" />
+    <Compile Include="Collections\ComparisonResult.cs" />
+    <Compile Include="Collections\Dictionary.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Collections\ObjectModel\NonGenericDictionaryEnumerator.cs" />
+    <Compile Include="Collections\DictionaryHelper.cs" />
+    <Compile Include="Collections\Freezable\FreezableDictionary.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Collections\Freezable\FreezableList.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Collections\Freezable\FreezableQueue.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Collections\Freezable\FreezableSet.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Collections\Freezable\FreezableSortedDictionary.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Collections\Freezable\FreezableSortedList.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Collections\Freezable\FreezableSortedSet.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Collections\Freezable\FreezableStack.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Collections\IDictionary.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Collections\ObjectModel\CollectionBase.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Collections\ObjectModel\DictionaryBase.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Collections\ObjectModel\DictionaryBase.KeyCollection.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Collections\ObjectModel\DictionaryBase.ValueCollection.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Collections\ObjectModel\DictionaryKeyCollection.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Collections\ObjectModel\DictionaryValueCollection.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Collections\ObjectModel\ExtendableDictionary.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Collections\ObjectModel\ExtendableDictionary.KeyCollection.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Collections\ObjectModel\ExtendableDictionary.ValueCollection.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Collections\ObjectModel\ExtendableList.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Collections\ObjectModel\ExtendableQueue.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Collections\ObjectModel\ExtendableSet.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Collections\ObjectModel\ExtendableSortedDictionary.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Collections\ObjectModel\ExtendableSortedDictionary.KeyCollection.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Collections\ObjectModel\ExtendableSortedDictionary.ValueCollection.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Collections\ObjectModel\ExtendableSortedList.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Collections\ObjectModel\ExtendableSortedSet.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Collections\ObjectModel\ExtendableStack.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Collections\ObjectModel\ListBase.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Collections\ObjectModel\QueueBase.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Collections\ObjectModel\SetBase.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Collections\ObjectModel\StackBase.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Collections\Observable\ChangeTypes.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Collections\Observable\CollectionChangedEventArgs.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Collections\Observable\CollectionChangingEventArgs.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Collections\Observable\DictionaryChangedEventArgs.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Collections\Observable\DictionaryChangingEventArgs.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Collections\Observable\Events.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Collections\Observable\INotifyCollectionChanged.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Collections\Observable\INotifyCollectionChanging.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Collections\Observable\ListChangedEventArgs.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Collections\Observable\ListChangingEventArgs.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Collections\Observable\ObservableDictionary.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Collections\Observable\ObservableList.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Collections\Observable\ObservableQueue.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Collections\Observable\ObservableSet.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Collections\Observable\ObservableStack.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Collections\Observable\QueueChangedEventArgs.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Collections\Observable\QueueChangingEventArgs.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Collections\Observable\SetChangedEventArgs.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Collections\Observable\SetChangingEventArgs.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Collections\Observable\StackChangedEventArgs.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Collections\Observable\StackChangingEventArgs.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Collections\ReadOnly\ReadOnlyDictionary.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Collections\ReadOnly\ReadOnlyDictionary.KeyCollection.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Collections\ReadOnly\ReadOnlyDictionary.ValueCollection.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Collections\ReadOnly\ReadOnlyEnumerable.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Collections\ReadOnly\ReadOnlyList.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Collections\ReadOnly\ReadOnlySet.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Collections\ReadOnly\ReadOnlySortedDictionary.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Collections\ReadOnly\ReadOnlySortedDictionary.KeyCollection.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Collections\ReadOnly\ReadOnlySortedDictionary.ValueCollection.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Collections\ReadOnly\ReadOnlySortedList.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Collections\ReadOnly\ReadOnlySortedSet.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Collections\SortedDictionary.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Collections\SortedDictionary.KeyCollection.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Collections\SortedDictionary.ValueCollection.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Collections\SortedList.cs" />
+    <Compile Include="Collections\SortedSet.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Collections\Specialized\ReadOnlyStringSet.cs" />
+    <Compile Include="Collections\_4.0_Compatibility.cs" />
+    <Compile Include="Collections\Dictionary.KeyCollection.cs" />
+    <Compile Include="Collections\Dictionary.ValueCollection.cs" />
+    <Compile Include="Collections\List.cs" />
+    <Compile Include="Collections\Queue.cs" />
+    <Compile Include="Collections\Set.cs" />
+    <Compile Include="Collections\Specialized\NameValueDictionary.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Collections\Specialized\ReadOnlyNameValueDictionary.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Collections\Specialized\ReadOnlyStringDictionary.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Collections\Specialized\StringCollectionConverter.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Collections\Specialized\StringDictionary.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Collections\Specialized\StringEnumerableHelper.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Collections\Specialized\StringList.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Collections\Specialized\StringSet.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Collections\Specialized\StringSetConverter.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Collections\Stack.cs" />
+    <Compile Include="Collections\ICollection.cs" />
+    <Compile Include="Collections\IList.cs" />
+    <Compile Include="Collections\ISet.cs" />
+    <Compile Include="Collections\ILookup.cs" />
+    <Compile Include="Collections\IQueue.cs" />
+    <Compile Include="Collections\IStack.cs" />
+    <Compile Include="Collections\IStringEnumerable.cs" />
+    <Compile Include="ComponentModel\Conversion\Converter%272.cs" />
+    <Compile Include="ComponentModel\Conversion\ExtendedTypeDescriptionProvider.cs" />
+    <Compile Include="ComponentModel\Conversion\ExtendedTypeDescriptor.cs" />
+    <Compile Include="ComponentModel\Conversion\GenericHelper.cs" />
+    <Compile Include="ComponentModel\Conversion\ExtendedTypeConverter.cs" />
+    <Compile Include="ComponentModel\Conversion\ConverterManager.Item.cs" />
+    <Compile Include="ComponentModel\Conversion\IConverterManager.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ComponentModel\Conversion\ILinkedConverter.cs" />
+    <Compile Include="ComponentModel\Conversion\NonGenericHelper.cs" />
+    <Compile Include="ComponentModel\ExceptionInfo.cs" />
+    <Compile Include="ComponentModel\IContextUser.cs" />
+    <Compile Include="ComponentModel\IFilter.cs" />
+    <Compile Include="ComponentModel\IStorage.cs" />
+    <Compile Include="ComponentModel\ObjectManagement\IObjectManager.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ComponentModel\ObjectManagement\IObjectManagerInternal.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ComponentModel\ObjectManagement\ManagedInstance.cs" />
+    <Compile Include="ComponentModel\ObjectManagement\ObjectManager%271.Scope.cs" />
+    <Compile Include="ComponentModel\ObjectManagement\ObjectManager.Scope.cs" />
+    <Compile Include="ComponentModel\ObjectManagement\ScopeLifetime.cs" />
+    <Compile Include="ComponentModel\Observable\INotifyMemberAccessing.cs" />
+    <Compile Include="ComponentModel\Observable\INotifyMemberAccessed.cs" />
+    <Compile Include="ComponentModel\Sandbox.cs" />
+    <Compile Include="ComponentModel\ErrorLoggerEventArgs.cs" />
+    <Compile Include="ComponentModel\Observable\Events.cs" />
+    <Compile Include="ComponentModel\Observable\INotifyObjectChanged.cs" />
+    <Compile Include="ComponentModel\Observable\INotifyObjectChanging.cs" />
+    <Compile Include="ComponentModel\Logging\LogEntry.cs" />
+    <Compile Include="ComponentModel\Logging\Logger.cs" />
+    <Compile Include="ComponentModel\Logging\LoggingContext.cs" />
+    <Compile Include="ComponentModel\Logging\LogEntryAddedEventArgs.cs" />
+    <Compile Include="ComponentModel\Logging\LogReaderBase.cs" />
+    <Compile Include="ComponentModel\Logging\LogWriterBase.cs" />
+    <Compile Include="ComponentModel\Observable\MemberAccessedEventArgs.cs" />
+    <Compile Include="ComponentModel\ObjectManagement\AlwaysNewLifetime.cs" />
+    <Compile Include="ComponentModel\ObjectManagement\IObjectLifetimeInternal.cs" />
+    <Compile Include="ComponentModel\ObjectManagement\ManagedObjects.cs" />
+    <Compile Include="ComponentModel\ObjectManagement\DeferrableLifetime.cs" />
+    <Compile Include="ComponentModel\ObjectManagement\ObjectLifetimeBase.cs" />
+    <Compile Include="ComponentModel\ObjectManagement\ObjectManager%271.cs" />
+    <Compile Include="ComponentModel\ObjectManagement\ObjectManager.cs" />
+    <Compile Include="ComponentModel\ObjectManagement\ObjectManager.Group.cs" />
+    <Compile Include="ComponentModel\ObjectManagement\ObjectManagerExtensions.cs" />
+    <Compile Include="ComponentModel\ObjectManagement\ObjectManager.Item.cs" />
+    <Compile Include="ComponentModel\Observable\MemberAccessingEventArgs.cs" />
+    <Compile Include="ComponentModel\Observable\ObjectChangedEventArgs.cs" />
+    <Compile Include="ComponentModel\Observable\ObjectChangingEventArgs.cs" />
+    <Compile Include="ComponentModel\PropertyChangedEventArgs.cs" />
+    <Compile Include="ComponentModel\SortedAttribute.cs" />
+    <Compile Include="ComponentModel\Validation\DataAnnotationsValidator.cs" />
+    <Compile Include="ComponentModel\Validation\IValidateable.cs" />
+    <Compile Include="ComponentModel\Validation\ValidationResult%271.cs" />
+    <Compile Include="Reflection\MemberPath.cs" />
+    <Compile Include="ComponentModel\Validation\ValidationMessage.cs" />
+    <Compile Include="ComponentModel\Validation\ValidationMessageType.cs" />
+    <Compile Include="ComponentModel\Validation\ValidationResult.MessageSet.cs" />
+    <Compile Include="ComponentModel\Validation\ValidationMessageEqualityComparer.cs" />
+    <Compile Include="Delegates.cs" />
+    <Compile Include="DisposableWrapper.cs" />
+    <Compile Include="Enums.cs" />
+    <Compile Include="Events.cs" />
+    <Compile Include="StaticType.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="FinalizableObject.cs" />
+    <Compile Include="DisposableObject.cs" />
+    <Compile Include="FreezableHelper.cs" />
+    <Compile Include="FreezableObject.cs" />
+    <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="Collections\IComparerUser.cs" />
+    <Compile Include="IFreezable.cs" />
+    <Compile Include="Deferrable.cs" />
+    <Compile Include="Linq\GroupingExtensions.cs" />
+    <Compile Include="Linq\QueueExtensions.cs" />
+    <Compile Include="Linq\SetExtensions.cs" />
+    <Compile Include="Linq\StackExtensions.cs" />
+    <Compile Include="Linq\StringEnumerable.cs" />
+    <Compile Include="New.cs" />
+    <Compile Include="NonNullable.cs" />
+    <Compile Include="NumericType.cs" />
+    <Compile Include="PropertiesHelper.cs" />
+    <Compile Include="Reflection\Reflect.cs" />
+    <Compile Include="Serialization\Deserialize.cs" />
+    <Compile Include="StringBuilderExtensions.cs" />
+    <Compile Include="IDisposable.cs" />
+    <Compile Include="Linq\DictionaryExtensions.cs" />
+    <Compile Include="Linq\CollectionExtensions.cs" />
+    <Compile Include="Linq\ListExtensions.cs" />
+    <Compile Include="ComponentModel\Conversion\Converters.cs" />
+    <Compile Include="ComponentModel\Conversion\IntToStringConverter.cs" />
+    <Compile Include="ComponentModel\Conversion\MemberwiseConverter.cs" />
+    <Compile Include="ComponentModel\Conversion\StringToIntConverter.cs" />
+    <Compile Include="ComponentModel\Conversion\LinkedConverter.cs" />
+    <Compile Include="ComponentModel\Conversion\Converter.cs" />
+    <Compile Include="ComponentModel\Conversion\ConvertDelegateWrapper.cs" />
+    <Compile Include="ComponentModel\Conversion\ConverterManager.cs" />
+    <Compile Include="ComponentModel\Conversion\ConverterManager.Key.cs" />
+    <Compile Include="ComponentModel\Conversion\TypeConverterWrapper.cs" />
+    <Compile Include="ComponentModel\ITree.cs" />
+    <Compile Include="ComponentModel\KeySelector.cs" />
+    <Compile Include="ComponentModel\Validation\ValidationHelper.cs" />
+    <Compile Include="ComponentModel\Validation\ValidationEventArgs.cs" />
+    <Compile Include="ComponentModel\Validation\ValidationEventHandler.cs" />
+    <Compile Include="ComponentModel\Validation\ValidationResult.cs" />
+    <Compile Include="ComponentModel\Validation\IValidator.cs" />
+    <Compile Include="ComponentModel\Validation\Validator.cs" />
+    <Compile Include="ComponentModel\Validation\ValidatorWrapper.cs" />
+    <Compile Include="ExceptionHelper.cs" />
+    <Compile Include="Linq\Expressions.cs" />
+    <Compile Include="Linq\EnumerableExtensions.cs" />
+    <Compile Include="Linq\ExpressionExtensions.cs" />
+    <Compile Include="Linq\QueryableExtensions.cs" />
+    <Compile Include="Linq\SortDirection.cs" />
+    <Compile Include="Objects.cs" />
+    <Compile Include="ComponentModel\IActivator.cs" />
+    <Compile Include="ComponentModel\IResolver.cs" />
+    <Compile Include="ComponentModel\IManager.cs" />
+    <Compile Include="ComponentModel\Singleton.cs" />
+    <Compile Include="ComponentModel\Wrapper.cs" />
+    <Compile Include="Cloner.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Serialization\Serialize.cs" />
+    <Compile Include="Strings.cs" />
+    <Compile Include="Reflection\Types.cs" />
+    <Compile Include="ComponentModel\ThreadStaticSingleton.cs" />
+    <Compile Include="_4.0_Compatibility.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="AP.cd" />
+    <None Include="AP.pfx" />
+    <None Include="Collections\Collections.cd" />
+    <None Include="ComponentModel\ComponentModel.cd" />
+    <None Include="ComponentModel\Conversion\Conversion.cd" />
+    <None Include="ComponentModel\Logging\Logging.cd" />
+    <None Include="ComponentModel\ObjectManagement\ObjectManagement.cd" />
+    <None Include="ComponentModel\Validation\Validation.cd" />
+    <None Include="Linq\ClassDiagram1.cd" />
+    <None Include="Linq\Linq.cd" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Collections\Immutable\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

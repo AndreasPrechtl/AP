@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="AP.UI.SiteMapping.SiteMap&lt;TKey&gt;">
+    <Position X="1.75" Y="0.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAQACAAAAAAAAAAAABAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>SiteMapping\SiteMap.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AP.UI.SiteMapping.SiteMapEntry&lt;TKey&gt;">
+    <Position X="5" Y="0.5" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>BgAQIAIABEgEAiAEkACHQCAQQABAAZAwAQAAAAAAAAA=</HashCode>
+      <FileName>SiteMapping\SiteMapEntry.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AP.UI.SiteMapping.SiteMapEntry&lt;TKey&gt;">
+    <Position X="1.75" Y="3.5" Width="2.5" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Class Name="AP.UI.SiteMapping.SiteMapEntry&lt;TKey&gt;.EntryList">
+        <TypeIdentifier>
+          <NewMemberFileName>SiteMapping\SiteMapEntry.EntryList.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>SiteMapping\SiteMapEntry.EntryList.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

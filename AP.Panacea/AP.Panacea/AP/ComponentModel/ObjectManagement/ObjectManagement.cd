@@ -1,0 +1,99 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="AP.ComponentModel.ObjectManagement.AlwaysNewLifetime&lt;TBase&gt;">
+    <Position X="11.75" Y="4" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAAQAAAAAQAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAA=</HashCode>
+      <FileName>ComponentModel\ObjectManagement\AlwaysNewLifetime.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AP.ComponentModel.ObjectManagement.ManagedObjects">
+    <Position X="0.75" Y="0.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAACAAAEAEABAABBgAAAAAABBJQAgA=</HashCode>
+      <FileName>ComponentModel\ObjectManagement\ManagedObjects.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AP.ComponentModel.ObjectManagement.ObjectLifetimeBase&lt;TBase&gt;">
+    <Position X="11.75" Y="0.75" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQAAACAAAAAAAAAAAAAQAAAAAAAAAA=</HashCode>
+      <FileName>ComponentModel\ObjectManagement\ObjectLifetimeBase.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="AP.ComponentModel.ObjectManagement.ObjectManager&lt;TSuper&gt;" BaseTypeListCollapsed="true">
+    <Position X="6.75" Y="0.75" Width="3" />
+    <NestedTypes>
+      <Class Name="AP.ComponentModel.ObjectManagement.ObjectManager&lt;TSuper&gt;.Scope" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>ComponentModel\ObjectManagement\ObjectManager'1.Scope.cs</NewMemberFileName>
+        </TypeIdentifier>
+        <Lollipop Position="0.2" />
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ComponentModel\ObjectManagement\ObjectManager'1.Scope.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AP.ComponentModel.ObjectManagement.ObjectManager" BaseTypeListCollapsed="true">
+    <Position X="3.25" Y="0.75" Width="3.25" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Class Name="AP.ComponentModel.ObjectManagement.ObjectManager.Group">
+        <TypeIdentifier>
+          <NewMemberFileName>ComponentModel\ObjectManagement\ObjectManager.Group.cs</NewMemberFileName>
+        </TypeIdentifier>
+        <Lollipop Position="0.2" />
+      </Class>
+      <Class Name="AP.ComponentModel.ObjectManagement.ObjectManager.Item">
+        <TypeIdentifier>
+          <NewMemberFileName>ComponentModel\ObjectManagement\ObjectManager.Item.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="AP.ComponentModel.ObjectManagement.ObjectManager.Scope" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>ComponentModel\ObjectManagement\ObjectManager.Scope.cs</NewMemberFileName>
+        </TypeIdentifier>
+        <Lollipop Position="0.2" />
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>EAAAQAAAAAAAAAAAAAAAEAEABAABAgAAAEAAQBJQAAA=</HashCode>
+      <FileName>ComponentModel\ObjectManagement\ObjectManager.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Interface Name="AP.ComponentModel.ObjectManagement.IObjectLifetimeInternal">
+    <Position X="10.25" Y="10.25" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ComponentModel\ObjectManagement\IObjectLifetimeInternal.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="AP.ComponentModel.ObjectManagement.IObjectManager">
+    <Position X="7.5" Y="7.25" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAAAAAAAAAAAAAAAAEABAABAAAAAAAAQBJQAAA=</HashCode>
+      <FileName>ComponentModel\ObjectManagement\IObjectManager.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="AP.ComponentModel.ObjectManagement.IObjectManager&lt;TSuper&gt;">
+    <Position X="10.25" Y="7.25" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAEABAABAAAAAAAAQBJQAgA=</HashCode>
+      <FileName>ComponentModel\ObjectManagement\IObjectManager.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="AP.ComponentModel.ObjectManagement.IObjectManagerInternal" Collapsed="true">
+    <Position X="7.5" Y="10.25" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ComponentModel\ObjectManagement\IObjectManagerInternal.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

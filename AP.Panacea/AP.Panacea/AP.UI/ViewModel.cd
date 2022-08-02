@@ -1,0 +1,166 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="AP.UI.EnumerableViewModel&lt;T, TKey&gt;" BaseTypeListCollapsed="true">
+    <Position X="7" Y="0.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAAABAAAAAAwBAAACAAAQQCAAQCAQAAAASBAAAAAA=</HashCode>
+      <FileName>EnumerableViewModel'2.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="AP.UI.QueryablePagedViewModel&lt;T, TNavigation, TKey&gt;" BaseTypeListCollapsed="true">
+    <Position X="16" Y="6.75" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AgAAAABAAAAAAwBAAECAAAQQCAAQCAQAAAASFAAAAAI=</HashCode>
+      <FileName>QueryablePagedViewModel'3.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="AP.UI.QueryablePagedViewModel&lt;T, TKey&gt;" BaseTypeListCollapsed="true">
+    <Position X="9.75" Y="6.75" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AgAAAABAAAAAAwBAAECAAAQQCAAQCAQAAAASFAAAAAI=</HashCode>
+      <FileName>QueryablePagedViewModel'2.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="AP.UI.EnumerableViewModel&lt;T, TNavigation, TKey&gt;">
+    <Position X="12.75" Y="0.5" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AgAAAABAAAAAAwAAAACAAAQQCAAQCAQAAAASBAAAAAA=</HashCode>
+      <FileName>EnumerableViewModel'3.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="AP.UI.QueryableViewModel&lt;T, TKey&gt;" BaseTypeListCollapsed="true">
+    <Position X="7" Y="6.75" Width="2.5" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AgAAAABAAAAAAwBAAACAAAQQCAAQCAQAAAASBAAAAAA=</HashCode>
+      <FileName>QueryableViewModel'2.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="AP.UI.QueryableViewModel&lt;T, TNavigation, TKey&gt;">
+    <Position X="12.75" Y="6.75" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AgAAAABAAAAAAwBAAACAAAQQCAAQCAQAAAASBAAAAAA=</HashCode>
+      <FileName>QueryableViewModel'3.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="AP.UI.EnumerablePagedViewModel&lt;T, TKey&gt;" BaseTypeListCollapsed="true">
+    <Position X="9.75" Y="0.5" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AgAAAABAAAAAAwBAAECAAAQQCAAQCAQAAAASFAAAAAI=</HashCode>
+      <FileName>EnumerablePagedViewModel'2.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="AP.UI.EnumerablePagedViewModel&lt;T, TNavigation, TKey&gt;" BaseTypeListCollapsed="true">
+    <Position X="16" Y="0.5" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AgAAAABAAAAAAwBAAECAAAQQCAAQCAQAAAASFAAAAAI=</HashCode>
+      <FileName>EnumerablePagedViewModel'3.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="AP.UI.EnumerableExtensions">
+    <Position X="0.5" Y="11" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AAAABAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAA=</HashCode>
+      <FileName>EnumerableExtensions.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AP.UI.QueryableExtensions">
+    <Position X="0.5" Y="9.25" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AAAABAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAA=</HashCode>
+      <FileName>QueryableExtensions.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AP.UI.ResultSet&lt;T, TNavigation, TKey&gt;" BaseTypeListCollapsed="true">
+    <Position X="3.5" Y="14" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>BgAAAABBAAACAwAAAACAAAQQAAAQCAAgQACSBAAAACA=</HashCode>
+      <FileName>ResultSet'3.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="AP.UI.ResultSet&lt;T&gt;" BaseTypeListCollapsed="true">
+    <Position X="6.25" Y="14" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>BgAAAABBAAACAwAAAACAAAQQAAAQCAAgQACSBAAAAAA=</HashCode>
+      <FileName>ResultSet'2.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="AP.UI.PagedResultSet&lt;T, TNavigation&gt;" BaseTypeListCollapsed="true">
+    <Position X="12.25" Y="14" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAAABAAAACAwAAAECAAAYQAAQQCAAAAADSFAAAACI=</HashCode>
+      <FileName>PagedResultSet'3.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="AP.UI.PagedResultSet&lt;T&gt;" BaseTypeListCollapsed="true">
+    <Position X="9.5" Y="14" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>BgAAAABBAAACAwAAAECAAAYQAAQQCAAgQADSFAAAAAI=</HashCode>
+      <FileName>PagedResultSet'2.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="AP.UI.ExpressionHelper">
+    <Position X="0.5" Y="14" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAgCAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ExpressionHelper.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="AP.UI.IViewModel&lt;T&gt;">
+    <Position X="0.5" Y="0.5" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AgAAAABAAAAAAwAAAACAAAQQAAAQCAAAAAASBAAAAAA=</HashCode>
+      <FileName>IViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="AP.UI.IViewModel&lt;T, TNavigation&gt;">
+    <Position X="0.5" Y="4.5" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AgAAAABAAAAAAwAAAACAAAQQAAAQCAAAAAASBAAAAAA=</HashCode>
+      <FileName>IViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="AP.UI.IPagedViewModel&lt;T&gt;">
+    <Position X="3.5" Y="0.5" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AgAAAABAAAAAAwAAAECAAAQQAAAQCAAAAAASFAAAAAI=</HashCode>
+      <FileName>IPagedViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="AP.UI.IPagedViewModel&lt;T, TNavigation&gt;">
+    <Position X="3.5" Y="4.5" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AgAAAABAAAAAAwAAAECAAAQQAAAQCAAAAAASFAAAAAI=</HashCode>
+      <FileName>IPagedViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Delegate Name="AP.UI.ToPagedNavigation&lt;TNavigation&gt;">
+    <Position X="4" Y="11" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAACAAAAAAAAAA=</HashCode>
+      <FileName>IPagedViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Delegate Name="AP.UI.ToNavigation&lt;TKey, TNavigation&gt;">
+    <Position X="4" Y="9.25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>IViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

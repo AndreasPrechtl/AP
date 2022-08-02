@@ -1,0 +1,107 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{6A0AF5AE-F247-4E53-9B50-E0E406BD6729}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>AP.IO</RootNamespace>
+    <AssemblyName>AP.IO</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <DefineConstants Condition="'$(TargetFrameworkVersion)' == 'v4.0'">fx40</DefineConstants>
+    <DefineConstants Condition="'$(TargetFrameworkVersion)' == 'v4.5'">fx45</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>AP.IO.pfx</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Directory.cs" />
+    <Compile Include="DirectoriesHelper.cs" />
+    <Compile Include="DirectoryExtensions.cs" />
+    <Compile Include="Enums.cs" />
+    <Compile Include="File.cs" />
+    <Compile Include="FileExtensions.cs" />
+    <Compile Include="FilesHelper.cs" />
+    <Compile Include="FileSystem.cs" />
+    <Compile Include="FileSystemEntry.cs" />
+    <Compile Include="FileSystemEntryExtensions.cs" />
+    <Compile Include="MetaData\IDirectoryMetaData.cs" />
+    <Compile Include="MetaData\IFileMetaData.cs" />
+    <Compile Include="MetaData\IFileSystemEntryMetaData.cs" />
+    <Compile Include="MetaData\DirectoryMetaData.cs" />
+    <Compile Include="MetaData\FileMetaData.cs" />
+    <Compile Include="MetaData\FileSystemEntryMetaDataBase.cs" />
+    <Compile Include="FileSystemContext.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="VBDeleteHelper.cs" />
+    <None Include="AP.IO.pfx" />
+    <None Include="IO.cd" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AP.UniformIdentifiers\AP.UniformIdentifiers.csproj">
+      <Project>{02245589-50a3-4167-9ad6-76a179da571f}</Project>
+      <Name>AP.UniformIdentifiers</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AP\AP.csproj">
+      <Project>{0636e427-8a9c-4973-998a-90a071d2d638}</Project>
+      <Name>AP</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

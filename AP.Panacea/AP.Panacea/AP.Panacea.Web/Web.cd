@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Comment CommentText="Result Types - for web only (Panacea's version of MVC's ActionResult)">
+    <Position X="6.812" Y="3.615" Height="0.417" Width="6.585" />
+  </Comment>
+  <Class Name="AP.Panacea.Web.Application" BaseTypeListCollapsed="true">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAAAAAACEAAABAAACAihABUAAACAIAoACAAAACAAA=</HashCode>
+      <FileName>Application.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="AP.Panacea.Web.Css">
+    <Position X="6.75" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAA=</HashCode>
+      <FileName>Css.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AP.Panacea.Web.FileResult">
+    <Position X="12" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAQAAAAAAA=</HashCode>
+      <FileName>FileResult.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AP.Panacea.Web.ResponseRenderer" BaseTypeListCollapsed="true">
+    <Position X="2.5" Y="0.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>ACAAAAAAAAAAAAAAAAAQAAAAAEgAAAAAABAIAAAQAAQ=</HashCode>
+      <FileName>IResponseRenderer.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="AP.Panacea.Web.Javascript">
+    <Position X="8.5" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAA=</HashCode>
+      <FileName>Javascript.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AP.Panacea.Web.Json">
+    <Position X="10.25" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAwAAAAAAA=</HashCode>
+      <FileName>Json.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="AP.Panacea.Web.IResponseRenderer">
+    <Position X="4.75" Y="0.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAA=</HashCode>
+      <FileName>IResponseRenderer.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

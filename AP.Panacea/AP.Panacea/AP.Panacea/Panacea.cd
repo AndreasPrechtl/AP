@@ -1,0 +1,139 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Comment CommentText="Routing was moved to assembly AP.Routing">
+    <Position X="1.907" Y="1.899" Height="0.478" Width="1.616" />
+  </Comment>
+  <Comment CommentText="Core">
+    <Position X="0.555" Y="1.032" Height="0.433" Width="23.773" />
+  </Comment>
+  <Comment CommentText="Membership was moved to assembly AP.Security">
+    <Position X="3.615" Y="1.893" Height="0.474" Width="1.76" />
+  </Comment>
+  <Comment CommentText="UI was moved to assembly AP.UI">
+    <Position X="5.475" Y="1.888" Height="0.463" Width="1.7" />
+  </Comment>
+  <Class Name="AP.Panacea.ApplicationCore&lt;TRequest, TResponse&gt;">
+    <Position X="0.5" Y="3" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAUAIAAEAEEABAAAAAEQAAQAAECSIAIIAAAAJAAAA=</HashCode>
+      <FileName>ApplicationCore.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AP.Panacea.Request">
+    <Position X="0.5" Y="10" Width="2.75" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAADAAAAAAAAAAAAAABBAAAAAAACAIAAEAAAIAQCAAA=</HashCode>
+      <FileName>Request.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AP.Panacea.UnauthorizedException">
+    <Position X="7.25" Y="10" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>UnauthorizedException.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AP.Panacea.NotFoundException">
+    <Position X="7.25" Y="11.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>NotFoundException.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AP.Panacea.ClientAgent">
+    <Position X="0.5" Y="14.75" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>IAAAIAAAAAAAIAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ClientAgent.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AP.Panacea.InvalidRequestException&lt;TRequest&gt;">
+    <Position X="7.25" Y="12.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>InvalidRequestException.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AP.Panacea.Response">
+    <Position X="3.75" Y="10" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAADAAAAAAAEAAACQABBAAQAACAAgAAAGAAAIAAIAAA=</HashCode>
+      <FileName>Response.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AP.Panacea.Navigator&lt;TRequest, TResponse&gt;">
+    <Position X="10" Y="5" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AIAAgAAAAZAUAAAAAAAAAAIIAAAEAIIAABAQAgAAAKA=</HashCode>
+      <FileName>Navigator.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="AP.Panacea.NavigatedEventArgs&lt;TRequest, TResponse&gt;">
+    <Position X="21.25" Y="6" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>NavigatedEventArgs.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AP.Panacea.NavigatingEventArgs&lt;TRequest, TResponse&gt;">
+    <Position X="17.75" Y="6" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAQAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAA=</HashCode>
+      <FileName>NavigatingEventArgs.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AP.Panacea.NavigationEventArgsBase&lt;TRequest, TResponse&gt;">
+    <Position X="19.5" Y="2.75" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>NavigationEventArgsBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="AP.Panacea.IApplication&lt;TRequest, TResponse&gt;">
+    <Position X="3.25" Y="3" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAIAQAAAAAAAgAQAAQAAECQIAIAAAAAAAAAA=</HashCode>
+      <FileName>IApplication.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="AP.Panacea.INavigator&lt;TRequest, TResponse&gt;">
+    <Position X="6.5" Y="4.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAQAAAAACA=</HashCode>
+      <FileName>INavigator.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="AP.Panacea.IResponseRenderer&lt;TResponse&gt;">
+    <Position X="6.5" Y="3" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAA=</HashCode>
+      <FileName>IResponseRenderer.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="AP.Panacea.IResponseRenderer&lt;TResponse, TRenderTarget&gt;">
+    <Position X="9.5" Y="3" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAA=</HashCode>
+      <FileName>IResponseRenderer.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Delegate Name="AP.Panacea.NavigatedEventHandler&lt;TRequest, TResponse&gt;">
+    <Position X="13.75" Y="6.25" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>AABAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>INavigator.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Delegate Name="AP.Panacea.NavigatingEventHandler&lt;TRequest, TResponse&gt;">
+    <Position X="13.75" Y="5" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>INavigator.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

@@ -1,0 +1,673 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="AP.Collections.FreezableCollection&lt;T&gt;">
+    <Position X="2.5" Y="13.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAAAAAAAQAAAABAAAAAAAAAAIIAAAAABAAAA=</HashCode>
+      <FileName>Collections\Freezable\FreezableCollection.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="AP.Collections.FreezableDictionary&lt;TKey, TValue&gt;">
+    <Position X="19" Y="14.75" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAAAAAAAACAAABAAAAAAAYAAIAAAAAABAABA=</HashCode>
+      <FileName>Collections\Freezable\FreezableDictionary.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="AP.Collections.FreezableList&lt;T&gt;">
+    <Position X="10.75" Y="14" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAEAAAIAAAAAACAAABAAAAAAAYAAIAAAAAABAABA=</HashCode>
+      <FileName>Collections\Freezable\FreezableList.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="AP.Collections.FreezableSortedSet&lt;T&gt;">
+    <Position X="16.25" Y="15.25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAAAAAAAAAAAABAAAAAAAYAAIAAAAAABAABA=</HashCode>
+      <FileName>Collections\Freezable\FreezableSortedSet.cs</FileName>
+      <NewMemberFileName>Collections\Freezable\FreezableSet.cs</NewMemberFileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="AP.Collections.ReadOnlyEnumerable" BaseTypeListCollapsed="true">
+    <Position X="30.25" Y="14.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAEAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Collections\ReadOnly\ReadOnlyEnumerable.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="AP.Collections.ReadOnlyEnumerable&lt;T&gt;" BaseTypeListCollapsed="true">
+    <Position X="27.75" Y="14.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAEAAABAAAAAAAAAAAAAAAAAEAAAAAAAAAAA=</HashCode>
+      <FileName>Collections\ReadOnly\ReadOnlyEnumerable.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="AP.Collections.Collection&lt;T&gt;" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="33" Y="7.25" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AIIAAAAEAAAQABCMAAABhBQAAAABBAgFAgEAAABQITo=</HashCode>
+      <FileName>Collections\Collection.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="AP.Collections.CollectionsHelper">
+    <Position X="23.25" Y="1.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAgAAACAAIAAAAAEAAAAAAAAAAAAAAAAAQAAAAAQICQ=</HashCode>
+      <FileName>Collections\CollectionsHelper.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AP.Collections.Dictionary&lt;TKey, TValue&gt;" Collapsed="true">
+    <Position X="27.75" Y="7.25" Width="2.5" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>CAYSAAAACBAEgxFMCAgCxCQAAACAEAAUABAiIABQIHA=</HashCode>
+      <FileName>Collections\Dictionary.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="AP.Collections.KeyValuePairComparer&lt;TKey, TValue&gt;">
+    <Position X="8.75" Y="28.75" Width="2.5" />
+    <NestedTypes>
+      <Class Name="AP.Collections.KeyValuePairComparer&lt;TKey, TValue&gt;.ValueComparer" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Collections\KeyValuePairComparer.ValueComparer.cs</NewMemberFileName>
+        </TypeIdentifier>
+        <Lollipop Position="0.2" />
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>CBAAAAAAAAgAAAAACAAAIAAAAAAAAEAAABBwAAAAgGA=</HashCode>
+      <FileName>Collections\KeyValuePairComparer.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="AP.Collections.KeyValuePairComparerWrapper&lt;TKey, TValue&gt;">
+    <Position X="8.75" Y="34.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAgAAAAAAAAAAAAIAAABAQAAAAgEA=</HashCode>
+      <FileName>Collections\KeyValuePairComparerWrapper.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AP.Collections.KeyValuePairEqualityComparer&lt;TKey, TValue&gt;">
+    <Position X="6" Y="28.75" Width="2.5" />
+    <NestedTypes>
+      <Class Name="AP.Collections.KeyValuePairEqualityComparer&lt;TKey, TValue&gt;.ValueComparer" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Collections\KeyValuePairEqualityComparer.ValueComparer.cs</NewMemberFileName>
+        </TypeIdentifier>
+        <Lollipop Position="0.2" />
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>ABAAAAAAAEAEABAAiAAAIAABgAIAAIAAABAgAAQAAEA=</HashCode>
+      <FileName>Collections\KeyValuePairEqualityComparer.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="AP.Collections.KeyValuePairEqualityComparerWrapper&lt;TKey, TValue&gt;">
+    <Position X="6" Y="34.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAEAAAAAAgAAAAAABgAAAAIAAABAAAAAAAEA=</HashCode>
+      <FileName>Collections\KeyValuePairEqualityComparerWrapper.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AP.Collections.List&lt;T&gt;" Collapsed="true">
+    <Position X="25" Y="7.25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AWIAAEAAIJAAABANCAAJhBRAAAAAAAAACAAAAAFQITA=</HashCode>
+      <FileName>Collections\List.cs</FileName>
+      <NewMemberFileName>Collections\ObjectModel\ExtendableList.cs</NewMemberFileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="AP.Collections.Queue&lt;T&gt;" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="37.75" Y="7.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AABAAQAAAAAEABAMAAIAgBQAAAAABAAEAAAAAABQIRA=</HashCode>
+      <FileName>Collections\Queue.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="AP.Collections.Set&lt;T&gt;" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="30.5" Y="7.25" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>ACoAABBAADBAQBBMAAAAhBQAAAAgACAACgAAAABSIRA=</HashCode>
+      <FileName>Collections\Set.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="AP.Collections.SortedDictionary&lt;TKey, TValue&gt;" Collapsed="true">
+    <Position X="27.75" Y="9.75" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>CAYSAAAACBIEgxFMCAgChCQAAACAEAAUABAgIABQIPA=</HashCode>
+      <FileName>Collections\SortedDictionary.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="AP.Collections.SortedSet&lt;T&gt;" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="30.5" Y="9.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>ACoQABBAEDBAQBBMAAAAhBQAAAAgACAACgAAAABQIRA=</HashCode>
+      <FileName>Collections\SortedSet.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="AP.Collections.Stack&lt;T&gt;" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="40" Y="7.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAAAAEABAMAAAAgBQAAACAAAAEAAAAQABQKRA=</HashCode>
+      <FileName>Collections\Stack.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="AP.Collections.Freezable.FreezableQueue&lt;T&gt;">
+    <Position X="5.25" Y="13.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AABAAAAAAAAAAAAAAAAAAAAAAAAAZAAIAAAAAABAABA=</HashCode>
+      <FileName>Collections\Freezable\FreezableQueue.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="AP.Collections.Freezable.FreezableSortedDictionary&lt;TKey, TValue&gt;">
+    <Position X="21.75" Y="14.75" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAAAAAAAACAAABAAAAAAAYAAIAAAAAABAABA=</HashCode>
+      <FileName>Collections\Freezable\FreezableSortedDictionary.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="AP.Collections.Freezable.FreezableStack&lt;T&gt;">
+    <Position X="8" Y="13.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAACAYAAIAAAAAABACBA=</HashCode>
+      <FileName>Collections\Freezable\FreezableStack.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="AP.Collections.ObjectModel.CollectionBase&lt;T&gt;" Collapsed="true">
+    <Position X="2.5" Y="7.25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAABAMAAAAAAQAAAAAAAAEAAAAAAAQIBA=</HashCode>
+      <FileName>Collections\ObjectModel\CollectionBase.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="AP.Collections.ObjectModel.DictionaryKeyCollectionWrapper&lt;TKey, TValue&gt;" BaseTypeListCollapsed="true">
+    <Position X="5.5" Y="21" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AMAAAABEAAASAJCNAAARAAQAAAABBAgBAgAAAAAQIAg=</HashCode>
+      <FileName>Collections\ObjectModel\Dictionary.KeyCollectionWrapperBase.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="AP.Collections.ObjectModel.DictionaryValueCollectionWrapper&lt;TKey, TValue&gt;" BaseTypeListCollapsed="true">
+    <Position X="8.75" Y="21" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AIAAAABUAAAUABCNAQARAAwAAAABBAgBAhAAAAAQIAg=</HashCode>
+      <FileName>Collections\ObjectModel\Dictionary.ValueCollectionWrapperBase.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="AP.Collections.ObjectModel.ExtendableCollection&lt;T&gt;">
+    <Position X="2.5" Y="8.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAAAAABAEAAAAhAQAAAAAAAAAAAAAAABQISQ=</HashCode>
+      <FileName>Collections\ObjectModel\ExtendableCollection.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="AP.Collections.ObjectModel.ExtendableDictionary&lt;TKey, TValue&gt;">
+    <Position X="19" Y="8.5" Width="2.5" />
+    <NestedTypes>
+      <Class Name="AP.Collections.ObjectModel.ExtendableDictionary&lt;TKey, TValue&gt;.ValueCollection" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Collections\ObjectModel\ExtendableDictionary.ValueCollection.cs</NewMemberFileName>
+        </TypeIdentifier>
+        <Lollipop Position="0.2" />
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAYAAEAAABAEAhEECAAAhAQAAAAAAAAAAAAgAABQIBA=</HashCode>
+      <FileName>Collections\ObjectModel\ExtendableDictionary.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AP.Collections.ObjectModel.ExtendableList&lt;T&gt;">
+    <Position X="10.75" Y="8.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAEAAAIAAABAECIAAhAQAAAAAAAAAAAAAAIBQIQg=</HashCode>
+      <FileName>Collections\ObjectModel\ExtendableList.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="AP.Collections.ObjectModel.ExtendableQueue&lt;T&gt;">
+    <Position X="5.25" Y="8.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AABAAEAAAAAEABAEAAAAgAQAAAAABAAAAAAAAABQIQA=</HashCode>
+      <FileName>Collections\ObjectModel\ExtendableQueue.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="AP.Collections.ObjectModel.ExtendableSet&lt;T&gt;">
+    <Position X="13.5" Y="8.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAoAAFBAACBAQBBEAAAAhAQAAAAAACAAAgAAAABQIQA=</HashCode>
+      <FileName>Collections\ObjectModel\ExtendableSet.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="AP.Collections.ObjectModel.ExtendableSortedDictionary&lt;TKey, TValue&gt;">
+    <Position X="21.75" Y="8.5" Width="2.5" />
+    <NestedTypes>
+      <Class Name="AP.Collections.ObjectModel.ExtendableSortedDictionary&lt;TKey, TValue&gt;.ValueCollection" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Collections\ObjectModel\ExtendableSortedDictionary.ValueCollection.cs</NewMemberFileName>
+        </TypeIdentifier>
+        <Lollipop Position="0.2" />
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAIAAEAAABAEABEECAAAhAQAAAAAAAAAAAAgAABQIBA=</HashCode>
+      <FileName>Collections\ObjectModel\ExtendableSortedDictionary.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AP.Collections.ObjectModel.ExtendableSortedSet&lt;T&gt;">
+    <Position X="16.25" Y="8.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAoAAFBAACBAQBBEAAAAhAQAAAAAACAAAgAAAABQIQA=</HashCode>
+      <FileName>Collections\ObjectModel\ExtendableSortedSet.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="AP.Collections.ObjectModel.ExtendableStack&lt;T&gt;">
+    <Position X="8" Y="8.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAAAAAEABAEAAAAgAQAAACAAAAAAAAAAABQKQA=</HashCode>
+      <FileName>Collections\ObjectModel\ExtendableStack.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="AP.Collections.ObjectModel.ListBase&lt;T&gt;" Collapsed="true">
+    <Position X="10.75" Y="7.25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AWIAAAAAIBAAABAdCIAJBARAAAQAAAAACAAAAIBQIBg=</HashCode>
+      <FileName>Collections\ObjectModel\ListBase.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="AP.Collections.ObjectModel.QueueBase&lt;T&gt;" Collapsed="true">
+    <Position X="5.25" Y="7.25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AABAAAAAAAAEABAMAAAAAAQAAAAABAAEAAAAAABQIBA=</HashCode>
+      <FileName>Collections\ObjectModel\QueueBase.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="AP.Collections.ObjectModel.SetBase&lt;T&gt;" Collapsed="true">
+    <Position X="14.75" Y="7.25" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>ACoAABBAADBAQBBcAAAABAQAAAAAACAACgAAAABQIBA=</HashCode>
+      <FileName>Collections\ObjectModel\SetBase.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="AP.Collections.ObjectModel.StackBase&lt;T&gt;" Collapsed="true">
+    <Position X="8" Y="7.25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAEABAMAAAAAAQAAACAAAAEAAAAAABQKBA=</HashCode>
+      <FileName>Collections\ObjectModel\StackBase.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="AP.Collections.ReadOnly.ReadOnlyArray&lt;T&gt;" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="35.5" Y="9.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>CeARABFEElDQABmJBGARkQboAiAVLYoDAwgAIABQYJk=</HashCode>
+      <FileName>Collections\ReadOnly\ReadOnlyArray.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="AP.Collections.ReadOnly.ReadOnlyCollection&lt;T&gt;" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="33" Y="9.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAAQABCJAAIRkAYAAAABDI4JAgEAAAAQIBw=</HashCode>
+      <FileName>Collections\ReadOnly\ReadOnlyCollection.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="AP.Collections.ReadOnly.ReadOnlyDictionary&lt;TKey, TValue&gt;" Collapsed="true">
+    <Position X="27.75" Y="11.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>CAAQAAAACBAEgBFMCAoAgEQAAAAAAAQEAAAgIAAQIDA=</HashCode>
+      <FileName>Collections\ReadOnly\ReadOnlyDictionary.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="AP.Collections.ReadOnly.ReadOnlyList&lt;T&gt;" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="25" Y="9.75" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AUAAAAAAIAAAABAMCAIBgEQAAAAAAAQEAAAAAAAQIRA=</HashCode>
+      <FileName>Collections\ReadOnly\ReadOnlyList.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="AP.Collections.ReadOnly.ReadOnlySet&lt;T&gt;" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="30.5" Y="11.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAgAABAAACBAABBMAAIAgEQAAAAAAAQEAgAAAAAQIRA=</HashCode>
+      <FileName>Collections\ReadOnly\ReadOnlySet.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="AP.Collections.ReadOnly.Array&lt;T&gt;" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="35.5" Y="7.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>CeARABFEElDQABmJBGARkQboAiAVLYoDAwgAIABQYJk=</HashCode>
+      <FileName>Collections\Array.cs</FileName>
+      <NewMemberFileName>Collections\ReadOnly\ReadOnlyArray.cs</NewMemberFileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="AP.Collections.Specialized.NameValueDictionary&lt;T&gt;">
+    <Position X="13.5" Y="22" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAABA=</HashCode>
+      <FileName>Collections\Specialized\NameValueDictionary.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AP.Collections.Specialized.ReadOnlyNameValueDictionary&lt;T&gt;">
+    <Position X="16.5" Y="22" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAgIAAAAAAAAAAAQAAAAAAAAAABA=</HashCode>
+      <FileName>Collections\Specialized\ReadOnlyNameValueDictionary.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AP.Collections.Specialized.SearchResult&lt;TKey, T&gt;">
+    <Position X="32.75" Y="14.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAgAAAAAAA=</HashCode>
+      <FileName>Collections\Specialized\SearchResult.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AP.Collections.Specialized.StringListConverter">
+    <Position X="19.5" Y="25.25" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAAAAAAAAAAAAAAAAAAAAACAAAAIAAAAAAAA=</HashCode>
+      <FileName>Collections\Specialized\StringCollectionConverter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AP.Collections.Specialized.StringEnumerableHelperInternal">
+    <Position X="25.25" Y="22" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAQAAA=</HashCode>
+      <FileName>Collections\Specialized\StringEnumerableHelper.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AP.Collections.Specialized.StringList">
+    <Position X="19.5" Y="22" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAQABA=</HashCode>
+      <FileName>Collections\Specialized\StringList.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="AP.Collections.Specialized.StringSet">
+    <Position X="22.25" Y="22" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAQABA=</HashCode>
+      <FileName>Collections\Specialized\StringSet.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="AP.Collections.Specialized.StringSetConverter">
+    <Position X="22.25" Y="25.25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAAAAAAAAAAAAAAAAAAAAACAAAAIAAAAAAAA=</HashCode>
+      <FileName>Collections\Specialized\StringSetConverter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AP.Collections.FreezableSet&lt;T&gt;">
+    <Position X="13.5" Y="15.25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAAAAAAAAAAAABAAAAAAAYAAIAAAAAABAABA=</HashCode>
+      <FileName>Collections\Freezable\FreezableSet.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="AP.Collections.ObjectModel.DictionaryBase&lt;TKey, TValue&gt;" Collapsed="true">
+    <Position X="21" Y="7.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>CAYSAAAACAAEgxBcCAgCBCQAAACAEAAUAAAgIABQIDA=</HashCode>
+      <FileName>Collections\ObjectModel\DictionaryBase.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Interface Name="AP.Collections.ICollectionView">
+    <Position X="45" Y="5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAQIAA=</HashCode>
+      <FileName>Collections\ICollection.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="AP.Collections.ICollectionView&lt;T&gt;">
+    <Position X="44.75" Y="13.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQIAA=</HashCode>
+      <FileName>Collections\ICollection.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="AP.Collections.ICollection">
+    <Position X="54.5" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAABQACA=</HashCode>
+      <FileName>Collections\ICollection.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="AP.Collections.ICollection&lt;T&gt;">
+    <Position X="55" Y="13.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQIAA=</HashCode>
+      <FileName>Collections\ICollection.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="AP.Collections.IEqualityComparerUser">
+    <Position X="64.75" Y="11.25" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQA=</HashCode>
+      <FileName>Collections\IComparerUser.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="AP.Collections.IEqualityComparerUser&lt;T&gt;">
+    <Position X="64.75" Y="12.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQA=</HashCode>
+      <FileName>Collections\IComparerUser.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="AP.Collections.IComparerUser">
+    <Position X="62.25" Y="11.25" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQA=</HashCode>
+      <FileName>Collections\IComparerUser.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="AP.Collections.IComparerUser&lt;T&gt;">
+    <Position X="62.25" Y="12.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQA=</HashCode>
+      <FileName>Collections\IComparerUser.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="AP.Collections.IDictionaryView">
+    <Position X="47.25" Y="8" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>CAAAAAAAAAAEABAACAAAAAAAAAAAAAAAAAAgAAAAABA=</HashCode>
+      <FileName>Collections\IDictionary.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="AP.Collections.IDictionaryView&lt;TKey, TValue&gt;">
+    <Position X="44.5" Y="15.75" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAEAAAACAAAAAAAAAAAAAAAAAAgAAAQABA=</HashCode>
+      <FileName>Collections\IDictionary.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="AP.Collections.IDictionary">
+    <Position X="56.5" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAAAAAAAAEAAAACAAAAAAAAAAAAAAAAAAgAAAAABA=</HashCode>
+      <FileName>Collections\IDictionary.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="AP.Collections.IDictionary&lt;TKey, TValue&gt;">
+    <Position X="57" Y="15.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAYAAAAAAAAAAgAAAAAABAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Collections\IDictionary.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="AP.Collections.IKeyValuePairComparer&lt;TKey, TValue&gt;">
+    <Position X="62.25" Y="13.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAwAAAAgAA=</HashCode>
+      <FileName>Collections\IKeyValuePairComparer.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="AP.Collections.IKeyValuePairEqualityComparer&lt;TKey, TValue&gt;">
+    <Position X="64.75" Y="13.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAEAAAAAACAAAAAABgAAAAIAAAAAgAAAAAAA=</HashCode>
+      <FileName>Collections\IKeyValuePairEqualityComparer.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="AP.Collections.IListView">
+    <Position X="42.75" Y="8" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>CEAAAAAAAAAAAAAACAAAEAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Collections\IList.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="AP.Collections.IListView&lt;T&gt;">
+    <Position X="47.5" Y="15.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAAAAAAAAAACAABAAAAAAAAAAAAAAAAAAAQIAA=</HashCode>
+      <FileName>Collections\IList.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="AP.Collections.IList">
+    <Position X="54.5" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAAAAAAIAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Collections\IList.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="AP.Collections.IList&lt;T&gt;">
+    <Position X="53" Y="15.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAABAAAA=</HashCode>
+      <FileName>Collections\IList.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="AP.Collections.IQueue">
+    <Position X="58.5" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABAAAAAAAAEAAAAAAAAAAAAAAAABAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Collections\IQueue.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="AP.Collections.IQueue&lt;T&gt;">
+    <Position X="59" Y="15.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABAAAAAAAAEAAAAAAAAAAAAAAAABAAAAAAAAABAAAA=</HashCode>
+      <FileName>Collections\IQueue.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="AP.Collections.ISetView">
+    <Position X="45" Y="8" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAgAABAAACBAAABAAAAAAAAAAAAAAAAAAgAAAAAAAAA=</HashCode>
+      <FileName>Collections\ISet.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="AP.Collections.ISetView&lt;T&gt;">
+    <Position X="42" Y="15.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAgAABAAACBAAABAAAAAAAAAAAAAAAAAAgAAAAAAAAA=</HashCode>
+      <FileName>Collections\ISet.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="AP.Collections.ISet">
+    <Position X="52.5" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAoAABAAACBAQABAAAAAAAAAAAAAAAAAAgAAAAAAAAA=</HashCode>
+      <FileName>Collections\ISet.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="AP.Collections.ISet&lt;T&gt;">
+    <Position X="51" Y="15.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Collections\ISet.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="AP.Collections.ISorted">
+    <Position X="51.25" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQ=</HashCode>
+      <FileName>Collections\ISorted.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="AP.Collections.IStack">
+    <Position X="60.5" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAEAAAAAAAAAAAAAACAAAAAAAAAAAAACAA=</HashCode>
+      <FileName>Collections\IStack.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="AP.Collections.IStack&lt;T&gt;">
+    <Position X="55" Y="15.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAEAAAAAAAAAAAAAACAAAAAAAAAAABACAA=</HashCode>
+      <FileName>Collections\IStack.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="AP.Collections.IStringEnumerable">
+    <Position X="64.75" Y="9.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAQAAA=</HashCode>
+      <FileName>Collections\IStringEnumerable.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="System.Collections.ICollection" Collapsed="true">
+    <Position X="54.5" Y="4" Width="1.5" />
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="AP.IReadOnly">
+    <Position X="49" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>IReadOnly.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="System.Collections.Generic.ICollection&lt;T&gt;" Collapsed="true">
+    <Position X="55" Y="12" Width="1.5" />
+    <TypeIdentifier />
+  </Interface>
+  <Enum Name="AP.Collections.ComparisonResult">
+    <Position X="62.25" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAEAAAAAAAgAAAAAAAAAAAAAAAQQAAAAAAAAA=</HashCode>
+      <FileName>Collections\ComparisonResult.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

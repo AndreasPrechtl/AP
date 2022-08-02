@@ -1,0 +1,110 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="AP.ComponentModel.Validation.ValidationEventArgs">
+    <Position X="11.5" Y="5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAACAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ComponentModel\Validation\ValidationEventArgs.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AP.ComponentModel.Validation.ValidationMessage">
+    <Position X="9" Y="1" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>ABAAAAAIAAAAAAQAAAAAAAAAAAAAAAAAEQAgIEAAAAA=</HashCode>
+      <FileName>ComponentModel\Validation\ValidationMessage.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AP.ComponentModel.Validation.ValidationHelper">
+    <Position X="0.5" Y="7" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAACAAAAAAAAAAAAAAAABCAAACAAAAAAAAAA=</HashCode>
+      <FileName>ComponentModel\Validation\ValidationHelper.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AP.ComponentModel.Validation.ValidationMessageEqualityComparer">
+    <Position X="13.25" Y="1" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>ABAAAAAAAAAAAAAAgAAAIAAAAAAAAIAAAAAAAAAAAAA=</HashCode>
+      <FileName>ComponentModel\Validation\ValidationMessageEqualityComparer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AP.ComponentModel.Validation.ValidationResult">
+    <Position X="6.25" Y="1" Width="2.5" />
+    <NestedTypes>
+      <Class Name="AP.ComponentModel.Validation.ValidationResult.MessageSet" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>ComponentModel\Validation\ValidationResult.MessageSet.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AEIAAAABiABgIAACAAAEACAAQCAIAAAAEAAgAQAAAAA=</HashCode>
+      <FileName>ComponentModel\Validation\ValidationResult.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AP.ComponentModel.Validation.Validator&lt;TTarget&gt;">
+    <Position X="1.25" Y="1" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>ABAAAAAAAACAEAAAAAAAIIAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ComponentModel\Validation\Validator.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="AP.ComponentModel.Validation.ValidatorDelegateWrapper&lt;T&gt;">
+    <Position X="1.25" Y="4" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAA=</HashCode>
+      <FileName>ComponentModel\Validation\ValidatorWrapper.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AP.ComponentModel.Validation.ValidationResult&lt;TTarget&gt;">
+    <Position X="6.25" Y="6.75" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAACAAQAAAAAQAEAAAAAAAAAA=</HashCode>
+      <FileName>ComponentModel\Validation\ValidationResult'1.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="AP.ComponentModel.Validation.IValidateable">
+    <Position X="9.25" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ComponentModel\Validation\IValidateable.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="AP.ComponentModel.Validation.IValidator">
+    <Position X="4" Y="1" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ComponentModel\Validation\IValidator.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="AP.ComponentModel.Validation.IValidator&lt;TTarget&gt;">
+    <Position X="4" Y="2.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ComponentModel\Validation\IValidator.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Enum Name="AP.ComponentModel.Validation.ValidationMessageType">
+    <Position X="11.25" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAQAAAAAAABAAAgAAAAAAAAAAAEAAAAA=</HashCode>
+      <FileName>ComponentModel\Validation\ValidationMessageType.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Delegate Name="AP.ComponentModel.Validation.ValidationEventHandler">
+    <Position X="13.75" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ComponentModel\Validation\ValidationEventHandler.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Delegate Name="AP.ComponentModel.Validation.ValidatorDelegate&lt;T&gt;">
+    <Position X="3.25" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ComponentModel\Validation\ValidatorWrapper.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="AP.Configuration.XamlSettingsProvider&lt;TSettings&gt;">
+    <Position X="1.25" Y="6.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAEAAAAAAgAAAACAAAAAAAAAAgAAAAABAAAA=</HashCode>
+      <FileName>XamlSettingsProvider.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="AP.Configuration.ProviderBase">
+    <Position X="1.25" Y="0.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAIAAAAAAAAYACAAABAAQAAAAABAAAAAEAAAAAAAA=</HashCode>
+      <FileName>ProviderBase.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="AP.Configuration.SettingsBase" BaseTypeListCollapsed="true">
+    <Position X="3.5" Y="0.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>SettingsBase.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="AP.Configuration.SettingsProviderBase&lt;TSettings&gt;">
+    <Position X="1.25" Y="4.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAA=</HashCode>
+      <FileName>SettingsProviderBase.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="AP.Configuration.SettingsManager">
+    <Position X="3.75" Y="6.75" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>SettingsManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="AP.Configuration.IFileBasedProvider">
+    <Position X="5.5" Y="4.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAABAAAA=</HashCode>
+      <FileName>IFileBasedProvider.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="AP.Configuration.IProvider">
+    <Position X="5.5" Y="1.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAQAAAAABAAAAAEAgAAAAAA=</HashCode>
+      <FileName>IProvider.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="AP.Configuration.ISettings">
+    <Position X="10.25" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ISettings.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="AP.Configuration.ISettingsProvider&lt;TSettings&gt;">
+    <Position X="7.75" Y="3.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAA=</HashCode>
+      <FileName>ISettingsProvider.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

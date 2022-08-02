@@ -1,0 +1,14 @@
+﻿<ap:ApplicationBase x:Class="AP.Panacea.Windows.DemoApp.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:ap="clr-namespace:AP.Panacea.Windows;assembly=AP.Panacea.Windows"
+             xmlns:apr="clr-namespace:AP.Panacea;assembly=AP.Panacea"
+             StartupUri="MainWindow.xaml">
+    <Application.Resources>
+
+        <!-- Data Template for the Response, however it lacks support for the history entry's title -->
+        <DataTemplate DataType="{x:Type ap:Response}">            
+            <ContentControl Content="{Binding Path=Result}" JournalEntry.Name="{Binding Path=Result.Title}" />
+        </DataTemplate>
+    </Application.Resources>
+</ap:ApplicationBase>

@@ -1,0 +1,174 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="AP.Routing.RoutingException">
+    <Position X="8.5" Y="7.75" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>RoutingException.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AP.Routing.UriSegmentList">
+    <Position X="21" Y="4.25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>BAAAAACAAAAAAAAEgAIAAAAAAAAAAIQAAAAAAAAAABA=</HashCode>
+      <FileName>UriSegmentList.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AP.Routing.RouteTable&lt;TContext&gt;">
+    <Position X="8" Y="4" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABA=</HashCode>
+      <FileName>RouteTable.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AP.Routing.Router&lt;TContext&gt;">
+    <Position X="5" Y="4" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AgAYBIAAAAAACAAAAEAAAAgAAAAAAAAAAEAAAAAAAAA=</HashCode>
+      <FileName>Router.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AP.Routing.Route&lt;TContext, TParameters&gt;">
+    <Position X="13.5" Y="4" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAMAAAAQAAgAIAACkAAABgIAAAAABQAAAAkAAwQAA=</HashCode>
+      <FileName>Route.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="AP.Routing.FixedUriSegment">
+    <Position X="19.75" Y="12" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>FixedUriSegment.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AP.Routing.ExpressionBinder&lt;TContext, TParameters&gt;">
+    <Position X="13.25" Y="16" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAQA=</HashCode>
+      <FileName>ExpressionBinder.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AP.Routing.DefaultBinder&lt;TContext, TParameters&gt;">
+    <Position X="11.5" Y="12.75" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAACCAAAAAAAAAAAAAAAQAAAIAAAAAA=</HashCode>
+      <FileName>DefaultBinder.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AP.Routing.BinderBase&lt;TContext, TParameters&gt;">
+    <Position X="11.5" Y="10.5" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AIACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>BinderBase.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="AP.Routing.RoutingContext">
+    <Position X="2" Y="4" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEEAAAAAAAAAAAIAAAAAACAAAAAQCAAAgAAIAAA=</HashCode>
+      <FileName>RoutingContext.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AP.Routing.RoutingResult&lt;TContext&gt;">
+    <Position X="2" Y="7.75" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>ABAAAIAAEkAABAQAIABAAAAAAAAAAAAACQAgAAAAAAA=</HashCode>
+      <FileName>RoutingResult.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AP.Routing.UriBinder&lt;TContext, TParameters&gt;">
+    <Position X="9.75" Y="16" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAACAgAABAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAQEAA=</HashCode>
+      <FileName>UriBinder.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AP.Routing.TemplateUriSegment">
+    <Position X="22.25" Y="12" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAIAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>TemplateUriSegment.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AP.Routing.UriSegment">
+    <Position X="21" Y="8.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>ABAAAAAAAEAAAAQAAAAAAAAAAAAAAAAAAQAgAABAAAA=</HashCode>
+      <FileName>UriSegment.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AP.Routing.ExpressionComparerInternal&lt;TParameters&gt;">
+    <Position X="16.5" Y="17.5" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>EAAEAAAAAIYEBAQAACAAAQAAAAAEAAAAIIBAAAAAAAA=</HashCode>
+      <FileName>ExpressionComparerInternal.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AP.Routing.ExpressionComparer&lt;TParameters&gt;">
+    <Position X="16.5" Y="16" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAA=</HashCode>
+      <FileName>ExpressionComparer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="AP.Routing.IRoute&lt;TContext&gt;">
+    <Position X="16.75" Y="4" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAQAAgAAAADAAAABAAAAAAABQAAAAAAAgQAA=</HashCode>
+      <FileName>IRoute.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="AP.Routing.IBinder&lt;TContext&gt;">
+    <Position X="14.5" Y="10.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>IBinder.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Enum Name="AP.Routing.ResultType">
+    <Position X="4.5" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAEAAAAAAAIABAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>RoutingResult.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="AP.Routing.UriSegmentType">
+    <Position X="23" Y="8.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAA=</HashCode>
+      <FileName>UriSegmentType.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Delegate Name="AP.Routing.ResultCreator&lt;TParameters&gt;">
+    <Position X="17" Y="10.25" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABA=</HashCode>
+      <FileName>Delegates.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Delegate Name="AP.Routing.ContextValidator&lt;TContext&gt;">
+    <Position X="17" Y="9.25" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Delegates.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Delegate Name="AP.Routing.ParametersValidator&lt;TParameters&gt;">
+    <Position X="17" Y="8.25" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABA=</HashCode>
+      <FileName>Delegates.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Delegate Name="AP.Routing.UriBuilder&lt;TParameters&gt;">
+    <Position X="17" Y="7.25" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABA=</HashCode>
+      <FileName>Delegates.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

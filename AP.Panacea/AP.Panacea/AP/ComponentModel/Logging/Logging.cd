@@ -1,0 +1,116 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="AP.ComponentModel.Logging.LogEntryContextHelper">
+    <Position X="8" Y="3.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ComponentModel\Logging\LogEntry.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AP.ComponentModel.Logging.LogEntryContextBase">
+    <Position X="9.75" Y="4.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ComponentModel\Logging\LogEntry.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AP.ComponentModel.Logging.StaticLogEntryContext">
+    <Position X="8.5" Y="7" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAA=</HashCode>
+      <FileName>ComponentModel\Logging\LogEntry.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AP.ComponentModel.Logging.InstanceLogEntryContext&lt;T&gt;">
+    <Position X="11" Y="7" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAA=</HashCode>
+      <FileName>ComponentModel\Logging\LogEntry.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AP.ComponentModel.Logging.LogEntry">
+    <Position X="5.25" Y="0.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAAgAAAAAAAAAiAAAAAAAAAAAAAAAAIAAAAAA=</HashCode>
+      <FileName>ComponentModel\Logging\LogEntry.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AP.ComponentModel.Logging.ErrorLogEntry">
+    <Position X="5.25" Y="2.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAA=</HashCode>
+      <FileName>ComponentModel\Logging\LogEntry.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AP.ComponentModel.Logging.LogEntryAddedEventArgs">
+    <Position X="10.5" Y="1.25" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ComponentModel\Logging\LogEntryAddedEventArgs.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AP.ComponentModel.Logging.Logger">
+    <Position X="8" Y="0.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAUAAAAAAAAAAQAAAAAAAAIAAAAAAAEAAAAAAAAAAJA=</HashCode>
+      <FileName>ComponentModel\Logging\Logger.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AP.ComponentModel.Logging.LogSyncronizationContext">
+    <Position X="5.25" Y="4.25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ComponentModel\Logging\LoggingContext.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AP.ComponentModel.Logging.BufferedLogSyncronizationContext">
+    <Position X="5.25" Y="6.25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAkAAAAAAAAAAAAAAQAAEAAAAAIAAAAAABAAAA=</HashCode>
+      <FileName>ComponentModel\Logging\LoggingContext.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AP.ComponentModel.Logging.LogSyncronizationContextUserBase">
+    <Position X="1.75" Y="0.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAQABAAAAIAAAAEAAAAAAEAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ComponentModel\Logging\LogReaderBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AP.ComponentModel.Logging.LogReaderBase">
+    <Position X="0.75" Y="4.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ComponentModel\Logging\LogReaderBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AP.ComponentModel.Logging.StreamingLogReader">
+    <Position X="0.75" Y="6.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAABAAAAAAAAgAAAAAAAAAAAAAAAAQAA=</HashCode>
+      <FileName>ComponentModel\Logging\LogReaderBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AP.ComponentModel.Logging.LogWriterBase">
+    <Position X="3" Y="4.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAEAAAA=</HashCode>
+      <FileName>ComponentModel\Logging\LogWriterBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AP.ComponentModel.Logging.StreamingLogWriter">
+    <Position X="3" Y="6.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAABAAAAAAAAAAAAAAAACAAAAAAAIQAA=</HashCode>
+      <FileName>ComponentModel\Logging\LogWriterBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Delegate Name="AP.ComponentModel.Logging.LogEntryAddedEventHandler" Collapsed="true">
+    <Position X="10.5" Y="0.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAACAAAQAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ComponentModel\Logging\LoggingContext.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

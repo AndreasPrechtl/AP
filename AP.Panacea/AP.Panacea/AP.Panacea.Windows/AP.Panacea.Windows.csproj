@@ -1,0 +1,119 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{9993369D-FAE3-46A0-9A8E-4B6613853FA4}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>AP.Panacea.Windows</RootNamespace>
+    <AssemblyName>AP.Panacea.Windows</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <DefineConstants Condition="'$(TargetFrameworkVersion)' == 'v4.0'">fx40</DefineConstants>
+    <DefineConstants Condition="'$(TargetFrameworkVersion)' == 'v4.5'">fx45</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>AP.Panacea.Windows.pfx</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Windows.Presentation" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ApplicationBase.cs" />
+    <Compile Include="ApplicationCore.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Request.cs" />
+    <Compile Include="Response.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AP.Configuration\AP.Configuration.csproj">
+      <Project>{4562a67a-61d5-447b-b477-c5cbed6ea413}</Project>
+      <Name>AP.Configuration</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AP.IO\AP.IO.csproj">
+      <Project>{6a0af5ae-f247-4e53-9b50-e0e406bd6729}</Project>
+      <Name>AP.IO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AP.Panacea\AP.Panacea.csproj">
+      <Project>{23d59b37-207e-4cce-94c7-c4f1e4df130a}</Project>
+      <Name>AP.Panacea</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AP.Routing\AP.Routing.csproj">
+      <Project>{c2faf7e3-9a26-4cf0-a3c1-85a577479252}</Project>
+      <Name>AP.Routing</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AP.Security\AP.Security.csproj">
+      <Project>{93ab9398-d080-4b25-b2c5-324e4625623c}</Project>
+      <Name>AP.Security</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AP.UI\AP.UI.csproj">
+      <Project>{89dafbdc-01d1-423b-aacf-55ed0b0fa6ce}</Project>
+      <Name>AP.UI</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AP.UniformIdentifiers\AP.UniformIdentifiers.csproj">
+      <Project>{02245589-50a3-4167-9ad6-76a179da571f}</Project>
+      <Name>AP.UniformIdentifiers</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AP.Windows\AP.Windows.csproj">
+      <Project>{752d3232-fccd-4b1b-ba91-2362228fa7ed}</Project>
+      <Name>AP.Windows</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AP\AP.csproj">
+      <Project>{0636e427-8a9c-4973-998a-90a071d2d638}</Project>
+      <Name>AP</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="AP.Panacea.Windows.pfx" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

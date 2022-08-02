@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AP.UniformIdentifiers\AP.UniformIdentifiers.csproj" />
+    <ProjectReference Include="..\AP\AP.csproj" />
+  </ItemGroup>
+
+</Project>

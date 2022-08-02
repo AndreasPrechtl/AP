@@ -1,0 +1,143 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Comment CommentText="Markup Extensions (XAML)">
+    <Position X="2.052" Y="6.156" Height="0.291" Width="1.721" />
+  </Comment>
+  <Comment CommentText="Combiner HttpHandlers">
+    <Position X="7.49" Y="3.375" Height="0.718" Width="1.503" />
+  </Comment>
+  <Comment CommentText="Combiner controls">
+    <Position X="10.094" Y="4.083" Height="0.677" Width="2.992" />
+  </Comment>
+  <Class Name="AP.Web.Handlers.ScriptsCombiner">
+    <Position X="7.25" Y="0.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAFAAAAABABAAAAAgBAAAAAAAAAAAAAAAAAAAAIAAAA=</HashCode>
+      <FileName>Handlers\ScriptsCombiner.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="AP.Web.Handlers.StylesCombiner">
+    <Position X="7.25" Y="5.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAFAAAAABABAAAAAgBAAAAAAAAAAAAAAAAAAAAIAAAA=</HashCode>
+      <FileName>Handlers\StylesCombiner.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="AP.Web.Markup.Resource">
+    <Position X="3.25" Y="6.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAACAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Markup\ResourceMarkupExtension.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AP.Web.Markup.ServerPath">
+    <Position X="0.75" Y="6.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAA=</HashCode>
+      <FileName>Markup\ServerPathMarkupExtension.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AP.Web.UI.InlineScript">
+    <Position X="13.5" Y="0.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAgAAAAAAAQAAAAAAAAAAAAAAAAIQAAAAAAAAA=</HashCode>
+      <FileName>UI\InlineScript.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AP.Web.UI.InlineStyle">
+    <Position X="13.5" Y="5.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAgAAAAAAAAAAAAAAAAAAAgAAAAAQAQAAAAAAA=</HashCode>
+      <FileName>UI\InlineStyle.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AP.Web.UI.MasterPage" BaseTypeListCollapsed="true">
+    <Position X="0.5" Y="0.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAGAQAIAAAAAAEAAAAAAAUAABAAAAEQgAAAAAAAAAAA=</HashCode>
+      <FileName>UI\MasterPage.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="AP.Web.UI.MergeablePageHelper">
+    <Position X="4.5" Y="3" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAgAgAAAAAAAAAAAAAAQAAAAEAAAAAAAA=</HashCode>
+      <FileName>UI\MergeablePageHelper.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AP.Web.UI.Page" BaseTypeListCollapsed="true">
+    <Position X="2.5" Y="0.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>QAGAQAIAAAAAAAAAAAAAAUAABAAAAEQgAAAAAABAAAA=</HashCode>
+      <FileName>UI\Page.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="AP.Web.UI.ScriptCombiner">
+    <Position X="9.5" Y="0.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAgAABQAAAAgAABAAAEAAAAAAAAAQAEAAIAAAE=</HashCode>
+      <FileName>UI\ScriptCombiner.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AP.Web.UI.ScriptContent">
+    <Position X="11.5" Y="2" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>UI\ScriptContent.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AP.Web.UI.ScriptPlaceHolder">
+    <Position X="11.5" Y="0.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAA=</HashCode>
+      <FileName>UI\ScriptPlaceHolder.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AP.Web.UI.ScriptReference">
+    <Position X="13.5" Y="2.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAgAgAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAA=</HashCode>
+      <FileName>UI\ScriptReference.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AP.Web.UI.StyleCombiner">
+    <Position X="9.5" Y="5.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAgAABQAAAAgAABAAAEAAAAAAAAAQAEAAIAAAE=</HashCode>
+      <FileName>UI\StyleCombiner.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AP.Web.UI.StyleContent">
+    <Position X="11.5" Y="6.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>UI\StyleContent.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AP.Web.UI.StylePlaceHolder">
+    <Position X="11.5" Y="5.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAA=</HashCode>
+      <FileName>UI\StylePlaceHolder.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AP.Web.UI.StyleReference">
+    <Position X="13.5" Y="7.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAgAgAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAA=</HashCode>
+      <FileName>UI\StyleReference.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="AP.Web.UI.IMergeablePage">
+    <Position X="4.5" Y="0.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAGAAAAAAAAAAEAAAAAAAQAABAAAAEAgAAAAAAAAAAA=</HashCode>
+      <FileName>UI\IMergeablePage.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

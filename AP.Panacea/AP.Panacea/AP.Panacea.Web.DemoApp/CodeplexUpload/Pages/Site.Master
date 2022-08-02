@@ -1,0 +1,26 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.Master.cs" Inherits="AP.Panacea.Web.DemoApp.Pages.Site1" %>
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title>Panacea web demo app</title>
+    <asp:ContentPlaceHolder ID="head" runat="server" />
+</head>
+<body>
+    <img src="/Content/AP.Panacea.Logo2.small.png" alt="AP.Panacea on Codeplex"/>
+    <div id="menu">
+        <a href="/">Home</a>
+        <a href="/about">About</a>
+        <a href="/news">News</a>
+    </div>
+    <hr />
+    <div>
+        <asp:ContentPlaceHolder ID="main" runat="server" />        
+    </div>
+    <hr />    
+    <div id="footer">
+        powered by 
+        <a href="http://www.andreas-prechtl.net">AP</a>
+    </div>
+</body>
+</html>

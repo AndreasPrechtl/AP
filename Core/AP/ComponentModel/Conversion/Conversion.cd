@@ -1,0 +1,155 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Comment CommentText="Example converters - TypeConverterWrappers would also suffice, just need to add more">
+    <Position X="13.155" Y="1.238" Height="0.867" Width="1.7" />
+  </Comment>
+  <Comment CommentText="Converter wrappers and helpers">
+    <Position X="16.188" Y="6.365" Height="0.448" Width="1.7" />
+  </Comment>
+  <Comment CommentText="WIP - will enhance the &quot;normal&quot; way (TypeDescriptor.GetConverter) of retrieving a converter by looking up the current ConverterManager and returning the TypeConverter as a simple wrapper - just like the TypeConverterWrapper - only the other way around. I will try to implement this resolution as soon as this assembly gets loaded.">
+    <Position X="0.997" Y="11.997" Height="0.732" Width="7.753" />
+  </Comment>
+  <Comment CommentText="Abstract Converter base class, to simplify handling non-generic scenarios">
+    <Position X="19.062" Y="1.375" Height="0.708" Width="2.117" />
+  </Comment>
+  <Class Name="AP.ComponentModel.Conversion.LinkedConverter&lt;TInput, TOutput&gt;">
+    <Position X="12.5" Y="7.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>gACAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ComponentModel\Conversion\LinkedConverter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AP.ComponentModel.Conversion.ConvertDelegateWrapper&lt;TInput, TOutput&gt;">
+    <Position X="20" Y="7.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAACAAAAIAAAAAAAAAAAAAEAAAAAAAACAA=</HashCode>
+      <FileName>ComponentModel\Conversion\ConvertDelegateWrapper.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AP.ComponentModel.Conversion.TypeConverterWrapper&lt;TInput, TOutput&gt;">
+    <Position X="17" Y="7.5" Width="2.5" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAEAAAAAAAAAAAIAAAAAAAAAAAAAEACAAAQAACAA=</HashCode>
+      <FileName>ComponentModel\Conversion\TypeConverterWrapper.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AP.ComponentModel.Conversion.StringToIntConverter">
+    <Position X="13" Y="2.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAIAAAAAAAAACAAAAAAAAAAAACAA=</HashCode>
+      <FileName>ComponentModel\Conversion\StringToIntConverter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AP.ComponentModel.Conversion.IntToStringConverter">
+    <Position X="13" Y="4.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ComponentModel\Conversion\IntToStringConverter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AP.ComponentModel.Conversion.ExtendedTypeConverter">
+    <Position X="6.5" Y="13.25" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAQAAAAAQACAAAAQAAAAAABCAAAQIAAQAAAAA=</HashCode>
+      <FileName>ComponentModel\Conversion\ExtendedTypeConverter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AP.ComponentModel.Conversion.ExtendedTypeDescriptionProvider">
+    <Position X="1" Y="13.25" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAABAQ=</HashCode>
+      <FileName>ComponentModel\Conversion\ExtendedTypeDescriptionProvider.cs</FileName>
+      <NewMemberFileName>ComponentModel\Conversion\ExtendedTypeConverter.cs</NewMemberFileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AP.ComponentModel.Conversion.Converters">
+    <Position X="1" Y="0.5" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAAAACgAAAAACAAAUCAAAAABBAAAAEAABBAAAAA=</HashCode>
+      <FileName>ComponentModel\Conversion\Converters.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AP.ComponentModel.Conversion.ConverterManager">
+    <Position X="5.5" Y="0.5" Width="3.25" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Class Name="AP.ComponentModel.Conversion.ConverterManager.Item">
+        <TypeIdentifier>
+          <NewMemberFileName>ComponentModel\Conversion\ConverterManager.Item.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="AP.ComponentModel.Conversion.ConverterManager.Key">
+        <TypeIdentifier>
+          <NewMemberFileName>ComponentModel\Conversion\ConverterManager.Key.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAAQAIAAAAgAEAACABAUCAAAAABAAAAAEAAABBQAgA=</HashCode>
+      <FileName>ComponentModel\Conversion\ConverterManager.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="AP.ComponentModel.Conversion.Converter">
+    <Position X="19" Y="2.25" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAgQAAAABAAAAAoIoAAAAAEAACAIAAAAAAAAAACAA=</HashCode>
+      <FileName>ComponentModel\Conversion\Converter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AP.ComponentModel.Conversion.Converter&lt;TInput, TOutput&gt;">
+    <Position X="15.75" Y="2.25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQAAAABAAAAAAIAAAAAAEAACAAAAAAAAAAAACAA=</HashCode>
+      <FileName>ComponentModel\Conversion\Converter'2.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AP.ComponentModel.Conversion.ExtendedTypeDescriptor">
+    <Position X="4" Y="13.25" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQAAAAAAgAAAAAAAAAAAUAAAAAAAAQ=</HashCode>
+      <FileName>ComponentModel\Conversion\ExtendedTypeDescriptor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="AP.ComponentModel.Conversion.IConverterManager">
+    <Position X="8.75" Y="0.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAQCAAAAABAAAAAEAAABBQAAA=</HashCode>
+      <FileName>ComponentModel\Conversion\IConverterManager.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="AP.ComponentModel.Conversion.ILinkedConverter">
+    <Position X="15" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ComponentModel\Conversion\ILinkedConverter.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Enum Name="AP.ComponentModel.Conversion.UsedTypeConverterMethod">
+    <Position X="17" Y="10.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ComponentModel\Conversion\TypeConverterWrapper.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Delegate Name="AP.ComponentModel.Conversion.Convert&lt;TInput, TOutput&gt;">
+    <Position X="22.5" Y="7.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGAA=</HashCode>
+      <FileName>ComponentModel\Conversion\ConvertDelegateWrapper.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Delegate Name="AP.ComponentModel.Conversion.CanConvert&lt;TInput, TOutput&gt;">
+    <Position X="22.5" Y="9" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGAA=</HashCode>
+      <FileName>ComponentModel\Conversion\ConvertDelegateWrapper.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

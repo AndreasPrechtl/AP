@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿namespace AP.ComponentModel;
 
-namespace AP.ComponentModel
+public interface IFilter<in TContext>
 {
-    public interface IFilter<in TContext>
-    {
-        void Filter(TContext context);
-    }
+    void Filter(TContext context);
 }

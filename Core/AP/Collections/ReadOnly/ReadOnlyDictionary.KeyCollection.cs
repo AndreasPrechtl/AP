@@ -1,35 +1,23 @@
-﻿using System;
-using AP.Collections.ObjectModel;
-using SCG = System.Collections.Generic;
-using System.Linq;
-using SC = System.Collections;
-using AP.Collections.ReadOnly;
+﻿using AP.Collections.ObjectModel;
 using System.Collections.Generic;
 
-namespace AP.Collections.ReadOnly
-{    
-    public partial class ReadOnlyDictionary<TKey, TValue>
+namespace AP.Collections.ReadOnly;
+
+public partial class ReadOnlyDictionary<TKey, TValue>
+{
+    [System.ComponentModel.ReadOnly(true)]
+    public sealed class KeyCollection : DictionaryKeyCollection<ReadOnlyDictionary<TKey, TValue>, TKey, TValue>, IEqualityComparerUser<TKey>
     {
-        [System.ComponentModel.ReadOnly(true)]
-        public sealed class KeyCollection : DictionaryKeyCollection<ReadOnlyDictionary<TKey, TValue>, TKey, TValue>, IEqualityComparerUser<TKey>
-        {
-            public KeyCollection(ReadOnlyDictionary<TKey, TValue> dictionary)
-                : base(dictionary)
-            { }
-            
-            #region IEqualityComparerUser<TKey> Members
+        public KeyCollection(ReadOnlyDictionary<TKey, TValue> dictionary)
+            : base(dictionary)
+        { }
 
-            public IEqualityComparer<TKey> Comparer
-            {
-                get { return base.Dictionary.KeyComparer; }
-            }
+        #region IEqualityComparerUser<TKey> Members
 
-            #endregion
-                       
-            public new KeyCollection Clone()
-            {
-                return (KeyCollection)this.OnClone();
-            }
-        }
+        public IEqualityComparer<TKey> Comparer => base.Dictionary.KeyComparer;
+
+        #endregion
+
+        public new KeyCollection Clone() => (KeyCollection)this.OnClone();
     }
 }

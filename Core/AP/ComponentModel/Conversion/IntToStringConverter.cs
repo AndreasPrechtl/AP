@@ -1,19 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Globalization;
+﻿using System.Globalization;
 
-namespace AP.ComponentModel.Conversion
+namespace AP.ComponentModel.Conversion;
+
+public class IntToStringConverter : Converter<int, string>
 {
-    public class IntToStringConverter : Converter<int, string>
+    public override string Convert(int input, CultureInfo? inputCulture = null, CultureInfo? outputCulture = null)
     {
-        public override string Convert(int input, CultureInfo inputCulture = null, CultureInfo outputCulture = null)
-        {
-            if (outputCulture != null)
-                return input.ToString(outputCulture);
+        if (outputCulture != null)
+            return input.ToString(outputCulture);
 
-            return input.ToString();
-        }
+        return input.ToString();
     }
 }

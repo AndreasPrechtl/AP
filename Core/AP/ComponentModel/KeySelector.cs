@@ -1,82 +1,75 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Collections;
+﻿namespace AP.ComponentModel;
 
-namespace AP.ComponentModel
-{
-    public delegate object KeySelector(object item);
-    public delegate object KeySelector<in TSource>(TSource item);
-    public delegate TKey KeySelector<in TSource, out TKey>(TSource item);    
-}
+public delegate object KeySelector(object item);
+public delegate object KeySelector<in TSource>(TSource item);
+public delegate TKey KeySelector<in TSource, out TKey>(TSource item);    
 
-    //public interface IKeyComparer : IComparer<object>, IComparer
-    //{ }
+//public interface IKeyComparer : IComparer<object>, IComparer
+//{ }
 
-    //public class KeyComparer : IKeyComparer, IWrapper<IComparer<object>>, IWrapper<IComparer>
-    //{
-    //    static KeyComparer()
-    //    {
-    //        _default = new KeyComparer { _genericComparer = Comparer<object>.Default };
-    //    }
+//public class KeyComparer : IKeyComparer, IWrapper<IComparer<object>>, IWrapper<IComparer>
+//{
+//    static KeyComparer()
+//    {
+//        _default = new KeyComparer { _genericComparer = Comparer<object>.Default };
+//    }
 
-    //    private IComparer _comparer;
-    //    private IComparer<object> _genericComparer;
+//    private IComparer _comparer;
+//    private IComparer<object> _genericComparer;
 
-    //    private static readonly IKeyComparer _default;
-    //    public static IKeyComparer Default
-    //    {
-    //        get
-    //        {
-    //            return _default;
-    //        }
-    //    }
+//    private static readonly IKeyComparer _default;
+//    public static IKeyComparer Default
+//    {
+//        get
+//        {
+//            return _default;
+//        }
+//    }
 
-    //    #region IComparer<object> Members
+//    #region IComparer<object> Members
 
-    //    public virtual int Compare(object x, object y)
-    //    {
-    //        if (_genericComparer != null)
-    //            return _genericComparer.Compare(x, y);
-    //        else if (_comparer != null)
-    //            return _comparer.Compare(x, y);
-    //        else
-    //            return Comparer<object>.Default.Compare(x, y);
-    //    }
+//    public virtual int Compare(object x, object y)
+//    {
+//        if (_genericComparer != null)
+//            return _genericComparer.Compare(x, y);
+//        else if (_comparer != null)
+//            return _comparer.Compare(x, y);
+//        else
+//            return Comparer<object>.Default.Compare(x, y);
+//    }
 
-    //    #endregion
+//    #endregion
 
-    //    #region IWrapper<IComparer<object>> Members
+//    #region IWrapper<IComparer<object>> Members
 
-    //    IComparer<object> IWrapper<IComparer<object>>.FullName
-    //    {
-    //        get
-    //        {
-    //            return _genericComparer;
-    //        }
-    //        set
-    //        {
-    //            _genericComparer = value;
-    //        }
-    //    }
+//    IComparer<object> IWrapper<IComparer<object>>.FullName
+//    {
+//        get
+//        {
+//            return _genericComparer;
+//        }
+//        set
+//        {
+//            _genericComparer = value;
+//        }
+//    }
 
-    //    #endregion
+//    #endregion
 
-    //    #region IWrapper<IComparer> Members
+//    #region IWrapper<IComparer> Members
 
-    //    IComparer IWrapper<IComparer>.FullName
-    //    {
-    //        get
-    //        {
-    //            return _comparer;
-    //        }
-    //        set
-    //        {
-    //            _comparer = value;
-    //        }
-    //    }
+//    IComparer IWrapper<IComparer>.FullName
+//    {
+//        get
+//        {
+//            return _comparer;
+//        }
+//        set
+//        {
+//            _comparer = value;
+//        }
+//    }
 
-    //    #endregion
+//    #endregion
 //    }
 //}

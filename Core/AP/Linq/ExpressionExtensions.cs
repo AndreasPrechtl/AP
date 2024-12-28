@@ -1,81 +1,70 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Linq.Expressions;
-using System.Reflection;
 
-namespace AP.Linq
+namespace AP.Linq;
+
+public static class ExpressionExtensions
 {
-    public static class ExpressionExtensions
+    /// <summary>
+    /// Casts an Expression<TDelegate> to one that's using a different signature
+    /// </summary>
+    /// <typeparam name="TDelegateOut"></typeparam>
+    /// <param name="expression"></param>
+    /// <returns></returns>
+    public static Expression<TDelegateOut> Cast<TDelegateOut>(this LambdaExpression expression)
+        where TDelegateOut : class => Expressions.Lambda<TDelegateOut>(expression.Body, expression.Parameters);
+
+    /// <summary>
+    /// Tries to cast an Expression<TDelegate> to one that's using a different signature
+    /// </summary>
+    /// <typeparam name="TDelegateOut"></typeparam>
+    /// <param name="expression"></param>
+    /// <param name="output"></param>
+    /// <returns></returns>
+    public static bool TryCast<TDelegateOut>(this LambdaExpression expression, out Expression<TDelegateOut>? output)
+       where TDelegateOut : class
     {
-        /// <summary>
-        /// Casts an Expression<TDelegate> to one that's using a different signature
-        /// </summary>
-        /// <typeparam name="TDelegateOut"></typeparam>
-        /// <param name="expression"></param>
-        /// <returns></returns>
-        public static Expression<TDelegateOut> Cast<TDelegateOut>(this LambdaExpression expression)
-            where TDelegateOut : class
+        if (expression == null)
         {
-            return Expressions.Lambda<TDelegateOut>(expression.Body, expression.Parameters);
+            output = null;
+            return false;
         }
-
-        /// <summary>
-        /// Tries to cast an Expression<TDelegate> to one that's using a different signature
-        /// </summary>
-        /// <typeparam name="TDelegateOut"></typeparam>
-        /// <param name="expression"></param>
-        /// <param name="output"></param>
-        /// <returns></returns>
-        public static bool TryCast<TDelegateOut>(this LambdaExpression expression, out Expression<TDelegateOut> output)
-           where TDelegateOut : class
+        try
         {
-            if (expression == null)
-            {
-                output = null;
-                return false;
-            }
-            try
-            {
-                output = Expression.Lambda<TDelegateOut>(expression.Body, expression.Parameters);
-                return true;
-            }
-            catch (Exception)
-            {
-                output = null;
-                return false;
-            }
-        }     
-        
-        /// <summary>
-        /// Evaluates an expression tree
-        /// </summary>
-        /// <param name="expression"></param>
-        /// <returns></returns>
-        public static object Evaluate(this Expression expression, params object[] args)
-        {
-            switch (expression.NodeType)
-            {
-                case ExpressionType.Constant:
-                    return ((ConstantExpression)expression).Value;
-                case ExpressionType.Lambda:
-                    return ((LambdaExpression)expression).Compile().DynamicInvoke(args);
-
-                default:
-                    return Expression.Lambda(expression).Compile().DynamicInvoke(args);
-            }
+            output = Expression.Lambda<TDelegateOut>(expression.Body, expression.Parameters);
+            return true;
         }
-
-        /// <summary>
-        /// Evaluates an expression tree
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="expression"></param>
-        /// <returns></returns>
-        public static T Evaluate<T>(this Expression expression, params object[] args)
+        catch (Exception)
         {
-            return (T)Evaluate(expression, args);
+            output = null;
+            return false;
+        }
+    }     
+    
+    /// <summary>
+    /// Evaluates an expression tree
+    /// </summary>
+    /// <param name="expression"></param>
+    /// <returns></returns>
+    public static object Evaluate(this Expression expression, params object[] args)
+    {
+        switch (expression.NodeType)
+        {
+            case ExpressionType.Constant:
+                return ((ConstantExpression)expression).Value;
+            case ExpressionType.Lambda:
+                return ((LambdaExpression)expression).Compile().DynamicInvoke(args);
+
+            default:
+                return Expression.Lambda(expression).Compile().DynamicInvoke(args);
         }
     }
+
+    /// <summary>
+    /// Evaluates an expression tree
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="expression"></param>
+    /// <returns></returns>
+    public static T Evaluate<T>(this Expression expression, params object[] args) => (T)Evaluate(expression, args);
 }

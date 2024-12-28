@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using AP.Collections;
+﻿using AP.Collections;
 
-namespace AP.ComponentModel.Conversion
+namespace AP.ComponentModel.Conversion;
+
+internal interface ILinkedConverter
 {
-    internal interface ILinkedConverter
-    {
-        IListView<Converter> Converters { get; }
-    }
+    IListView<Converter> Converters { get; }
 }

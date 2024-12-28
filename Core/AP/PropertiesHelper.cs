@@ -1,34 +1,29 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace AP
+namespace AP;
+
+public abstract class PropertiesHelper : StaticType
 {
-    public abstract class PropertiesHelper : StaticType
+    [MethodImpl((MethodImplOptions)256)]
+    public static T GetValueDeferred<T>(ref T referencedValue, Func<T> resolver, bool setValue = true, object? syncRoot = null)
     {
-        [MethodImpl((MethodImplOptions)256)]
-        public static T GetValueDeferred<T>(ref T referencedValue, Func<T> resolver, bool setValue = true, object syncRoot = null)
+        T tmp = referencedValue;
+        if (!object.Equals(tmp, default(T)))
         {
-            T tmp = referencedValue;
-            if (!object.Equals(tmp, default(T)))
-            {
-                tmp = resolver();
+            tmp = resolver();
 
-                if (setValue)
+            if (setValue)
+            {
+                if (syncRoot == null)
+                    referencedValue = tmp;
+                else
                 {
-                    if (syncRoot == null)
+                    lock (syncRoot)
                         referencedValue = tmp;
-                    else
-                    {
-                        lock (syncRoot)
-                            referencedValue = tmp;
-                    }
                 }
             }
-            return tmp;
         }
+        return tmp;
     }
 }

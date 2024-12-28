@@ -1,53 +1,86 @@
-﻿using AP.Collections;
+﻿using AP.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
+using System.Reflection;
 using System.Text;
-using AP.Linq;
 
-namespace AP.Reflection
+namespace AP.Reflection;
+
+
+[Flags]
+public enum MemberPathQueryOptions
 {
-    [Serializable]
-    public sealed class MemberPath : IComparable
+    Properties = 0x1,
+    Fields = 0x2,
+    All = Properties | Fields
+}
+
+public static class ObjectExtensions
+{
+    public static MemberPath Path<TContext, TResult>(Expression<Func<TContext, TResult>> memberExpression, MemberPathQueryOptions options = MemberPathQueryOptions.Properties)
     {
-        public sealed class SegmentList : AP.Collections.ReadOnly.ReadOnlyList<string>
+        ArgumentNullException.ThrowIfNull(memberExpression);
+
+        var excludeFields = (options & MemberPathQueryOptions.Fields) != MemberPathQueryOptions.Fields;
+        var excludeProperties = (options & MemberPathQueryOptions.Properties) != MemberPathQueryOptions.Properties;
+
+        var memberNames = new List<string>();
+
+        var body = (MemberExpression)memberExpression.Body;
+        while (body is not null)
         {
-            internal readonly string _value;
-            
-            private SegmentList(AP.Collections.List<string> segments, string value)
-                : base(segments)
+            var memberType = body.Member.MemberType;
+
+            if (memberType is not (MemberTypes.Property or MemberTypes.Field))
+                throw new InvalidOperationException("use fields or properties only"); ;
+
+            if (excludeFields && memberType is MemberTypes.Field)
+                throw new InvalidOperationException("field in path is not allowed");
+
+            if (excludeProperties && memberType is MemberTypes.Property)
+                throw new InvalidOperationException("property in path is not allowed");
+
+            memberNames.Insert(0, body.Member.Name);
+
+            body = body.Expression as MemberExpression;
+        }
+
+        return new MemberPath(memberNames);
+    }
+}
+
+// todo: record / struct?
+[Serializable]
+public sealed class MemberPath : IComparable
+{
+    public sealed class SegmentList : AP.Collections.ReadOnly.ReadOnlyList<string>
+    {
+        internal readonly string _value;
+        
+        private SegmentList(IEnumerable<string> segments, string value)
+            : base(segments)
+        {
+            _value = value;
+        }
+
+        internal static SegmentList Create(IEnumerable<string> segments)
+        {
+            ArgumentNullException.ThrowIfNull(segments);
+
+            StringBuilder sb = new();
+            AP.Collections.List<string> list = [];
+
+            foreach (string s in segments)
             {
-                _value = value;
-            }
+                string[] split = s.Split('.');
 
-            internal static SegmentList Create(IEnumerable<string> segments)
-            {
-                if (segments == null)
-                    throw new ArgumentNullException("segments");
-
-                StringBuilder sb = new StringBuilder();
-                AP.Collections.List<string> list = new AP.Collections.List<string>();
-
-                foreach (string s in segments)
+                if (split.Length > 0)
                 {
-                    string[] split = s.Split('.');
-
-                    if (split.Length > 0)
+                    foreach (string s0 in split)
                     {
-                        foreach (string s0 in split)
-                        {
-                            string t = s0.Trim();
-                            if (!t.IsNullOrWhiteSpace())
-                            {
-                                list.Add(t);
-                                sb.Append(t);
-                                sb.Append('.');
-                            }
-                        }
-                    }
-                    else
-                    {
-                        string t = s.Trim();
+                        string t = s0.Trim();
                         if (!t.IsNullOrWhiteSpace())
                         {
                             list.Add(t);
@@ -56,117 +89,95 @@ namespace AP.Reflection
                         }
                     }
                 }
-
-                if (list.Count > 0)
+                else
                 {
-                    // remove the last '.'
-                    sb.Remove(sb.Length - 1, 1);
+                    string t = s.Trim();
+                    if (!t.IsNullOrWhiteSpace())
+                    {
+                        list.Add(t);
+                        sb.Append(t);
+                        sb.Append('.');
+                    }
                 }
-
-                return new SegmentList(list, sb.ToString());
             }
 
-            public new SegmentList Clone()
+            if (list.Count > 0)
             {
-                return this;
+                // remove the last '.'
+                sb.Remove(sb.Length - 1, 1);
             }
+
+            return new SegmentList(list, sb.ToString());
         }
 
-        private readonly string _name;
-        private readonly SegmentList _segments;
-        private static volatile MemberPath _empty;
-        
-        public static MemberPath Empty 
-        { 
-            get             
-            {
-                MemberPath empty = _empty;
+        public new SegmentList Clone() => new SegmentList(this.ToReadOnlyList(), _value);
+    }
 
-                if (empty == null)
-                    _empty = empty = new MemberPath(string.Empty);
+    private readonly string _name;
+    private readonly SegmentList _segments;
+    private static readonly MemberPath s_empty = new(string.Empty);
 
-                return empty;             
-            } 
-        }
+    public static MemberPath Empty => s_empty;
 
-        public SegmentList Segments
-        {
-            get { return _segments; }
-        }
+    public SegmentList Segments => _segments;
 
-        public MemberPath(string memberPath)
-            : this(New.Enumerable<string>(memberPath))
-        { }
+    public MemberPath(string memberPath)
+        : this(New.Enumerable<string>(memberPath))
+    { }
 
-        public MemberPath(IEnumerable<string> segments)
-        {
-            SegmentList s = SegmentList.Create(segments);
-            _segments = s;
-            _name = s[s.Count - 1];
-        }
+    public MemberPath(IEnumerable<string> segments)
+    {
+        SegmentList s = SegmentList.Create(segments);
+        _segments = s;
+        _name = s[s.Count - 1];
+    }
 
-        /// <summary>
-        /// Gets the member name.
-        /// </summary>
-        public string Name
-        {
-            get { return _name; }
-        }
+    /// <summary>
+    /// Gets the member name.
+    /// </summary>
+    public string Name => _name;
 
-        /// <summary>
-        /// Gets the string representation.
-        /// </summary>
-        public string Value
-        {
-            get
-            {
-                return _segments._value;
-            }
-        }
+    /// <summary>
+    /// Gets the string representation.
+    /// </summary>
+    public string Value => _segments._value;
 
-        /// <summary>
-        /// Gets the total length of the string representation (including separators).
-        /// </summary>
-        public int Length
-        {
-            get { return _segments._value.Length; }
-        }
+    /// <summary>
+    /// Gets the total length of the string representation (including separators).
+    /// </summary>
+    public int Length => _segments._value.Length;
 
-        public override int GetHashCode()
-        {
-            return this.Value.GetHashCode();
-        }
+    public override int GetHashCode() => this.Value.GetHashCode();
 
-        public override bool Equals(object obj)
-        {
-            if (obj == this)
-                return true;
+    public override bool Equals(object obj)
+    {
+        if (obj == this)
+            return true;
 
-            if (obj == null)
-                return false;
+        if (obj == null)
+            return false;
 
-            if (obj is MemberPath)
-                return this.Value.Equals(((MemberPath)obj).Value, StringComparison.OrdinalIgnoreCase);
+        if (obj is MemberPath)
+            return this.Value.Equals(((MemberPath)obj).Value, StringComparison.OrdinalIgnoreCase);
 
-            return this.Value.Equals(obj.ToString(), StringComparison.OrdinalIgnoreCase);
-        }
-        
-        public static implicit operator MemberPath(string path)
-        {
-            return path != null ? new MemberPath(path) : null;
-        }
+        return this.Value.Equals(obj.ToString(), StringComparison.OrdinalIgnoreCase);
+    }
+    
+    public static implicit operator MemberPath(string path)
+    {
+        return path != null ? new MemberPath(path) : null;
+    }
 
-        public static implicit operator string(MemberPath path)
-        {
-            return path != null ? path.Value : null;
-        }
+    public static implicit operator string(MemberPath path)
+    {
+        return path != null ? path.Value : null;
+    }
 
-        int IComparable.CompareTo(object obj)
-        {
-            if (this.Equals(obj))
-                return 0;
-            else
-                return _segments._value.CompareTo(obj);
-        }
+    int IComparable.CompareTo(object obj)
+    {
+        if (this.Equals(obj))
+            return 0;
+        else
+            return _segments._value.CompareTo(obj);
     }
 }

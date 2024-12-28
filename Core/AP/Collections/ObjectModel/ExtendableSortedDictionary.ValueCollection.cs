@@ -1,31 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 
-namespace AP.Collections.ObjectModel
+namespace AP.Collections.ObjectModel;
+
+public partial class ExtendableSortedDictionary<TKey, TValue>
 {
-    public partial class ExtendableSortedDictionary<TKey, TValue>
+    public new class ValueCollection : DictionaryBase<TKey, TValue>.ValueCollection, IEqualityComparerUser<TValue>
     {
-        public new class ValueCollection : DictionaryBase<TKey, TValue>.ValueCollection, IEqualityComparerUser<TValue>
-        {
-            public ValueCollection(DictionaryBase<TKey, TValue> dictionary)
-                : base(dictionary)
-            { }
+        public ValueCollection(DictionaryBase<TKey, TValue> dictionary)
+            : base(dictionary)
+        { }
 
-            public new ValueCollection Clone()
-            {
-                return (ValueCollection)this.OnClone();
-            }
+        public new ValueCollection Clone() => (ValueCollection)this.OnClone();
 
-            #region IEqualityComparerUser<TValue> Members
+        #region IEqualityComparerUser<TValue> Members
 
-            public IEqualityComparer<TValue> Comparer
-            {
-                get { return ((ExtendableSortedDictionary<TKey, TValue>)base.Dictionary).ValueComparer; }
-            }
+        public IEqualityComparer<TValue> Comparer => ((ExtendableSortedDictionary<TKey, TValue>)base.Dictionary).ValueComparer;
 
-            #endregion
-        }
+        #endregion
     }
 }

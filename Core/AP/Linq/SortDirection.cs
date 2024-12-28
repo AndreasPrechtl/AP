@@ -1,9 +1,8 @@
-﻿namespace AP.Linq
+﻿namespace AP.Linq;
+
+public enum SortDirection : sbyte
 {
-    public enum SortDirection : sbyte
-    {
-        Ascending = -1,
-        Unsorted = 0,
-        Descending = 1
-    }
+    Ascending = -1,
+    Unsorted = 0,
+    Descending = 1
 }

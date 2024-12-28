@@ -11,7 +11,7 @@ internal static class VBDeleteHelper
 
     static VBDeleteHelper()
     {
-        _shellDelete = typeof(Microsoft.VisualBasic.FileIO.FileSystem).GetMethod("ShellDelete", BindingFlags.InvokeMethod | BindingFlags.Static | BindingFlags.NonPublic | BindingFlags.Public).CreateDelegate();
+        _shellDelete = typeof(Microsoft.VisualBasic.FileIO.FileSystem).GetMethod("ShellDelete", BindingFlags.InvokeMethod | BindingFlags.Static | BindingFlags.NonPublic | BindingFlags.Public)!.CreateDelegate();
     }
 
     internal static void DeleteFile(string fullName, bool permanent) => _shellDelete.DynamicInvoke(fullName, 4, permanent ? RecycleOption.DeletePermanently : RecycleOption.SendToRecycleBin, UICancelOption.DoNothing, 1);

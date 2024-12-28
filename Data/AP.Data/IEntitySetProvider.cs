@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿namespace AP.Data;
 
-namespace AP.Data
+public interface IEntitySetProvider
 {
-    public interface IEntitySetProvider
-    {
-        IEntitySet<TEntity> GetEntitySet<TEntity>() where TEntity : class;
-    }
+    IEntitySet<TEntity> GetEntitySet<TEntity>() where TEntity : class;
 }

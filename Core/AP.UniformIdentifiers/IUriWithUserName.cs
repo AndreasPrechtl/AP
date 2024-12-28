@@ -1,14 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace AP.UniformIdentifiers;
 
-namespace AP.UniformIdentifiers
+public interface IUriWithUserName : IUri
 {
-    public interface IUriWithUserName : IUri
-    {
-        string UserName { get; }
-        //string UserNameSeparator { get; }
-    }
+    string UserName { get; }
 }

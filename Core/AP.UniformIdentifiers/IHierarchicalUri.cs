@@ -1,16 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿namespace AP.UniformIdentifiers;
 
-namespace AP.UniformIdentifiers
+public interface IHierarchicalUri : IUri
 {
-    public interface IHierarchicalUri : IUri
-    {
-        string Path { get; }
-        string Name { get; }
+    string Path { get; }
+    string Name { get; }
 
-        IHierarchicalUri Parent { get; }        
-        bool HasParent { get; }
-    }
+    IHierarchicalUri? Parent { get; }
+    bool HasParent { get; }
 }

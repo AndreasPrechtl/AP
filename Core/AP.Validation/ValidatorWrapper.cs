@@ -1,28 +1,20 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
-namespace AP.ComponentModel.Validation
+namespace AP.ComponentModel.Validation;
+
+public delegate ValidationResult<T> ValidatorDelegate<T>(T obj);
+
+public sealed class ValidatorDelegateWrapper<T> : Validator<T>
 {
-    public delegate ValidationResult<T> ValidatorDelegate<T>(T obj);
+    private readonly ValidatorDelegate<T> _validator;
 
-    public sealed class ValidatorDelegateWrapper<T> : Validator<T>
+    public ValidatorDelegateWrapper(ValidatorDelegate<T> validator)
+        : base()
     {
-        private readonly ValidatorDelegate<T> _validator;
+        ArgumentNullException.ThrowIfNull(validator);
 
-        public ValidatorDelegateWrapper(ValidatorDelegate<T> validator)
-            : base()
-        {
-            if (validator == null)
-                throw new ArgumentNullException();
-
-            _validator = validator;
-        }
-
-        public override ValidationResult<T> Validate(T value)
-        {
-            return _validator(value);
-        }
+        _validator = validator;
     }
+
+    public override ValidationResult<T> Validate(T value) => _validator(value);
 }

@@ -1,7 +1,6 @@
-﻿namespace AP.Targets.Desktop.WPF
-{
-    public class Class1
-    {
+﻿namespace AP.Targets.Desktop.WPF;
 
-    }
+public class Class1
+{
+
 }

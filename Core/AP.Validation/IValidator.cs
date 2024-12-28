@@ -1,13 +1,11 @@
-﻿using System;
-namespace AP.ComponentModel.Validation
-{
-    public interface IValidator
-    {
-        ValidationResult Validate(object target);
-    }
+﻿namespace AP.ComponentModel.Validation;
 
-    public interface IValidator<TTarget>
-    {
-        ValidationResult Validate(TTarget target);
-    }
+public interface IValidator
+{
+    ValidationResult Validate(object target);
+}
+
+public interface IValidator<TTarget>
+{
+    ValidationResult Validate(TTarget target);
 }

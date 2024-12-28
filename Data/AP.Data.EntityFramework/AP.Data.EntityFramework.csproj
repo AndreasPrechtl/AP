@@ -1,17 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net7.0</TargetFramework>
-    <ImplicitUsings>disable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-  </PropertyGroup>
-
   <ItemGroup>
     <PackageReference Include="EntityFramework" Version="6.4.4" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\AP.Data\AP.Data.csproj" />
   </ItemGroup>
 
 </Project>

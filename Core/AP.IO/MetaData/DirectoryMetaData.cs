@@ -1,47 +1,40 @@
 ﻿using AP.UniformIdentifiers;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
-namespace AP.IO.MetaData
+namespace AP.IO.MetaData;
+
+/// <summary>
+/// Class for storing directory information.
+/// </summary>
+[Serializable]
+public class DirectoryMetaData : FileSystemEntryMetaDataBase, IDirectoryMetaData
 {
     /// <summary>
-    /// Class for storing directory information.
+    /// Creates a new DirectoryMetaData instace.
     /// </summary>
-    [Serializable]
-    public class DirectoryMetaData : FileSystemEntryMetaDataBase, IDirectoryMetaData
+    /// <param name="uri">The uri.</param>
+    public DirectoryMetaData(IHierarchicalUri uri)
+        : base(uri)
+    { }
+
+    /// <summary>
+    /// Gets or sets directory attributes.
+    /// </summary>
+    public new DirectoryAttributes Attributes
     {
-        /// <summary>
-        /// Creates a new DirectoryMetaData instace.
-        /// </summary>
-        /// <param name="uri">The uri.</param>
-        public DirectoryMetaData(IHierarchicalUri uri)
-            : base(uri)
-        { }
+        get => (DirectoryAttributes)this.AttributesInternal;
+        set => this.AttributesInternal = (FileSystemEntryAttributes)value;
+    }
 
-        /// <summary>
-        /// Gets or sets directory attributes.
-        /// </summary>
-        public new DirectoryAttributes Attributes
+    internal sealed override FileSystemEntryAttributes AttributesInternal
+    {
+        get => base.AttributesInternal;
+        set
         {
-            get { return (DirectoryAttributes)this.AttributesInternal; }
-            set { this.AttributesInternal = (FileSystemEntryAttributes)value; }
-        }
+            if ((((DirectoryAttributes)value) & DirectoryAttributes.Normal) != DirectoryAttributes.Normal)
+                throw new ArgumentOutOfRangeException(nameof(value));
 
-        internal sealed override FileSystemEntryAttributes AttributesInternal
-        {
-            get
-            {
-                return base.AttributesInternal;
-            }
-            set
-            {
-                if ((((DirectoryAttributes)value) & DirectoryAttributes.Normal) != DirectoryAttributes.Normal)
-                    throw new ArgumentOutOfRangeException("value");
-
-                base.AttributesInternal = value;
-            }
+            base.AttributesInternal = value;
         }
-    }    
-}
+    }
+}    

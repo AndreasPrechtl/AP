@@ -1,112 +1,103 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
-using AP.Linq;
 using System.Threading.Tasks;
-using System.Collections.Concurrent;
 
-namespace AP.Logging
+namespace AP.Logging;
+
+public abstract class LogWriterBase : LogSyncronizationContextUserBase
 {
-    public abstract class LogWriterBase : LogSyncronizationContextUserBase
+    protected LogWriterBase(LogSyncronizationContext? syncronizationContext = null)
+        : base(syncronizationContext)
+    { }
+
+    public void Write(LogEntry entry)
     {
-        protected LogWriterBase(LogSyncronizationContext syncronizationContext = null)
-            : base(syncronizationContext)
-        { }
-
-        public void Write(LogEntry entry)
-        {
-            OnWrite(entry);
-            OnLogEntryAdded(entry);
-        }
-
-        protected abstract void OnWrite(LogEntry entry);
+        OnWrite(entry);
+        OnLogEntryAdded(entry);
     }
 
-    public class StreamingLogWriter : LogWriterBase
+    protected abstract void OnWrite(LogEntry entry);
+}
+
+public class StreamingLogWriter : LogWriterBase
+{
+    private readonly Activator<Stream> _streamCreator;
+    private BufferedLogSyncronizationContext Buffer => (BufferedLogSyncronizationContext)SyncronizationContext;
+
+    public StreamingLogWriter(Activator<Stream> streamCreator, BufferedLogSyncronizationContext? buffer = null)
+        : base(buffer ?? new BufferedLogSyncronizationContext(100))
     {
-        private readonly Activator<Stream> _streamCreator;
-        private BufferedLogSyncronizationContext Buffer { get { return (BufferedLogSyncronizationContext)SyncronizationContext; } }
+        ArgumentNullException.ThrowIfNull(streamCreator);
 
-        public StreamingLogWriter(Activator<Stream> streamCreator, BufferedLogSyncronizationContext buffer = null)
-            : base(buffer ?? new BufferedLogSyncronizationContext(100))
+        _streamCreator = streamCreator;
+    }
+
+    protected override void OnWrite(LogEntry entry)
+    {
+        bool isBufferFilled = false;
+
+        lock (SyncRoot)
         {
-            if (streamCreator == null)
-                throw new ArgumentNullException("streamCreator");
-
-            _streamCreator = streamCreator;
+            Buffer.Add(entry);
+            isBufferFilled = Buffer.IsFilled;
         }
 
-        protected override void OnWrite(LogEntry entry)
+        if (isBufferFilled)
+            Flush();
+    }
+
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2202:Do not dispose objects multiple times")]
+    protected virtual void Flush()
+    {
+        LogEntry[] entries = null;
+
+        lock (SyncRoot)
         {
-            bool isBufferFilled = false;
-
-            lock (SyncRoot)
-            {
-                Buffer.Add(entry);
-                isBufferFilled = Buffer.IsFilled;
-            }
-
-            if (isBufferFilled)
-                Flush();
+            // use the buffer to get a copy and clear it afterwards
+            Buffer.GetSnapshot(out entries);
+            Buffer.Clear();
         }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2202:Do not dispose objects multiple times")]
-        protected virtual void Flush()
-        {
-            LogEntry[] entries = null;
-
-            lock (SyncRoot)
+        // make writing thread safe and start it in an extra task
+        // the problem however - I cannot read items off the writer queue
+        // meaning: as long as it isn't flushed the reader can't read the newly added objects
+        // I should probably use the IProducerConsumerCollection interface?
+        Task task = new            (
+            delegate ()
             {
-                // use the buffer to get a copy and clear it afterwards
-                Buffer.GetSnapshot(out entries);
-                Buffer.Clear();
-            }
+                const string begin = "<!-- entry begin -->";
 
-            // make writing thread safe and start it in an extra task
-            // the problem however - I cannot read items off the writer queue
-            // meaning: as long as it isn't flushed the reader can't read the newly added objects
-            // I should probably use the IProducerConsumerCollection interface?
-            Task task = new Task
-            (
-                delegate ()
+                // I probably won't need most of those locks / writers
+                lock (SyncRoot)
                 {
-                    const string begin = "<!-- entry begin -->";
+                    Stream stream = null;
 
-                    // I probably won't need most of those locks / writers
-                    lock (SyncRoot)
+                    try
                     {
-                        Stream stream = null;
+                        stream = _streamCreator();
 
-                        try
+                        using (StreamWriter writer = new(stream))
                         {
-                            stream = _streamCreator();
-
-                            using (StreamWriter writer = new StreamWriter(stream))
+                            foreach (LogEntry entry in entries)
                             {
-                                foreach (LogEntry entry in entries)
-                                {
-                                    stream.Seek(0, SeekOrigin.Begin);
-                                    writer.WriteLine(begin);
-                                    writer.Write(Serialization.Serialize.Xaml(entry));
-                                }
-
-                                stream = null;
+                                stream.Seek(0, SeekOrigin.Begin);
+                                writer.WriteLine(begin);
+                                writer.Write(Serialization.Serialize.Xaml(entry));
                             }
-                        }
-                        finally
-                        {
-                            if (stream != null)
-                                stream.Dispose();
 
+                            stream = null;
                         }
                     }
-                }
-            );
+                    finally
+                    {
+                        if (stream != null)
+                            stream.Dispose();
 
-            task.Start();
-        }
+                    }
+                }
+            }
+        );
+
+        task.Start();
     }
 }

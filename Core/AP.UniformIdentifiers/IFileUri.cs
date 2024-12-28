@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿namespace AP.UniformIdentifiers;
 
-namespace AP.UniformIdentifiers
+public interface IFileUri : IHierarchicalUri
 {
-    public interface IFileUri : IHierarchicalUri
-    {
-        string Extension { get; }
-        //string Name { get; }
-    }
+    string Extension { get; }
+    //string Name { get; }
 }

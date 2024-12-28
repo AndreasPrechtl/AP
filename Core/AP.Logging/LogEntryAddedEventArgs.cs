@@ -1,19 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using AP.Linq;
+﻿namespace AP.Logging;
 
-namespace AP.Logging
+public class LogEntryAddedEventArgs
 {
-    public class LogEntryAddedEventArgs
-    {
-        public LogEntry Entry { get; private set; }
+    public LogEntry Entry { get; private set; }
 
-        public LogEntryAddedEventArgs(LogEntry entry)
-        {
-            ExceptionHelper.AssertNotNull(() => entry);
-            Entry = entry;
-        }
+    public LogEntryAddedEventArgs(LogEntry entry)
+    {
+        ArgumentNullException.ThrowIfNull(entry);
+        Entry = entry;
     }
 }

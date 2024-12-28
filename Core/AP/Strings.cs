@@ -25,24 +25,24 @@ public static class Strings
     private static string[] SplitInternal(this string value, int index, StringSplitOptions options)
     {
         if (index <= 0 || index >= value.Length)
-            return new string[] { value };
+            return [value];
 
         string s1 = value.Remove(index);
         string s2 = value.Substring(index);
 
         if (options == StringSplitOptions.None)
-            return new string[] { s1, s2 };
+            return [s1, s2];
 
         bool b1 = s1.IsNullOrWhiteSpace();
         bool b2 = s2.IsNullOrWhiteSpace();
 
         if (b1 && b2)
-            return new string[0];
+            return [];
 
         if (b1)
-            return new string[] { s2 };
+            return [s2];
         
-        return new string[] { s1 };
+        return [s1];
     }
 
 #pragma warning disable 109        
@@ -295,7 +295,7 @@ public static class Strings
 
         bool keepEmptyEntries = options == StringSplitOptions.None;
 
-        string tmp = null;
+        string? tmp = null;
 
         foreach (char c in value)
         {
@@ -316,9 +316,9 @@ public static class Strings
             }
         }
         if (!keepEmptyEntries || !string.IsNullOrWhiteSpace(tmp))
-            results.Add(tmp);
+            results.Add(tmp!);
 
-        return results.ToArray();
+        return [.. results];
     }
 
     /// <summary>
@@ -326,30 +326,14 @@ public static class Strings
     /// </summary>
     /// <param name="comparisonType">The comparisonType.</param>
     /// <returns>The StringComparer.</returns>
-    public static StringComparer GetComparer(StringComparison comparisonType = StringComparison.Ordinal)
+    public static StringComparer GetComparer(StringComparison comparisonType = StringComparison.Ordinal) => comparisonType switch
     {
-        switch (comparisonType)
-        {
-            case StringComparison.CurrentCulture:
-                return StringComparer.CurrentCulture;
-
-            case StringComparison.CurrentCultureIgnoreCase:
-                return StringComparer.CurrentCultureIgnoreCase;
-
-            case StringComparison.InvariantCulture:
-                return StringComparer.InvariantCulture;
-
-            case StringComparison.InvariantCultureIgnoreCase:
-                return StringComparer.InvariantCultureIgnoreCase;
-
-            case StringComparison.Ordinal:
-                return StringComparer.Ordinal;
-
-            case StringComparison.OrdinalIgnoreCase:
-                return StringComparer.OrdinalIgnoreCase;
-
-            default:
-                throw new ArgumentOutOfRangeException(nameof(comparisonType));
-        }
-    }
+        StringComparison.CurrentCulture => StringComparer.CurrentCulture,
+        StringComparison.CurrentCultureIgnoreCase => StringComparer.CurrentCultureIgnoreCase,
+        StringComparison.InvariantCulture => StringComparer.InvariantCulture,
+        StringComparison.InvariantCultureIgnoreCase => StringComparer.InvariantCultureIgnoreCase,
+        StringComparison.Ordinal => StringComparer.Ordinal,
+        StringComparison.OrdinalIgnoreCase => StringComparer.OrdinalIgnoreCase,
+        _ => throw new ArgumentOutOfRangeException(nameof(comparisonType)),
+    };
 }

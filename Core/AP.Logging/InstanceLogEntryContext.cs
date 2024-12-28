@@ -1,11 +1,10 @@
-﻿namespace AP.Logging
-{
-    public class InstanceLogEntryContext<T> : LogEntryContextBase
-    {
-        public T Instance { get { return (T)Context; } }
+﻿namespace AP.Logging;
 
-        public InstanceLogEntryContext(T instance)
-            : base(instance)
-        { }
-    }
+public class InstanceLogEntryContext<T> : LogEntryContextBase
+{
+    public T Instance => (T)Context;
+
+    public InstanceLogEntryContext(T instance)
+        : base(instance)
+    { }
 }

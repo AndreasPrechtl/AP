@@ -1,9 +1,8 @@
-﻿namespace AP.Observable
-{
-    public delegate void MemberAccessedEventHandler(object sender, MemberAccessedEventArgs e);
+﻿namespace AP.Observable;
 
-    public interface INotifyMemberAccessed
-    {
-        event MemberAccessedEventHandler MemberAccessed;
-    }
+public delegate void MemberAccessedEventHandler(object? sender, MemberAccessedEventArgs e);
+
+public interface INotifyMemberAccessed
+{
+    event MemberAccessedEventHandler MemberAccessed;
 }

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using AP.Collections;
+using AP.Collections.ReadOnly;
+using System;
 using System.Collections;
 using System.Dynamic;
 using System.Runtime.CompilerServices;
@@ -16,7 +18,14 @@ public static class Types
 
     public static readonly Type DynamicType = typeof(IDynamicMetaObjectProvider);
 
-    public static readonly Type[] CollectionTypes = new[] { typeof(System.Collections.Generic.ICollection<>), typeof(System.Collections.ICollection), typeof(System.Collections.IDictionary), typeof(System.Collections.Generic.IReadOnlyCollection<>) };
+    public static readonly IListView<Type> CollectionTypes = new ReadOnlyList<Type>
+    (
+        typeof(System.Collections.Generic.ICollection<>),
+        typeof(System.Collections.ICollection),
+        typeof(System.Collections.IDictionary),
+        typeof(System.Collections.Generic.IReadOnlyCollection<>)
+    );
+
     public static readonly Type EnumerableType = typeof(IEnumerable);
 
     /// <summary>
@@ -114,14 +123,14 @@ public static class Types
     public static bool IsCollection(this Type type)
     {
         Type[] interfaces = type.GetInterfaces();
-        Type[] collectionTypes = CollectionTypes;
+        var collectionTypes = CollectionTypes;
         
-        foreach (Type itype in interfaces)
+        foreach (Type interfaceType in interfaces)
         {
-            foreach (Type ctype in collectionTypes)
+            foreach (Type collectionType in collectionTypes)
             {
                 // see if it's assignable directly or implements a generic collection interface
-                if (ctype.IsAssignableFrom(itype) || (itype.IsInterface && (ctype.IsGenericType && ctype.IsAssignableFrom(itype.IsGenericTypeDefinition ? itype : itype.GetGenericTypeDefinition()))))
+                if (collectionType.IsAssignableFrom(interfaceType) || (interfaceType.IsInterface && (collectionType.IsGenericType && collectionType.IsAssignableFrom(interfaceType.IsGenericTypeDefinition ? interfaceType : interfaceType.GetGenericTypeDefinition()))))
                     return true;
             }
         }

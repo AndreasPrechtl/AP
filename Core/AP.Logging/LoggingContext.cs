@@ -1,66 +1,61 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using AP.Linq;
+﻿using System.Collections.Generic;
 
-namespace AP.Logging
+namespace AP.Logging;
+
+public delegate void LogEntryAddedEventHandler(object sender, LogEntryAddedEventArgs e);
+
+public class LogSyncronizationContext
 {
-    public delegate void LogEntryAddedEventHandler(object sender, LogEntryAddedEventArgs e);
+    public readonly object SyncRoot = new();
 
-    public class LogSyncronizationContext
+    public LogSyncronizationContext()
+    { }
+}
+
+public class BufferedLogSyncronizationContext : LogSyncronizationContext
+{
+    private List<LogEntry> _buffer;
+    private int _minimumBufferSize;
+
+    public BufferedLogSyncronizationContext(int minimumBufferSize = 100)
     {
-        public readonly object SyncRoot = new object();
-
-        public LogSyncronizationContext()
-        { }
+        _buffer = new List<LogEntry>(minimumBufferSize);
+        _minimumBufferSize = minimumBufferSize;
     }
 
-    public class BufferedLogSyncronizationContext : LogSyncronizationContext
+    public void Add(LogEntry entry)
     {
-        private List<LogEntry> _buffer;
-        private int _minimumBufferSize;
+        lock (SyncRoot)
+            _buffer.Add(entry);
+    }
 
-        public BufferedLogSyncronizationContext(int minimumBufferSize = 100)
-        {
-            _buffer = new List<LogEntry>(minimumBufferSize);
-            _minimumBufferSize = minimumBufferSize;
-        }
-
-        public void Add(LogEntry entry)
+    public int Count
+    {
+        get
         {
             lock (SyncRoot)
-                _buffer.Add(entry);
+                return _buffer.Count;
         }
+    }
 
-        public int Count
-        {
-            get
-            {
-                lock (SyncRoot)
-                    return _buffer.Count;
-            }
-        }
+    public void Clear()
+    {
+        lock (SyncRoot)
+            _buffer.Clear();
+    }
 
-        public void Clear()
+    public void GetSnapshot(out LogEntry[] entries)
+    {
+        lock (SyncRoot)
+            entries = _buffer.ToArray();
+    }
+
+    public bool IsFilled
+    {
+        get
         {
             lock (SyncRoot)
-                _buffer.Clear();
-        }
-
-        public void GetSnapshot(out LogEntry[] entries)
-        {
-            lock (SyncRoot)
-                entries = _buffer.ToArray();
-        }
-
-        public bool IsFilled
-        {
-            get
-            {
-                lock (SyncRoot)
-                    return _buffer.Count >= _minimumBufferSize;
-            }
+                return _buffer.Count >= _minimumBufferSize;
         }
     }
 }

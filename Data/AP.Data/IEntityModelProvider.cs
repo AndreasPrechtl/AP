@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿namespace AP.Data;
 
-namespace AP.Data
+public interface IEntityModelProvider
 {
-    public interface IEntityModelProvider
-    {
-        IEntityModel GetEntityModel();
-    }
+    IEntityModel GetEntityModel();
 }

@@ -1,44 +1,34 @@
 ﻿using AP.Collections;
-using AP.Collections.ReadOnly;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using AP.Linq;
 
-namespace AP.ComponentModel.Validation
+namespace AP.ComponentModel.Validation;
+
+public partial class ValidationResult
 {
-    public partial class ValidationResult
+    public partial class MessageSet : AP.Collections.ReadOnly.ReadOnlySet<ValidationMessage>
     {
-        public partial class MessageSet : AP.Collections.ReadOnly.ReadOnlySet<ValidationMessage>
+        private static volatile MessageSet _empty;
+
+        public new static MessageSet Empty
         {
-            private static volatile MessageSet _empty;
-
-            public new static MessageSet Empty
+            get
             {
-                get
-                {
-                    MessageSet empty = _empty;
+                MessageSet empty = _empty;
 
-                    if (empty == null)
-                        _empty = empty = new MessageSet();
+                if (empty == null)
+                    _empty = empty = new MessageSet();
 
-                    return empty;
-                }
-            }
-
-            protected MessageSet()
-                : this(new Set<ValidationMessage>(ValidationMessageEqualityComparer.Default))
-            { }
-                        
-            protected internal MessageSet(Set<ValidationMessage> messages)
-                : base(messages)
-            { }
-
-            public new MessageSet Clone()
-            {
-                return this;
+                return empty;
             }
         }
+
+        protected MessageSet()
+            : this(new Set<ValidationMessage>(ValidationMessageEqualityComparer.Default))
+        { }
+                    
+        protected internal MessageSet(Set<ValidationMessage> messages)
+            : base(messages)
+        { }
+
+        public new MessageSet Clone() => this;
     }
 }

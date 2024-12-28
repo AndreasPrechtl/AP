@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿namespace AP.Data;
 
-namespace AP.Data
+public interface IPersistor : AP.IDisposable
 {
-    public interface IPersistor : AP.IDisposable
-    {
-        void Save();
-        void Discard();
+    void Save();
+    void Discard();
 
-        SaveMode SaveMode { get; }
-    }
+    SaveMode SaveMode { get; }
 }

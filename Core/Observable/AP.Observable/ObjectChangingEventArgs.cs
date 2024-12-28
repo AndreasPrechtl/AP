@@ -1,49 +1,44 @@
 ﻿using System;
 
-namespace AP.Observable
+namespace AP.Observable;
+
+public class ObjectChangingEventArgs : System.ComponentModel.CancelEventArgs
 {
-    public class ObjectChangingEventArgs : System.ComponentModel.CancelEventArgs
+    private readonly object _container;
+    private readonly object? _oldValue;
+    private readonly object? _newValue;
+
+    public object Container => _container;
+    public object? OldValue => _oldValue;
+    public object? NewValue => _newValue;
+
+    public ObjectChangingEventArgs(object container, object? oldValue, object? newValue)
     {
-        private readonly object _oldValue;
-        private readonly object _newValue;
-        private readonly object _container;
+        ArgumentNullException.ThrowIfNull(container);
 
-        public object Container { get { return _container; } }
-        public object OldValue { get { return _oldValue; } }
-        public object NewValue { get { return _newValue; } }
-
-        public ObjectChangingEventArgs(object container, object oldValue, object newValue)
-        {
-            if (container == null)
-                throw new ArgumentNullException("container");
-
-            _container = container;
-            _oldValue = oldValue;
-            _newValue = newValue;
-        }
-
-        public virtual bool HasChanges
-        {
-            get { return Equals(_oldValue, _newValue); }
-        }
+        _container = container;
+        _oldValue = oldValue;
+        _newValue = newValue;
     }
 
-    public class ObjectChangingEventArgs<T> : ObjectChangingEventArgs
-    {
-        public new T Container { get { return (T)base.Container; } }
+    public virtual bool HasChanges => Equals(_oldValue, _newValue);
+}
 
-        public ObjectChangingEventArgs(T container, object oldValue, object newValue)
-            : base(container, oldValue, newValue)
-        { }
-    }
+public class ObjectChangingEventArgs<T> : ObjectChangingEventArgs
+{
+    public new T Container => (T)base.Container!;
 
-    public class ObjectChangingEventArgs<T, TValue> : ObjectChangingEventArgs<T>
-    {
-        public new TValue OldValue { get { return (TValue)base.OldValue; } }
-        public new TValue NewValue { get { return (TValue)base.NewValue; } }
+    public ObjectChangingEventArgs(T container, object? oldValue, object? newValue)
+        : base(container!, oldValue, newValue)
+    { }
+}
 
-        public ObjectChangingEventArgs(T container, TValue oldValue, TValue newValue)
-            : base(container, oldValue, newValue)
-        { }
-    }
+public class ObjectChangingEventArgs<T, TValue> : ObjectChangingEventArgs<T>
+{
+    public new TValue? OldValue => (TValue?)base.OldValue;
+    public new TValue? NewValue => (TValue?)base.NewValue;
+
+    public ObjectChangingEventArgs(T container, TValue? oldValue, TValue? newValue)
+        : base(container!, oldValue, newValue)
+    { }
 }

@@ -1,1 +1,0 @@
-<Playlist Version="1.0"><Add Test="UnitTestProject1.EFTest.TestEFCreation" /><Add Test="UnitTestProject1.EFTest.TestEFUpdate" /><Add Test="UnitTestProject1.EFTest.TestEFDeletion" /></Playlist>

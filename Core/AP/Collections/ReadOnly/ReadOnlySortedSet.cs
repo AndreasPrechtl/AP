@@ -9,20 +9,9 @@ namespace AP.Collections.ReadOnly;
 public class ReadOnlySortedSet<T> : ISetView<T>, IComparerUser<T>, System.Collections.Generic.ISet<T>
 {
     private readonly AP.Collections.SortedSet<T> _inner;
-    private static volatile ReadOnlySortedSet<T> _empty;
+    private static readonly ReadOnlySortedSet<T> s_empty = new ReadOnlySortedSet<T>([]);
 
-    public static ReadOnlySortedSet<T> Empty
-    {
-        get
-        {
-            ReadOnlySortedSet<T> empty = _empty;
-
-            if (empty == null)
-                _empty = empty = new ReadOnlySortedSet<T>(new HashSet<T>());
-
-            return empty;
-        }
-    }
+    public static ReadOnlySortedSet<T> Empty => s_empty;
 
     private static AP.Collections.SortedSet<T> CreateInner(IEnumerable<T> collection, IComparer<T> comparer)
     {

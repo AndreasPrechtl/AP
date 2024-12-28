@@ -6,21 +6,10 @@ namespace AP.Collections.Specialized;
 [Serializable, System.ComponentModel.ReadOnly(true)]
 public class ReadOnlyNameValueDictionary<T> : AP.Collections.ReadOnly.ReadOnlyDictionary<string, T>
 {
-    private static volatile ReadOnlyNameValueDictionary<T> _empty;
+    private static readonly ReadOnlyNameValueDictionary<T> s_empty = new ReadOnlyNameValueDictionary<T>([]);
 
-    public new static ReadOnlyNameValueDictionary<T> Empty
-    {
-        get
-        {
-            ReadOnlyNameValueDictionary<T> empty = _empty;
-
-            if (empty == null)
-                _empty = empty = new ReadOnlyNameValueDictionary<T>(new AP.Collections.Dictionary<string, T>(0, StringComparer.Ordinal, EqualityComparer<T>.Default));
-
-            return empty;
-        }
-    }
-
+    public new static ReadOnlyNameValueDictionary<T> Empty => s_empty;
+    
     public static ReadOnlyNameValueDictionary<T> FromObject(object obj) => new(NameValueDictionary<T>.FromObject(obj));
 
     public ReadOnlyNameValueDictionary(IEnumerable<KeyValuePair<string, T>> dictionary, StringComparison keyComparison = StringComparison.Ordinal) 

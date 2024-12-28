@@ -14,23 +14,9 @@ public partial class ReadOnlySortedDictionary<TKey, TValue> : IDictionaryView<TK
     private readonly AP.Collections.SortedDictionary<TKey, TValue> _inner;
     private readonly KeyCollection _keys;
     private readonly ValueCollection _values;
-    private volatile static ReadOnlySortedDictionary<TKey, TValue> _empty;
+    private static readonly ReadOnlySortedDictionary<TKey, TValue> s_empty = new ReadOnlySortedDictionary<TKey, TValue>(new Dictionary<TKey, TValue>(0));
 
-    public static ReadOnlySortedDictionary<TKey, TValue> Empty
-    {
-        get
-        {
-            ReadOnlySortedDictionary<TKey, TValue> empty = _empty;
-
-            if (empty == null)
-            {
-                empty = new ReadOnlySortedDictionary<TKey, TValue>(new Dictionary<TKey, TValue>(0));
-                _empty = empty;
-            }
-
-            return empty;
-        }
-    }
+    public static ReadOnlySortedDictionary<TKey, TValue> Empty => s_empty;
 
     private static AP.Collections.SortedDictionary<TKey, TValue> CreateInner(IEnumerable<KeyValuePair<TKey, TValue>> collection, IComparer<TKey> keyComparer, IEqualityComparer<TValue> valueComparer)
     {

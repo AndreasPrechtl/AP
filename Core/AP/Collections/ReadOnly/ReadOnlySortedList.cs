@@ -11,20 +11,9 @@ namespace AP.Collections.ReadOnly;
 public class ReadOnlySortedList<T> : IListView<T>, IComparerUser<T>, System.Collections.Generic.IList<T>
 {
     private readonly AP.Collections.SortedList<T> _inner;
-    private static volatile ReadOnlySortedList<T> _empty;
+    private static readonly ReadOnlySortedList<T> s_empty = new ReadOnlySortedList<T>([]);
 
-    public static ReadOnlySortedList<T> Empty
-    {
-        get
-        {
-            ReadOnlySortedList<T> empty = _empty;
-
-            if (empty == null)
-                _empty = empty = new ReadOnlySortedList<T>((IListView<T>)new List<T>(0));
-
-            return empty;
-        }
-    }
+    public static ReadOnlySortedList<T> Empty => s_empty;
 
     private static AP.Collections.SortedList<T> CreateInner(IEnumerable<T> collection, IComparer<T> comparer)
     {

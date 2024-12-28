@@ -209,7 +209,7 @@ public class Unc : UrlBase, IFileUri, IAbsoluteOrRelativeUri
             {
                 for (int i = 1; i < 3; i++)
                 {
-                    string current = split[split.Length - i];
+                    string current = split[^i];
 
                     if (!sslFound && current.Equals("SSL", StringComparison.InvariantCultureIgnoreCase))
                     {

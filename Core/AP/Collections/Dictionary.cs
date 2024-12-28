@@ -211,7 +211,7 @@ public partial class Dictionary<TKey, TValue> : IDictionary<TKey, TValue>
     {
         if (key == null)
         {
-            value = default;
+            value = default!;
             return false;
         }
 
@@ -249,7 +249,7 @@ public partial class Dictionary<TKey, TValue> : IDictionary<TKey, TValue>
 
     bool System.Collections.Generic.ICollection<KeyValuePair<TKey, TValue>>.Contains(KeyValuePair<TKey, TValue> item) => this.Contains(item, false);
 
-    public void CopyTo(KeyValuePair<TKey, TValue>[] array, int arrayIndex) => ((System.Collections.Generic.ICollection<KeyValuePair<TKey, TValue>>)_inner).CopyTo(array, arrayIndex);
+    void System.Collections.Generic.ICollection<KeyValuePair<TKey,TValue>>.CopyTo(KeyValuePair<TKey, TValue>[] array, int arrayIndex) => CollectionsHelper.CopyTo(this, array, arrayIndex);
 
     public int Count => _inner.Count;
 
@@ -283,7 +283,7 @@ public partial class Dictionary<TKey, TValue> : IDictionary<TKey, TValue>
     {
         if (compareValues)
         {
-            return _inner.TryGetValue(keyValuePair.Key, out TValue value) && _valueComparer.Equals(keyValuePair.Value, value);
+            return _inner.TryGetValue(keyValuePair.Key, out TValue? value) && _valueComparer.Equals(keyValuePair.Value, value);
         }
 
         return _inner.ContainsKey(keyValuePair.Key);

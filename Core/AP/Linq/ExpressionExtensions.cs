@@ -46,7 +46,7 @@ public static class ExpressionExtensions
     /// </summary>
     /// <param name="expression"></param>
     /// <returns></returns>
-    public static object Evaluate(this Expression expression, params object[] args)
+    public static object? Evaluate(this Expression expression, params object[] args)
     {
         switch (expression.NodeType)
         {

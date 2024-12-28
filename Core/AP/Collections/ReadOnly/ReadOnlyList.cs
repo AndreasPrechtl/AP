@@ -52,8 +52,6 @@ public class ReadOnlyList<T> : IListView<T>, IEqualityComparerUser<T>, System.Co
         get { return _inner[index, count]; }
     }
 
-    public void CopyTo(T[] array, int arrayIndex = 0, int listIndex = 0, int? count = null) => _inner.CopyTo(array, arrayIndex, listIndex, count);
-
     public int IndexOf(T item, SelectionMode mode = SelectionMode.First) => _inner.IndexOf(item, mode);
 
     public bool Contains(T item) => _inner.Contains(item);
@@ -67,8 +65,6 @@ public class ReadOnlyList<T> : IListView<T>, IEqualityComparerUser<T>, System.Co
     #region ICollection<T> Members
 
     public int Count => _inner.Count;
-
-    void ICollection<T>.CopyTo(T[] array, int arrayIndex) => ((ICollection<T>)_inner).CopyTo(array, arrayIndex);
 
     bool ICollection<T>.Contains(T item) => ((ICollection<T>)_inner).Contains(item);
 
@@ -124,7 +120,7 @@ public class ReadOnlyList<T> : IListView<T>, IEqualityComparerUser<T>, System.Co
 
     bool System.Collections.Generic.ICollection<T>.IsReadOnly => true;
 
-    void System.Collections.Generic.ICollection<T>.CopyTo(T[] array, int index) => this.CopyTo(array, index, 0, null);
+    void System.Collections.Generic.ICollection<T>.CopyTo(T[] array, int arrayIndex) => CollectionsHelper.CopyTo(this, array, arrayIndex);
 
     bool System.Collections.Generic.ICollection<T>.Remove(T item) => throw new NotSupportedException();
 

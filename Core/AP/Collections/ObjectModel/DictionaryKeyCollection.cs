@@ -22,8 +22,6 @@ public class DictionaryKeyCollection<TDictionary, TKey, TValue> : CollectionBase
 
     public sealed override int Count => _dictionary.Count;
 
-    public sealed override void CopyTo(TKey[] array, int arrayIndex = 0) => base.CopyTo(array, arrayIndex);
-
     public sealed override bool Contains(TKey key) => _dictionary.ContainsKey(key);
 
     #endregion
@@ -45,6 +43,8 @@ public class DictionaryKeyCollection<TDictionary, TKey, TValue> : CollectionBase
     #endregion
 
     #region ICollection<TKey> Members
+
+    void System.Collections.Generic.ICollection<TKey>.CopyTo(TKey[] array, int arrayIndex) => CollectionsHelper.CopyTo(this, array, arrayIndex);
 
     void System.Collections.Generic.ICollection<TKey>.Add(TKey item) => throw new NotSupportedException();
 

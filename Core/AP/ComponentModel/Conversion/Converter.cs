@@ -47,20 +47,18 @@ public abstract class Converter
         return false;
     }
 
-    public override bool Equals(object obj)
+    public override bool Equals(object? obj)
     {
-        if (obj == this)
-            return true;
-
-        // converters with the same type are highly likely to be the same?
-        if (obj.GetType() == this.GetType())
-            return true;
-
-
-        if (obj is not Converter converter)
+        if (obj is null)
             return false;
 
-        return _inputType == converter.InputType && _outputType == converter.OutputType;
+        if (obj == this)
+            return true;
+        
+        if (obj is Converter converter)
+            return _inputType == converter.InputType && _outputType == converter.OutputType;
+
+        return false;
     }
 
     public override int GetHashCode() => _inputType.GetHashCode() | _outputType.GetHashCode();

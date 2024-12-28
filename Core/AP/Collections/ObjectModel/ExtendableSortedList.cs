@@ -52,8 +52,6 @@ public abstract class ExtendableSortedList<T> : ListBase<T>, IComparerUser<T>
 
     public override void Remove(int index, int count = 1) => _inner.Remove(index, count);
 
-    public override void CopyTo(T[] array, int arrayIndex = 0, int listIndex = 0, int? count = null) => _inner.CopyTo(array, arrayIndex, listIndex, count);
-
     public override void Remove(T item, SelectionMode mode = SelectionMode.First) => _inner.Remove(item, mode);
 
     public override void Clear() => _inner.Clear();

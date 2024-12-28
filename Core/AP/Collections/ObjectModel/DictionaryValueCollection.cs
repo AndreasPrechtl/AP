@@ -21,8 +21,6 @@ public abstract class DictionaryValueCollection<TDictionary, TKey, TValue> : Col
 
     public sealed override int Count => _dictionary.Count;
 
-    public sealed override void CopyTo(TValue[] array, int arrayIndex = 0) => base.CopyTo(array, arrayIndex);
-
     public sealed override bool Contains(TValue value) => _dictionary.ContainsValue(value);
 
     #endregion
@@ -52,6 +50,8 @@ public abstract class DictionaryValueCollection<TDictionary, TKey, TValue> : Col
     bool System.Collections.Generic.ICollection<TValue>.IsReadOnly => true;
 
     bool System.Collections.Generic.ICollection<TValue>.Remove(TValue item) => throw new NotSupportedException();
+
+    void System.Collections.Generic.ICollection<TValue>.CopyTo(TValue[] array, int arrayIndex) => CollectionsHelper.CopyTo(this, array, arrayIndex);    
 
     #endregion
 }

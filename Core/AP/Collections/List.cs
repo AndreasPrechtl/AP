@@ -13,7 +13,7 @@ public class List<T> : IUnsortedList<T>, IEqualityComparerUser<T>
     private readonly bool _hasDefaultComparer;
 
     public List()
-        : this(0, null)
+        : this(0, null!)
     { }
 
     public List(IEqualityComparer<T> comparer)
@@ -21,7 +21,7 @@ public class List<T> : IUnsortedList<T>, IEqualityComparerUser<T>
     { }
 
     public List(int capacity)
-        : this(capacity, null)
+        : this(capacity, null!)
     { }
 
     public List(int capacity, IEqualityComparer<T> comparer)
@@ -29,7 +29,7 @@ public class List<T> : IUnsortedList<T>, IEqualityComparerUser<T>
     { }
 
     public List(IEnumerable<T> collection)
-        : this(collection, null)
+        : this(collection, null!)
     { }
 
     public List(IEnumerable<T> collection, IEqualityComparer<T> comparer)
@@ -59,7 +59,7 @@ public class List<T> : IUnsortedList<T>, IEqualityComparerUser<T>
         return list._inner;
     }
 
-    public override string ToString() => _inner.ToString();
+    public override string ToString() => _inner.ToString()!;
 
     #region IList<T> Members
 
@@ -263,7 +263,7 @@ public class List<T> : IUnsortedList<T>, IEqualityComparerUser<T>
         if (b)
             item = _inner[index];
         else
-            item = default;
+            item = default!;
 
         return b;
     }
@@ -273,20 +273,6 @@ public class List<T> : IUnsortedList<T>, IEqualityComparerUser<T>
     #region ICollection<T> Members
 
     public int Count => _inner.Count;
-
-
-#warning move to extensions
-    public void CopyTo(T[] array, int arrayIndex = 0, int listIndex = 0, int? count = null)
-    {
-        if (count.HasValue)
-            _inner.CopyTo(listIndex, array, arrayIndex, count.Value);
-        else if (listIndex > 0)
-            _inner.CopyTo(listIndex, array, arrayIndex, _inner.Count - listIndex);
-        else
-            _inner.CopyTo(array, arrayIndex);
-    }
-
-    void ICollection<T>.CopyTo(T[] array, int arrayIndex) => this.CopyTo(array, arrayIndex, 0, null);
 
     #endregion
 
@@ -341,7 +327,7 @@ public class List<T> : IUnsortedList<T>, IEqualityComparerUser<T>
 
     bool System.Collections.Generic.ICollection<T>.IsReadOnly => false;
 
-    void System.Collections.Generic.ICollection<T>.CopyTo(T[] array, int arrayIndex) => this.CopyTo(array, arrayIndex, 0, null);
+    void System.Collections.Generic.ICollection<T>.CopyTo(T[] array, int arrayIndex) => CollectionsHelper.CopyTo(this, array, arrayIndex);
 
     #endregion
 

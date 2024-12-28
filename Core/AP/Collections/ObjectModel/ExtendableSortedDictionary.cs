@@ -74,8 +74,6 @@ public abstract partial class ExtendableSortedDictionary<TKey, TValue> : Diction
 
     public override void Clear() => _inner.Clear();
 
-    public override void CopyTo(KeyValuePair<TKey, TValue>[] array, int arrayIndex) => ((SCG.ICollection<KeyValuePair<TKey, TValue>>)_inner).CopyTo(array, arrayIndex);
-
     public override int Count => _inner.Count;
 
     #endregion

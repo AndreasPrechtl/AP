@@ -56,8 +56,6 @@ public class ReadOnlySet<T> : ISetView<T>, IEqualityComparerUser<T>, System.Coll
 
     public int Count => _inner.Count;
 
-    public void CopyTo(T[] array, int arrayIndex = 0) => _inner.CopyTo(array, arrayIndex);
-
     public bool Contains(T item) => _inner.Contains(item);
 
     #endregion
@@ -103,6 +101,8 @@ public class ReadOnlySet<T> : ISetView<T>, IEqualityComparerUser<T>, System.Coll
     #endregion
 
     #region ICollection<T> Members
+
+    void System.Collections.Generic.ICollection<T>.CopyTo(T[] array, int arrayIndex) => CollectionsHelper.CopyTo(this, array, arrayIndex);
 
     void System.Collections.Generic.ICollection<T>.Add(T item) => throw new NotSupportedException();
 

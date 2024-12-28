@@ -86,8 +86,6 @@ public class Stack<T> : IStack<T>, IEqualityComparerUser<T>
 
     public int Count => _inner.Count;
 
-    public void CopyTo(T[] array, int arrayIndex = 0) => _inner.CopyTo(array, arrayIndex);
-
     public bool Contains(T item)
     {
         foreach (T current in _inner)

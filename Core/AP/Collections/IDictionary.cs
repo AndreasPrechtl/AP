@@ -3,6 +3,7 @@
 namespace AP.Collections;
 
 public interface IDictionary<TKey, TValue> : IDictionaryView<TKey, TValue>, System.Collections.Generic.IDictionary<TKey, TValue>
+    where TKey : notnull
 {
     new bool Add(TKey key, TValue value);
     new bool Add(KeyValuePair<TKey, TValue> item);        

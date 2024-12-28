@@ -11,14 +11,15 @@ namespace AP.Collections;
 
 internal static class CollectionsHelper
 {
-    public static bool Contains<T>(ICollection<T> collection, object item) => IsCompatible<T>(item) && collection.Contains((T)item);
+    public static bool Contains<T>(ICollection<T> collection, object? item) => IsCompatible<T>(item) && collection.Contains((T)item!);
 
-    public static bool IsCompatible<T>(object value)
+    public static bool IsCompatible<T>(object? value)
     {
+        if (value is null)
+            return object.ReferenceEquals(null, default(T));
+
         if (value is T)
             return true;
-        if (value == null)
-            return object.ReferenceEquals(null, default(T));
         
         return false;
     }
@@ -27,16 +28,11 @@ internal static class CollectionsHelper
     {
         ArgumentNullException.ThrowIfNull(array);
 
-        if (array is T[])
-            collection.CopyTo((T[])array, index);
-        else
-        {
-            if (index < 0  || index >= collection.Count)
-                throw new IndexOutOfRangeException("index");
+        if (index < 0  || index >= collection.Count)
+            throw new IndexOutOfRangeException("index");
 
-            foreach (T item in collection)
-                array.SetValue(item, index++);
-        }
+        foreach (T item in collection)
+            array.SetValue(item, index++);
     }
 
     public static void CopyTo<T>(ICollection<T> collection, T[] array, int index)
@@ -49,7 +45,6 @@ internal static class CollectionsHelper
         foreach (T item in collection)
             array[index++] = item;
     }
-
     public static bool IsSorted<T>(IEnumerable<T> collection)
     {
         if (collection is IOrderedEnumerable<T>)
@@ -80,6 +75,7 @@ internal static class CollectionsHelper
         }
         return false;
     }
+
     public static bool IsSorted<TKey, TValue>(IEnumerable<KeyValuePair<TKey, TValue>> collection)
         where TKey : notnull
     {

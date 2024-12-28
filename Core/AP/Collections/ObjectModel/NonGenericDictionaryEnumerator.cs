@@ -24,7 +24,7 @@ public sealed class NonGenericDictionaryEnumerator<TKey, TValue> : IDictionaryEn
 
     public object Key => _inner.Current.Key;
 
-    public object Value => _inner.Current.Value;
+    public object? Value => _inner.Current.Value;
 
     #endregion
 

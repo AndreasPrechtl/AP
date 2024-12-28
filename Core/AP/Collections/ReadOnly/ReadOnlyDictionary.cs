@@ -64,7 +64,7 @@ public partial class ReadOnlyDictionary<TKey, TValue> : IDictionaryView<TKey, TV
     {
         if (key == null)
         {
-            value = default;
+            value = default!;
             return false;
         }
 
@@ -90,8 +90,6 @@ public partial class ReadOnlyDictionary<TKey, TValue> : IDictionaryView<TKey, TV
     #region ICollection<KeyValuePair<TKey,TValue>> Members
 
     public int Count => _inner.Count;
-
-    public void CopyTo(KeyValuePair<TKey, TValue>[] array, int arrayIndex = 0) => _inner.CopyTo(array, arrayIndex);
 
     bool ICollection<KeyValuePair<TKey, TValue>>.Contains(KeyValuePair<TKey, TValue> item) => ((ICollection<KeyValuePair<TKey, TValue>>)_inner).Contains(item);
 

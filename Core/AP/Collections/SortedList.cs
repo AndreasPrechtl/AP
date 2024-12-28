@@ -44,7 +44,7 @@ public class SortedList<T> : IList<T>, IComparerUser<T>
         _comparer = comparer;
     }
 
-    public override string ToString() => _inner.ToString();
+    public override string ToString() => _inner!.ToString();
 
     #region ISortedList<T> Members
 
@@ -186,16 +186,6 @@ public class SortedList<T> : IList<T>, IComparerUser<T>
         }
     }
 
-    public void CopyTo(T[] array, int arrayIndex = 0, int listIndex = 0, int? count = null)
-    {
-        if (count.HasValue)
-            _inner.CopyTo(listIndex, array, arrayIndex, count.Value);
-        else if (listIndex > 0)
-            _inner.CopyTo(listIndex, array, arrayIndex, _inner.Count - listIndex);
-        else
-            _inner.CopyTo(array, arrayIndex);
-    }
-
     public int IndexOf(T item, SelectionMode mode = SelectionMode.First)
     {
         switch (mode)
@@ -243,8 +233,6 @@ public class SortedList<T> : IList<T>, IComparerUser<T>
 
     public int Count => _inner.Count;
 
-    void ICollection<T>.CopyTo(T[] array, int arrayIndex) => _inner.CopyTo(array, arrayIndex);
-
     #endregion
 
     #region IEnumerable<T> Members
@@ -279,7 +267,7 @@ public class SortedList<T> : IList<T>, IComparerUser<T>
 
     bool System.Collections.Generic.ICollection<T>.IsReadOnly => false;
 
-    void System.Collections.Generic.ICollection<T>.CopyTo(T[] array, int arrayIndex) => this.CopyTo(array, arrayIndex, 0, null);
+    void System.Collections.Generic.ICollection<T>.CopyTo(T[] array, int arrayIndex) => _inner.CopyTo(array, arrayIndex);
 
     #endregion
 

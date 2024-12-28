@@ -8,48 +8,56 @@ public abstract class ThreadStaticSingleton<TSingleton> : FinalizableObject
     public static readonly object SyncRoot = new();
 
     [ThreadStatic]
-    private static volatile TSingleton _current;
+    private static volatile TSingleton? s_current;
 
     protected ThreadStaticSingleton()
     {
-        if (_current == null)
-        {
-            lock (SyncRoot)
-            {
-                if (_current == null)
-                    _current = (TSingleton)this;
-            }
-        }
-        else
+        if (!TrySetInstance(out _))
             throw new InvalidOperationException("MultiSingleton");
     }
 
-    public static void Release() => _current.TryDispose();
+    public static void Release() => s_current?.TryDispose();
 
-    public static TSingleton Current
+    private static bool TrySetInstance(out TSingleton instance)
+    {
+        var existingInstance = s_current;
+        if (existingInstance is not null)
+        {
+            instance = existingInstance;
+            return false;
+        }
+        lock (SyncRoot)
+        {
+            if (s_current is null)
+            {
+                s_current = instance = New.Instance<TSingleton>();
+                return true;
+            }
+            else
+            {
+                instance = s_current!;
+                return false;
+            }
+        }
+    }
+
+    public static TSingleton Instance
     {
         get
         {
-            TSingleton instance = _current;
-
-            if (instance == null)
-            {
-                lock (SyncRoot)
-                {
-                    if (_current == null)
-                        return New.Instance<TSingleton>();
-                }
-            }
-
-            return instance;
+            TrySetInstance(out var instance);
+            return instance!;
         }
     }
+
     protected override void CleanUpResources()
     {
         base.CleanUpResources();
 
         lock (SyncRoot)
-            if (_current == this)
-                _current = null;
-    }      
+        {
+            if (s_current == this)
+                s_current = null;
+        }
+    }
 }

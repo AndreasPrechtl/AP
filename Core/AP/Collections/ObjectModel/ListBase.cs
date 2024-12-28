@@ -59,31 +59,6 @@ public abstract class ListBase<T> : CollectionBase<T>, AP.Collections.IList<T>
 
     #region IListView<T> Members
 
-    public virtual void CopyTo(T[] array, int arrayIndex = 0, int listIndex = 0, int? count = null)
-    {
-        ArgumentNullException.ThrowIfNull(array);
-
-        if (array.Length == 0)
-            throw new ArgumentOutOfRangeException("array.Length == 0");
-
-        if (arrayIndex < 0 || arrayIndex >= array.Length)
-            throw new ArgumentOutOfRangeException(nameof(arrayIndex));
-        
-        int listCount = this.Count;
-        if (listIndex < 0 || listIndex >= listCount)
-            throw new ArgumentOutOfRangeException(nameof(listIndex));
-
-        int c = count ?? listCount;
-        if (c < 0 || c + listIndex > listCount)
-            throw new ArgumentOutOfRangeException(nameof(count));
-        
-        if (arrayIndex + count > array.Length)
-            throw new ArgumentOutOfRangeException(nameof(count));
-
-        for (int i = 0; i < c; ++i)
-            array[arrayIndex++] = this.GetItem(listIndex++);            
-    }
-
     public int IndexOf(T item, SelectionMode mode = SelectionMode.First)
     {
         switch (mode)
@@ -125,7 +100,7 @@ public abstract class ListBase<T> : CollectionBase<T>, AP.Collections.IList<T>
         if (b)
             item = this.GetItem(index);
         else
-            item = default;
+            item = default!;
 
         return b;
     }
@@ -155,7 +130,7 @@ public abstract class ListBase<T> : CollectionBase<T>, AP.Collections.IList<T>
 
     #region System.Collections.Generic.ICollection<T> Members
 
-    void System.Collections.Generic.ICollection<T>.CopyTo(T[] array, int arrayIndex) => this.CopyTo(array, arrayIndex, 0, null);
+    void System.Collections.Generic.ICollection<T>.CopyTo(T[] array, int arrayIndex) => CollectionsHelper.CopyTo(this, array, arrayIndex);
 
     void System.Collections.Generic.ICollection<T>.Add(T item) => this.Add(item);
 

@@ -7,6 +7,7 @@ using System.Reflection;
 using AP.ComponentModel.Conversion;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 
 namespace AP;
 
@@ -22,7 +23,10 @@ public static class Objects
     /// <param name="value">The value.</param>
     /// <returns>Returns a disposable object.</returns>
     [MethodImpl((MethodImplOptions)256)]
-    public static AP.IDisposable AsDisposable<T>(T value) where T : class => new AP.DisposableWrapper<T>(value);
+    public static AP.IDisposable AsDisposable<T>(T value) where T : notnull => new AP.DisposableWrapper<T>(value);
+
+    [MethodImpl((MethodImplOptions)256)]
+    public static ValueTask<AP.IDisposable> AsAsyncDisposable<T>(T value) where T : notnull => ValueTask.FromResult((AP.IDisposable)new AP.DisposableWrapper<T>(value));
 
     /// <summary>
     /// Short method for System.Activator.CreateInstance&lt;T&gt;

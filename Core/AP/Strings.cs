@@ -62,13 +62,15 @@ public static class Strings
     /// <returns></returns>
     public static bool TryGetInterned(this string str, out string value)
     {
-        value = string.IsInterned(str);
+        var s = string.IsInterned(str);
 
-        if (value == null)
+        if (s is null)
         {
             value = str;
             return false;
         }
+
+        value = s;
         return true;
     }
 

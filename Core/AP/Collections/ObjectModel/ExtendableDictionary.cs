@@ -64,8 +64,6 @@ public abstract partial class ExtendableDictionary<TKey, TValue> : DictionaryBas
 
     public override void Update(IEnumerable<KeyValuePair<TKey, TValue>> items) => _inner.Update(items);
 
-    public override void CopyTo(KeyValuePair<TKey, TValue>[] array, int arrayIndex = 0) => _inner.CopyTo(array, arrayIndex);
-
     public override void Remove(IEnumerable<KeyValuePair<TKey, TValue>> items, bool compareValues = false) => _inner.Remove(items, compareValues);
 
     public override void Remove(IEnumerable<TKey> keys) => _inner.Remove(keys);

@@ -118,7 +118,9 @@ public abstract class New : StaticType
     //}
 
     [MethodImpl((MethodImplOptions)256)]
-    public static AP.Collections.Dictionary<TKey, TValue> Dictionary<TKey, TValue>(params KeyValuePair<TKey, TValue>[] dictionary) => new(dictionary);
+    public static AP.Collections.Dictionary<TKey, TValue> Dictionary<TKey, TValue>(params KeyValuePair<TKey, TValue>[] dictionary)
+        where TKey : notnull
+        => new(dictionary);
 
     //[MethodImpl((MethodImplOptions)256)]
     //public static Collections.Dictionary<TKey, TValue> Dictionary<TKey, TValue>(IEnumerable<KeyValuePair<TKey, TValue>> dictionary), IEqualityComparer<TKey> keyComparer = null, IEqualityComparer<TValue> valueComparer = null)
@@ -151,7 +153,9 @@ public abstract class New : StaticType
     public static ReadOnlyList<T> ReadOnlyList<T>(params T[] items) => new(items);
 
     [MethodImpl((MethodImplOptions)256)]
-    public static ReadOnlyDictionary<TKey, TValue> ReadOnlyDictionary<TKey, TValue>(params KeyValuePair<TKey, TValue>[] dictionary) => new(dictionary);
+    public static ReadOnlyDictionary<TKey, TValue> ReadOnlyDictionary<TKey, TValue>(params KeyValuePair<TKey, TValue>[] dictionary)
+        where TKey : notnull
+        => new(dictionary);
 
     [MethodImpl((MethodImplOptions)256)]
     public static ReadOnlySet<T> ReadOnlySet<T>(params T[] items) => new(items);

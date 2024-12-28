@@ -17,6 +17,7 @@ public delegate TOutput Convert<in TInput, out TOutput>(TInput input, CultureInf
 public delegate bool CanConvert<in TInput, out TOutput>(TInput input, CultureInfo? inputCulture = null, CultureInfo? outputCulture = null);
 
 public sealed class ConvertDelegateWrapper<TInput, TOutput> : Converter<TInput, TOutput>
+    where TInput : notnull
 {
     private readonly Convert<TInput, TOutput> _convert;
     private readonly CanConvert<TInput, TOutput> _canConvert;

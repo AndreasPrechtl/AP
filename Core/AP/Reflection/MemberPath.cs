@@ -129,7 +129,7 @@ public sealed class MemberPath : IComparable
     {
         SegmentList s = SegmentList.Create(segments);
         _segments = s;
-        _name = s[s.Count - 1];
+        _name = s[^1];
     }
 
     /// <summary>
@@ -149,31 +149,31 @@ public sealed class MemberPath : IComparable
 
     public override int GetHashCode() => this.Value.GetHashCode();
 
-    public override bool Equals(object obj)
+    public override bool Equals(object? obj)
     {
-        if (obj == this)
-            return true;
-
         if (obj == null)
             return false;
 
-        if (obj is MemberPath)
-            return this.Value.Equals(((MemberPath)obj).Value, StringComparison.OrdinalIgnoreCase);
+        if (obj == this)
+            return true;
+
+        if (obj is MemberPath path)
+            return this.Value.Equals(path.Value, StringComparison.OrdinalIgnoreCase);
 
         return this.Value.Equals(obj.ToString(), StringComparison.OrdinalIgnoreCase);
     }
     
-    public static implicit operator MemberPath(string path)
+    public static implicit operator MemberPath?(string? path)
     {
         return path != null ? new MemberPath(path) : null;
     }
 
-    public static implicit operator string(MemberPath path)
+    public static implicit operator string?(MemberPath? path)
     {
         return path != null ? path.Value : null;
     }
 
-    int IComparable.CompareTo(object obj)
+    int IComparable.CompareTo(object? obj)
     {
         if (this.Equals(obj))
             return 0;

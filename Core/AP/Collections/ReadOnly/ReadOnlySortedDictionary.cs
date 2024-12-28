@@ -91,8 +91,6 @@ public partial class ReadOnlySortedDictionary<TKey, TValue> : IDictionaryView<TK
 
     public int Count => _inner.Count;
 
-    public void CopyTo(KeyValuePair<TKey, TValue>[] array, int arrayIndex = 0) => _inner.CopyTo(array, arrayIndex);
-
     bool ICollection<KeyValuePair<TKey, TValue>>.Contains(KeyValuePair<TKey, TValue> item) => ((ICollection<KeyValuePair<TKey, TValue>>)_inner).Contains(item);
 
     #endregion

@@ -69,8 +69,6 @@ public abstract class ExtendableSortedSet<T> : SetBase<T>, IComparerUser<T>
 
     public override bool Contains(T item) => _inner.Contains(item);
 
-    public override void CopyTo(T[] array, int arrayIndex) => _inner.CopyTo(array, arrayIndex);
-
     public override int Count => _inner.Count;
 
     public override bool Remove(T item) => _inner.Remove(item);

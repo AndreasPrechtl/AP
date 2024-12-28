@@ -61,7 +61,7 @@ public class SortedSet<T> : ISet<T>, IComparerUser<T>
         return sortedSet._inner;
     }
 
-    public override string ToString() => _inner.ToString();
+    public override string ToString() => _inner.ToString()!;
 
     #region ISet<T> Members
 
@@ -103,8 +103,6 @@ public class SortedSet<T> : ISet<T>, IComparerUser<T>
 
     public int Count => _inner.Count;
 
-    public void CopyTo(T[] array, int arrayIndex = 0) => _inner.CopyTo(array, arrayIndex);
-
     public bool Contains(T item) => _inner.Contains(item);
 
     #endregion
@@ -132,6 +130,8 @@ public class SortedSet<T> : ISet<T>, IComparerUser<T>
     #endregion
 
     #region ICollection<T> Members
+
+    void System.Collections.Generic.ICollection<T>.CopyTo(T[] array, int arrayIndex) => CollectionsHelper.CopyTo(this, array, arrayIndex);
 
     void System.Collections.Generic.ICollection<T>.Add(T item) => ((System.Collections.Generic.ICollection<T>)_inner).Add(item);
 

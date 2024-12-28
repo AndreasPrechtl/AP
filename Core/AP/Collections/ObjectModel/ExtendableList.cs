@@ -57,10 +57,7 @@ public abstract class ExtendableList<T> : ListBase<T>, IUnsortedList<T>, IEquali
 
     public override void Remove(int index, int count = 1) => _inner.Remove(index, count);
 
-    public virtual void Replace(int index, IEnumerable<T> items)
-    { }
-
-    public override void CopyTo(T[] array, int arrayIndex = 0, int listIndex = 0, int? count = null) => _inner.CopyTo(array, arrayIndex, listIndex, count);
+    public virtual void Replace(int index, IEnumerable<T> items) { }
 
     public virtual void Move(int index, int newIndex, int count = 1) => _inner.Move(index, newIndex, count);
 

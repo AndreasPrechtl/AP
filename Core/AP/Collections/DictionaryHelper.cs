@@ -90,6 +90,7 @@ internal static class DictionaryHelper
     }
 
     public static bool ContainsKeyValuePair<TKey, TValue>(IDictionaryView<TKey, TValue> dictionary, object keyValuePair, bool compareValues)
+        where TKey : notnull
     {
         if (keyValuePair == null)
             return false;
@@ -108,8 +109,8 @@ internal static class DictionaryHelper
             return dictionary.Contains(new KeyValuePair<TKey, TValue>(tuple.Item1, tuple.Item2), compareValues);
         }
 
-        object key = null;
-        object value = null;
+        object key = null!;
+        object? value = null;
 
         if (t == typeof(DictionaryEntry))
         {
@@ -119,16 +120,21 @@ internal static class DictionaryHelper
         }
 
         if (CollectionsHelper.IsCompatible<TKey>(key) && CollectionsHelper.IsCompatible<TValue>(value))
-            return dictionary.Contains(new KeyValuePair<TKey, TValue>((TKey)key, (TValue)value), compareValues);
+            return dictionary.Contains(new KeyValuePair<TKey, TValue>((TKey)key, (TValue)value!), compareValues);
 
         return false;
     }
 
-    public static bool ContainsKey<TKey, TValue>(IDictionaryView<TKey, TValue> dictionary, object key) => CollectionsHelper.IsCompatible<TKey>(key) && dictionary.ContainsKey((TKey)key);
+    public static bool ContainsKey<TKey, TValue>(IDictionaryView<TKey, TValue> dictionary, object key)
+        where TKey : notnull 
+        => CollectionsHelper.IsCompatible<TKey>(key) && dictionary.ContainsKey((TKey)key);
 
-    public static bool ContainsValue<TKey, TValue>(IDictionaryView<TKey, TValue> dictionary, object value) => CollectionsHelper.IsCompatible<TValue>(value) && dictionary.ContainsValue((TValue)value);
+    public static bool ContainsValue<TKey, TValue>(IDictionaryView<TKey, TValue> dictionary, object value)
+        where TKey : notnull
+        => CollectionsHelper.IsCompatible<TValue>(value) && dictionary.ContainsValue((TValue)value);
 
     public static bool ContainsItem<TKey, TValue>(IDictionaryView<TKey, TValue> dictionary, object item)
+        where TKey : notnull
     {
         if (CollectionsHelper.IsCompatible<TKey>(item))
             return dictionary.ContainsKey((TKey)item);

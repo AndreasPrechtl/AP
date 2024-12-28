@@ -199,6 +199,8 @@ public abstract partial class DictionaryBase<TKey, TValue> : CollectionBase<KeyV
 
     #region ICollection<KeyValuePair<TKey,TValue>> Members
 
+    void System.Collections.Generic.ICollection<KeyValuePair<TKey, TValue>>.CopyTo(KeyValuePair<TKey, TValue>[] array, int arrayIndex) => CollectionsHelper.CopyTo(this, array, arrayIndex);
+
     void System.Collections.Generic.ICollection<KeyValuePair<TKey, TValue>>.Add(KeyValuePair<TKey, TValue> item) => this.Add(item);
 
     bool System.Collections.Generic.ICollection<KeyValuePair<TKey, TValue>>.Remove(KeyValuePair<TKey, TValue> item) => this.Remove(item, false);

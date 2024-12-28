@@ -9,8 +9,8 @@ public interface IConverterManager : AP.IDisposable
 
     void Register(Converter converter);        
     
-    Converter<TInput, TOutput> GetConverter<TInput, TOutput>();        
-    Converter GetConverter(Type inputType, Type outputType);
+    Converter<TInput, TOutput>? GetConverter<TInput, TOutput>();        
+    Converter? GetConverter(Type inputType, Type outputType);
 
     bool Contains(Converter converter);        
     

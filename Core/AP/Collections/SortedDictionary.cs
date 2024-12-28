@@ -87,7 +87,7 @@ public partial class SortedDictionary<TKey, TValue> : IDictionary<TKey, TValue>
         return dictionary._inner;
     }
 
-    public override string ToString() => _inner.ToString();
+    public override string ToString() => _inner.ToString()!;
 
     #region IDictionary<TKey,TValue> Members
 
@@ -193,7 +193,7 @@ public partial class SortedDictionary<TKey, TValue> : IDictionary<TKey, TValue>
 
     void System.Collections.Generic.IDictionary<TKey, TValue>.Add(TKey key, TValue value) => _inner.Add(key, value);
 
-    bool System.Collections.Generic.IDictionary<TKey, TValue>.TryGetValue(TKey key, out TValue value) => _inner.TryGetValue(key, out value);
+    bool System.Collections.Generic.IDictionary<TKey, TValue>.TryGetValue(TKey key, out TValue value) => _inner.TryGetValue(key, out value!);
 
     public bool ContainsKey(TKey key) => _inner.ContainsKey(key);
 

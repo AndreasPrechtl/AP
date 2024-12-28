@@ -126,11 +126,11 @@ public abstract class Converters : StaticType
         return null;
     }
 
-    public static Converter<TInput, TOutput> GetConverter<TInput, TOutput>()
+    public static Converter<TInput, TOutput>? GetConverter<TInput, TOutput>()
     {
         if (HasManager)
         {
-            Converter<TInput, TOutput> c = Manager.GetConverter<TInput, TOutput>();                
+            var c = Manager.GetConverter<TInput, TOutput>();                
             if (c != null)
                 return c;
         }
@@ -140,14 +140,14 @@ public abstract class Converters : StaticType
             Type inputType = typeof(TInput);
             Type outputType = typeof(TOutput);
 
-            TypeConverter typeConverter = _originalTypeDescriptionProvider.GetTypeDescriptor(inputType).GetConverter();
-
-            if (typeConverter.CanConvertFrom(inputType))
+            var typeConverter = _originalTypeDescriptionProvider.GetTypeDescriptor(inputType)?.GetConverter();
+                        
+            if (typeConverter?.CanConvertFrom(inputType) is true)
                 return new TypeConverterWrapper<TInput, TOutput>(typeConverter, UsedTypeConverterMethod.From);
 
-            typeConverter = _originalTypeDescriptionProvider.GetTypeDescriptor(outputType).GetConverter();
+            typeConverter = _originalTypeDescriptionProvider.GetTypeDescriptor(outputType)?.GetConverter();
 
-            if (typeConverter.CanConvertTo(outputType))
+            if (typeConverter?.CanConvertTo(outputType) is true)
                 return new TypeConverterWrapper<TInput, TOutput>(typeConverter, UsedTypeConverterMethod.To);
         }
 

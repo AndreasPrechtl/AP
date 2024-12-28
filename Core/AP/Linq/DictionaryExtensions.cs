@@ -86,6 +86,7 @@ public static class DictionaryExtensions
     }
     
     public static bool Add<TKey, TValue>(this System.Collections.Generic.IDictionary<TKey, TValue> dictionary, TKey key, TValue value)
+        where TKey : notnull
     {
         if (dictionary is AP.Collections.IDictionary<TKey, TValue> d)
             return d.Add(key, value);
@@ -125,6 +126,7 @@ public static class DictionaryExtensions
     }
 
     public static void Remove<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, IEnumerable<KeyValuePair<TKey, TValue>> items)
+        where TKey : notnull
     {
         if (dictionary is AP.Collections.IDictionary<TKey, TValue> d)
             d.Remove(items);

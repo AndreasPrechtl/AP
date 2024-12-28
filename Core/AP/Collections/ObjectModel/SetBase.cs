@@ -128,5 +128,7 @@ public abstract class SetBase<T> : CollectionBase<T>, ISet<T>
 
     public abstract void Clear();
 
-    #endregion     
+    void System.Collections.Generic.ICollection<T>.CopyTo(T[] array, int arrayIndex) => CollectionsHelper.CopyTo(this, array, arrayIndex);
+
+    #endregion
 }

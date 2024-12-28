@@ -19,9 +19,7 @@ public abstract class CollectionBase<T> : ICollection<T>
     #region ICollection<T> Members
 
     public abstract int Count { get; }
-
-    public virtual void CopyTo(T[] array, int arrayIndex = 0) => CollectionsHelper.CopyTo<T>(this, array, arrayIndex);
-
+        
     public virtual bool Contains(T item)
     {
         foreach (T current in this)

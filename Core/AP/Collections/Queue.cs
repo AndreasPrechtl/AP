@@ -44,7 +44,7 @@ public class Queue<T> : IQueue<T>, IEqualityComparerUser<T>
         _comparer = comparer;
     }
 
-    public override string ToString() => _inner.ToString();
+    public override string? ToString() => _inner.ToString();
 
     public static Queue<T> Wrap(SCG.Queue<T> queue, IEqualityComparer<T>? comparer = null) => new(queue, comparer ?? EqualityComparer<T>.Default);
 
@@ -85,9 +85,7 @@ public class Queue<T> : IQueue<T>, IEqualityComparerUser<T>
     #region ICollection<T> Members
 
     public int Count => _inner.Count;
-
-    public void CopyTo(T[] array, int arrayIndex = 0) => _inner.CopyTo(array, arrayIndex);
-
+    
     public bool Contains(T item)
     {
         foreach (T current in _inner)

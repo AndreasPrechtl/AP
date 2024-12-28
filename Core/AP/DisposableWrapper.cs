@@ -13,6 +13,7 @@ internal interface IDisposableWrapperInternal : AP.IDisposable
 /// </summary>
 /// <typeparam name="T"></typeparam>
 public sealed class DisposableWrapper<T> : DisposableObject, IWrapper<T>, IDisposableWrapperInternal
+    where T : notnull
 {
     private T _value;
     private readonly bool _canDisposeInstance;
@@ -20,14 +21,13 @@ public sealed class DisposableWrapper<T> : DisposableObject, IWrapper<T>, IDispo
     public DisposableWrapper(T value, object? contextKey = null, bool canDisposeValue = true)
         : base(contextKey)
     {
-        if (value == null)
-            throw new ArgumentNullException(nameof(value));
+        ArgumentNullException.ThrowIfNull(value);
 
         _value = value; 
         _canDisposeInstance = canDisposeValue;
         
-        if (value is AP.IDisposable)
-            ((AP.IDisposable)value).Disposing += this.OnValueDisposing;             
+        if (value is AP.IDisposable disposable)
+            disposable.Disposing += this.OnValueDisposing;             
     }
 
     public bool CanDisposeInstance => _canDisposeInstance;
@@ -45,8 +45,8 @@ public sealed class DisposableWrapper<T> : DisposableObject, IWrapper<T>, IDispo
     {
         T value = _value;
 
-        if (value != null)
-            ((AP.IDisposable)value).Disposing -= this.OnValueDisposing;
+        if (value is AP.IDisposable disposable)
+            disposable.Disposing -= this.OnValueDisposing;
         
         this.Dispose();
     }
@@ -61,29 +61,29 @@ public sealed class DisposableWrapper<T> : DisposableObject, IWrapper<T>, IDispo
             T value = _value;
             if (value != null)
             {
-                if (value is AP.IDisposable)
-                    ((AP.IDisposable)value).Disposing -= this.OnValueDisposing;
+                if (value is AP.IDisposable disposable)
+                    disposable.Disposing -= this.OnValueDisposing;
 
                 value.TryDispose();
             }                
         }
-        _value = default;
+        _value = default!;
 
         base.CleanUpResources();
     }
 
-    public override bool Equals(object obj)
+    public override bool Equals(object? obj)
     {
         this.ThrowIfDisposed();
 
-        if (obj == null)
+        if (obj is null)
             return false;
 
         if (this == obj)
             return true;
 
-        if (obj is IDisposableWrapperInternal)
-            return _value.Equals(((IDisposableWrapperInternal)obj).Value);
+        if (obj is IDisposableWrapperInternal wrapper)
+            return _value.Equals(wrapper.Value);
 
         return _value.Equals(obj);
     }
@@ -97,7 +97,7 @@ public sealed class DisposableWrapper<T> : DisposableObject, IWrapper<T>, IDispo
     public override string ToString()
     {
         this.ThrowIfDisposed();
-        return _value.ToString();
+        return _value.ToString()!;
     }
 
     public static implicit operator T(DisposableWrapper<T> wrapper)

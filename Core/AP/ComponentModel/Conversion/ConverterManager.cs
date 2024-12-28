@@ -46,7 +46,7 @@ public sealed partial class ConverterManager : DisposableObject, IConverterManag
         ArgumentNullException.ThrowIfNull(converter);
 
         Key key = CreateKey(converter);
-        Item item = this.GetItem(key, false);
+        var item = this.GetItem(key, false);
 
         if (item != null)
         {
@@ -67,6 +67,7 @@ public sealed partial class ConverterManager : DisposableObject, IConverterManag
     private static Key CreateKey(Converter converter) => CreateKey(converter.InputType, converter.OutputType);
 
     private static Key CreateKey<TInput, TOutput>(Converter<TInput, TOutput> converter)
+        where TInput : notnull
     {
         if (converter != null)
             return CreateKey(converter);
@@ -82,7 +83,7 @@ public sealed partial class ConverterManager : DisposableObject, IConverterManag
 
     public bool Contains(Converter converter) => converter.Equals(this.GetConverter(CreateKey(converter), false, false));
 
-    private Converter CreateLinkedConverter(Type inputType, Type outputType)
+    private Converter? CreateLinkedConverter(Type inputType, Type outputType)
     {
         // patched to work with item (changed the cast and added the select clause)
         AP.Collections.List<Converter> converters = new(_map.Values.Select(p => p.Converter));
@@ -145,14 +146,14 @@ public sealed partial class ConverterManager : DisposableObject, IConverterManag
             }
         }
         if (results.Count > 0)
-            return (Converter)Activator.CreateInstance(typeof(LinkedConverter<,>).MakeGenericType(inputType, outputType), results);
+            return (Converter)Activator.CreateInstance(typeof(LinkedConverter<,>).MakeGenericType(inputType, outputType), results)!;
         
         return null;
     }
 
-    private Converter GetConverter(Key key, bool advancedSearch = true, bool createAndRegisterAlternatives = true)
+    private Converter? GetConverter(Key key, bool advancedSearch = true, bool createAndRegisterAlternatives = true)
     {
-        Item item = this.GetItem(key, advancedSearch);
+        var item = this.GetItem(key, advancedSearch);
 
         if (item != null)
         {
@@ -171,7 +172,7 @@ public sealed partial class ConverterManager : DisposableObject, IConverterManag
         // the advanced search failed - so try to build a generated converter
         if (createAndRegisterAlternatives)
         {
-            Converter linked = this.CreateLinkedConverter(key.InputType, key.OutputType);
+            var linked = this.CreateLinkedConverter(key.InputType, key.OutputType);
 
             if (linked != null)
             {                    
@@ -185,11 +186,11 @@ public sealed partial class ConverterManager : DisposableObject, IConverterManag
         return null;
     }
 
-    private Item GetItem(Key key, bool advancedSearch = true)
+    private Item? GetItem(Key key, bool advancedSearch = true)
     {
         // create a key
 
-        if (_map.TryGetValue(key, out Item found) || !advancedSearch)
+        if (_map.TryGetValue(key, out Item? found) || !advancedSearch)
             return found;
 
         // iterate and narrow down the search - holy crap it#s hot here >_<
@@ -213,9 +214,11 @@ public sealed partial class ConverterManager : DisposableObject, IConverterManag
         return found;
     }
 
-    public Converter GetConverter(Type inputType, Type outputType) => this.GetConverter(CreateKey(inputType, outputType));
+    public Converter? GetConverter(Type inputType, Type outputType) => this.GetConverter(CreateKey(inputType, outputType));
 
-    public Converter<TInput, TOutput> GetConverter<TInput, TOutput>() => (Converter<TInput, TOutput>)this.GetConverter(CreateKey<TInput, TOutput>(), true);
+    public Converter<TInput, TOutput>? GetConverter<TInput, TOutput>() 
+        where TInput : notnull 
+        => this.GetConverter(CreateKey<TInput, TOutput>(), true) as Converter<TInput, TOutput>;
 
     #endregion
 

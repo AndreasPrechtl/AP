@@ -37,6 +37,7 @@ public static class QueryableExtensions
     }
     public static IOrderedQueryable<T> Reverse<T>(this IOrderedQueryable<T> source, bool reverseThenByExpressions = true)
     {
+        ArgumentNullException.ThrowIfNull(source);
         OrderExpressionVisitor visitor = new() { _reverseThenByExpressions = reverseThenByExpressions };
 
         System.Linq.Expressions.Expression e = visitor.Visit(source.Expression);
@@ -96,6 +97,7 @@ public static class QueryableExtensions
 
     public static T LastOrDefault<T>(this IOrderedQueryable<T> source, Expression<Func<T, bool>>? predicate = null)
     {
+        ArgumentNullException.ThrowIfNull(source);
         if (predicate != null)
             return Reverse(source).FirstOrDefault(predicate);
         else

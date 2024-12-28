@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
+using System.Threading.Tasks;
 
 namespace AP;
 
@@ -14,14 +15,14 @@ public abstract class DisposableObject : IDisposable
     /// <summary>
     /// Fired when the object is about to be disposed.
     /// </summary>
-    public event DisposingEventHandler Disposing;
+    public event DisposingEventHandler? Disposing;
 
     /// <summary>
     /// Fired when the object has been disposed.
     /// </summary>
-    public event DisposedEventHandler Disposed;
+    public event DisposedEventHandler? Disposed;
 
-    private object _contextKey;
+    private object? _contextKey;
 
     /// <summary>
     /// Creates a new inherited DisposableObject
@@ -32,11 +33,7 @@ public abstract class DisposableObject : IDisposable
         _contextKey = contextKey;
     }
 
-    /// <summary>
-    /// Disposes the object when the ContextKey is null.
-    /// </summary>
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1063:ImplementIDisposableCorrectly")]
-    public void Dispose() => this.Dispose(null);
+    void System.IDisposable.Dispose() => this.Dispose();
 
     internal virtual void SuppressFinalizeIfNeeded()
     { }
@@ -44,24 +41,14 @@ public abstract class DisposableObject : IDisposable
     /// <summary>
     /// Raises the Disposing event
     /// </summary>
-    /// <param name="e">The eventargs that should be used.</param>
-    protected void OnDisposing(EventArgs? e = null)
-    {
-        DisposingEventHandler handler = this.Disposing;
-        if (handler != null)
-            handler(this, e ?? EventArgs.Empty);
-    }
-
+    /// <param name="e">The EventArgs that should be used.</param>
+    protected void OnDisposing(EventArgs? e = null) => this.Disposing?.Invoke(this, e ?? EventArgs.Empty);        
+    
     /// <summary>
     /// Raises the Disposed event.
     /// </summary>
-    /// <param name="e">The eventargs that should be used.</param>
-    protected void OnDisposed(EventArgs? e = null)
-    {            
-        DisposedEventHandler handler = this.Disposed;
-        if (handler != null)
-            handler(this, e ?? EventArgs.Empty);
-    }
+    /// <param name="e">The EventArgs that should be used.</param>
+    protected void OnDisposed(EventArgs? e = null) => this.Disposed?.Invoke(this, e ?? EventArgs.Empty);
 
     /// <summary>
     /// Customizable cleanup code.
@@ -80,10 +67,10 @@ public abstract class DisposableObject : IDisposable
     protected void ThrowIfDisposed()
     {
         if (_isDisposed)
-            throw new ObjectDisposedException("Object is already disposed", (Exception)null);
+            throw new ObjectDisposedException("Object is already disposed", default(Exception));
     }
 
-    public override bool Equals(object obj)
+    public override bool Equals(object? obj)
     {
         this.ThrowIfDisposed();
         return base.Equals(obj);
@@ -98,7 +85,7 @@ public abstract class DisposableObject : IDisposable
     public override string ToString()
     {
         this.ThrowIfDisposed();
-        return base.ToString();
+        return base.ToString()!;
     }
 
     #region IContextualDisposable Members
@@ -107,12 +94,11 @@ public abstract class DisposableObject : IDisposable
     /// Disposes the instance.
     /// </summary>
     /// <param name="contextKey">The contextKey for disposing the object.</param>        
-    public void Dispose(object contextKey)
+    public void Dispose(object? contextKey = null)
     {            
         if (!_isDisposed)
         {
-            // use equals or referencial equality?
-            if (_contextKey == null || object.Equals(_contextKey, contextKey))
+            if (_contextKey?.Equals(contextKey) is true)
             {
                 this.OnDisposing(EventArgs.Empty);
 
@@ -125,7 +111,6 @@ public abstract class DisposableObject : IDisposable
                 // remove the event listeners
                 this.Disposing = null;
                 this.Disposed = null;
-
                 _contextKey = null;
 
                 this.SuppressFinalizeIfNeeded();
@@ -135,10 +120,18 @@ public abstract class DisposableObject : IDisposable
         }
     }
 
+    ValueTask IAsyncDisposable.DisposeAsync() => this.DisposeAsync();
+
+    public ValueTask DisposeAsync(object? contextKey = null)
+    {
+        this.Dispose(contextKey);
+        return ValueTask.CompletedTask;
+    }
+
     /// <summary>
     /// The context key for disposing the object.
     /// </summary>
-    protected object ContextKey => _contextKey;
+    protected object? ContextKey => _contextKey;
 
     #endregion
 }

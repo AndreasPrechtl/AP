@@ -9,6 +9,7 @@ namespace AP.ComponentModel.Conversion;
 /// <typeparam name="TInput"></typeparam>
 /// <typeparam name="TOutput"></typeparam>
 public abstract class Converter<TInput, TOutput> : Converter
+    where TInput : notnull
 {     
     protected Converter()
         : base(typeof(TInput), typeof(TOutput))
@@ -27,7 +28,7 @@ public abstract class Converter<TInput, TOutput> : Converter
             return true;
         }
 
-        output = default;
+        output = default!;
 
         return false;            
     }
@@ -42,8 +43,7 @@ public abstract class Converter<TInput, TOutput> : Converter
     {
         TOutput? o = default;
 
-        bool b = (input is TInput) && this.TryConvert((TInput)input, out o, inputCulture, outputCulture);
-
+        bool b = (input is TInput typedInput) && this.TryConvert(typedInput, out o, inputCulture, outputCulture);
         output = o;
 
         return b;

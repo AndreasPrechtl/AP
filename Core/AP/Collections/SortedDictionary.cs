@@ -237,6 +237,8 @@ public partial class SortedDictionary<TKey, TValue> : IDictionary<TKey, TValue>
 
     #region System.Collections.Generic.ICollection<KeyValuePair<TKey,TValue>> Members
 
+    void System.Collections.Generic.ICollection<KeyValuePair<TKey, TValue>>.CopyTo(KeyValuePair<TKey, TValue>[] array, int arrayIndex) => CollectionsHelper.CopyTo(this, array, arrayIndex);
+
     void System.Collections.Generic.ICollection<KeyValuePair<TKey, TValue>>.Add(KeyValuePair<TKey, TValue> item) => ((System.Collections.Generic.ICollection<KeyValuePair<TKey, TValue>>)_inner).Add(item);
 
     bool System.Collections.Generic.ICollection<KeyValuePair<TKey, TValue>>.IsReadOnly => false;
@@ -246,8 +248,6 @@ public partial class SortedDictionary<TKey, TValue> : IDictionary<TKey, TValue>
     bool System.Collections.Generic.ICollection<KeyValuePair<TKey, TValue>>.Contains(KeyValuePair<TKey, TValue> item) => this.Contains(item, false);
 
     public void Clear() => _inner.Clear();
-
-    public void CopyTo(KeyValuePair<TKey, TValue>[] array, int arrayIndex) => _inner.CopyTo(array, arrayIndex);
 
     public int Count => _inner.Count;
 

@@ -84,7 +84,7 @@ public abstract partial class DictionaryBase<TKey, TValue> : CollectionBase<KeyV
     {
         if (compareValues)
         {
-            return this.Contains(item.Key, out TValue value) && value.Equals(item.Value);
+            return this.Contains(item.Key, out TValue? value) && value!.Equals(item.Value);
         }
 
         return this.ContainsKey(item.Key);
@@ -101,7 +101,7 @@ public abstract partial class DictionaryBase<TKey, TValue> : CollectionBase<KeyV
             }
         }
 
-        value = default;
+        value = default!;
         return false;
     }
 

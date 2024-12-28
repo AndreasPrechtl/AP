@@ -205,7 +205,7 @@ public partial class Dictionary<TKey, TValue> : IDictionary<TKey, TValue>
 
     public bool Remove(TKey key) => _inner.Remove(key);
 
-    public bool Contains(TKey key, out TValue value) => _inner.TryGetValue(key, out value);
+    public bool Contains(TKey key, out TValue value) => _inner.TryGetValue(key, out value!);
 
     public bool TryGetValue(TKey key, out TValue value)
     {

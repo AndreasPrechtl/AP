@@ -65,8 +65,8 @@ public static class Events
 
         foreach (EventInfo current in type.GetEvents(flags))
         {
-            FieldInfo fi = type.GetField(current.Name, flags);
-            fi.SetValue(source, null);               
+            FieldInfo? fi = type.GetField(current.Name, flags);
+            fi?.SetValue(source, null);               
         }
     }
 

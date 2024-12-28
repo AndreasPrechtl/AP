@@ -67,7 +67,7 @@ public static class Enumerable
     public static AP.Collections.Dictionary<TKey, TElement> ToDictionary<TKey, TElement>(this IEnumerable<TElement> collection, Func<TElement, TKey> keySelector, IEqualityComparer<TKey>? keyComparer = null, IEqualityComparer<TElement>? valueComparer = null)
         where TKey : notnull
     {
-        AP.Collections.Dictionary<TKey, TElement> d = new(keyComparer, valueComparer);
+        AP.Collections.Dictionary<TKey, TElement> d = new(keyComparer!, valueComparer!);
 
         foreach (TElement current in collection)
         {
@@ -84,7 +84,7 @@ public static class Enumerable
     public static AP.Collections.Dictionary<TKey, TElement> ToDictionary<TKey, TElement, TSource>(this IEnumerable<TSource> collection, Func<TSource, TKey> keySelector, Func<TSource, TElement> elementSelector, IEqualityComparer<TKey>? keyComparer = null, IEqualityComparer<TElement>? valueComparer = null)
         where TKey : notnull
     {
-        AP.Collections.Dictionary<TKey, TElement> d = new(keyComparer, valueComparer);
+        AP.Collections.Dictionary<TKey, TElement> d = new(keyComparer!, valueComparer!);
 
         foreach (TSource current in collection)
         {

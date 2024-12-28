@@ -95,7 +95,7 @@ public static class QueryableExtensions
             return Reverse(source).First();
     }
 
-    public static T LastOrDefault<T>(this IOrderedQueryable<T> source, Expression<Func<T, bool>>? predicate = null)
+    public static T? LastOrDefault<T>(this IOrderedQueryable<T> source, Expression<Func<T, bool>>? predicate = null)
     {
         ArgumentNullException.ThrowIfNull(source);
         if (predicate != null)
@@ -107,8 +107,7 @@ public static class QueryableExtensions
 
     public static IOrderedQueryable<T> Sort<T, TKey>(this IQueryable<T> source, Expression<Func<T, TKey>> keySelector, SortDirection sortDirection, IComparer<TKey>? keyComparer = null)
     {
-        if (sortDirection == SortDirection.Unsorted)
-            ArgumentNullException.ThrowIfNull(sortDirection);
+        ArgumentOutOfRangeException.ThrowIfEqual((sbyte)sortDirection, (sbyte)SortDirection.Unsorted, nameof(sortDirection));
 
         if (keyComparer == null)
         {

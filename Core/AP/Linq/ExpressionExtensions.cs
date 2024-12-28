@@ -66,5 +66,5 @@ public static class ExpressionExtensions
     /// <typeparam name="T"></typeparam>
     /// <param name="expression"></param>
     /// <returns></returns>
-    public static T Evaluate<T>(this Expression expression, params object[] args) => (T)Evaluate(expression, args);
+    public static T? Evaluate<T>(this Expression expression, params object[] args) => (T?)Evaluate(expression, args);
 }

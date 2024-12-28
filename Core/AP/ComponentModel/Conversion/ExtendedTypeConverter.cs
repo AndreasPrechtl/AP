@@ -50,7 +50,7 @@ public sealed class ExtendedTypeConverter : TypeConverter
         if (base.CanConvertFrom(context, value!.GetType()))
             return base.ConvertFrom(context, culture, value);
 
-        if (context?.Instance != null && this.HasManager && _manager.NonGeneric.TryConvert(value, context.Instance.GetType(), out var output, null, culture))
+        if (context?.Instance != null && this.HasManager && _manager.NonGeneric.TryConvert(value!, context.Instance.GetType(), out var output, null, culture))
             return output;
 
         return null;
@@ -61,7 +61,7 @@ public sealed class ExtendedTypeConverter : TypeConverter
         if (base.CanConvertTo(context, destinationType))
             return base.ConvertTo(context, culture, value, destinationType);
 
-        if (context != null && this.HasManager && _manager.NonGeneric.TryConvert(value, destinationType, out object output, null, culture))
+        if (context != null && this.HasManager && _manager.NonGeneric.TryConvert(value!, destinationType, out object? output, null, culture))
             return output;
 
         return null;

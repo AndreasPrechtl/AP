@@ -85,7 +85,7 @@ public class Deferrable<T> : FreezableObject, IWrapper<T>
     {
         get
         {
-            object dv = _defaultValue;
+            object? dv = _defaultValue;
             
             if (dv == null)
                 _defaultValue = dv = _activator();

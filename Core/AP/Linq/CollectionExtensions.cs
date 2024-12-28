@@ -10,7 +10,7 @@ public static class CollectionExtensions
         for (IEnumerator<T> enumerator = from.GetEnumerator(); enumerator.MoveNext(); )
         {                
             T current = enumerator.Current;
-            enumerator = null;
+            enumerator = null!;
             from.Remove(current);
             to.Add(current);
             enumerator = from.GetEnumerator();

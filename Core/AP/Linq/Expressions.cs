@@ -55,11 +55,14 @@ public abstract class Expressions : System.Linq.Expressions.Expression
             i++;
         }
 
-        MethodCallExpression c = null;
+        MethodCallExpression? c = null;
         if (m.Target == null)
             c = Expressions.StaticCall(m.Method, pes);
         else
             c = Expressions.InstanceCall(Expression.Constant(m.Target), m.Method, pes);
+
+        if (c is null)
+            throw new InvalidOperationException("not a MethodCallExpression");
 
         return Expression.Lambda<TDelegate>(c, pes);
     }

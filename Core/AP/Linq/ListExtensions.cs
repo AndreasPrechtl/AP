@@ -50,9 +50,9 @@ public static class ListExtensions
             ((System.Collections.Generic.List<T>)list).RemoveRange(index, count);
         else
         {
-            if (index < 0 || index + count >= list.Count)
-                throw new ArgumentOutOfRangeException("index or count");
-
+            ArgumentOutOfRangeException.ThrowIfNegative(index);
+            ArgumentOutOfRangeException.ThrowIfGreaterThanOrEqual(index + count, list.Count);
+            
             for (int i = 0; i < count; ++i)
                 list.RemoveAt(index++);
         }
@@ -65,7 +65,7 @@ public static class ListExtensions
         else
             CollectionsHelper.Move<T>(list, index, newIndex, count);            
     }
-    public static bool TryGetItem<T>(this System.Collections.Generic.IList<T> list, int index, out T value)
+    public static bool TryGetItem<T>(this System.Collections.Generic.IList<T> list, int index, out T? value)
     {
         if (list is AP.Collections.IListView<T>)
             return ((AP.Collections.IListView<T>)list).TryGetItem(index, out value);

@@ -10,13 +10,11 @@ namespace AP.IO.MetaData;
 public abstract class FileSystemEntryMetaDataBase : IFileSystemEntryMetaData
 {
     protected readonly IHierarchicalUri _uri;
-    private object _security;
     private FileSystemEntryAttributes _attributes;
 
     internal FileSystemEntryMetaDataBase(IHierarchicalUri uri)
     {
         ArgumentNullException.ThrowIfNull(uri);
-
         _uri = uri;
     }
 
@@ -35,67 +33,37 @@ public abstract class FileSystemEntryMetaDataBase : IFileSystemEntryMetaData
     /// <summary>
     /// Gets or sets the security.
     /// </summary>
-    public virtual object Security
-    {
-        get => _security;
-        set => _security = value;
-    }
+    public virtual object? Security { get; init; }
 
     /// <summary>
-    /// Gets or sets the file or directory attribues.
+    /// Gets or sets the file or directory attributes.
     /// </summary>
     public FileSystemEntryAttributes Attributes
     {
         get => this.AttributesInternal;
-        set => this.AttributesInternal = value;
+        init => this.AttributesInternal = value;
     }
-
-    private DateTimeOffset _dateAccessed, _dateModified, _dateCreated;
 
     /// <summary>
     /// Gets or sets the last access date/time.
     /// </summary>
-    public DateTimeOffset DateAccessed
-    {
-        get => _dateAccessed;
-        set =>
-            //if (value < _dateCreated)
-            //    throw new ArgumentOutOfRangeException("value");
-
-            _dateAccessed = value;
-    }
+    public DateTimeOffset DateAccessed { get; init; }
 
     /// <summary>
     /// Gets or sets the creation date/time.
     /// </summary>
-    public DateTimeOffset DateCreated
-    {
-        get => _dateCreated;
-        set =>
-            //if (value > _dateModified || value > _dateAccessed)
-            //    throw new ArgumentOutOfRangeException("value");
-
-            _dateCreated = value;
-    }
+    public DateTimeOffset DateCreated { get; init; }
 
     /// <summary>
     /// Gets or sets the last write date/time.
     /// </summary>
-    public DateTimeOffset DateModified
-    {
-        get => _dateModified;
-        set =>
-            //if (value < _dateCreated)
-            //    throw new ArgumentOutOfRangeException("value");
-
-            _dateModified = value;
-    }
+    public DateTimeOffset DateModified { get; init; }
 
     #endregion
 
     internal virtual FileSystemEntryAttributes AttributesInternal
     {
         get => _attributes;
-        set => _attributes = value;
+        init => _attributes = value;
     }
 }

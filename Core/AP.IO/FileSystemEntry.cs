@@ -20,7 +20,7 @@ public abstract class FileSystemEntry
         if (fullName.IsNullOrWhiteSpace())
             throw new ArgumentNullException(nameof(fullName));
 
-        ConstructorInfo ci = this.GetType().GetConstructor(new Type[] { typeof(string) });
+        var ci = this.GetType().GetConstructor([typeof(string)]);
 
         if (ci != null)
             throw new InvalidOperationException("FileSystemEntries cannot have a public constructor.");
@@ -43,7 +43,7 @@ public abstract class FileSystemEntry
     /// <summary>
     /// Gets the parent directory.
     /// </summary>
-    public Directory Parent => FileSystem.Context.GetParent(this);
+    public Directory? Parent => FileSystem.Context.GetParent(this);
 
     /// <summary>
     /// Gets the size.
@@ -60,16 +60,6 @@ public abstract class FileSystemEntry
     /// </summary>
     public string Name => _name.Value;
 
-    /// <summary>
-    /// Encrypts the file or directory.
-    /// </summary>
-    public abstract void Encrypt();
-
-    /// <summary>
-    /// Decrypts the file or directory.
-    /// </summary>
-    public abstract void Decrypt();
-    
     internal abstract FileSystemSecurity SecurityInternal { get; set; }
     internal abstract FileSystemEntryAttributes AttributesInternal { get; set; }
     

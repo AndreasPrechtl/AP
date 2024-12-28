@@ -20,25 +20,25 @@ public interface IFileSystemEntryMetaData
     /// <summary>
     /// Gets or sets the file or directory security.
     /// </summary>
-    object Security { get; set; }
+    object? Security { get; }
 
     /// <summary>
     /// Gets or sets the file or directory attributes.
     /// </summary>
-    FileSystemEntryAttributes Attributes { get; set; }
+    FileSystemEntryAttributes Attributes { get; }
 
     /// <summary>
     /// Gets or sets the last access date/time.
     /// </summary>
-    DateTimeOffset DateAccessed { get; set; }
+    DateTimeOffset DateAccessed { get; }
 
     /// <summary>
     /// Gets or sets the creation date/time.
     /// </summary>
-    DateTimeOffset DateCreated { get; set; }
+    DateTimeOffset DateCreated { get; }
 
     /// <summary>
     /// Gets or sets the last write date/time.
     /// </summary>
-    DateTimeOffset DateModified { get; set; }
+    DateTimeOffset DateModified { get; }
 }

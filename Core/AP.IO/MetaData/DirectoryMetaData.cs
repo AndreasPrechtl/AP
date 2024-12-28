@@ -23,13 +23,13 @@ public class DirectoryMetaData : FileSystemEntryMetaDataBase, IDirectoryMetaData
     public new DirectoryAttributes Attributes
     {
         get => (DirectoryAttributes)this.AttributesInternal;
-        set => this.AttributesInternal = (FileSystemEntryAttributes)value;
+        init => this.AttributesInternal = (FileSystemEntryAttributes)value;
     }
 
     internal sealed override FileSystemEntryAttributes AttributesInternal
     {
         get => base.AttributesInternal;
-        set
+        init
         {
             if ((((DirectoryAttributes)value) & DirectoryAttributes.Normal) != DirectoryAttributes.Normal)
                 throw new ArgumentOutOfRangeException(nameof(value));

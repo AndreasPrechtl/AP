@@ -1,9 +1,9 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Runtime.InteropServices;
-using fa = System.IO.FileAttributes;
-using fo = System.IO.FileOptions;
-using fs = System.IO.FileShare;
+using FA = System.IO.FileAttributes;
+using FO = System.IO.FileOptions;
+using FS = System.IO.FileShare;
 
 namespace AP.IO;
 
@@ -13,23 +13,23 @@ namespace AP.IO;
 [Serializable, Flags, DefaultValue(FileSystemEntryAttributes.Normal)]
 public enum FileSystemEntryAttributes
 {
-    Normal = fa.Normal,
-    Archive = fa.Archive,
-    Compressed = fa.Compressed,
-    Encrypted = fa.Encrypted,
-    Hidden = fa.Hidden,
+    Normal = FA.Normal,
+    Archive = FA.Archive,
+    Compressed = FA.Compressed,
+    Encrypted = FA.Encrypted,
+    Hidden = FA.Hidden,
     [ComVisible(false)]
     IntegrityStream = 32768, // fa.IntegrityStream,
     [ComVisible(false)]
     NoScrubData = 131072, // fa.NoScrubData,
-    NotContentIndexed = fa.NotContentIndexed,
-    Offline = fa.Offline,
-    ReadOnly = fa.ReadOnly,
-    ReparsePoint = fa.ReparsePoint,
-    SparseFile = fa.SparseFile,
-    System = fa.System,
-    Temporary = fa.Temporary,
-    Device = fa.Device
+    NotContentIndexed = FA.NotContentIndexed,
+    Offline = FA.Offline,
+    ReadOnly = FA.ReadOnly,
+    ReparsePoint = FA.ReparsePoint,
+    SparseFile = FA.SparseFile,
+    System = FA.System,
+    Temporary = FA.Temporary,
+    Device = FA.Device
 }
 
 /// <summary>
@@ -38,22 +38,22 @@ public enum FileSystemEntryAttributes
 [Serializable, Flags, DefaultValue(FileAttributes.Normal)]
 public enum FileAttributes
 {
-    Normal = fa.Normal,
-    Archive = fa.Archive,
-    Compressed = fa.Compressed,
-    Encrypted = fa.Encrypted,
-    Hidden = fa.Hidden,
+    Normal = FA.Normal,
+    Archive = FA.Archive,
+    Compressed = FA.Compressed,
+    Encrypted = FA.Encrypted,
+    Hidden = FA.Hidden,
     [ComVisible(false)]
     IntegrityStream = 32768, // fa.IntegrityStream,        
     [ComVisible(false)]
     NoScrubData = 131072, // fa.NoScrubData,
-    NotContentIndexed = fa.NotContentIndexed,
-    Offline = fa.Offline,
-    ReadOnly = fa.ReadOnly,
-    ReparsePoint = fa.ReparsePoint,
-    SparseFile = fa.SparseFile,
-    System = fa.System,
-    Temporary = fa.Temporary
+    NotContentIndexed = FA.NotContentIndexed,
+    Offline = FA.Offline,
+    ReadOnly = FA.ReadOnly,
+    ReparsePoint = FA.ReparsePoint,
+    SparseFile = FA.SparseFile,
+    System = FA.System,
+    Temporary = FA.Temporary
 }
 
 /// <summary>
@@ -62,17 +62,17 @@ public enum FileAttributes
 [Serializable, Flags, DefaultValue(DirectoryAttributes.Normal)]
 public enum DirectoryAttributes
 {
-    Normal = fa.Directory,
-    Device = fa.Device,
-    System = fa.System,
-    Offline = fa.Offline,
-    Compressed = fa.Compressed,
-    Archive = fa.Archive,
-    Hidden = fa.Hidden,
-    Encrypted = fa.Encrypted,
-    ReadOnly = fa.ReadOnly,
-    Temporary = fa.Temporary,
-    NotContentIndexed = fa.NotContentIndexed,
+    Normal = FA.Directory,
+    Device = FA.Device,
+    System = FA.System,
+    Offline = FA.Offline,
+    Compressed = FA.Compressed,
+    Archive = FA.Archive,
+    Hidden = FA.Hidden,
+    Encrypted = FA.Encrypted,
+    ReadOnly = FA.ReadOnly,
+    Temporary = FA.Temporary,
+    NotContentIndexed = FA.NotContentIndexed,
     [ComVisible(false)]
     NoScrubData = 131072, // fa.NoScrubData,
     [ComVisible(false)]
@@ -85,12 +85,12 @@ public enum DirectoryAttributes
 [Serializable, Flags]
 public enum FileCreationOptions
 {
-    None = fo.None,
-    Asynchronous = fo.Asynchronous,
-    Encrypted = fo.Encrypted,        
-    RandomAccess = fo.RandomAccess,
-    SequentialScan = fo.SequentialScan,
-    WriteThrough = fo.WriteThrough
+    None = FO.None,
+    Asynchronous = FO.Asynchronous,
+    Encrypted = FO.Encrypted,        
+    RandomAccess = FO.RandomAccess,
+    SequentialScan = FO.SequentialScan,
+    WriteThrough = FO.WriteThrough
 }
 
 /// <summary>
@@ -124,9 +124,9 @@ public enum DirectorySearchFilter
 [Serializable, DefaultValue(FileShare.None)]
 public enum FileShare
 {
-    None = fs.None,
-    Read = fs.Read,
-    Write = fs.Write,
-    ReadOrWrite = fs.ReadWrite,
-    Delete = fs.Delete        
+    None = FS.None,
+    Read = FS.Read,
+    Write = FS.Write,
+    ReadOrWrite = FS.ReadWrite,
+    Delete = FS.Delete        
 }

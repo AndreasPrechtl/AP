@@ -76,16 +76,19 @@ public class FileSystemContext
     /// <param name="fullName">The full name of the FileSystemEntry.</param>
     /// <returns>The parent Directory or null.</returns>
     /// <exception cref="System.InvalidCastException">Throws an exception if the retrieved FileSystemEntry isn't a directory.</exception>
-    public virtual Directory GetParent(string fullName)
+    public virtual Directory? GetParent(string fullName)
     {               
-        string parentName = System.IO.Path.GetDirectoryName(System.IO.Path.GetFullPath(fullName));
-        
+        var parentName = System.IO.Path.GetDirectoryName(System.IO.Path.GetFullPath(fullName));
+
+        if (string.IsNullOrWhiteSpace(parentName))
+            return null;
+
         FileSystemEntry parent = this.Get(parentName);
 
-        if (parent is File)
+        if (parent is not Directory directory)
             throw new DirectoryNotFoundException(parent.FullName);
 
-        return (Directory)parent;
+        return directory;
     }
 
     /// <summary>
@@ -93,7 +96,7 @@ public class FileSystemContext
     /// </summary>
     /// <param name="source">The source.</param>
     /// <returns>The parent directory or null.</returns>
-    protected internal Directory GetParent(FileSystemEntry source) => this.GetParent(source.FullName);
+    protected internal Directory? GetParent(FileSystemEntry source) => this.GetParent(source.FullName);
 
     /// <summary>
     /// Creates a new file.
@@ -105,8 +108,8 @@ public class FileSystemContext
     /// <returns>The File object.</returns>
     public virtual File CreateFile(string fullName, FileCreationOptions options = FileCreationOptions.None, FileSecurity? security = null, bool overwrite = false)
     {
-        if (overwrite && this.Exists(fullName, out FileSystemEntry target))
-            this.Delete(target);
+        if (overwrite && this.Exists(fullName, out FileSystemEntry? target))
+            this.Delete(target!);
 
         // todo: AccessSecurity
         System.IO.File.Create(fullName, 0, (System.IO.FileOptions)options/*, security*/).Dispose();
@@ -123,8 +126,8 @@ public class FileSystemContext
     /// <returns>The Directory object.</returns>
     public virtual Directory CreateDirectory(string fullName, DirectorySecurity? security = null, bool overwrite = false)
     {
-        if (overwrite && this.Exists(fullName, out FileSystemEntry target))
-            this.Delete(target);
+        if (overwrite && this.Exists(fullName, out FileSystemEntry? target))
+            this.Delete(target!);
 
         System.IO.Directory.CreateDirectory(fullName/*, security*/);
 
@@ -150,9 +153,8 @@ public class FileSystemContext
     /// <returns>The FileSystemEntry or null.</returns>
     public FileSystemEntry Get(string fullName)
     {
-
-        if (this.TryGet(fullName, out FileSystemEntry output))
-            return output;
+        if (this.TryGet(fullName, out FileSystemEntry? output))
+            return output!;
 
         throw new ArgumentException("File or Directory does not exist.");
     }
@@ -162,7 +164,7 @@ public class FileSystemContext
     /// </summary>
     /// <param name="fullName">The full name of the FileSystemEntry.</param>
     /// <returns>The FileSystemEntry or null.</returns>
-    public bool Exists(string fullName) => this.TryGet(fullName, out FileSystemEntry output);
+    public bool Exists(string fullName) => this.TryGet(fullName, out FileSystemEntry? output);
 
     /// <summary>
     /// Gets the FileSystemEntry using the full name.
@@ -170,7 +172,7 @@ public class FileSystemContext
     /// <param name="fullName">The full name of the FileSystemEntry.</param>
     /// <param name="target">The output.</param>
     /// <returns>Returns true when a FileSystemEntry can be retrieved.</returns>
-    public bool Exists(string fullName, out FileSystemEntry target) => this.TryGet(fullName, out target);
+    public bool Exists(string fullName, out FileSystemEntry? target) => this.TryGet(fullName, out target);
 
     /// <summary>
     /// Gets the FileSystemEntry using the full name.
@@ -227,13 +229,13 @@ public class FileSystemContext
     {
         string targetName = System.IO.Path.Combine(target.FullName, newName ?? target.Name);
 
-        FileSystemEntry tmp = null;
+        bool exists = this.Exists(targetName, out var tmp);
 
-        if (overwrite && this.Exists(targetName, out tmp))
-            this.Delete(tmp);
+        if (overwrite && exists)
+            this.Delete(tmp!);
 
-        if (source is File)
-            System.IO.File.Copy(tmp.FullName, targetName);
+        if (source is File && exists)
+            System.IO.File.Copy(tmp!.FullName, targetName);
         else 
         {
             int index = source.FullName.Length - 1;
@@ -262,13 +264,13 @@ public class FileSystemContext
     {
         string targetName = System.IO.Path.Combine(target.FullName, newName ?? target.Name);
 
-        FileSystemEntry tmp = null;
+        bool exists = this.Exists(targetName, out var tmp);
 
-        if (overwrite && this.Exists(targetName, out tmp))
-            this.Delete(tmp);
+        if (overwrite && exists)
+            this.Delete(tmp!);
         
-        if (source is File)
-            System.IO.File.Move(tmp.FullName, targetName);
+        if (source is File && exists)
+            System.IO.File.Move(tmp!.FullName, targetName);
         else
         {
             int index = source.FullName.Length - 1;
@@ -278,8 +280,8 @@ public class FileSystemContext
             {
                 string currentTargetName = System.IO.Path.Combine(targetName, current.FullName.Substring(index));
 
-                if (overwrite && this.Exists(currentTargetName, out FileSystemEntry tmpTarget))
-                    this.Delete(tmpTarget);
+                if (overwrite && this.Exists(currentTargetName, out FileSystemEntry? tmpTarget))
+                    this.Delete(tmpTarget!);
 
                 if (current is File)
                     System.IO.File.Move(current.FullName, currentTargetName);
@@ -305,14 +307,14 @@ public class FileSystemContext
     /// <summary>
     /// Creates a new File instance (without inheriting).
     /// </summary>
-    /// <param name="fullName">The fullname.</param>
+    /// <param name="fullName">The fullName.</param>
     /// <returns>A File instance.</returns>
     protected static File CreateFileInstance(string fullName) => new(fullName);
 
     /// <summary>
     /// Helper method to create new Directory instances (without inheriting).
     /// </summary>
-    /// <param name="fullName">The fullname.</param>
+    /// <param name="fullName">The fullName.</param>
     /// <returns>A Directory instance.</returns>
     protected static Directory CreateDirectoryInstance(string fullName) => new(fullName);
 }    

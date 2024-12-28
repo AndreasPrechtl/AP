@@ -54,28 +54,6 @@ public class Directory : FileSystemEntry
             return size;
         }
     }
-    
-    /// <summary>
-    /// Encrypts all files in the directory (including sub-directories).
-    /// </summary>
-    public override void Encrypt()
-    {
-        foreach (FileSystemEntry current in this.Open(DirectorySearchFilter.Files | DirectorySearchFilter.IncludeSubdirectories, "*"))
-            if (current is File)
-                current.Encrypt();
-    }
-
-    /// <summary>
-    /// Decrypts all files in the directory (including sub-directories).
-    /// </summary>
-    public override void Decrypt()
-    {
-        FileSystemContext context = FileSystem.Context;
-
-        foreach (FileSystemEntry current in context.OpenDirectory(this, DirectorySearchFilter.Files | DirectorySearchFilter.IncludeSubdirectories, "*"))
-            if (current is File)
-                current.Decrypt();
-    }
 
     internal sealed override FileSystemSecurity SecurityInternal
     {
@@ -103,7 +81,7 @@ public class Directory : FileSystemEntry
             ownsAlgorithm = true;
         }
 
-        byte[] hash = null;
+        byte[] hash = null!;
 
         using (MemoryStream ms = new())
         {

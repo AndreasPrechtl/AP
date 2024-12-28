@@ -8,7 +8,7 @@ namespace AP.IO;
 /// </summary>
 public abstract class FileSystem : StaticType
 {
-    private static volatile FileSystemContext _context;
+    private static volatile FileSystemContext _context = null!;
 
     /// <summary>
     /// Gets the currently used FileSystemContext.
@@ -50,7 +50,7 @@ public abstract class FileSystem : StaticType
                 throw new InvalidOperationException("Not initialized");
 
             _context.Dispose();
-            _context = null;
+            _context = null!;
         }
     }
 
@@ -67,7 +67,7 @@ public abstract class FileSystem : StaticType
     /// <param name="fullName">The full name of the FileSystemEntry.</param>
     /// <param name="target">The output.</param>
     /// <returns>Returns true when a FileSystemEntry can be retrieved.</returns>
-    public static bool TryGet(string fullName, out FileSystemEntry target) => Context.TryGet(fullName, out target);
+    public static bool TryGet(string fullName, out FileSystemEntry? target) => Context.TryGet(fullName, out target);
 
     /// <summary>
     /// Gets the FileSystemEntry using the full name.
@@ -82,14 +82,14 @@ public abstract class FileSystem : StaticType
     /// <param name="fullName">The full name of the FileSystemEntry.</param>
     /// <param name="target">The output.</param>
     /// <returns>Returns true when a FileSystemEntry can be retrieved.</returns>
-    public static bool Exists(string fullName, out FileSystemEntry target) => Context.Exists(fullName, out target);
+    public static bool Exists(string fullName, out FileSystemEntry? target) => Context.Exists(fullName, out target);
 
     /// <summary>
     /// Returns the parent directory using the fullname of an existing file or directory.
     /// </summary>
     /// <param name="fullName">The fullname of the file or directory.</param>
     /// <returns>The parent directory.</returns>
-    public static Directory GetParent(string fullName) => Context.GetParent(fullName);
+    public static Directory? GetParent(string fullName) => Context.GetParent(fullName);
 
     /// <summary>
     /// Copies a file or directory into a target directory.

@@ -8,5 +8,5 @@ public interface IDirectoryMetaData : IFileSystemEntryMetaData
     /// <summary>
     /// Gets or sets the directory attributes.
     /// </summary>
-    new DirectoryAttributes Attributes { get; set; }
+    new DirectoryAttributes Attributes { get; }
 }        

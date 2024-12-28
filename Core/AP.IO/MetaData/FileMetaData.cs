@@ -28,13 +28,13 @@ public class FileMetaData : FileSystemEntryMetaDataBase, IFileMetaData
     public new FileAttributes Attributes
     {
         get => (FileAttributes)this.AttributesInternal;
-        set => this.AttributesInternal = (FileSystemEntryAttributes)value;
+        init => this.AttributesInternal = (FileSystemEntryAttributes)value;
     }
 
     internal sealed override FileSystemEntryAttributes AttributesInternal
     {
         get => base.AttributesInternal;
-        set
+        init
         {
             if ((((FileAttributes)value) & FileAttributes.Normal) != FileAttributes.Normal)
                 throw new ArgumentOutOfRangeException(nameof(value));

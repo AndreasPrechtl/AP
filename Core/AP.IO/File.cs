@@ -30,15 +30,6 @@ public class File : FileSystemEntry
     /// </summary>
     public override BigInteger Size => (BigInteger)new System.IO.FileInfo(this.FullName).Length;
 
-    /// <summary>
-    /// Encrypts the file.
-    /// </summary>
-    public override void Encrypt() => System.IO.File.Encrypt(this.FullName);
-
-    /// <summary>
-    /// Decrypts the file.
-    /// </summary>
-    public override void Decrypt() => System.IO.File.Decrypt(this.FullName);
 
     /// <summary>
     /// Calculates the checksum.

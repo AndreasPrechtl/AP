@@ -8,7 +8,7 @@ public interface IFileMetaData : IFileSystemEntryMetaData
     /// <summary>
     /// Gets or sets the file attributes.
     /// </summary>
-    new FileAttributes Attributes { get; set; }
+    new FileAttributes Attributes { get; }
 
     /// <summary>
     /// Gets the file extension.

@@ -7,6 +7,7 @@ namespace AP.Collections.ObjectModel;
 [System.ComponentModel.ReadOnly(true)]
 public class DictionaryKeyCollection<TDictionary, TKey, TValue> : CollectionBase<TKey>, System.Collections.Generic.ICollection<TKey>
     where TDictionary : IDictionaryView<TKey, TValue>
+    where TKey : notnull
 {
     private readonly TDictionary _dictionary;
 

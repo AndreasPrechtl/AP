@@ -11,7 +11,7 @@ public abstract class ExtendableList<T> : ListBase<T>, IUnsortedList<T>, IEquali
     private readonly AP.Collections.List<T> _inner;
 
     public ExtendableList()
-        : this(0, null)
+        : this(0, null!)
     { }
 
     public ExtendableList(IEqualityComparer<T> comparer)
@@ -19,15 +19,15 @@ public abstract class ExtendableList<T> : ListBase<T>, IUnsortedList<T>, IEquali
     { }
 
     public ExtendableList(int capacity)
-        : this(capacity, null)
+        : this(capacity, null!)
     { }
 
     public ExtendableList(int capacity, IEqualityComparer<T> comparer)
         : this(new AP.Collections.List<T>(capacity, comparer))
     { }
 
-    public ExtendableList(IEnumerable<T> collection)
-        : this(collection, null)
+    public ExtendableList(params IEnumerable<T> collection)
+        : this(collection, null!)
     { }
 
     public ExtendableList(IEnumerable<T> collection, IEqualityComparer<T> comparer)

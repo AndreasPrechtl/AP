@@ -8,12 +8,13 @@ namespace AP.Collections.ObjectModel;
 
 [Serializable, DebuggerDisplay("Count = {Count}"), ComVisible(false)]
 public abstract partial class DictionaryBase<TKey, TValue> : CollectionBase<KeyValuePair<TKey, TValue>>, IDictionary<TKey, TValue>
+    where TKey : notnull
 {
     private readonly KeyCollection _keys;
     private readonly ValueCollection _values;
     
     protected DictionaryBase()
-        : this(null, null)
+        : this(null!, null!)
     { }
 
     protected DictionaryBase(KeyCollection keyCollection, ValueCollection valueCollection)

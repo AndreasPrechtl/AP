@@ -3,6 +3,7 @@
 namespace AP.Collections;
 
 public interface IDictionaryView<TKey, TValue> : ICollection<KeyValuePair<TKey, TValue>>, System.Collections.Generic.IReadOnlyDictionary<TKey, TValue>
+    where TKey : notnull
 {
     new ICollection<TKey> Keys { get; }
     new ICollection<TValue> Values { get; }

@@ -12,7 +12,7 @@ public abstract class ExtendableSortedList<T> : ListBase<T>, IComparerUser<T>
     private readonly AP.Collections.SortedList<T> _inner;
 
     public ExtendableSortedList()
-        : this(0, null)
+        : this(0, null!)
     { }
 
     public ExtendableSortedList(IComparer<T> comparer)
@@ -20,15 +20,15 @@ public abstract class ExtendableSortedList<T> : ListBase<T>, IComparerUser<T>
     { }
 
     public ExtendableSortedList(int capacity)
-        : this(capacity, null)
+        : this(capacity, null!)
     { }
 
     public ExtendableSortedList(int capacity, IComparer<T> comparer)
         : this(new AP.Collections.SortedList<T>(capacity, comparer))
     { }
 
-    public ExtendableSortedList(IEnumerable<T> collection)
-        : this(collection, null)
+    public ExtendableSortedList(params IEnumerable<T> collection)
+        : this(collection, null!)
     { }
 
     public ExtendableSortedList(IEnumerable<T> collection, IComparer<T> comparer)

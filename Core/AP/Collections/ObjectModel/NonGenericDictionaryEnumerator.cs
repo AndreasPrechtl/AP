@@ -9,6 +9,7 @@ namespace AP.Collections.ObjectModel;
 /// <typeparam name="TKey"></typeparam>
 /// <typeparam name="TValue"></typeparam>
 public sealed class NonGenericDictionaryEnumerator<TKey, TValue> : IDictionaryEnumerator, System.IDisposable
+    where TKey : notnull
 {
     private IEnumerator<KeyValuePair<TKey, TValue>> _inner;
 

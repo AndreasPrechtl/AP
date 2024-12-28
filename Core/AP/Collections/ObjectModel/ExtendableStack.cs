@@ -10,7 +10,7 @@ public abstract class ExtendableStack<T> : StackBase<T>, IEqualityComparerUser<T
     protected Stack<T> Inner => _inner;
 
     protected ExtendableStack()
-        : this(0, null)
+        : this(0, null!)
     { }
 
     protected ExtendableStack(IEqualityComparer<T> comparer)
@@ -18,15 +18,15 @@ public abstract class ExtendableStack<T> : StackBase<T>, IEqualityComparerUser<T
     { }
 
     protected ExtendableStack(int capacity)
-        : this(capacity, null)
+        : this(capacity, null!)
     { }
 
     protected ExtendableStack(int capacity, IEqualityComparer<T> comparer)
         : this(new Stack<T>(capacity, comparer))
     { }
 
-    protected ExtendableStack(IEnumerable<T> collection)
-        : this(collection, null)
+    protected ExtendableStack(params IEnumerable<T> collection)
+        : this(collection, null!)
     { }
 
     protected ExtendableStack(IEnumerable<T> collection, IEqualityComparer<T> comparer)

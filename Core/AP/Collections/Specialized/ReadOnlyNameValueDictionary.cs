@@ -3,7 +3,6 @@ using System.Collections.Generic;
 
 namespace AP.Collections.Specialized;
 
-[Serializable, System.ComponentModel.ReadOnly(true)]
 public class ReadOnlyNameValueDictionary<T> : AP.Collections.ReadOnly.ReadOnlyDictionary<string, T>
 {
     private static readonly ReadOnlyNameValueDictionary<T> s_empty = new ReadOnlyNameValueDictionary<T>([]);
@@ -12,8 +11,12 @@ public class ReadOnlyNameValueDictionary<T> : AP.Collections.ReadOnly.ReadOnlyDi
     
     public static ReadOnlyNameValueDictionary<T> FromObject(object obj) => new(NameValueDictionary<T>.FromObject(obj));
 
+    public ReadOnlyNameValueDictionary(params IEnumerable<KeyValuePair<string, T>> dictionary)
+        : this(dictionary, null!, null!)
+    { }
+
     public ReadOnlyNameValueDictionary(IEnumerable<KeyValuePair<string, T>> dictionary, StringComparison keyComparison = StringComparison.Ordinal) 
-        : this(dictionary, Strings.GetComparer(keyComparison), null)
+        : this(dictionary, Strings.GetComparer(keyComparison), null!)
     { }
 
     public ReadOnlyNameValueDictionary(IEnumerable<KeyValuePair<string, T>> dictionary, IEqualityComparer<string> keyComparer, IEqualityComparer<T> valueComparer)

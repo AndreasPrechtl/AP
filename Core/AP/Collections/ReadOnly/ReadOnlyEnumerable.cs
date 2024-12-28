@@ -33,7 +33,7 @@ public sealed class ReadOnlyEnumerable<T> : IEnumerable<T>
 {
     private readonly IEnumerable<T> _source;
     
-    public ReadOnlyEnumerable(IEnumerable<T> source)
+    public ReadOnlyEnumerable(params IEnumerable<T> source)
     {
         ArgumentNullException.ThrowIfNull(source);
 

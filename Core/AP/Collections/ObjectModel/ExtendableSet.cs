@@ -11,10 +11,10 @@ public abstract class ExtendableSet<T> : SetBase<T>, IEqualityComparerUser<T>
     protected Set<T> Inner => _inner;
 
     protected ExtendableSet()
-        : this(null, null)
+        : this(null!, null!)
     { }
 
-    protected ExtendableSet(IEnumerable<T> collection)
+    protected ExtendableSet(params IEnumerable<T> collection)
         : this(collection, null)
     { }
 

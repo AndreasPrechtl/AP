@@ -1,16 +1,17 @@
 ﻿using System.Collections.Generic;
-using System.ComponentModel;
 using System;
 using AP.Linq;
 
 namespace AP.Collections.Specialized;
 
-[TypeConverter(typeof(StringSetConverter))]
-[Serializable]
 public class StringSet : Set<string>, IStringEnumerable
 {
     public StringSet(string value, string separator = StringEnumerable.DefaultSeparator, StringSplitOptions options = StringSplitOptions.RemoveEmptyEntries, StringComparer? comparer = null)
-        : this(value.Split(separator, options), comparer)
+        : this(value.Split(separator, options), comparer!)
+    { }
+
+    public StringSet(params IEnumerable<string> collection)
+        : this(collection, null!)
     { }
 
     public StringSet(IEnumerable<string> collection, IEqualityComparer<string> comparer)
@@ -18,7 +19,7 @@ public class StringSet : Set<string>, IStringEnumerable
     { }
 
     public StringSet(IEqualityComparer<string> comparer)
-        : this(null, comparer)
+        : this(null!, comparer)
     { }
 
     public StringSet(IEnumerable<string> collection, StringComparison comparisonType = StringComparison.Ordinal)
@@ -26,7 +27,7 @@ public class StringSet : Set<string>, IStringEnumerable
     { }
 
     public StringSet(StringComparison comparisonType = StringComparison.Ordinal)
-        : this(null, Strings.GetComparer(comparisonType))
+        : this(null!, Strings.GetComparer(comparisonType))
     { }
 
     public new StringSet Clone() => (StringSet)this.OnClone();

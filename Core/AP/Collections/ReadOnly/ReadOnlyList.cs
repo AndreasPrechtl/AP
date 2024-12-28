@@ -23,8 +23,8 @@ public class ReadOnlyList<T> : IListView<T>, IEqualityComparerUser<T>, System.Co
         return new List<T>(collection, comparer);
     }
     
-    public ReadOnlyList(IEnumerable<T> collection)
-        : this(collection, null)
+    public ReadOnlyList(params IEnumerable<T> collection)
+        : this(collection, null!)
     { }
 
     public ReadOnlyList(IEnumerable<T> collection, IEqualityComparer<T> comparer)

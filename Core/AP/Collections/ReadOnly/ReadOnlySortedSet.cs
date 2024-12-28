@@ -20,8 +20,8 @@ public class ReadOnlySortedSet<T> : ISetView<T>, IComparerUser<T>, System.Collec
         return new SortedSet<T>(collection, comparer);
     }
 
-    public ReadOnlySortedSet(IEnumerable<T> collection)
-        : this(collection, null)
+    public ReadOnlySortedSet(params IEnumerable<T> collection)
+        : this(collection, null!)
     { }
 
     public ReadOnlySortedSet(IEnumerable<T> collection, IComparer<T> comparer)

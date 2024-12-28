@@ -19,7 +19,7 @@ public class ReadOnlySet<T> : ISetView<T>, IEqualityComparerUser<T>, System.Coll
         return new Set<T>(collection, comparer);
     }
 
-    public ReadOnlySet(IEnumerable<T> collection)
+    public ReadOnlySet(params IEnumerable<T> collection)
         : this(collection, null)
     { }
 

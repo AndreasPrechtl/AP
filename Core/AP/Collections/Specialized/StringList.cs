@@ -1,16 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using AP.Linq;
 
 namespace AP.Collections.Specialized;
 
-[TypeConverter(typeof(StringListConverter))]
-[Serializable]
 public class StringList : List<string>, IStringEnumerable
 {
     public StringList(string value, string separator = StringEnumerable.DefaultSeparator, IEqualityComparer<string>? comparer = null)
-        : this(value.Split(separator), comparer)
+        : this(value.Split(separator), comparer!)
     { }
 
     public StringList(StringComparison comparison = StringComparison.Ordinal)
@@ -30,7 +27,7 @@ public class StringList : List<string>, IStringEnumerable
     { }
 
     public StringList(IEnumerable<string> collection)
-        : this(collection, null)
+        : this(collection, null!)
     { }
 
     public StringList(IEnumerable<string> collection, StringComparison comparison = StringComparison.Ordinal)

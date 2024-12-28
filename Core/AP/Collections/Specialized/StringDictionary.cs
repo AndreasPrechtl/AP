@@ -21,7 +21,7 @@ public class StringDictionary : NameValueDictionary<string>
         : base(capacity, keyComparer ?? StringComparer.Ordinal, valueComparer ?? StringComparer.Ordinal)
     { }
     
-    public StringDictionary(IEnumerable<KeyValuePair<string, string>> dictionary)
+    public StringDictionary(params IEnumerable<KeyValuePair<string, string>> dictionary)
         : base(dictionary)
     { }
     

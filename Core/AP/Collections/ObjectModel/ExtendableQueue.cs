@@ -10,7 +10,7 @@ public abstract class ExtendableQueue<T> : QueueBase<T>, IEqualityComparerUser<T
     protected Queue<T> Inner => _inner;
 
     protected ExtendableQueue()
-        : this(0, null)
+        : this(0, null!)
     { }
 
     protected ExtendableQueue(IEqualityComparer<T> comparer)
@@ -18,15 +18,15 @@ public abstract class ExtendableQueue<T> : QueueBase<T>, IEqualityComparerUser<T
     { }
 
     protected ExtendableQueue(int capacity)
-        : this(capacity, null)
+        : this(capacity, null!)
     { }
 
     protected ExtendableQueue(int capacity, IEqualityComparer<T> comparer)
         : this(new Queue<T>(capacity, comparer))
     { }
 
-    protected ExtendableQueue(IEnumerable<T> collection)
-        : this(collection, null)
+    protected ExtendableQueue(params IEnumerable<T> collection)
+        : this(collection, null!)
     { }
 
     protected ExtendableQueue(IEnumerable<T> collection, IEqualityComparer<T> comparer)

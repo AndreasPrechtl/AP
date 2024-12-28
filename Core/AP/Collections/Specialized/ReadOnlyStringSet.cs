@@ -1,19 +1,16 @@
 ﻿using System.Collections.Generic;
-using System.ComponentModel;
 using System;
 using AP.Linq;
 
 namespace AP.Collections.Specialized;
 
-[TypeConverter(typeof(StringSetConverter))]
-[Serializable, ReadOnly(true)]
 public class ReadOnlyStringSet : AP.Collections.ReadOnly.ReadOnlySet<string>, IStringEnumerable, IEqualityComparerUser<string>, IComparerUser<string>
 {
     public ReadOnlyStringSet(string value, string separator = StringEnumerable.DefaultSeparator, StringSplitOptions options = StringSplitOptions.RemoveEmptyEntries)
         : this(value.Split(separator, options), StringComparison.Ordinal)
     { }
 
-    public ReadOnlyStringSet(IEnumerable<string> collection)
+    public ReadOnlyStringSet(params IEnumerable<string> collection)
         : this(collection, StringComparer.Ordinal)
     { }
     

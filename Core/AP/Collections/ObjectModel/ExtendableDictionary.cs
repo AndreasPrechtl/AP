@@ -29,7 +29,7 @@ public abstract partial class ExtendableDictionary<TKey, TValue> : DictionaryBas
         : this(new Dictionary<TKey, TValue>(capacity, keyComparer, valueComparer))
     { }
     
-    protected ExtendableDictionary(IEnumerable<KeyValuePair<TKey, TValue>> dictionary)
+    protected ExtendableDictionary(params IEnumerable<KeyValuePair<TKey, TValue>> dictionary)
         : this(dictionary, null!, null!)
     { }
     

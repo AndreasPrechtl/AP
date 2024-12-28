@@ -12,15 +12,15 @@ public abstract class ExtendableSortedSet<T> : SetBase<T>, IComparerUser<T>
     protected SortedSet<T> Inner => _inner;
 
     protected ExtendableSortedSet()
-        : this(null, null)
+        : this(null!, null!)
     { }
 
-    protected ExtendableSortedSet(IEnumerable<T> collection)
-        : this(collection, null)
+    protected ExtendableSortedSet(params IEnumerable<T> collection)
+        : this(collection, null!)
     { }
 
     protected ExtendableSortedSet(IComparer<T> comparer)
-        : this(null, comparer)
+        : this(null!, comparer)
     { }
     
     protected ExtendableSortedSet(IEnumerable<T> collection, IComparer<T> comparer)

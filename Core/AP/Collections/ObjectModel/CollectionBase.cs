@@ -12,7 +12,7 @@ public abstract class CollectionBase<T> : ICollection<T>
     private readonly object _syncRoot = new();
 
     protected virtual object SyncRoot => _syncRoot;
-    protected virtual bool IsSyncronized => false;
+    protected virtual bool IsSynchronized => false;
 
     public override string ToString() => CollectionsHelper.ToString(this);
 

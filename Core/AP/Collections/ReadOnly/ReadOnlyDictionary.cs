@@ -25,7 +25,7 @@ public partial class ReadOnlyDictionary<TKey, TValue> : IDictionaryView<TKey, TV
         return new Dictionary<TKey, TValue>(collection, keyComparer, valueComparer);
     }
 
-    public ReadOnlyDictionary(IEnumerable<KeyValuePair<TKey, TValue>> dictionary)
+    public ReadOnlyDictionary(params IEnumerable<KeyValuePair<TKey, TValue>> dictionary)
         : this(dictionary, null!, null!)
     { }
 

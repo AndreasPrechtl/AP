@@ -22,8 +22,8 @@ public class ReadOnlySortedList<T> : IListView<T>, IComparerUser<T>, System.Coll
         return new SortedList<T>(collection, comparer);
     }
 
-    public ReadOnlySortedList(IEnumerable<T> collection)
-        : this(collection, null)
+    public ReadOnlySortedList(params IEnumerable<T> collection)
+        : this(collection, null!)
     { }
 
     public ReadOnlySortedList(IEnumerable<T> collection, IComparer<T> comparer)

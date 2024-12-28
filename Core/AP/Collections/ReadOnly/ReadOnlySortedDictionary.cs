@@ -25,8 +25,8 @@ public partial class ReadOnlySortedDictionary<TKey, TValue> : IDictionaryView<TK
         return new SortedDictionary<TKey, TValue>(collection, keyComparer, valueComparer);
     }        
 
-    public ReadOnlySortedDictionary(IEnumerable<KeyValuePair<TKey, TValue>> dictionary)
-        : this(dictionary, null, null)
+    public ReadOnlySortedDictionary(params IEnumerable<KeyValuePair<TKey, TValue>> dictionary)
+        : this(dictionary, null!, null!)
     { }
 
     public ReadOnlySortedDictionary(IEnumerable<KeyValuePair<TKey, TValue>> dictionary, IComparer<TKey> keyComparer, IEqualityComparer<TValue> valueComparer)

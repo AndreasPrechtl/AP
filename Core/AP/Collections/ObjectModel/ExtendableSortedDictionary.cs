@@ -17,11 +17,11 @@ public abstract partial class ExtendableSortedDictionary<TKey, TValue> : Diction
     protected SortedDictionary<TKey, TValue> Inner => _inner;
 
     protected ExtendableSortedDictionary()
-        : this(null, null, null)
+        : this(null!, null!, null!)
     { }
 
-    protected ExtendableSortedDictionary(IEnumerable<KeyValuePair<TKey, TValue>> dictionary)
-        : this(dictionary, null, null)
+    protected ExtendableSortedDictionary(params IEnumerable<KeyValuePair<TKey, TValue>> dictionary)
+        : this(dictionary, null!, null!)
     { }
 
     protected ExtendableSortedDictionary(IComparer<TKey> keyComparer, IEqualityComparer<TValue> valueComparer)

@@ -5,6 +5,7 @@ using AP.Reflection;
 
 namespace AP.IO;
 
+// todo: revisit, probably won't work with linux
 internal static class VBDeleteHelper
 {        
     private static readonly Delegate _shellDelete;

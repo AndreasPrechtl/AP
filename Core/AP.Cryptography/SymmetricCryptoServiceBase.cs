@@ -2,7 +2,7 @@
 using System.Security.Cryptography;
 using System.Text;
 
-namespace AP.Security.Cryptography
+namespace AP.Cryptography
 {
     public abstract class SymmetricCryptoServiceBase
     {

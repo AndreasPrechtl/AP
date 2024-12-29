@@ -1,28 +1,22 @@
 ﻿using System.Collections.Generic;
 using AP.Collections;
 
-namespace AP.ComponentModel.Validation;
+namespace AP.Validation;
 
 public abstract partial class ValidationResult
 {
-    private readonly object _target;        
+    private readonly object _target;
     private readonly MessageSet _messages;
-    
+
     private readonly MessageSet _infos;
     private readonly MessageSet _successes;
     private readonly MessageSet _warnings;
     private readonly MessageSet _errors;
 
-    protected internal ValidationResult(object target, MessageSet messages)
-    {
-        _target = target;
-        _messages = messages;
-    }
-
     protected internal ValidationResult(object target, IEnumerable<ValidationMessage> messages, IEqualityComparer<ValidationMessage>? comparer = null)
     {
         comparer = comparer ?? ValidationMessageEqualityComparer.Default;
-        
+
         Set<ValidationMessage> msgs = new(comparer);
         Set<ValidationMessage> successes = new(comparer);
         Set<ValidationMessage> warnings = new(comparer);

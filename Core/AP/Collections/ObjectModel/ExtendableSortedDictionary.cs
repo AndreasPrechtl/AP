@@ -3,9 +3,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 
-using SCG = System.Collections.Generic;
-using AP.ComponentModel;
-
 namespace AP.Collections.ObjectModel;
 
 [Serializable, DebuggerDisplay("Count = {Count}"), ComVisible(false), Sorted(true)]

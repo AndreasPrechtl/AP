@@ -1,4 +1,6 @@
-﻿namespace AP.ComponentModel.Validation;
+﻿using AP.Validation;
+
+namespace AP.Validation;
 
 public class Validator<TTarget> : IValidator<TTarget>, IValidator
 {

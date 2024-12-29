@@ -1,9 +1,9 @@
 ﻿using AP.Reflection;
 using System;
 
-namespace AP.ComponentModel.Validation;
+namespace AP.Validation;
 
-public class ValidationMessage
+public record ValidationMessage
 {
     private readonly object _value;
     private readonly string _message;

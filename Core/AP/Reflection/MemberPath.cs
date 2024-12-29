@@ -115,9 +115,8 @@ public sealed class MemberPath : IComparable
 
     private readonly string _name;
     private readonly SegmentList _segments;
-    private static readonly MemberPath s_empty = new(string.Empty);
-
-    public static MemberPath Empty => s_empty;
+    
+    public static readonly MemberPath Empty = new(string.Empty);
 
     public SegmentList Segments => _segments;
 

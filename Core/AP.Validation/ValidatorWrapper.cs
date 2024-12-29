@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace AP.ComponentModel.Validation;
+namespace AP.Validation;
 
 public delegate ValidationResult<T> ValidatorDelegate<T>(T obj);
 

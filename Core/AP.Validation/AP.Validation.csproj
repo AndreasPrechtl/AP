@@ -1,5 +1,5 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">	
   <ItemGroup>
-    <ProjectReference Include="..\AP\AP.csproj" />
+    <ProjectReference Include="..\AP\AP.csproj" />	
   </ItemGroup>
 </Project>

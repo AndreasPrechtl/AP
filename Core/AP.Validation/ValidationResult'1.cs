@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace AP.ComponentModel.Validation;
+namespace AP.Validation;
 
 public class ValidationResult<TTarget> : ValidationResult
 {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace AP.ComponentModel.Validation;
+namespace AP.Validation;
 
 public class ValidationEventArgs : EventArgs
 {

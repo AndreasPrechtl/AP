@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using System.Security.Cryptography;
 
-namespace AP.Security.Cryptography
+namespace AP.Cryptography
 {
     public class DESCryptoService : SymmetricCryptoServiceBase
     {

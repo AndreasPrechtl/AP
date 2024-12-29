@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace AP.ComponentModel.Validation;
+namespace AP.Validation;
 
 public static class ValidationHelper
 {

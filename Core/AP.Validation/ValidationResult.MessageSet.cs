@@ -1,25 +1,12 @@
 ﻿using AP.Collections;
 
-namespace AP.ComponentModel.Validation;
+namespace AP.Validation;
 
 public partial class ValidationResult
 {
     public partial class MessageSet : AP.Collections.ReadOnly.ReadOnlySet<ValidationMessage>
     {
-        private static volatile MessageSet _empty;
-
-        public new static MessageSet Empty
-        {
-            get
-            {
-                MessageSet empty = _empty;
-
-                if (empty == null)
-                    _empty = empty = new MessageSet();
-
-                return empty;
-            }
-        }
+        public static new readonly MessageSet Empty = new();
 
         protected MessageSet()
             : this(new Set<ValidationMessage>(ValidationMessageEqualityComparer.Default))

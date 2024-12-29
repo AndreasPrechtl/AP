@@ -1,4 +1,4 @@
-﻿namespace AP.ComponentModel;
+﻿namespace AP;
 
 public class Wrapper<T> : IWrapper<T>
     where T : notnull

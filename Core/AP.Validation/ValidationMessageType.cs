@@ -1,4 +1,4 @@
-﻿namespace AP.ComponentModel.Validation;
+﻿namespace AP.Validation;
 
 public enum ValidationMessageType
 {

@@ -6,6 +6,7 @@ using System.Diagnostics;
 using AP.Linq;
 using System.Runtime.CompilerServices;
 using System.Collections.Generic;
+using System.Data;
 
 namespace AP.Reflection;
 
@@ -32,7 +33,7 @@ public static class Reflect
             _inner = new System.Collections.Generic.Dictionary<TMemberInfo, Delegate>(capacity);
         }
 
-        public bool TryGetDelegate(TMemberInfo member, out Delegate value) => _inner.TryGetValue(member, out value);
+        public bool TryGetDelegate(TMemberInfo member, out Delegate? value) => _inner.TryGetValue(member, out value);
         public void Add(TMemberInfo member, Delegate value) => _inner.Add(member, value);
         public bool Remove(TMemberInfo member) => _inner.Remove(member);
         public void Clear() => _inner.Clear();
@@ -63,7 +64,7 @@ public static class Reflect
             member = members[0];
 
             // re-assign the current type
-            type = member.GetMemberType();
+            type = member.GetMemberType()!;
         }
 
         return member!;
@@ -179,7 +180,7 @@ public static class Reflect
                 throw new ArgumentException($"invalid MemberPath, segment {memberName} is not a field or property.");
             
             // re-assign the current type
-            type = member.GetMemberType();
+            type = member.GetMemberType()!;
         }
 
         if (current != null)
@@ -270,7 +271,7 @@ public static class Reflect
         if (constructor.IsStatic)
             throw new ArgumentException("Static constructors are not allowed.");
 
-        Delegate? d = null;
+        Delegate d = null!;
 
         lock (_constructorCache.SyncRoot)
         {
@@ -304,62 +305,62 @@ public static class Reflect
     {
         ArgumentNullException.ThrowIfNull(method);
 
-        Delegate d = null;
+        Delegate d = null!;
 
         lock (_methodCache.SyncRoot)
         {
-            if (!_methodCache.TryGetDelegate(method, out d))
+            if (_methodCache.TryGetDelegate(method, out d!))
+                return d;
+            
+            LambdaExpression lambda = null!;
+            MethodCallExpression call = null!;
+            ParameterExpression[] lambdaParameters = [];
+
+            bool isStatic = method.IsStatic;
+
+            ParameterInfo[] parameterInfo = method.GetParameters();
+            int count = parameterInfo.Length;
+
+            if (isStatic)
             {
-                LambdaExpression lambda = null;
-                MethodCallExpression call = null;
-                ParameterExpression[] lambdaParameters = null;
+                lambdaParameters = new ParameterExpression[count];
 
-                bool isStatic = method.IsStatic;
-
-                ParameterInfo[] parameterInfos = method.GetParameters();
-                int count = parameterInfos.Length;
-
-                if (isStatic)
+                for (int i = 0; i < count; ++i)
                 {
-                    lambdaParameters = new ParameterExpression[count];
-
-                    for (int i = 0; i < count; ++i)
-                    {
-                        ParameterInfo current = parameterInfos[i];
-                        lambdaParameters[i] = Expressions.Parameter(current.ParameterType, current.Name);
-                    }
-
-                    // static methods use the same parameters as the lambda expression
-                    call = Expressions.StaticCall(method, lambdaParameters);
-                }
-                else
-                {
-                    ParameterExpression target = Expression.Parameter(method.ReflectedType, "target");
-
-                    // method parameters don't need the instance - while lambdas do
-                    ParameterExpression[] methodParameters = new ParameterExpression[count];
-                    lambdaParameters = new ParameterExpression[count + 1];
-
-                    // add the target object parameter
-                    lambdaParameters[0] = target;
-
-                    for (int i = 0; i < count; )
-                    {
-                        ParameterInfo current = parameterInfos[i];
-                        ParameterExpression currentExpression = Expression.Parameter(current.ParameterType, current.Name);
-
-                        methodParameters[i] = currentExpression;
-                        lambdaParameters[++i] = currentExpression;
-                    }
-                    call = Expressions.InstanceCall(target, method, methodParameters);
+                    ParameterInfo current = parameterInfo[i];
+                    lambdaParameters[i] = Expressions.Parameter(current.ParameterType, current.Name);
                 }
 
-                lambda = Expressions.Lambda(call, lambdaParameters);
-                _methodCache.Add(method, d = lambda.Compile());
+                // static methods use the same parameters as the lambda expression
+                call = Expressions.StaticCall(method, lambdaParameters);
             }
-        }
+            else
+            {
+                ParameterExpression target = Expression.Parameter(method.ReflectedType!, "target");
 
-        return d;
+                // method parameters don't need the instance - while lambdas do
+                ParameterExpression[] methodParameters = new ParameterExpression[count];
+                lambdaParameters = new ParameterExpression[count + 1];
+
+                // add the target object parameter
+                lambdaParameters[0] = target;
+
+                for (int i = 0; i < count;)
+                {
+                    ParameterInfo current = parameterInfo[i];
+                    ParameterExpression currentExpression = Expression.Parameter(current.ParameterType, current.Name);
+
+                    methodParameters[i] = currentExpression;
+                    lambdaParameters[++i] = currentExpression;
+                }
+                call = Expressions.InstanceCall(target, method, methodParameters);
+            }
+
+            lambda = Expressions.Lambda(call, lambdaParameters);
+            _methodCache.Add(method, d = lambda.Compile());
+
+            return d;
+        }
     }
 
     /// <summary>
@@ -374,28 +375,28 @@ public static class Reflect
         if (field.IsReadOnly())
             throw new ArgumentException("field is readonly");
 
-        Delegate d = null;
+        Delegate d = null!;
 
         lock (_fieldSettersCache.SyncRoot)
         {
-            if (!_fieldSettersCache.TryGetDelegate(field, out d))
-            {
-                bool isStatic = field.IsStatic;
+            if (_fieldSettersCache.TryGetDelegate(field, out d!))
+                return d;
+            
+            bool isStatic = field.IsStatic;
 
-                ParameterExpression target = isStatic ? null : Expression.Parameter(field.ReflectedType, "target");
-                ParameterExpression value = Expression.Parameter(field.FieldType, "value");
+            ParameterExpression? target = isStatic || field.ReflectedType is null ? null : Expression.Parameter(field.ReflectedType, "target");
+            ParameterExpression value = Expression.Parameter(field.FieldType, "value");
 
-                MemberExpression member = Expression.Field(target, field);
-                BinaryExpression assign = Expression.Assign(member, value);
+            MemberExpression member = Expression.Field(target, field);
+            BinaryExpression assign = Expression.Assign(member, value);
 
-                LambdaExpression lambda = isStatic ? Expression.Lambda(assign, value) : Expression.Lambda(assign, target, value);
+            LambdaExpression lambda = isStatic || target is null ? Expression.Lambda(assign, value) : Expression.Lambda(assign, target, value);
 
-                d = lambda.Compile();
-                _fieldSettersCache.Add(field, d);
-            }
+            d = lambda.Compile();
+            _fieldSettersCache.Add(field, d);
+
+            return d;
         }
-
-        return d;
     }
 
     /// <summary>
@@ -407,24 +408,24 @@ public static class Reflect
     {
         ArgumentNullException.ThrowIfNull(field);
 
-        Delegate d = null;
+        Delegate d = null!;
 
         lock (_fieldGettersCache.SyncRoot)
         {
-            if (!_fieldGettersCache.TryGetDelegate(field, out d))
-            {
-                bool isStatic = field.IsStatic;
+            if (_fieldGettersCache.TryGetDelegate(field, out d!))
+                return d;
+            
+            bool isStatic = field.IsStatic;
 
-                ParameterExpression? target = isStatic ? null : Expression.Parameter(field.ReflectedType, "target");
+            ParameterExpression? target = isStatic || field.ReflectedType is null ? null : Expression.Parameter(field.ReflectedType, "target");
 
-                MemberExpression member = Expression.Field(target, field);
-                LambdaExpression lambda = isStatic ? Expression.Lambda(member) : Expression.Lambda(member, target);
+            MemberExpression member = Expression.Field(target, field);
+            LambdaExpression lambda = isStatic || target is null ? Expression.Lambda(member) : Expression.Lambda(member, target);
 
-                _fieldGettersCache.Add(field, d = lambda.Compile());
-            }
+            _fieldGettersCache.Add(field, d = lambda.Compile());
+
+            return d!;
         }
-
-        return d;
     }
 
     /// <summary>
@@ -438,36 +439,36 @@ public static class Reflect
 
         // if the declaring type is an anonymous type - return a delegate to the automatically generated backing field
         // and since the property is readonly I need to do that before I check if it is a true readonly property.
-        if (property.DeclaringType.IsAnonymous())
+        if (property.DeclaringType?.IsAnonymous() is true)
         {
             string fieldName = $"<{property.Name}>i__Field";
 
-            return CreateSetterDelegate(property.DeclaringType.GetField(fieldName, BindingFlags.NonPublic | BindingFlags.Instance));
+            return CreateSetterDelegate(property.DeclaringType.GetField(fieldName, BindingFlags.NonPublic | BindingFlags.Instance)!);
         }
 
         if (property.IsReadOnly())
             throw new ArgumentException("property is readonly");
 
-        Delegate d = null;
+        Delegate d = null!;
 
         lock (_propertySettersCache.SyncRoot)
         {
-            if (!_propertySettersCache.TryGetDelegate(property, out d))
-            {
-                bool isStatic = property.IsStatic();
+            if (_propertySettersCache.TryGetDelegate(property, out d!))
+                return d;
+            
+            bool isStatic = property.IsStatic();
 
-                ParameterExpression target = isStatic ? null : Expression.Parameter(property.ReflectedType, "target");
-                ParameterExpression value = Expression.Parameter(property.PropertyType, "value");
+            ParameterExpression? target = isStatic || property.ReflectedType is null ? null : Expression.Parameter(property.ReflectedType, "target");
+            ParameterExpression value = Expression.Parameter(property.PropertyType, "value");
 
-                MemberExpression member = Expression.Property(target, property);
-                BinaryExpression assign = Expression.Assign(member, value);
+            MemberExpression member = Expression.Property(target, property);
+            BinaryExpression assign = Expression.Assign(member, value);
 
-                LambdaExpression lambda = isStatic ? Expression.Lambda(assign, value) : Expression.Lambda(assign, target, value);
-                _propertySettersCache.Add(property, d = lambda.Compile());
-            }
+            LambdaExpression lambda = isStatic || target is null ? Expression.Lambda(assign, value) : Expression.Lambda(assign, target, value);
+            _propertySettersCache.Add(property, d = lambda.Compile());
+
+            return d!;
         }
-
-        return d;
     }
 
     /// <summary>
@@ -482,25 +483,25 @@ public static class Reflect
         if (!property.CanRead)
             throw new ArgumentException("property is not readable");
 
-        Delegate d = null;
+        Delegate d = null!;
 
         lock (_propertyGettersCache.SyncRoot)
         {
-            if (!_propertyGettersCache.TryGetDelegate(property, out d))
-            {
-                bool isStatic = property.IsStatic();
+            if (_propertyGettersCache.TryGetDelegate(property, out d!))
+                return d!;
+            
+            bool isStatic = property.IsStatic();
 
-                ParameterExpression target = isStatic ? null : Expression.Parameter(property.ReflectedType, "target");
+            ParameterExpression? target = isStatic || property.ReflectedType is null ? null : Expression.Parameter(property.ReflectedType, "target");
 
-                // Expression.Property can be used here as well
-                MemberExpression member = Expression.Property(target, property);
+            // Expression.Property can be used here as well
+            MemberExpression member = Expression.Property(target, property);
 
-                LambdaExpression lambda = isStatic ? Expression.Lambda(member) : Expression.Lambda(member, target);
-                _propertyGettersCache.Add(property, d = lambda.Compile());
-            }
+            LambdaExpression lambda = isStatic || target is null ? Expression.Lambda(member) : Expression.Lambda(member, target);
+            _propertyGettersCache.Add(property, d = lambda.Compile());
+
+            return d!;
         }
-
-        return d;
     }
 
     /// <summary>
@@ -525,7 +526,7 @@ public static class Reflect
     /// </summary>
     /// <param name="member">The member.</param>
     /// <returns>Returns the member type.</returns>
-    public static Type GetMemberType(this MemberInfo member) => member.MemberType switch
+    public static Type? GetMemberType(this MemberInfo member) => member.MemberType switch
     {
         MemberTypes.Field => ((FieldInfo)member).FieldType,
         MemberTypes.Property => ((PropertyInfo)member).PropertyType,
@@ -598,14 +599,14 @@ public static class Reflect
     /// </summary>
     /// <param name="event">The event.</param>
     /// <returns>Returns true when the event is a static event.</returns>
-    public static bool IsStatic(this EventInfo @event) => @event.GetAddMethod().IsStatic;
+    public static bool IsStatic(this EventInfo @event) => @event.GetAddMethod()?.IsStatic is true;
 
     /// <summary>
     /// Indicates if an event is generic.
     /// </summary>
     /// <param name="event">The event.</param>
     /// <returns>Returns true when the event contains generic parameters.</returns>
-    public static bool IsGeneric(this EventInfo @event) => @event.GetAddMethod().IsGenericMethod;
+    public static bool IsGeneric(this EventInfo @event) => @event.GetAddMethod()?.IsGenericMethod is true;
 
     /// <summary>
     /// Indicates if a type is nullable.
@@ -660,7 +661,7 @@ public static class Reflect
     /// <param name="flags">The binding flags.</param>
     /// <param name="parameterTypes">The parameter types.</param>
     /// <returns>The method.</returns>
-    public static MethodInfo GetMethod(this Type type, string methodName, BindingFlags flags, params Type[] parameterTypes)
+    public static MethodInfo? GetMethod(this Type type, string methodName, BindingFlags flags, params Type[] parameterTypes)
     {
         MethodInfo[] methods = type.GetMethods(flags);
 
@@ -714,7 +715,7 @@ public static class Reflect
     /// <typeparam name="TDeclaringType"></typeparam>
     /// <param name="expression"></param>
     /// <returns></returns>    
-    public static ConstructorInfo GetConstructor<TDeclaringType>(Expression<Invoke<TDeclaringType>> expression) => ((NewExpression)expression.Body).Constructor;
+    public static ConstructorInfo? GetConstructor<TDeclaringType>(Expression<Invoke<TDeclaringType>> expression) => ((NewExpression)expression.Body).Constructor;
 
     /// <summary>
     /// Extracts the instance member from a lambda expression
@@ -737,14 +738,15 @@ public static class Reflect
     {
         Expression body = expression.Body;
 
-        if (body is MethodCallExpression)
-            return ((MethodCallExpression)body).Method;
+        if (body is MethodCallExpression expression1)
+            return expression1.Method;
 
-        if (body is MemberExpression)
-            return ((MemberExpression)body).Member;
+        if (body is MemberExpression expression2)
+            return expression2.Member;
 
-        if (body is NewExpression)
-            return ((NewExpression)body).Constructor;
+        var ctor = body is NewExpression expression3 ? expression3.Constructor : null;
+        if (ctor is not null)
+            return ctor;
 
         throw new ArgumentException("Invalid expression");
     }

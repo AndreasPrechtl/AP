@@ -1,6 +1,7 @@
 ﻿namespace AP.ComponentModel;
 
 public class Wrapper<T> : IWrapper<T>
+    where T : notnull
 {
     public Wrapper(T value)
     {

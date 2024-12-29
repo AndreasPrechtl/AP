@@ -18,11 +18,11 @@ public class Sandbox : DisposableObject
     /// <summary>
     /// Event used for external error logging
     /// </summary>
-    public event ErrorLogger ErrorOccured;
+    public event ErrorLogger? ErrorOccured;
     
     /// <summary>
     /// Todo: add extensions for funcs, actions (along with their hilariously many parameters)
-    /// returns true if no error occured
+    /// returns true if no error occurred
     /// <param name="action"></param>
     /// <param name="notify"></param>
     /// <returns></returns>
@@ -48,13 +48,13 @@ public class Sandbox : DisposableObject
     /// </summary>
     /// <param name="sender"></param>
     /// <param name="exception"></param>
-    private void Notify(object sender, Exception exception) => this.OnErrorOccured(new ErrorLoggerEventArgs(new ExceptionInfo(sender, exception)));
+    private void Notify(object sender, Exception exception) => this.OnErrorOccurred(new ErrorLoggerEventArgs(new ExceptionInfo() { Context = sender, Exception = exception }));
 
     /// <summary>
     /// Notifies the event listeners
     /// </summary>
     /// <param name="e"></param>
-    protected virtual void OnErrorOccured(ErrorLoggerEventArgs e)
+    protected virtual void OnErrorOccurred(ErrorLoggerEventArgs e)
     {
         this.ErrorOccured?.Invoke(this, e);
     }

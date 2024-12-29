@@ -96,8 +96,8 @@ public static class Objects
                     {
                         try
                         {
-                            var f = fromField.GetValue(from);
-                            var x = TypeDescriptor.GetConverter(f).ConvertTo(f, intoField.FieldType);
+                            var f = fromField.GetValue(from);                            
+                            var x = f != null ? TypeDescriptor.GetConverter(f)?.ConvertTo(f, intoField.FieldType) : null;
 
                             intoField.SetValue(into, x);
                         }

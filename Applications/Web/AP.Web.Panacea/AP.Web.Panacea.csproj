@@ -1,4 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
-
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Core\AP.UniformIdentifiers\AP.UniformIdentifiers.csproj" />
+    <ProjectReference Include="..\..\..\Core\AP\AP.csproj" />
+    <ProjectReference Include="..\..\AP.ObjectManagement\AP.ObjectManagement.csproj" />
+    <ProjectReference Include="..\..\AP.Panacea\AP.Panacea.csproj" />
+    <ProjectReference Include="..\AP.Web\AP.Web.csproj" />
+  </ItemGroup>
 </Project>

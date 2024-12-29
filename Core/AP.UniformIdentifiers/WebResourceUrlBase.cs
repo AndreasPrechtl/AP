@@ -11,7 +11,7 @@ public abstract class WebResourceUrlBase : UrlBase, IUriWithUserName, IPasswordP
     protected string ParsedScheme { get; private set; }
 
     protected WebResourceUrlBase(string url, UrlQuery? query = null, UrlFragments? fragments = null, Host? host = null, ushort? port = null, string? userName = null, string? password = null)
-        : this(New.Array(url), query, fragments, host, port, userName, password)
+        : this([url], query, fragments, host, port, userName, password)
     {
         this.OriginalString = url;
     }
@@ -27,9 +27,6 @@ public abstract class WebResourceUrlBase : UrlBase, IUriWithUserName, IPasswordP
         }
         if (sb.Length > 1)
             sb.Remove(sb.Length - 1, 1);
-
-        // that trimage should be obsolete as I alsready trim all the parts
-        //sb.Trim();
 
         int endIndexScheme = -1;
         bool hasScheme = false;
@@ -292,7 +289,7 @@ public abstract class WebResourceUrlBase : UrlBase, IUriWithUserName, IPasswordP
     protected WebResourceUrlBase()
         : base()
     {
-        _parent = new Lazy<WebResourceUrlBase>(CreateParent);
+        _parent = new(CreateParent);
         this.Query = UrlQuery.Empty;
         this.Fragments = UrlFragments.Empty;
     }

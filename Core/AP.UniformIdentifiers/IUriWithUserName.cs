@@ -2,5 +2,5 @@
 
 public interface IUriWithUserName : IUri
 {
-    string UserName { get; }
+    string? UserName { get; }
 }

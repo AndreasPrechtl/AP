@@ -3,7 +3,6 @@
   <ItemGroup>
     <ProjectReference Include="..\..\..\Core\AP\AP.csproj" />
     <ProjectReference Include="..\..\..\Core\Observable\AP.Observable\AP.Observable.csproj" />
-    <ProjectReference Include="..\..\AP\AP.csproj" />
   </ItemGroup>
 
 </Project>

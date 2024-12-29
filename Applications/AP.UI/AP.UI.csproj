@@ -2,6 +2,8 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Core\AP.ComponentModel\AP.ComponentModel.csproj" />
     <ProjectReference Include="..\..\Core\AP.IO\AP.IO.csproj" />
+    <ProjectReference Include="..\..\Core\AP.UniformIdentifiers\AP.UniformIdentifiers.csproj" />
     <ProjectReference Include="..\..\Core\AP\AP.csproj" />
+    <ProjectReference Include="..\..\Data\AP.Data\AP.Data.csproj" />
   </ItemGroup>
 </Project>

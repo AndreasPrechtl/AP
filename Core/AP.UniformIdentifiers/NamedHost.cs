@@ -36,7 +36,7 @@ public sealed class NamedHost : Host
         : base(value = value.Trim())
     {
         if (!_hostRegex.IsMatch(value))
-            ExceptionHelper.ThrowArgumentException(() => value, "invalid hostName");
+            throw new ArgumentException($"invalid hostName: {value}", paramName: nameof(value));
 
         _value = value;
     }

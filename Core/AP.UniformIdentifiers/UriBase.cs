@@ -5,12 +5,12 @@ namespace AP.UniformIdentifiers;
 
 public abstract class UriBase : IUri
 {
-    private string _originalString;
+    private string? _originalString;
 
     /// <summary>
     /// Returns the string that Uri originally originates from
     /// </summary>
-    public string OriginalString
+    public string? OriginalString
     {
         get => _originalString;
         protected set => _originalString = value;

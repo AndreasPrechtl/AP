@@ -1,13 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.IO;
 using System.Drawing;
-
-using AP;
-using AP.Web;
-using AP.Drawing;
 
 namespace AP.Web.IO
 {

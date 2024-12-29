@@ -16,11 +16,11 @@ namespace AP.Web
     public abstract class ApplicationBase : Singleton<ApplicationBase>, IApplication
     {
         private static bool _isInitialized = false;
-        private readonly Deferrable<IObjectManager> _objectManager;
+        private readonly Lazy<IObjectManager> _objectManager;
 
         protected ApplicationBase()
         {
-            _objectManager = new Deferrable<IObjectManager>(() => this.CreateObjectManager());
+            _objectManager = new(this.CreateObjectManager);
         }
 
         protected abstract IObjectManager CreateObjectManager();

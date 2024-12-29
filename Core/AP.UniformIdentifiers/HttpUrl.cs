@@ -38,7 +38,7 @@ public class HttpUrl : WebResourceUrlBase, ISecurableUri
     { }
 
     public HttpUrl(string url, UrlQuery? query = null, UrlFragments? fragments = null, Host? host = null, bool? isSecure = null, ushort? port = null, string? userName = null, string? password = null)
-        : this(New.Array(url), query, fragments, host, isSecure, port, userName, password)
+        : this([url], query, fragments, host, isSecure, port, userName, password)
     {
         this.OriginalString = url;
     }
@@ -80,5 +80,5 @@ public class HttpUrl : WebResourceUrlBase, ISecurableUri
 
     protected override WebResourceUrlBase CreateEmptyInstance() => new HttpUrl();
 
-    public new HttpUrl Parent => (HttpUrl)base.Parent;
+    public new HttpUrl? Parent => (HttpUrl?)base.Parent;
 }

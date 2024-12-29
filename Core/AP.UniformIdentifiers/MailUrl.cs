@@ -64,13 +64,12 @@ public class MailUrl : UrlBase, IUriWithUserName
         builder.Append('@');
         builder.Append(this.Host.Value);
         
-        string subject = this.Subject;
-        bool hasSubject = subject != null;
+        bool hasSubject = this.Subject != null;
 
-        if (this.Subject != null)
+        if (hasSubject)
         {
             builder.Append("?subject=");
-            builder.Append(Uri.EscapeDataString(this.Subject));
+            builder.Append(Uri.EscapeDataString(this.Subject!));
         }
 
         if (this.Body != null)

@@ -17,15 +17,15 @@ namespace AP.Panacea.Web
 {
     public abstract class ApplicationBase : AP.Web.ApplicationBase, AP.Panacea.IApplication<Request, Response>, IResponseRenderer, IResponseRenderer<Response>, INavigator<Request, Response>
     {
-        private readonly Deferrable<ApplicationCore> _core;
-        private readonly Deferrable<ResponseRenderer> _renderer;
-        private readonly Deferrable<Navigator<Request, Response>> _navigator;
+        private readonly Lazy<ApplicationCore> _core;
+        private readonly Lazy<ResponseRenderer> _renderer;
+        private readonly Lazy<Navigator<Request, Response>> _navigator;
 
         protected ApplicationBase()
         {
-            _core = new Deferrable<ApplicationCore>(this.CreateCore);
-            _renderer = new Deferrable<ResponseRenderer>(this.CreateRenderer);
-            _navigator = new Deferrable<Navigator<Request, Response>>(this.CreateNavigator);
+            _core = new(this.CreateCore);
+            _renderer = new(this.CreateRenderer);
+            _navigator = new(this.CreateNavigator);
         }
 
         protected virtual ResponseRenderer CreateRenderer()

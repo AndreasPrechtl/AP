@@ -10,7 +10,7 @@
   <Class Name="AP.IO.Directory">
     <Position X="1" Y="7.25" Width="2.5" />
     <TypeIdentifier>
-      <HashCode>AQAAAAAAAAAAoAAQAAAAAAQQAAAAAAAQAAAMAAhAAgA=</HashCode>
+      <HashCode>AAAAAAAAAAAAoAAAAAAAAAQQAAAAAAAQAAAMAAhAAgA=</HashCode>
       <FileName>Directory.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -24,7 +24,7 @@
   <Class Name="AP.IO.File">
     <Position X="9.5" Y="7.25" Width="2.5" />
     <TypeIdentifier>
-      <HashCode>AQAAAAAAAAAAoAAQAAAAAAQQAAAAAQAQAIAMAAhAAgA=</HashCode>
+      <HashCode>AAAAAAAAAAAAoAAAAAAAAAQQAAAAAQAQAIAMAAhAAgA=</HashCode>
       <FileName>File.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -52,14 +52,14 @@
   <Class Name="AP.IO.FileSystemContext">
     <Position X="3.75" Y="1.25" Width="2.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAIAAAABAAAQAAAAACgEAAAABAAABAAUAFYA=</HashCode>
+      <HashCode>AAAQAAAAAKAAAABAAAQAACAACgEAAAABAAABAAUAFYA=</HashCode>
       <FileName>FileSystemContext.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="AP.IO.FileSystemEntry">
     <Position X="7.25" Y="1.5" Width="2.75" />
     <TypeIdentifier>
-      <HashCode>AQAAIAAAAAAAgIAQAAAAQAYQAAAAAAAQAAAMAAgAAgA=</HashCode>
+      <HashCode>AAAAIAAAAAAAgIAAAAAAQAYQAAAAAAAQAAAMAAgAAgA=</HashCode>
       <FileName>FileSystemEntry.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -89,7 +89,7 @@
   <Class Name="AP.IO.MetaData.FileSystemEntryMetaDataBase">
     <Position X="6.5" Y="13.5" Width="3" />
     <TypeIdentifier>
-      <HashCode>AAAAAAQAACAAAIACAAAAEAQQACAAAAAAAAANAAAAAgA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAIACAAAAAAQQACAAAAAAAAAMAAAAAgA=</HashCode>
       <FileName>MetaData\FileSystemEntryMetaDataBase.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
@@ -119,48 +119,6 @@
     <Position X="10.25" Y="1.5" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AAAAAACAAIAAAgAAAAgAgAAAAAAIBAIAAEGIAIAEAgA=</HashCode>
-      <FileName>Enums.cs</FileName>
-    </TypeIdentifier>
-  </Enum>
-  <Enum Name="AP.IO.FileAttributes">
-    <Position X="12.25" Y="7.25" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAACAAIAAAAAAAAgAgAAAAAAIBAIAAEGIAIAEAgA=</HashCode>
-      <FileName>Enums.cs</FileName>
-    </TypeIdentifier>
-  </Enum>
-  <Enum Name="AP.IO.DirectoryAttributes">
-    <Position X="3.75" Y="7.25" Width="1.75" />
-    <TypeIdentifier>
-      <HashCode>AAAAAACAAIAAAgAAAAgAgAAAAAAIAAIAAAGIAIAEAgA=</HashCode>
-      <FileName>Enums.cs</FileName>
-    </TypeIdentifier>
-  </Enum>
-  <Enum Name="AP.IO.FileCreationOptions">
-    <Position X="14" Y="7.25" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAQAAAAAAAAAAAAAAAQAAAAAAAgAAAAAAAAIUAAAA=</HashCode>
-      <FileName>Enums.cs</FileName>
-    </TypeIdentifier>
-  </Enum>
-  <Enum Name="AP.IO.FileOpeningMode">
-    <Position X="14" Y="9.25" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAEgAAAAAQAAAAAAAAEBAAA=</HashCode>
-      <FileName>Enums.cs</FileName>
-    </TypeIdentifier>
-  </Enum>
-  <Enum Name="AP.IO.FileShare">
-    <Position X="14" Y="11" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAgAAEAAAAAAAAAAAEBAAA=</HashCode>
-      <FileName>Enums.cs</FileName>
-    </TypeIdentifier>
-  </Enum>
-  <Enum Name="AP.IO.DirectorySearchFilter">
-    <Position X="5.75" Y="7.25" Width="2" />
-    <TypeIdentifier>
-      <HashCode>AAAAAIAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAEIA=</HashCode>
       <FileName>Enums.cs</FileName>
     </TypeIdentifier>
   </Enum>

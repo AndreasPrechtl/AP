@@ -5,15 +5,15 @@
 /// </summary>
 public abstract class FreezableObject : IFreezable
 {
-    private bool _isReadOnly;
+    private bool _isFrozen;
 
     /// <summary>
     /// Creates a new FreezableObject
     /// </summary>
     /// <param name="isReadOnly">Indicates if the object should be frozen directly</param>
-    protected FreezableObject(bool isReadOnly = false)
+    protected FreezableObject(bool isFrozen = false)
     {
-        _isReadOnly = isReadOnly;
+        _isFrozen = isFrozen;
     }
 
     #region IFreezable Members
@@ -25,11 +25,11 @@ public abstract class FreezableObject : IFreezable
     /// <exception cref="System.InvalidOperationException" />
     public virtual bool IsFrozen
     {
-        get => _isReadOnly;
+        get => _isFrozen;
         set
         {
             this.AssertCanWrite();
-            _isReadOnly = value;
+            _isFrozen = value;
         }
     }
 

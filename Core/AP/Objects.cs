@@ -108,28 +108,6 @@ public static class Objects
         }
         return into;
     }
-     // move to conversion or leave it here ?
-    public static TOutput Convert<TInput, TOutput>(this TInput input)
-    {
-        var c = Converters.GetConverter<TInput, TOutput>();
-
-        if (c != null)
-            return c.Convert(input);
-        else
-            return (TOutput)TypeDescriptor.GetConverter(input!).ConvertTo(input, typeof(TOutput))!;
-        //else
-        //    return Objects.Merge(input, New.Object<TOutput>(), true);
-    }
-
-    //public static object Convert(this object input, Type outputType)
-    //{
-    //    var c = Converters.GetConverter(input.GetType(), outputType);
-
-    //    if (c != null)
-    //        return c.Convert(input);
-    //    else
-    //        return Objects.Merge(input, Activator.CreateInstance(outputType), true);
-    //}
 
     /// <summary>
     /// Returns a NameValueDictionary,

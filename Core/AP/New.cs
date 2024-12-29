@@ -97,18 +97,6 @@ public abstract class New : StaticType
     [MethodImpl((MethodImplOptions)256)]
     public static Guid Guid() => System.Guid.NewGuid();
 
-    /// <summary>
-    /// Creates a new Deferrable
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="activator"></param>
-    /// <param name="isFrozen"></param>
-    /// <returns></returns>
-    [MethodImpl((MethodImplOptions)256)]
-    public static Deferrable<T> Deferrable<T>(Activator<T>? activator = null, bool isFrozen = true)
-        where T : notnull
-        => new(activator, isFrozen);    
-
     [MethodImpl((MethodImplOptions)256)]
     public static AP.Collections.List<T> List<T>(params IEnumerable<T> items) => new(items);
 

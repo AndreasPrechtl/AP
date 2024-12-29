@@ -5,7 +5,7 @@ using System.Text;
 
 namespace AP.Logging;
 
-public abstract class LogSyncronizationContextUserBase
+public abstract class LogSynchronizationContextUserBase
 {
     public event LogEntryAddedEventHandler LogEntryAdded;
 
@@ -14,12 +14,12 @@ public abstract class LogSyncronizationContextUserBase
     /// </summary>
     protected readonly object SyncRoot;
 
-    private LogSyncronizationContext _syncronizationContext;
-    public LogSyncronizationContext SyncronizationContext => _syncronizationContext;
+    private LogSynchronizationContext _syncronizationContext;
+    public LogSynchronizationContext SyncronizationContext => _syncronizationContext;
 
-    internal LogSyncronizationContextUserBase(LogSyncronizationContext? syncronizationContext = null)
+    internal LogSynchronizationContextUserBase(LogSynchronizationContext? syncronizationContext = null)
     {
-        _syncronizationContext = syncronizationContext = syncronizationContext ?? new LogSyncronizationContext();
+        _syncronizationContext = syncronizationContext = syncronizationContext ?? new LogSynchronizationContext();
         SyncRoot = syncronizationContext.SyncRoot;
     }
 
@@ -36,9 +36,9 @@ public abstract class LogSyncronizationContextUserBase
     }
 }
 
-public abstract class LogReaderBase : LogSyncronizationContextUserBase
+public abstract class LogReaderBase : LogSynchronizationContextUserBase
 {
-    protected LogReaderBase(LogSyncronizationContext? syncronizationContext = null)
+    protected LogReaderBase(LogSynchronizationContext? syncronizationContext = null)
         : base(syncronizationContext)
     { }
 
@@ -48,10 +48,10 @@ public abstract class LogReaderBase : LogSyncronizationContextUserBase
 public class StreamingLogReader : LogReaderBase
 {
     private readonly Activator<Stream> _streamCreator;
-    private BufferedLogSyncronizationContext Buffer => (BufferedLogSyncronizationContext)SyncronizationContext;
+    private BufferedLogSynchronizationContext Buffer => (BufferedLogSynchronizationContext)SyncronizationContext;
 
-    public StreamingLogReader(Activator<Stream> streamCreator, BufferedLogSyncronizationContext? buffer = null)
-        : base(buffer ?? new BufferedLogSyncronizationContext(100))
+    public StreamingLogReader(Activator<Stream> streamCreator, BufferedLogSynchronizationContext? buffer = null)
+        : base(buffer ?? new BufferedLogSynchronizationContext(100))
     {
         ArgumentNullException.ThrowIfNull(streamCreator);
 
@@ -74,7 +74,7 @@ public class StreamingLogReader : LogReaderBase
         const string begin = "<!-- entry begin -->";
         lock (SyncRoot)
         {
-            Stream stream = null;
+            Stream stream = null!;
 
             try
             {
@@ -84,18 +84,18 @@ public class StreamingLogReader : LogReaderBase
                 {
                     StringBuilder sb = new();
 
-                    string current = reader.ReadLine();
+                    string current = reader.ReadLine()!;
 
                     while (current != null)
                     {
                         if (current == begin)
                         {
-                            current = reader.ReadLine();
+                            current = reader.ReadLine()!;
 
                             while (current != begin)
                             {
                                 sb.Append(current);
-                                current = reader.ReadLine();
+                                current = reader.ReadLine()!;
                             }
                             entries.Add(Serialization.Deserialize.Xaml<LogEntry>(sb.ToString()));
                             sb.Clear();

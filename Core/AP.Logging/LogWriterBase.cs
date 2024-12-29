@@ -4,9 +4,9 @@ using System.Threading.Tasks;
 
 namespace AP.Logging;
 
-public abstract class LogWriterBase : LogSyncronizationContextUserBase
+public abstract class LogWriterBase : LogSynchronizationContextUserBase
 {
-    protected LogWriterBase(LogSyncronizationContext? syncronizationContext = null)
+    protected LogWriterBase(LogSynchronizationContext? syncronizationContext = null)
         : base(syncronizationContext)
     { }
 
@@ -22,10 +22,10 @@ public abstract class LogWriterBase : LogSyncronizationContextUserBase
 public class StreamingLogWriter : LogWriterBase
 {
     private readonly Activator<Stream> _streamCreator;
-    private BufferedLogSyncronizationContext Buffer => (BufferedLogSyncronizationContext)SyncronizationContext;
+    private BufferedLogSynchronizationContext Buffer => (BufferedLogSynchronizationContext)SyncronizationContext;
 
-    public StreamingLogWriter(Activator<Stream> streamCreator, BufferedLogSyncronizationContext? buffer = null)
-        : base(buffer ?? new BufferedLogSyncronizationContext(100))
+    public StreamingLogWriter(Activator<Stream> streamCreator, BufferedLogSynchronizationContext? buffer = null)
+        : base(buffer ?? new BufferedLogSynchronizationContext(100))
     {
         ArgumentNullException.ThrowIfNull(streamCreator);
 

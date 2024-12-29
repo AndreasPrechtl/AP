@@ -4,20 +4,20 @@ namespace AP.Logging;
 
 public delegate void LogEntryAddedEventHandler(object sender, LogEntryAddedEventArgs e);
 
-public class LogSyncronizationContext
+public class LogSynchronizationContext
 {
     public readonly object SyncRoot = new();
 
-    public LogSyncronizationContext()
+    public LogSynchronizationContext()
     { }
 }
 
-public class BufferedLogSyncronizationContext : LogSyncronizationContext
+public class BufferedLogSynchronizationContext : LogSynchronizationContext
 {
     private List<LogEntry> _buffer;
     private int _minimumBufferSize;
 
-    public BufferedLogSyncronizationContext(int minimumBufferSize = 100)
+    public BufferedLogSynchronizationContext(int minimumBufferSize = 100)
     {
         _buffer = new List<LogEntry>(minimumBufferSize);
         _minimumBufferSize = minimumBufferSize;

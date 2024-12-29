@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using AP.Collections;
 
 namespace AP.Data.InMemory;
@@ -40,7 +42,7 @@ public class InMemoryEntityContext : EntityContextBase
             throw new InvalidOperationException("Operation not allowed");
     }
 
-    protected override void OnSave()
+    protected override Task OnSave(CancellationToken cancellationToken)
     {
         this.ThrowIfOperationDisallowed(DataOperation.Save);
         
@@ -53,13 +55,15 @@ public class InMemoryEntityContext : EntityContextBase
         }
 
         _pendingChanges.Clear();
+
+        return Task.CompletedTask;
     }
 
     protected override void OnDiscard()
     {
         this.ThrowIfOperationDisallowed(DataOperation.Discard);
 
-        // this will most likely screw up becuz it's not persisted
+        // this will most likely screw up because it's not persisted
         _pendingChanges.Clear();
     }
 
@@ -107,7 +111,7 @@ public class InMemoryEntityContext : EntityContextBase
     protected override void CleanUpResources()
     {
         base.CleanUpResources();
-        _pendingChanges = null;
-        _data = null;
+        _pendingChanges = [];
+        _data = [];
     }
 }

@@ -4,13 +4,15 @@ using System.Data.Entity;
 using System.Data.Entity.Core.Objects;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace AP.Data.EntityFramework;
 
 public class EntityFrameworkContext : EntityContextBase<DbContext>
 {
-    public EntityFrameworkContext(DbContext context, bool ownsContext = true, SaveMode saveMode = SaveMode.Default, object? contextKey = null)
-        : base(context, ownsContext, saveMode, contextKey)
+    public EntityFrameworkContext(DbContext context, bool ownsContext = true, object? contextKey = null)
+        : base(context, ownsContext, contextKey)
     {
         context.Configuration.AutoDetectChangesEnabled = false;
 
@@ -24,19 +26,19 @@ public class EntityFrameworkContext : EntityContextBase<DbContext>
             throw new InvalidOperationException("Database doesn't exist or is unavailable");
     }
 
-    public EntityFrameworkContext(string connectionString, DbCompiledModel? model = null, SaveMode saveMode = SaveMode.Default, object? contextKey = null)
-        : this(new DbContext(connectionString, model), true, saveMode, contextKey)
+    public EntityFrameworkContext(string connectionString, DbCompiledModel? model = null, object? contextKey = null)
+        : this(new DbContext(connectionString, model), true, contextKey)
     { }
 
-    public EntityFrameworkContext(DbConnection connection, DbCompiledModel? model = null, bool ownsConnection = true, SaveMode saveMode = SaveMode.Default, object? contextKey = null)
-        : this(new DbContext(connection, model, ownsConnection), ownsConnection, saveMode, contextKey)
+    public EntityFrameworkContext(DbConnection connection, DbCompiledModel? model = null, bool ownsConnection = true, object? contextKey = null)
+        : this(new DbContext(connection, model, ownsConnection), ownsConnection, contextKey)
     { }
 
-    public EntityFrameworkContext(ObjectContext provider, bool ownsContext = true, SaveMode saveMode = SaveMode.Default, object? contextKey = null)
-        : this(new DbContext(provider, ownsContext), ownsContext, saveMode, contextKey)
+    public EntityFrameworkContext(ObjectContext provider, bool ownsContext = true, object? contextKey = null)
+        : this(new DbContext(provider, ownsContext), ownsContext, contextKey)
     { }
 
-    protected override void OnSave() => this.Provider.SaveChanges();
+    protected override Task OnSave(CancellationToken cancellationToken) => this.Provider.SaveChangesAsync(cancellationToken);
 
     protected override void OnDiscard()
     {

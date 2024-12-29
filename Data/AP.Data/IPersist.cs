@@ -7,6 +7,4 @@ public interface IPersist : AP.IDisposable
 {
     Task Save(CancellationToken cancellation = default);
     void Discard();
-
-    SaveMode SaveMode { get; }
 }

@@ -4,7 +4,7 @@ namespace AP.Data;
 
 public interface IUpdate
 {
-    void Update<TEntity>(params IEnumerable<TEntity> entities) where TEntity : class;    
+    void Update<TEntity>(params IEnumerable<TEntity> entities) where TEntity : class;
 }
 
 public interface IUpdate<TEntity>

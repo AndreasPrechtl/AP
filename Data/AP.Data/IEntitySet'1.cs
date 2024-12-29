@@ -6,5 +6,5 @@ public interface IEntitySet<TEntity> :
     IUpdate<TEntity>,
     IDelete<TEntity>,
     IEntityFactory<TEntity>
-    where TEntity : class    
+    where TEntity : class
 { }

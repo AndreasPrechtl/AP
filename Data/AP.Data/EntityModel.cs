@@ -30,21 +30,33 @@ public class EntityModel<TEntityContext> : IEntityModel, IEntityContextUser<TEnt
         if (ctx != null)
         {
             ctx.Disposed -= this.EntityContextDisposed;
-            _entityContext = null;
+            _entityContext = null!;
         }
     }
 
-    public IQueryable<TEntity> Query<TEntity>() where TEntity : class => this.GetEntitySet<TEntity>().Query();
+    public IQueryable<TEntity> Query<TEntity>() 
+        where TEntity : class
+        => this.GetEntitySet<TEntity>().Query();
 
-    public void Create<TEntity>(params IEnumerable<TEntity> entities) where TEntity : class => this.GetEntitySet<TEntity>().Create(entities);
+    public void Create<TEntity>(params IEnumerable<TEntity> entities)
+        where TEntity : class
+        => this.GetEntitySet<TEntity>().Create(entities);
         
-    public void Update<TEntity>(params IEnumerable<TEntity> entities) where TEntity : class => this.GetEntitySet<TEntity>().Update(entities);
+    public void Update<TEntity>(params IEnumerable<TEntity> entities) 
+        where TEntity : class
+        => this.GetEntitySet<TEntity>().Update(entities);
         
-    public void Delete<TEntity>(params IEnumerable<TEntity> entities) where TEntity : class => this.GetEntitySet<TEntity>().Delete(entities);
+    public void Delete<TEntity>(params IEnumerable<TEntity> entities) 
+        where TEntity : class
+        => this.GetEntitySet<TEntity>().Delete(entities);
 
-    public IEntitySet<TEntity> GetEntitySet<TEntity>() where TEntity : class => this.EntityContext.GetEntitySet<TEntity>();
+    public IEntitySet<TEntity> GetEntitySet<TEntity>() 
+        where TEntity : class
+        => this.EntityContext.GetEntitySet<TEntity>();
 
-    public TEntity GetNewEntity<TEntity>() where TEntity : class => this.EntityContext.GetNewEntity<TEntity>();
+    public TEntity GetNewEntity<TEntity>() 
+        where TEntity : class
+        => this.EntityContext.GetNewEntity<TEntity>();
 
     #region IEntityContextUser Members
 

@@ -33,7 +33,7 @@ public class EntitySet<TEntityContext, TEntity> : IEntitySet<TEntity>, IEntityCo
         if (ctx != null)
         {
             ctx.Disposed -= this.EntityContextDisposed;
-            _entityContext = null;
+            _entityContext = null!;
         }
     }
 
@@ -64,7 +64,7 @@ public class EntitySet<TEntityContext, TEntity> : IEntitySet<TEntity>, IEntityCo
     {
         this.ThrowIfContextIsDisposed();
         this.OnCreate(entity);
-        this.EntityContext.RegisterForCreation<TEntity>(entity, false);
+        this.EntityContext.RegisterForCreation<TEntity>(entity);
     }
 
     public void Create(IEnumerable<TEntity> entities)
@@ -73,7 +73,7 @@ public class EntitySet<TEntityContext, TEntity> : IEntitySet<TEntity>, IEntityCo
         foreach (TEntity entity in entities)
         {
             this.OnCreate(entity);
-            this.EntityContext.RegisterForCreation<TEntity>(entity, true);
+            this.EntityContext.RegisterForCreation<TEntity>(entity);
         }
     }
 
@@ -88,7 +88,7 @@ public class EntitySet<TEntityContext, TEntity> : IEntitySet<TEntity>, IEntityCo
     {
         this.ThrowIfContextIsDisposed();
         this.OnUpdate(entity);
-        this.EntityContext.RegisterForUpdate<TEntity>(entity, false);
+        this.EntityContext.RegisterForUpdate<TEntity>(entity);
     }
 
     public void Update(IEnumerable<TEntity> entities)
@@ -97,7 +97,7 @@ public class EntitySet<TEntityContext, TEntity> : IEntitySet<TEntity>, IEntityCo
         foreach (TEntity entity in entities)
         {
             this.OnUpdate(entity);
-            this.EntityContext.RegisterForUpdate<TEntity>(entity, true);
+            this.EntityContext.RegisterForUpdate<TEntity>(entity);
         }
     }
 
@@ -111,7 +111,7 @@ public class EntitySet<TEntityContext, TEntity> : IEntitySet<TEntity>, IEntityCo
         {
             action(entity);
             this.OnUpdate(entity);
-            this.EntityContext.RegisterForUpdate<TEntity>(entity, true);
+            this.EntityContext.RegisterForUpdate<TEntity>(entity);
             updates.Add(entity);
         }
         return updates;
@@ -128,7 +128,7 @@ public class EntitySet<TEntityContext, TEntity> : IEntitySet<TEntity>, IEntityCo
     {
         this.ThrowIfContextIsDisposed();
         this.OnDelete(entity);
-        this.EntityContext.RegisterForDeletion<TEntity>(entity, false);
+        this.EntityContext.RegisterForDeletion<TEntity>(entity);
     }
 
     public void Delete(IEnumerable<TEntity> entities)
@@ -137,7 +137,7 @@ public class EntitySet<TEntityContext, TEntity> : IEntitySet<TEntity>, IEntityCo
         foreach (TEntity entity in entities)
         {
             this.OnDelete(entity);
-            this.EntityContext.RegisterForDeletion<TEntity>(entity, true);
+            this.EntityContext.RegisterForDeletion<TEntity>(entity);
         }
     }
 
@@ -150,7 +150,7 @@ public class EntitySet<TEntityContext, TEntity> : IEntitySet<TEntity>, IEntityCo
         foreach (TEntity entity in q)
         {
             this.OnDelete(entity);
-            this.EntityContext.RegisterForDeletion<TEntity>(entity, true);
+            this.EntityContext.RegisterForDeletion<TEntity>(entity);
             deletes.Add(entity);
         }
         return deletes;

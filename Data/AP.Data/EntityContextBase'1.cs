@@ -24,8 +24,8 @@ public abstract class EntityContextBase<TDataProvider> : EntityContextBase
         }            
     }
 
-    protected EntityContextBase(TDataProvider dataContext, bool ownsProvider = true, SaveMode saveMode = SaveMode.Default, object? contextKey = null)
-        : base(saveMode, contextKey)
+    protected EntityContextBase(TDataProvider dataContext, bool ownsProvider = true, object? contextKey = null)
+        : base(contextKey)
     {
         ArgumentNullException.ThrowIfNull(dataContext);
 

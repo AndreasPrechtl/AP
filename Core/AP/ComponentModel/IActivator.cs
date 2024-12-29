@@ -1,4 +1,6 @@
-﻿namespace AP.ComponentModel;
+﻿using System.Collections;
+
+namespace AP.ComponentModel;
 
 /// <summary>
 /// An interface for factories.
@@ -11,7 +13,9 @@ public interface IActivator
     /// <typeparam name="T">The to be created.</typeparam>
     /// <param name="args">The arguments.</param>
     /// <returns>A new instance of "T"</returns>
-    T New<T>(params object[] args) => Objects.New<T>(args);
+    T New<T>(params IEnumerable[] args) 
+        where T : notnull
+        => AP.New.Instance<T>(args);
 }
 
 /// <summary>
@@ -26,5 +30,7 @@ public interface IActivator<in TBase>
     /// <typeparam name="T">The to be created.</typeparam>
     /// <param name="args">The arguments.</param>
     /// <returns>A new instance of "T"</returns>
-    T New<T>(params object[] args) where T : TBase => Objects.New<T>(args);
+    T New<T>(params object[] args) 
+        where T : notnull, TBase
+        => AP.New.Instance<T>(args);
 }

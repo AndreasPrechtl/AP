@@ -12,7 +12,7 @@ public sealed class IPv4 : Host
     private static uint ToAddress(byte[] value)
     {
         if (value.Length != 4)
-            ExceptionHelper.ThrowArgumentOutOfRangeException(() => value);
+            ArgumentOutOfRangeException.ThrowIfNotEqual(value.Length, 4);
 
         return
             ((uint)value[0]) +
@@ -22,8 +22,6 @@ public sealed class IPv4 : Host
     }
 
     private static byte[] ToBits(uint value) => BitConverter.GetBytes(value);
-
-    private static string ToString(uint value) => ToString(ToBits(value));
 
     private static string ToString(IEnumerable<byte> bits)
     {
@@ -49,7 +47,7 @@ public sealed class IPv4 : Host
         string[] split = v.Split(['.'], StringSplitOptions.RemoveEmptyEntries);
 
         if (split.Length != 4)
-            ExceptionHelper.ThrowArgumentException(() => value, "Invalid IPv4 Address");
+            ArgumentOutOfRangeException.ThrowIfNotEqual(split.Length, 4, nameof(value));
 
         return
         [

@@ -4,5 +4,5 @@ public delegate void MemberAccessingEventHandler(object? sender, MemberAccessing
 
 public interface INotifyMemberAccessing
 {
-    event MemberAccessingEventHandler MemberAccessing;
+    event MemberAccessingEventHandler? MemberAccessing;
 }

@@ -1,4 +1,5 @@
 ﻿using AP.Collections;
+using AP.Collections.ReadOnly;
 
 namespace AP.Observable.Collections;
 
@@ -14,10 +15,10 @@ public class ListChangingEventArgs<T> : CollectionChangingEventArgs<T>
     public new IDictionaryView<int, T> OldItems => _oldItems;
 
     protected ListChangingEventArgs(IListView<T> source, IDictionaryView<int, T>? newItems = null, IDictionaryView<int, T>? oldItems = null, ListChangeType type = ListChangeType.Add)
-        : base(source, newItems != null ? newItems.Values : null, oldItems != null ? oldItems.Values : null, (ChangeType)type)
+        : base(source, newItems != null ? newItems.Values : ReadOnlyList<T>.Empty, oldItems != null ? oldItems.Values : ReadOnlyList<T>.Empty, (ChangeType)type)
     {
-        _newItems = newItems;
-        _oldItems = oldItems;
+        _newItems = newItems ?? ReadOnlyDictionary<int, T>.Empty;
+        _oldItems = oldItems ?? ReadOnlyDictionary<int, T>.Empty;
     }
 
     public static ListChangingEventArgs<T> Add(IListView<T> source, IDictionaryView<int, T> addedItems) => new(source, addedItems, null, ListChangeType.Add);

@@ -52,7 +52,7 @@ public class ObservableQueue<T> : ExtendableQueue<T>, INotifyQueueChanged<T>, IN
         var list = new AP.Collections.List<T>(this.Take(count));
 
         if (OnChanging(QueueChangingEventArgs<T>.Dequeue(this, list)))
-            return null;
+            return [];
 
         var dequeued = base.Dequeue(count);
         OnChanged(QueueChangedEventArgs<T>.Dequeue(this, list));
@@ -113,20 +113,9 @@ public class ObservableQueue<T> : ExtendableQueue<T>, INotifyQueueChanged<T>, IN
 
     protected virtual void OnChanged(QueueChangedEventArgs<T> e)
     {
-        var changed = Changed;
-
-        if (changed != null)
-            changed(this, e);
-
-        var propertyChanged = PropertyChanged;
-
-        if (propertyChanged != null)
-            propertyChanged(this, new PropertyChangedEventArgs(CountString));
-
-        NotifyCollectionChangedEventHandler handler = CollectionChanged;
-
-        if (handler != null)
-            handler(this, (NotifyCollectionChangedEventArgs)e);
+        Changed?.Invoke(this, e);
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(CountString));
+        CollectionChanged?.Invoke(this, (NotifyCollectionChangedEventArgs)e);
     }
 
     protected bool OnChanging(QueueChangingEventArgs<T> e)
@@ -137,56 +126,50 @@ public class ObservableQueue<T> : ExtendableQueue<T>, INotifyQueueChanged<T>, IN
     }
 
     protected virtual void OnChanging(QueueChangingEventArgs<T> e, out bool cancel)
-    {
-        var changing = Changing;
-        var propertyChanging = PropertyChanging;
-
-        if (propertyChanging != null)
-            propertyChanging(this, new PropertyChangingEventArgs(CountString));
-
-        if (changing != null)
-            changing(this, e);
+    {   
+        PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(CountString));
+        Changing?.Invoke(this, e);
 
         cancel = e.Cancel;
     }
 
     #region INotifyQueueChanging<T> Members
 
-    public event QueueChangingEventHandler<T> Changing;
+    public event QueueChangingEventHandler<T>? Changing;
 
     #endregion
 
     #region INotifyCollectionChanging<T> Members
 
-    event CollectionChangingEventHandler<T> INotifyCollectionChanging<T>.Changing
+    event CollectionChangingEventHandler<T>? INotifyCollectionChanging<T>.Changing
     {
-        add => Changing += new QueueChangingEventHandler<T>(value);
-        remove => Changing -= new QueueChangingEventHandler<T>(value);
+        add => Changing += new QueueChangingEventHandler<T>(value!);
+        remove => Changing -= new QueueChangingEventHandler<T>(value!);
     }
 
     #endregion
 
     #region INotifyQueueChanged<T> Members
 
-    public event QueueChangedEventHandler<T> Changed;
+    public event QueueChangedEventHandler<T>? Changed;
 
     #endregion
 
     #region INotifyCollectionChanged<T> Members
 
-    event CollectionChangedEventHandler<T> INotifyCollectionChanged<T>.Changed
+    event CollectionChangedEventHandler<T>? INotifyCollectionChanged<T>.Changed
     {
-        add => Changed += new QueueChangedEventHandler<T>(value);
-        remove => Changed -= new QueueChangedEventHandler<T>(value);
+        add => Changed += new QueueChangedEventHandler<T>(value!);
+        remove => Changed -= new QueueChangedEventHandler<T>(value!);
     }
 
     #endregion
 
     #region INotifyCollectionChanged Members
 
-    protected event NotifyCollectionChangedEventHandler CollectionChanged;
+    protected event NotifyCollectionChangedEventHandler? CollectionChanged;
 
-    event NotifyCollectionChangedEventHandler INotifyCollectionChanged.CollectionChanged
+    event NotifyCollectionChangedEventHandler? INotifyCollectionChanged.CollectionChanged
     {
         add => CollectionChanged += value;
         remove => CollectionChanged -= value;
@@ -196,9 +179,9 @@ public class ObservableQueue<T> : ExtendableQueue<T>, INotifyQueueChanged<T>, IN
 
     #region INotifyPropertyChanging Members
 
-    protected event PropertyChangingEventHandler PropertyChanging;
+    protected event PropertyChangingEventHandler? PropertyChanging;
 
-    event PropertyChangingEventHandler INotifyPropertyChanging.PropertyChanging
+    event PropertyChangingEventHandler? INotifyPropertyChanging.PropertyChanging
     {
         add => PropertyChanging += value;
         remove => PropertyChanging -= value;
@@ -208,9 +191,9 @@ public class ObservableQueue<T> : ExtendableQueue<T>, INotifyQueueChanged<T>, IN
 
     #region INotifyPropertyChanged Members
 
-    protected event PropertyChangedEventHandler PropertyChanged;
+    protected event PropertyChangedEventHandler? PropertyChanged;
 
-    event PropertyChangedEventHandler INotifyPropertyChanged.PropertyChanged
+    event PropertyChangedEventHandler? INotifyPropertyChanged.PropertyChanged
     {
         add => PropertyChanged += value;
         remove => PropertyChanged -= value;

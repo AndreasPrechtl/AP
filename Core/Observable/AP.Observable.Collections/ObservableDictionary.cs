@@ -8,6 +8,7 @@ namespace AP.Observable.Collections;
 
 public class ObservableDictionary<TKey, TValue> :
     ExtendableDictionary<TKey, TValue>, INotifyDictionaryChanged<TKey, TValue>, INotifyDictionaryChanging<TKey, TValue>, INotifyCollectionChanged, INotifyPropertyChanging, INotifyPropertyChanged
+    where TKey : notnull
 {
     private const string CountString = "Count";
     private const string IndexerName = "Item[]";
@@ -48,24 +49,7 @@ public class ObservableDictionary<TKey, TValue> :
     public override bool Add(TKey key, TValue value) => this.Add(new KeyValuePair<TKey, TValue>(key, value));
 
     [MethodImpl(MethodImplOptions.Synchronized)]
-    public override bool Add(KeyValuePair<TKey, TValue> item)
-    {
-        var newItems = New.Dictionary(item);
-
-        if (this.ContainsKey(item.Key))
-            return false;
-
-        if (OnChanging(DictionaryChangingEventArgs<TKey, TValue>.Add(this, newItems)))
-            return false;
-
-        base.Add(item);
-
-        this.OnChanged(DictionaryChangedEventArgs<TKey, TValue>.Add(this, newItems));
-        return true;
-    }
-
-    [MethodImpl(MethodImplOptions.Synchronized)]
-    public override void Add(IEnumerable<KeyValuePair<TKey, TValue>> items)
+    public override void Add(params IEnumerable<KeyValuePair<TKey, TValue>> items)
     {
         var addedItems = new AP.Collections.Dictionary<TKey, TValue>();
 
@@ -84,30 +68,11 @@ public class ObservableDictionary<TKey, TValue> :
     }
 
     [MethodImpl(MethodImplOptions.Synchronized)]
-    public override bool Remove(TKey key)
-    {
-        if (!this.Contains(key, out TValue v))
-            return false;
-
-        var removedItems = new AP.Collections.Dictionary<TKey, TValue> { { key, v } };
-
-        if (OnChanging(DictionaryChangingEventArgs<TKey, TValue>.Remove(this, removedItems)))
-            return false;
-
-        this.Inner.Remove(key);
-
-        this.OnChanged(DictionaryChangedEventArgs<TKey, TValue>.Remove(this, removedItems));
-
-        return true;
-
-    }
-
-    [MethodImpl(MethodImplOptions.Synchronized)]
     public override bool Remove(KeyValuePair<TKey, TValue> item, bool compareValues = false)
     {
         TKey key = item.Key;
 
-        if (!this.Contains(key, out TValue v))
+        if (!this.TryGetValue(key, out TValue? v))
             return false;
 
         if (!compareValues || this.ValueComparer.Equals(v, item.Value))
@@ -191,14 +156,14 @@ public class ObservableDictionary<TKey, TValue> :
     {
         TKey key = item.Key;
 
-        if (!this.Contains(item.Key, out TValue value))
+        if (!this.TryGetValue(item.Key, out TValue? value))
             return false;
 
         // if there's no change, there's no need to update it
         if (this.ValueComparer.Equals(value, item.Value))
             return false;
 
-        var original = new AP.Collections.Dictionary<TKey, TValue> { { key, value } };
+        var original = new AP.Collections.Dictionary<TKey, TValue> { { key, value! } };
         var updated = New.Dictionary(item);
 
         if (OnChanging(DictionaryChangingEventArgs<TKey, TValue>.Update(this, original, updated)))
@@ -257,10 +222,7 @@ public class ObservableDictionary<TKey, TValue> :
 
     protected virtual void OnChanged(DictionaryChangedEventArgs<TKey, TValue> args)
     {
-        var changed = Changed;
-
-        if (changed != null)
-            changed(this, args);
+        Changed?.Invoke(this, args);
 
         var propertyChanged = PropertyChanged;
 
@@ -270,10 +232,7 @@ public class ObservableDictionary<TKey, TValue> :
             propertyChanged(this, new PropertyChangedEventArgs(CountString));
         }
 
-        NotifyCollectionChangedEventHandler handler = CollectionChanged;
-
-        if (handler != null)
-            handler(this, (NotifyCollectionChangedEventArgs)args);
+        CollectionChanged?.Invoke(this, (NotifyCollectionChangedEventArgs)args);
     }
 
     protected bool OnChanging(DictionaryChangingEventArgs<TKey, TValue> e)
@@ -285,7 +244,6 @@ public class ObservableDictionary<TKey, TValue> :
 
     protected virtual void OnChanging(DictionaryChangingEventArgs<TKey, TValue> e, out bool cancel)
     {
-        var changing = Changing;
         var propertyChanging = PropertyChanging;
 
         if (propertyChanging != null)
@@ -293,50 +251,49 @@ public class ObservableDictionary<TKey, TValue> :
             propertyChanging(this, new PropertyChangingEventArgs(IndexerName));
             propertyChanging(this, new PropertyChangingEventArgs(CountString));
         }
-
-        if (changing != null)
-            changing(this, e);
+                
+        Changing?.Invoke(this, e);
 
         cancel = e.Cancel;
     }
 
     #region INotifyDictionaryChanged<TKey,TValue> Members
 
-    public event DictionaryChangedEventHandler<TKey, TValue> Changed;
+    public event DictionaryChangedEventHandler<TKey, TValue>? Changed;
 
     #endregion
 
     #region INotifyCollectionChanged<KeyValuePair<TKey,TValue>> Members
 
-    event CollectionChangedEventHandler<KeyValuePair<TKey, TValue>> INotifyCollectionChanged<KeyValuePair<TKey, TValue>>.Changed
+    event CollectionChangedEventHandler<KeyValuePair<TKey, TValue>>? INotifyCollectionChanged<KeyValuePair<TKey, TValue>>.Changed
     {
-        add => Changed += new DictionaryChangedEventHandler<TKey, TValue>(value);
-        remove => Changed -= new DictionaryChangedEventHandler<TKey, TValue>(value);
+        add => Changed += new DictionaryChangedEventHandler<TKey, TValue>(value!);
+        remove => Changed -= new DictionaryChangedEventHandler<TKey, TValue>(value!);
     }
 
     #endregion
 
     #region INotifyDictionaryChanging<TKey,TValue> Members
 
-    public event DictionaryChangingEventHandler<TKey, TValue> Changing;
+    public event DictionaryChangingEventHandler<TKey, TValue>? Changing;
 
     #endregion
 
     #region INotifyCollectionChanging<KeyValuePair<TKey,TValue>> Members
 
-    event CollectionChangingEventHandler<KeyValuePair<TKey, TValue>> INotifyCollectionChanging<KeyValuePair<TKey, TValue>>.Changing
+    event CollectionChangingEventHandler<KeyValuePair<TKey, TValue>>? INotifyCollectionChanging<KeyValuePair<TKey, TValue>>.Changing
     {
-        add => Changing += new DictionaryChangingEventHandler<TKey, TValue>(value);
-        remove => Changing -= new DictionaryChangingEventHandler<TKey, TValue>(value);
+        add => Changing += new DictionaryChangingEventHandler<TKey, TValue>(value!);
+        remove => Changing -= new DictionaryChangingEventHandler<TKey, TValue>(value!);
     }
 
     #endregion
 
     #region INotifyCollectionChanged Members
 
-    protected event NotifyCollectionChangedEventHandler CollectionChanged;
+    protected event NotifyCollectionChangedEventHandler? CollectionChanged;
 
-    event NotifyCollectionChangedEventHandler INotifyCollectionChanged.CollectionChanged
+    event NotifyCollectionChangedEventHandler? INotifyCollectionChanged.CollectionChanged
     {
         add => CollectionChanged += value;
         remove => CollectionChanged -= value;
@@ -346,13 +303,13 @@ public class ObservableDictionary<TKey, TValue> :
 
     #region INotifyPropertyChanging Members
 
-    public event PropertyChangingEventHandler PropertyChanging;
+    public event PropertyChangingEventHandler? PropertyChanging;
 
     #endregion
 
     #region INotifyPropertyChanged Members
 
-    public event PropertyChangedEventHandler PropertyChanged;
+    public event PropertyChangedEventHandler? PropertyChanged;
 
     #endregion
 }

@@ -6,12 +6,12 @@ public delegate void ObjectChangingEventHandler<T>(object? sender, ObjectChanged
 
 public interface INotifyObjectChanging
 {
-    event ObjectChangingEventHandler Changing;
+    event ObjectChangingEventHandler? Changing;
 }
 
 public interface INotifyObjectChanging<T> : INotifyObjectChanging
 {
-    new event ObjectChangingEventHandler<T> Changing;
+    new event ObjectChangingEventHandler<T>? Changing;
 }
 
 //public interface INotifyObjectChanging<T, TValue> : INotifyObjectChanging<T>

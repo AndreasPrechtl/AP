@@ -17,12 +17,11 @@ public class CollectionChangingEventArgs<T> : CancelEventArgs
     public int Count => _count;
     public AP.Collections.ICollection<T> Source => _source;
 
-    public CollectionChangingEventArgs(AP.Collections.ICollection<T> source, AP.Collections.ICollection<T> newItems, AP.Collections.ICollection<T>? oldItems = null, ChangeType action = ChangeType.Add)
+    public CollectionChangingEventArgs(AP.Collections.ICollection<T> source, AP.Collections.ICollection<T> newItems, AP.Collections.ICollection<T> oldItems, ChangeType action = ChangeType.Add)
     {
         ArgumentNullException.ThrowIfNull(source);
-
-        if (oldItems == null || newItems == null)
-            throw new ArgumentNullException("items");
+        ArgumentNullException.ThrowIfNull(newItems);
+        ArgumentNullException.ThrowIfNull(oldItems);
 
         int count = 0;
 
@@ -41,10 +40,12 @@ public class CollectionChangingEventArgs<T> : CancelEventArgs
             case ListChangeType.Move:
                 count = oldItems.Count;
                 break;
+            default:
+                throw new ArgumentOutOfRangeException(nameof(action));
         }
 
         if (count < 1)
-            throw new ArgumentException("count");
+            ArgumentOutOfRangeException.ThrowIfLessThan(1, count);
 
         _source = source;
         _oldItems = oldItems;

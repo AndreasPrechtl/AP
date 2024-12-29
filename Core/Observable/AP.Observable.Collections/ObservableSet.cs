@@ -187,20 +187,9 @@ public class ObservableSet<T> : ExtendableSet<T>, INotifySetChanged<T>, INotifyS
 
     protected virtual void OnChanged(SetChangedEventArgs<T> e)
     {
-        var changed = Changed;
-
-        if (changed != null)
-            changed(this, e);
-
-        var propertyChanged = PropertyChanged;
-
-        if (propertyChanged != null)
-            propertyChanged(this, new PropertyChangedEventArgs(CountString));
-
-        NotifyCollectionChangedEventHandler handler = CollectionChanged;
-
-        if (handler != null)
-            handler(this, (NotifyCollectionChangedEventArgs)e);
+        Changed?.Invoke(this, e);
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(CountString));
+        CollectionChanged?.Invoke(this, (NotifyCollectionChangedEventArgs)e);
     }
 
     protected bool OnChanging(SetChangingEventArgs<T> e)
@@ -212,55 +201,49 @@ public class ObservableSet<T> : ExtendableSet<T>, INotifySetChanged<T>, INotifyS
 
     protected virtual void OnChanging(SetChangingEventArgs<T> e, out bool cancel)
     {
-        var changing = Changing;
-        var propertyChanging = PropertyChanging;
-
-        if (propertyChanging != null)
-            propertyChanging(this, new PropertyChangingEventArgs(CountString));
-
-        if (changing != null)
-            changing(this, e);
+        PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(CountString));
+        Changing?.Invoke(this, e);
 
         cancel = e.Cancel;
     }
 
     #region INotifySetChanging<T> Members
 
-    public event SetChangingEventHandler<T> Changing;
+    public event SetChangingEventHandler<T>? Changing;
 
     #endregion
 
     #region INotifyCollectionChanging<T> Members
 
-    event CollectionChangingEventHandler<T> INotifyCollectionChanging<T>.Changing
+    event CollectionChangingEventHandler<T>? INotifyCollectionChanging<T>.Changing
     {
-        add => Changing += new SetChangingEventHandler<T>(value);
-        remove => Changing -= new SetChangingEventHandler<T>(value);
+        add => Changing += new SetChangingEventHandler<T>(value!);
+        remove => Changing -= new SetChangingEventHandler<T>(value!);
     }
 
     #endregion
 
     #region INotifySetChanged<T> Members
 
-    public event SetChangedEventHandler<T> Changed;
+    public event SetChangedEventHandler<T>? Changed;
 
     #endregion
 
     #region INotifyCollectionChanged<T> Members
 
-    event CollectionChangedEventHandler<T> INotifyCollectionChanged<T>.Changed
+    event CollectionChangedEventHandler<T>? INotifyCollectionChanged<T>.Changed
     {
-        add => Changed += (SetChangedEventHandler<T>)(object)value;
-        remove => Changed -= (SetChangedEventHandler<T>)(object)value;
+        add => Changed += (SetChangedEventHandler<T>?)(object?)value;
+        remove => Changed -= (SetChangedEventHandler<T>?)(object?)value;
     }
 
     #endregion
 
     #region INotifyCollectionChanged Members
 
-    protected event NotifyCollectionChangedEventHandler CollectionChanged;
+    protected event NotifyCollectionChangedEventHandler? CollectionChanged;
 
-    event NotifyCollectionChangedEventHandler INotifyCollectionChanged.CollectionChanged
+    event NotifyCollectionChangedEventHandler? INotifyCollectionChanged.CollectionChanged
     {
         add => CollectionChanged += value;
         remove => CollectionChanged -= value;
@@ -270,9 +253,9 @@ public class ObservableSet<T> : ExtendableSet<T>, INotifySetChanged<T>, INotifyS
 
     #region INotifyPropertyChanging Members
 
-    protected event PropertyChangingEventHandler PropertyChanging;
+    protected event PropertyChangingEventHandler? PropertyChanging;
 
-    event PropertyChangingEventHandler INotifyPropertyChanging.PropertyChanging
+    event PropertyChangingEventHandler? INotifyPropertyChanging.PropertyChanging
     {
         add => PropertyChanging += value;
         remove => PropertyChanging -= value;
@@ -282,9 +265,9 @@ public class ObservableSet<T> : ExtendableSet<T>, INotifySetChanged<T>, INotifyS
 
     #region INotifyPropertyChanged Members
 
-    protected event PropertyChangedEventHandler PropertyChanged;
+    protected event PropertyChangedEventHandler? PropertyChanged;
 
-    event PropertyChangedEventHandler INotifyPropertyChanged.PropertyChanged
+    event PropertyChangedEventHandler? INotifyPropertyChanged.PropertyChanged
     {
         add => PropertyChanged += value;
         remove => PropertyChanged -= value;

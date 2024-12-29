@@ -18,12 +18,11 @@ public class CollectionChangedEventArgs<T> : EventArgs
     public int Count => _count;
     public ICollection<T> Source => _source;
 
-    public CollectionChangedEventArgs(ICollection<T> source, ICollection<T> newItems, ICollection<T>? oldItems = null, ChangeType action = ChangeType.Add)
+    public CollectionChangedEventArgs(ICollection<T> source, ICollection<T> newItems, ICollection<T> oldItems, ChangeType action = ChangeType.Add)
     {
         ArgumentNullException.ThrowIfNull(source);
-
-        if (oldItems == null || newItems == null)
-            throw new ArgumentNullException("items");
+        ArgumentNullException.ThrowIfNull(newItems);
+        ArgumentNullException.ThrowIfNull(oldItems);
 
         int count = 0;
 
@@ -44,7 +43,7 @@ public class CollectionChangedEventArgs<T> : EventArgs
                 count = oldItems.Count;
                 break;
             default:
-                break;
+                throw new ArgumentOutOfRangeException(nameof(action));                
         }
 
         if (count < 1)
@@ -85,8 +84,7 @@ public class CollectionChangedEventArgs<T> : EventArgs
                 a = new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset);
                 break;
             default:
-                a = null;
-                break;
+                throw new InvalidCastException();                
         }
 
         return a;

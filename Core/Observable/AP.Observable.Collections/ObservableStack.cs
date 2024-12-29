@@ -67,7 +67,7 @@ public class ObservableStack<T> : ExtendableStack<T>, INotifyStackChanged<T>, IN
         var list = new AP.Collections.List<T>(_list[_list.Count - count, count]);
 
         if (OnChanging(StackChangingEventArgs<T>.Pop(this, list)))
-            return null;
+            return [];
 
         var popped = this.Inner.Pop(count);
 
@@ -127,20 +127,9 @@ public class ObservableStack<T> : ExtendableStack<T>, INotifyStackChanged<T>, IN
 
     protected virtual void OnChanged(StackChangedEventArgs<T> e)
     {
-        var changed = Changed;
-
-        if (changed != null)
-            changed(this, e);
-
-        var propertyChanged = PropertyChanged;
-
-        if (propertyChanged != null)
-            propertyChanged(this, new PropertyChangedEventArgs(CountString));
-
-        NotifyCollectionChangedEventHandler handler = CollectionChanged;
-
-        if (handler != null)
-            handler(this, (NotifyCollectionChangedEventArgs)e);
+        Changed?.Invoke(this, e);
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(CountString));
+        CollectionChanged?.Invoke(this, (NotifyCollectionChangedEventArgs)e);
     }
 
     protected bool OnChanging(StackChangingEventArgs<T> e)
@@ -151,56 +140,50 @@ public class ObservableStack<T> : ExtendableStack<T>, INotifyStackChanged<T>, IN
     }
 
     protected virtual void OnChanging(StackChangingEventArgs<T> e, out bool cancel)
-    {
-        var changing = Changing;
-        var propertyChanging = PropertyChanging;
-
-        if (propertyChanging != null)
-            propertyChanging(this, new PropertyChangingEventArgs(CountString));
-
-        if (changing != null)
-            changing(this, e);
+    {           
+        PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(CountString));
+        Changing?.Invoke(this, e);
 
         cancel = e.Cancel;
     }
 
     #region INotifyStackChanging<T> Members
 
-    public event StackChangingEventHandler<T> Changing;
+    public event StackChangingEventHandler<T>? Changing;
 
     #endregion
 
     #region INotifyCollectionChanging<T> Members
 
-    event CollectionChangingEventHandler<T> INotifyCollectionChanging<T>.Changing
+    event CollectionChangingEventHandler<T>? INotifyCollectionChanging<T>.Changing
     {
-        add => Changing += (StackChangingEventHandler<T>)(object)value;
-        remove => Changing -= (StackChangingEventHandler<T>)(object)value;
+        add => Changing += (StackChangingEventHandler<T>?)(object?)value;
+        remove => Changing -= (StackChangingEventHandler<T>?)(object?)value;
     }
 
     #endregion
 
     #region INotifyStackChanged<T> Members
 
-    public event StackChangedEventHandler<T> Changed;
+    public event StackChangedEventHandler<T>? Changed;
 
     #endregion
 
     #region INotifyCollectionChanged<T> Members
 
-    event CollectionChangedEventHandler<T> INotifyCollectionChanged<T>.Changed
+    event CollectionChangedEventHandler<T>? INotifyCollectionChanged<T>.Changed
     {
-        add => Changed += (StackChangedEventHandler<T>)(object)value;
-        remove => Changed -= (StackChangedEventHandler<T>)(object)value;
+        add => Changed += (StackChangedEventHandler<T>?)(object?)value;
+        remove => Changed -= (StackChangedEventHandler<T>?)(object?)value;
     }
 
     #endregion
 
     #region INotifyCollectionChanged Members
 
-    protected event NotifyCollectionChangedEventHandler CollectionChanged;
+    protected event NotifyCollectionChangedEventHandler? CollectionChanged;
 
-    event NotifyCollectionChangedEventHandler INotifyCollectionChanged.CollectionChanged
+    event NotifyCollectionChangedEventHandler? INotifyCollectionChanged.CollectionChanged
     {
         add => CollectionChanged += value;
         remove => CollectionChanged -= value;
@@ -210,9 +193,9 @@ public class ObservableStack<T> : ExtendableStack<T>, INotifyStackChanged<T>, IN
 
     #region INotifyPropertyChanging Members
 
-    protected event PropertyChangingEventHandler PropertyChanging;
+    protected event PropertyChangingEventHandler? PropertyChanging;
 
-    event PropertyChangingEventHandler INotifyPropertyChanging.PropertyChanging
+    event PropertyChangingEventHandler? INotifyPropertyChanging.PropertyChanging
     {
         add => PropertyChanging += value;
         remove => PropertyChanging -= value;
@@ -222,9 +205,9 @@ public class ObservableStack<T> : ExtendableStack<T>, INotifyStackChanged<T>, IN
 
     #region INotifyPropertyChanged Members
 
-    protected event PropertyChangedEventHandler PropertyChanged;
+    protected event PropertyChangedEventHandler? PropertyChanged;
 
-    event PropertyChangedEventHandler INotifyPropertyChanged.PropertyChanged
+    event PropertyChangedEventHandler? INotifyPropertyChanged.PropertyChanged
     {
         add => PropertyChanged += value;
         remove => PropertyChanged -= value;

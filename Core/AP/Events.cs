@@ -10,34 +10,6 @@ namespace AP;
 public static class Events
 {
     /// <summary>
-    /// Raises an event - can be used for any event as long as the delegate uses (object, TEventArgs) as parameters;        
-    /// </summary>
-    /// <param name="source">The event.</param>
-    /// <param name="sender">The object causing the event.</param>
-    /// <param name="e">The EventArgs.</param>        
-    [MethodImpl((MethodImplOptions)256)]
-    public static void Raise<TEventArgs>(this EventHandler<TEventArgs> source, object sender, TEventArgs e)
-        where TEventArgs : EventArgs
-    {
-        if (source != null)
-            source(sender, e);                
-    }
-
-    /// <summary>
-    /// Raises an event - can be used for any event as long as the delegate uses (object, EventArgs) as parameters;
-    /// like this: (EventHandler)(Delegate)myEvent - this will generate (EventHandler)myEvent but the compiler error is gone
-    /// </summary>
-    /// <param name="source">The event.</param>
-    /// <param name="sender">The object causing the event.</param>
-    /// <param name="e">The EventArgs.</param>        
-    [MethodImpl((MethodImplOptions)256)]        
-    public static void Raise(this EventHandler source, object sender, EventArgs e)
-    {
-        if (source != null)
-            source(sender, e);            
-    }
-
-    /// <summary>
     /// Removes all event listeners.
     /// </summary>
     /// <param name="eventHandler">The event.</param>

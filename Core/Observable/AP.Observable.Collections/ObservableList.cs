@@ -46,28 +46,13 @@ public class ObservableList<T> : ExtendableList<T>, INotifyListChanged<T>, INoti
     protected override CollectionBase<T> OnClone() => new ObservableList<T>(this, this.Comparer);
 
     [MethodImpl(MethodImplOptions.Synchronized)]
-    public override int Add(T item)
-    {
-        int i = this.Count;
-        var newItems = new AP.Collections.SortedDictionary<int, T>(null, this.Comparer) { { i, item } };
-
-        if (OnChanging(ListChangingEventArgs<T>.Add(this, newItems)))
-            return -1;
-
-        this.Inner.Insert(i, item);
-        OnChanged(ListChangedEventArgs<T>.Add(this, newItems));
-
-        return i;
-    }
-
-    [MethodImpl(MethodImplOptions.Synchronized)]
-    public override void Add(IEnumerable<T> items)
+    public override void Add(params IEnumerable<T> items)
     {
         ArgumentNullException.ThrowIfNull(items);
 
         int c = this.Count;
         int i = c;
-        var newItems = new AP.Collections.SortedDictionary<int, T>(null, this.Comparer);
+        var newItems = new AP.Collections.SortedDictionary<int, T>(null!, this.Comparer);
 
         foreach (T item in items)
             newItems.Add(i++, item);
@@ -83,13 +68,13 @@ public class ObservableList<T> : ExtendableList<T>, INotifyListChanged<T>, INoti
     }
 
     [MethodImpl(MethodImplOptions.Synchronized)]
-    public override void Insert(int index, IEnumerable<T> items)
+    public override void Insert(int index, params IEnumerable<T> items)
     {
         ArgumentNullException.ThrowIfNull(items);
 
         ArgumentOutOfRangeException.ThrowIfGreaterThan(index, this.Count);
 
-        var newItems = new AP.Collections.SortedDictionary<int, T>(null, this.Comparer);
+        var newItems = new AP.Collections.SortedDictionary<int, T>(null!, this.Comparer);
 
         int i = index;
         foreach (T item in items)
@@ -104,20 +89,6 @@ public class ObservableList<T> : ExtendableList<T>, INotifyListChanged<T>, INoti
         foreach (T item in items)
             base.Insert(index++, item);
 
-        OnChanged(ListChangedEventArgs<T>.Insert(this, newItems));
-    }
-
-    [MethodImpl(MethodImplOptions.Synchronized)]
-    public override void Insert(int index, T item)
-    {
-        ArgumentOutOfRangeException.ThrowIfGreaterThan(index, this.Count);
-
-        var newItems = new AP.Collections.SortedDictionary<int, T>(1, null, this.Comparer) { { index, item } };
-
-        if (OnChanging(ListChangingEventArgs<T>.Insert(this, newItems)))
-            return;
-
-        this.Inner.Insert(index, item);
         OnChanged(ListChangedEventArgs<T>.Insert(this, newItems));
     }
 
@@ -137,8 +108,8 @@ public class ObservableList<T> : ExtendableList<T>, INotifyListChanged<T>, INoti
 
         ArgumentOutOfRangeException.ThrowIfEqual(index, newIndex);
 
-        var newItems = new AP.Collections.SortedDictionary<int, T>(count, null, this.Comparer);
-        var oldItems = new AP.Collections.SortedDictionary<int, T>(count, null, this.Comparer);
+        var newItems = new AP.Collections.SortedDictionary<int, T>(count, null!, this.Comparer);
+        var oldItems = new AP.Collections.SortedDictionary<int, T>(count, null!, this.Comparer);
 
         if (index < newIndex && index + count >= newIndex)
             throw new ArgumentOutOfRangeException(nameof(newIndex));
@@ -173,12 +144,10 @@ public class ObservableList<T> : ExtendableList<T>, INotifyListChanged<T>, INoti
     public override void Remove(int index, int count = 1)
     {
         ArgumentOutOfRangeException.ThrowIfNegative(index);
-
         ArgumentOutOfRangeException.ThrowIfNegativeOrZero(count);
-
         ArgumentOutOfRangeException.ThrowIfGreaterThan(count, this.Count - index);
 
-        var removedItems = new AP.Collections.SortedDictionary<int, T>(count, null, this.Comparer);
+        var removedItems = new AP.Collections.SortedDictionary<int, T>(count, null!, this.Comparer);
 
         for (int i = index; i < count; ++i)
             removedItems.Add(i, this.Inner[i]);
@@ -207,7 +176,7 @@ public class ObservableList<T> : ExtendableList<T>, INotifyListChanged<T>, INoti
 
             case SelectionMode.All:
 
-                var removedItems = new AP.Collections.SortedDictionary<int, T>(null, this.Comparer);
+                var removedItems = new AP.Collections.SortedDictionary<int, T>(null!, this.Comparer);
 
                 for (int i = 0, c = this.Count; i < c; ++i)
                 {
@@ -245,8 +214,8 @@ public class ObservableList<T> : ExtendableList<T>, INotifyListChanged<T>, INoti
         if (this.Comparer.Equals(current, item))
             return;
 
-        var newItems = new AP.Collections.SortedDictionary<int, T>(1, null, this.Comparer) { { index, item } };
-        var oldItems = new AP.Collections.SortedDictionary<int, T>(1, null, this.Comparer) { { index, current } };
+        var newItems = new AP.Collections.SortedDictionary<int, T>(1, null!, this.Comparer) { { index, item } };
+        var oldItems = new AP.Collections.SortedDictionary<int, T>(1, null!, this.Comparer) { { index, current } };
 
         if (OnChanging(ListChangingEventArgs<T>.Replace(this, newItems, oldItems)))
             return;
@@ -263,7 +232,7 @@ public class ObservableList<T> : ExtendableList<T>, INotifyListChanged<T>, INoti
         if (c == 0)
             return;
 
-        var clearedItems = new AP.Collections.SortedDictionary<int, T>(c, null, this.Comparer);
+        var clearedItems = new AP.Collections.SortedDictionary<int, T>(c, null!, this.Comparer);
 
         for (int i = 0; i < c; ++i)
             clearedItems.Add(i, this.Inner[i]);
@@ -277,23 +246,16 @@ public class ObservableList<T> : ExtendableList<T>, INotifyListChanged<T>, INoti
 
     protected virtual void OnChanged(ListChangedEventArgs<T> args)
     {
-        var changed = Changed;
-
-        if (changed != null)
-            changed(this, args);
+        Changed?.Invoke(this, args);
 
         var propertyChanged = PropertyChanged;
-
         if (propertyChanged != null)
         {
             propertyChanged(this, new PropertyChangedEventArgs(IndexerName));
             propertyChanged(this, new PropertyChangedEventArgs(CountString));
         }
 
-        NotifyCollectionChangedEventHandler handler = CollectionChanged;
-
-        if (handler != null)
-            handler(this, (NotifyCollectionChangedEventArgs)args);
+        CollectionChanged?.Invoke(this, (NotifyCollectionChangedEventArgs)args);
     }
 
     protected bool OnChanging(ListChangingEventArgs<T> e)
@@ -306,7 +268,6 @@ public class ObservableList<T> : ExtendableList<T>, INotifyListChanged<T>, INoti
 
     protected virtual void OnChanging(ListChangingEventArgs<T> e, out bool cancel)
     {
-        var changing = Changing;
         var propertyChanging = PropertyChanging;
 
         if (propertyChanging != null)
@@ -314,50 +275,48 @@ public class ObservableList<T> : ExtendableList<T>, INotifyListChanged<T>, INoti
             propertyChanging(this, new PropertyChangingEventArgs(IndexerName));
             propertyChanging(this, new PropertyChangingEventArgs(CountString));
         }
-
-        if (changing != null)
-            changing(this, e);
+        Changing?.Invoke(this, e);
 
         cancel = e.Cancel;
     }
 
     #region INotifyListChanged<T> Members
 
-    public event ListChangedEventHandler<T> Changed;
+    public event ListChangedEventHandler<T>? Changed;
 
     #endregion
 
     #region INotifyCollectionChanged<KeyValuePair<int,T>,ListChangedEventArgs<T>> Members
 
-    event CollectionChangedEventHandler<T> INotifyCollectionChanged<T>.Changed
+    event CollectionChangedEventHandler<T>? INotifyCollectionChanged<T>.Changed
     {
-        add => Changed += new ListChangedEventHandler<T>(value);
-        remove => Changed -= new ListChangedEventHandler<T>(value);
+        add => Changed += new ListChangedEventHandler<T>(value!);
+        remove => Changed -= new ListChangedEventHandler<T>(value!);
     }
 
     #endregion
 
     #region INotifyListChanging<T> Members
 
-    public event ListChangingEventHandler<T> Changing;
+    public event ListChangingEventHandler<T>? Changing;
 
     #endregion
 
     #region INotifyCollectionChanging<KeyValuePair<int,T>> Members
 
-    event CollectionChangingEventHandler<T> INotifyCollectionChanging<T>.Changing
+    event CollectionChangingEventHandler<T>? INotifyCollectionChanging<T>.Changing
     {
-        add => Changing += new ListChangingEventHandler<T>(value);
-        remove => Changing -= new ListChangingEventHandler<T>(value);
+        add => Changing += new ListChangingEventHandler<T>(value!);
+        remove => Changing -= new ListChangingEventHandler<T>(value!);
     }
 
     #endregion
 
     #region INotifyCollectionChanged Members
 
-    protected event NotifyCollectionChangedEventHandler CollectionChanged;
+    protected event NotifyCollectionChangedEventHandler? CollectionChanged;
 
-    event NotifyCollectionChangedEventHandler INotifyCollectionChanged.CollectionChanged
+    event NotifyCollectionChangedEventHandler? INotifyCollectionChanged.CollectionChanged
     {
         add => CollectionChanged += value;
         remove => CollectionChanged -= value;
@@ -367,13 +326,13 @@ public class ObservableList<T> : ExtendableList<T>, INotifyListChanged<T>, INoti
 
     #region INotifyPropertyChanging Members
 
-    public event PropertyChangingEventHandler PropertyChanging;
+    public event PropertyChangingEventHandler? PropertyChanging;
 
     #endregion
 
     #region INotifyPropertyChanged Members
 
-    public event PropertyChangedEventHandler PropertyChanged;
+    public event PropertyChangedEventHandler? PropertyChanged;
 
     #endregion
 }

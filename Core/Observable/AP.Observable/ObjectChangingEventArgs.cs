@@ -4,7 +4,9 @@ namespace AP.Observable;
 
 public class ObjectChangingEventArgs : System.ComponentModel.CancelEventArgs
 {
-    private readonly object _container;
+    public static new readonly ObjectChangingEventArgs Empty = new();
+
+    private readonly object _container = null!;
     private readonly object? _oldValue;
     private readonly object? _newValue;
 
@@ -12,7 +14,11 @@ public class ObjectChangingEventArgs : System.ComponentModel.CancelEventArgs
     public object? OldValue => _oldValue;
     public object? NewValue => _newValue;
 
+    private ObjectChangingEventArgs()
+    { }
+
     public ObjectChangingEventArgs(object container, object? oldValue, object? newValue)
+        : this()
     {
         ArgumentNullException.ThrowIfNull(container);
 

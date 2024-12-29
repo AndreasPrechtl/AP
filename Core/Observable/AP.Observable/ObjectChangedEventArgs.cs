@@ -4,7 +4,9 @@ namespace AP.Observable;
 
 public class ObjectChangedEventArgs : EventArgs
 {
-    private readonly object _container;
+    public static new readonly ObjectChangedEventArgs Empty = new();
+
+    private readonly object _container = null!;
     private readonly object? _oldValue;
     private readonly object? _newValue;
 
@@ -12,7 +14,11 @@ public class ObjectChangedEventArgs : EventArgs
     public object? OldValue => _oldValue;
     public object? NewValue => _newValue;
 
+    private ObjectChangedEventArgs()
+    { }
+
     public ObjectChangedEventArgs(object container, object? oldValue, object? newValue)
+        : this()
     {
         ArgumentNullException.ThrowIfNull(container);
 
@@ -35,8 +41,8 @@ public class ObjectChangedEventArgs<T> : ObjectChangedEventArgs
 
 public class ObjectChangedEventArgs<T, TValue> : ObjectChangedEventArgs<T>
 {
-    public new TValue OldValue => (TValue)base.OldValue;
-    public new TValue NewValue => (TValue)base.NewValue;
+    public new TValue? OldValue => (TValue?)base.OldValue;
+    public new TValue? NewValue => (TValue?)base.NewValue;
 
     public ObjectChangedEventArgs(T container, TValue oldValue, TValue newValue)
         : base(container!, oldValue, newValue)

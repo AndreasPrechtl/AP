@@ -71,10 +71,7 @@ public class Sandbox : DisposableObject
     /// <param name="e"></param>
     protected virtual void OnErrorOccured(ErrorLoggerEventArgs e)
     {
-        ErrorLogger handler = this.ErrorOccured;
-
-        if (handler != null)
-            handler(this, e);
+        this.ErrorOccured?.Invoke(this, e);
     }
 
     protected override void CleanUpResources()

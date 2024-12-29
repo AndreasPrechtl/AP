@@ -7,34 +7,35 @@ public delegate void ListChangedEventHandler<T>(object sender, ListChangedEventA
 public delegate void SetChangedEventHandler<T>(object sender, SetChangedEventArgs<T> e);
 public delegate void QueueChangedEventHandler<T>(object sender, QueueChangedEventArgs<T> e);
 public delegate void StackChangedEventHandler<T>(object sender, StackChangedEventArgs<T> e);
-public delegate void DictionaryChangedEventHandler<TKey, TValue>(object sender, DictionaryChangedEventArgs<TKey, TValue> e);
+public delegate void DictionaryChangedEventHandler<TKey, TValue>(object sender, DictionaryChangedEventArgs<TKey, TValue> e) where TKey : notnull;
 
 public interface INotifyCollectionChanged<T>
 {
-    event CollectionChangedEventHandler<T> Changed;
+    event CollectionChangedEventHandler<T>? Changed;
 }
 
 public interface INotifyListChanged<T> : INotifyCollectionChanged<T>
 {
-    new event ListChangedEventHandler<T> Changed;
+    new event ListChangedEventHandler<T>? Changed;
 }
 
 public interface INotifySetChanged<T> : INotifyCollectionChanged<T>
 {
-    new event SetChangedEventHandler<T> Changed;
+    new event SetChangedEventHandler<T>? Changed;
 }
 
 public interface INotifyQueueChanged<T> : INotifyCollectionChanged<T>
 {
-    new event QueueChangedEventHandler<T> Changed;
+    new event QueueChangedEventHandler<T>? Changed;
 }
 
 public interface INotifyStackChanged<T> : INotifyCollectionChanged<T>
 {
-    new event StackChangedEventHandler<T> Changed;
+    new event StackChangedEventHandler<T>? Changed;
 }
 
 public interface INotifyDictionaryChanged<TKey, TValue> : INotifyCollectionChanged<KeyValuePair<TKey, TValue>>
+    where TKey : notnull
 {
-    new event DictionaryChangedEventHandler<TKey, TValue> Changed;
+    new event DictionaryChangedEventHandler<TKey, TValue>? Changed;
 }

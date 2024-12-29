@@ -143,13 +143,13 @@ public static class Objects
     }
 
     [MethodImpl((MethodImplOptions)256)]
-    public static new bool ReferenceEquals(this object value, object other) => object.ReferenceEquals(value, other);
+    public static new bool ReferenceEquals(this object? value, object? other) => object.ReferenceEquals(value, other);
 
     [MethodImpl((MethodImplOptions)256)]
-    public static bool IsNull(this object value) => object.ReferenceEquals(value, null);
+    public static bool IsNull(this object? value) => object.ReferenceEquals(value, null);
 
     [MethodImpl((MethodImplOptions)256)]
-    public static bool IsDefault<T>(this T value) => object.Equals(value, default(T));
+    public static bool IsDefault<T>(this T? value) => object.Equals(value, default(T));
 
     /// <summary>
     /// Merges two objects using Reflection and fields

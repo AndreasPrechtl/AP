@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 
@@ -7,8 +9,8 @@ namespace AP.Data.EntityFrameworkCore;
 
 public class EntityFrameworkCoreContext : EntityContextBase<DbContext>
 {
-    public EntityFrameworkCoreContext(DbContext context, bool ownsContext = true, SaveMode saveMode = SaveMode.Default, object? contextKey = null)
-        : base(context, ownsContext, saveMode, contextKey)
+    public EntityFrameworkCoreContext(DbContext context, bool ownsContext = true, object? contextKey = null)
+        : base(context, ownsContext, contextKey)
     {
         context.ChangeTracker.AutoDetectChangesEnabled = false;
 
@@ -35,7 +37,7 @@ public class EntityFrameworkCoreContext : EntityContextBase<DbContext>
     //    : this(new DbContext(provider, ownsContext), ownsContext, saveMode, contextKey)
     //{ }
 
-    protected override void OnSave() => this.Provider.SaveChanges();
+    protected override Task OnSave(CancellationToken cancellationToken) => this.Provider.SaveChangesAsync(cancellationToken);
 
     protected override void OnDiscard()
     {

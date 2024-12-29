@@ -7,7 +7,7 @@ namespace AP.IO;
 
 public class File : FileSystemEntry
 {
-    private readonly Deferrable<string> _extension;
+    private readonly Lazy<string> _extension;
 
     /// <summary>
     /// Creates a new File. 
@@ -17,7 +17,7 @@ public class File : FileSystemEntry
     protected internal File(string fullName)
         : base(fullName)
     {
-        _extension = new Deferrable<string>(() => System.IO.Path.GetExtension(this.FullName));
+        _extension = new Lazy<string>(() => System.IO.Path.GetExtension(this.FullName));
     }
 
     /// <summary>

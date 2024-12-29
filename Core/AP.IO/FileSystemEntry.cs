@@ -8,7 +8,7 @@ namespace AP.IO;
 public abstract class FileSystemEntry
 {
     private readonly string _fullName;
-    private readonly Deferrable<string> _name;
+    private readonly Lazy<string> _name;
 
     /// <summary>
     /// Creates a new FileSystemEntry instance. 
@@ -37,7 +37,7 @@ public abstract class FileSystemEntry
         //    throw new InvalidOperationException("ctor access only allowed via FSContext");
 
         _fullName = fullName;
-        _name = new Deferrable<string>(() => FileSystem.Context.GetName(this));
+        _name = new Lazy<string>(() => FileSystem.Context.GetName(this));
     }
 
     /// <summary>

@@ -79,6 +79,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AP.Configuration", "Applica
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AP.IO.Web", "Applications\Web\AP.IO.Web\AP.IO.Web.csproj", "{02DC92B8-CBC0-4CCF-8366-2B9947B0757A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AP.Localization", "Core\AP.Localization\AP.Localization.csproj", "{F7D08E16-06F9-41F2-B713-59058F82FFD5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -193,6 +195,10 @@ Global
 		{02DC92B8-CBC0-4CCF-8366-2B9947B0757A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{02DC92B8-CBC0-4CCF-8366-2B9947B0757A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{02DC92B8-CBC0-4CCF-8366-2B9947B0757A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F7D08E16-06F9-41F2-B713-59058F82FFD5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F7D08E16-06F9-41F2-B713-59058F82FFD5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F7D08E16-06F9-41F2-B713-59058F82FFD5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F7D08E16-06F9-41F2-B713-59058F82FFD5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

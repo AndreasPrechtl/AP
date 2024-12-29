@@ -33,17 +33,13 @@ public static class StringEnumerable
 
     public static StringList ToCollection(this string value, string separator = DefaultSeparator)
     {
-        if (separator.IsDefaultOrEmpty())
-            ExceptionHelper.ThrowArgumentException(() => separator);
-
+        ArgumentNullException.ThrowIfNullOrEmpty(separator);
         return new StringList(value, separator);
     }
 
     public static StringSet ToSet(this string value, string separator = DefaultSeparator)
     {
-        if (separator.IsDefaultOrEmpty())
-            ExceptionHelper.ThrowArgumentException(() => separator);
-
+        ArgumentNullException.ThrowIfNullOrEmpty(separator);
         return new StringSet(value, separator);
     }
 }

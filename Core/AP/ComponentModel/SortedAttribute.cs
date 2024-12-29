@@ -14,5 +14,5 @@ public sealed class SortedAttribute : Attribute
         _isSorted = isSorted;
     }
 
-    public override bool Match(object obj) => obj is SortedAttribute && ((SortedAttribute)obj)._isSorted == _isSorted;
+    public override bool Match(object? obj) => obj is SortedAttribute attr && attr._isSorted == _isSorted;
 }

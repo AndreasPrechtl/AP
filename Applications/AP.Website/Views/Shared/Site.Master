@@ -1,0 +1,134 @@
+﻿<%@ Master Language="C#" AutoEventWireup="false" CodeBehind="~/Views/Shared/Site.Master.cs" Inherits="AP.Website.Views.Shared.Site" %>
+<!DOCTYPE html> 
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+
+<link rel="Shortcut Icon" href="/Content/Images/favicon.ico" />
+<link rel="canonical" href="http://www.andreas-prechtl.de" />
+
+<title runat="server">Andreas Prechtl .NET & IT-Solutions</title>
+
+<ap:StyleCombiner runat="server" ID="_styleCombiner">    
+    <ap:StyleReference ID="StyleReference1" runat="server" Source="/Content/Site.css" />
+    <ap:StylePlaceHolder ID="Styles" runat="server" />
+</ap:StyleCombiner>
+</head>
+
+<body>
+<table id="layout">       
+    <tbody>   
+        <tr>
+		    <td class="Stripe Fixed"><div class="Stripe Fixed"></div></td>
+		    <td class="Stripe Fixed"><div class="Stripe Fixed"></div></td>
+		    <td class="Stripe Fixed"><div class="Stripe Fixed"></div></td>
+		    <td></td>
+		    <td class="Stripe C2 Fixed"><div class="Stripe Fixed"></div></td>
+            <td class="Stripe Fixed"><div class="Stripe Fixed"></div></td>
+		    <td class="Stripe Fixed"><div class="Stripe Fixed"></div></td>
+        </tr>
+	    <tr>
+		    <td><div class="Stripe Fixed"></div></td>
+		    <td><div class="Stripe Fixed"></div></td>
+		    <td class="Stripe C1 Fixed"><div class="Stripe Fixed"></div></td>
+		    <td></td>
+		    <td class="Stripe C2 Fixed"><div class="Stripe Fixed"></div></td>
+		    <td><div class="Stripe Fixed"></div></td>
+		    <td><div class="Stripe Fixed"></div></td>
+	    </tr>
+	    <tr>
+             <% if (_requiresLayoutFix) { %>
+                <td></td>
+		        <td class="Stripe Fixed"><div class="Stripe C2 Top"></div></td>                        		    
+                <td class="Stripe C1 Fixed"><div class="Stripe C2 Top"></div></td>		    
+                <td class="Stripe"><div class="Stripe C2 Top"></div></td>	
+		        <td class="Stripe C2 Fixed"><div class="Stripe C2 Top"></div></td>
+                <td class="Stripe Fixed"><div class="Stripe C2 Top"></div></td>	
+		        <td class="Stripe"><div class="Stripe C2 Top"></div></td>                
+            <% } else { %>
+                <td></td>
+		        <td class="Stripe C2 Fixed"></td>            
+		        <td class="Stripe C1 Fixed"><div class="Stripe C2 Fixed"></div></td>
+		        <td class="Stripe C2"></td>	
+		        <td class="Stripe C2 Fixed"><div class="Stripe C2 Fixed"></div></td>
+		        <td class="Stripe C2 Fixed"></td>
+		        <td class="Stripe C2"></td>           
+            <% } %>
+            </tr>            
+	    <tr>
+		    <td></td>
+		    <td></td>
+            <td class="Stripe C1 FixedWidth"></td>             
+		    <td id="mainCell">
+                <div id="main" class="Container">   
+
+                    <div id="companyLogoShadow"></div>    
+                    <div id="companyLogo"></div>           
+                    <nav>
+                        <table class="Container" id="menu">       
+                            <tr>
+                                <%= Html.CreateMenu() %>                    
+                            </tr>                          
+                        </table>
+                    </nav>      
+                    <div id="headers">
+                        <asp:ContentPlaceHolder runat="server" ID="Headers" />
+                    </div>
+                    <div id="pageContent">                        
+                        <asp:ContentPlaceHolder runat="server" ID="Content" />
+                    </div>
+                    <div id="widgets">
+                        <p>                            
+                            <img style="border:0;width:64px;height:64px;" src="/Content/Images/HTML5_Logo_64.png" alt="Valid HTML5!" />
+                            <img style="border:0;width:88px;height:31px" src="/Content/Images/vcss.gif" alt="Valid CSS!" />                           
+                        </p>
+                    </div>
+                </div>
+		    </td>				
+		    <td class="Stripe C2"></td>
+		    <td></td>
+		    <td></td>
+	    </tr>
+	    <tr>          
+            <% if (_requiresLayoutFix) { %>
+                <td class="Stripe"><div class="Stripe C1 Bottom"></div></td>
+		        <td class="Stripe"><div class="Stripe C1 Bottom"></div></td>		
+		        <td class="Stripe C1"><div class="Stripe C1 Bottom"></div></td>
+                <td class="Stripe"><div class="Stripe C1 Bottom"></div></td>
+		        <td class="Stripe C2"><div class="Stripe C1 Bottom"></div></td>
+		        <td class="Stripe"><div class="Stripe C1 Bottom"></div></td>
+		        <td></td>
+            <% } else { %>
+                <td class="Stripe C1"></td>
+		        <td class="Stripe C1"></td>		
+		        <td class="Stripe C1 Fixed"><div class="Stripe C1 Fixed"></div></td>
+                <td class="Stripe C1"></td>
+		        <td class="Stripe C2 Fixed"><div class="Stripe C1 Fixed"></div></td>
+		        <td class="Stripe C1"></td>
+                <td></td>
+            <% } %>
+	    </tr>
+	    <tr>
+		    <td></td>
+		    <td></td>
+		    <td class="Stripe C1 Fixed"></td>
+		    <td></td>		
+		    <td class="Stripe C2 Fixed"></td>
+		    <td></td>
+		    <td></td>
+	    </tr>	
+	    <tr>
+		    <td class="Stripe Fixed"><div class="Stripe Fixed"></div></td>
+		    <td class="Stripe Fixed"><div class="Stripe Fixed"></div></td>
+		    <td class="Stripe C1 Fixed"><div class="Stripe Fixed"></div></td>
+		    <td></td>
+		    <td class="Stripe Fixed"><div class="Stripe Fixed"></div></td>
+            <td class="Stripe Fixed"><div class="Stripe Fixed"></div></td>
+		    <td class="Stripe Fixed"><div class="Stripe Fixed"></div></td>
+	    </tr>
+    </tbody>   
+</table>
+
+</body>
+
+</html>

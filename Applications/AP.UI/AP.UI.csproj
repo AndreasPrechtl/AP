@@ -89,21 +89,20 @@
     <Compile Include="SiteMapping\SiteMap.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\AP.IO\AP.IO.csproj">
-      <Project>{6a0af5ae-f247-4e53-9b50-e0e406bd6729}</Project>
-      <Name>AP.IO</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\AP\AP.csproj">
-      <Project>{0636e427-8a9c-4973-998a-90a071d2d638}</Project>
-      <Name>AP</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="AP.UI.pfx" />
     <None Include="SiteMapping\SiteMapping.cd" />
     <None Include="ViewModel.cd" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\..\Core\AP.IO\AP.IO.csproj">
+      <Project>{b3c59029-df0a-4bf2-a33a-2005f14204fb}</Project>
+      <Name>AP.IO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Core\AP\AP.csproj">
+      <Project>{178d202c-ee5c-4422-98a3-4a0441992e2e}</Project>
+      <Name>AP</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

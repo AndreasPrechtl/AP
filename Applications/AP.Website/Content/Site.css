@@ -1,0 +1,359 @@
+﻿    html
+    {        
+        overflow-y:scroll;         
+    }
+    body, html
+    {
+	    width:100%;
+	    height:100%;
+        padding:0;
+        margin:0;
+        border:0;
+        top:0;
+        right:0;
+    }
+
+    *
+    {
+        position:relative;
+        font-family:Arial;
+        color:#222;    
+        font-size:14px;
+    }
+
+    body
+    {
+        background-image:url('/Content/Images/AP Logo Filtered.png');
+        background-repeat:no-repeat;
+        background-position:center center;
+        background-color:#0f0f0f;        
+    }
+    #layout
+    {
+	    table-layout:auto;
+	    border-collapse:collapse;
+	    border-spacing:0;    
+	    empty-cells:show;
+	    padding:0;
+	    margin:0;
+        /*min-width:808px;
+        min-height:608px;*/
+	    width:100%;
+	    height:100%;
+	    position:relative;
+        text-align:left;
+        vertical-align:top;
+    }
+
+    .First, .Last
+    {
+        width:42px;
+        height:42px;
+    }
+    .Stripe
+    {  
+        height:auto;
+        width:auto;
+        z-index:0;
+        overflow:hidden;
+    }
+    .Stripe.C1
+    {
+        background-image:url('/Content/Images/Stripe1.png');    
+    }
+    .Stripe.C2
+    {
+        background-image:url('/Content/Images/Stripe2.png');    
+    }   
+    .Stripe.Fixed
+    {
+	    width:56px;
+        height:56px;
+    }
+    /* for ie7 */
+    .Stripe.Top
+    {        
+        height:56px;width:100%;position:relative;bottom:-100%;margin-top:-56px;overflow:hidden;
+    }
+    
+    /* for ie7 */
+    .Stripe.Bottom
+    {
+        height:56px;width:100%;position:relative;top:0;margin-top:0px;overflow:hidden;
+    }
+
+    #layout tr
+    {
+        vertical-align:top;
+        text-align:left;
+    }
+    #layout tr, #layout td
+    {
+        margin:0;
+        padding:0;
+        border:0;
+        border-spacing:0;
+        border-collapse:collapse;
+        text-align:left;
+        vertical-align:top;
+    }
+    
+    a
+    {
+        color:#1146c4;
+        text-decoration:underline;
+    }
+
+    h1, h2, h3, h4, h5
+    {
+        margin-top:0;
+        margin-bottom:0;        
+        color:#222;    
+    }
+    h1
+    {
+        font-size:28px;
+    }
+    h2
+    {
+        font-size:24px;
+    }
+    h3
+    {
+        font-size:20px;
+    }
+    h4
+    {
+        font-size:21px;
+    }
+    h5
+    {
+        font-size:20px;
+    }
+    h6
+    {
+        font-size:19px;
+    }
+
+/* region : PageContent */
+    #companyLogo
+    {
+        background-image:url('/Content/Images/APLogo1.png');
+        background-repeat:no-repeat;
+        position:absolute;
+        overflow:visible;
+        z-index:500;
+        width:200px;
+        height:198px;
+        left:-92px;
+        top:-112px;
+        background-position:0 0;
+    }
+    #companyLogoShadow
+    {
+        background-image:url('/Content/Images/APLogo2.png');
+        background-repeat:no-repeat;
+        position:absolute;
+        overflow:visible;
+        width:200px;
+        height:198px;
+        left:-72px;
+        top:-84px;
+        
+        /*left:56px;
+        top:56px;*/
+        z-index:-10;
+        background-position:0 0;
+    }
+    
+    #main
+    {
+        height:100%;
+        /*min-height:386px;
+        min-width:386px;*/
+        width:100%;
+        top:0;               
+        margin:0;
+        border:0;   
+        bottom:0;
+        padding:0;
+        position:relative;
+    }
+
+    #headers
+    {
+        padding:4px 0 4px 96px;
+        margin:-68px 0 4px 0;
+        right:0;
+        min-height:62px;
+        width:auto;
+        position:relative;
+        background-image:url('/Content/Images/CurrentMenuEntry.png');
+    }
+    #headers > h2
+    {
+        margin:4px 20px 4px 20px;
+    }
+  
+    #pageContent
+    {     
+        top:0;
+        left:0;
+        width:auto;
+        height:100%;
+        position:relative;        
+        z-index:501;
+        margin:16px 26px 16px 26px;
+        min-height:1px;
+    }
+    
+    #mainCell
+    {
+        width:auto;
+        height:auto;
+        background-image:url('/Content/Images/Background.png');
+    }
+    
+/* endregion : PageContent */
+
+
+/*region : Menu */
+
+    #menu
+    {
+        z-index:300;
+        position:relative;
+        top:-62px;
+        margin:0 0 0 92px;
+        overflow:visible;
+    }
+    
+    #menu td
+    {
+        margin:6px;
+    }
+    
+    #menu a
+    {
+        display:block;
+        margin:0px 4px 0 0;
+        padding:6px 4px 6px 4px;
+        text-align:center;
+        vertical-align:middle;
+        /* ie7 bug ... left it out while designing - could put it back in with my serverside browser check now */
+        /*min-width:96px;*/        
+        position:relative;
+        text-decoration:none;               
+    }
+
+.CurrentMenuEntry span
+{
+    font-size:17px;
+    font-weight:600;        
+}
+
+.MenuEntry span
+{
+    font-size:16px;
+    font-weight:400;
+}
+    .CurrentMenuEntry, .CurrentMenuEntry:visited, .MenuEntry:hover
+    {
+        background-image:url('/Content/Images/CurrentMenuEntry.png');
+        height:62px;
+        width:122px;
+        color:#262626;
+        font-weight:600;
+        font-size:18px;
+        top:-4px;
+    }
+
+    .MenuEntry, .MenuEntry:visited
+    {   
+        height:42px;
+        width:106px;
+        background-image:url('/Content/Images/MenuEntry.png');
+        color:#363636;        
+        font-size:16px;
+        font-weight:normal;
+    }    
+
+ /* endregion : Menu */
+ 
+ 
+ 
+ /* region : widgets */
+#widgets
+{
+    
+}
+ 
+ /* endregion : widgets */
+
+ 
+/* v1 remnants - will be replaced soon */
+fieldset
+{
+    text-align:left;
+    background-color:transparent;
+    padding:12px 20px 16px 20px;
+    margin:18px;
+    border-top:1px solid #EEE;    
+    border-right:1px solid #EEE;
+    border-bottom:1px solid #BABABA;
+    border-left:1px solid #BABABA;    
+    font-size:14px;
+}
+a > img
+{
+    border:none;
+    text-decoration:none;
+    margin:4px;
+    vertical-align:middle;
+}            
+fieldset > div
+{
+    margin:0 12px 0 12px;
+}
+   
+label
+{
+    color:#292929;
+    margin:0 6px 0 0;
+    font-weight:500;
+}
+ul
+{
+    margin:0;
+    padding:4px 22px 4px 22px;
+}
+li 
+{    
+    color:#333;
+}     
+legend
+{
+    font-size:15px;    
+    margin:0 6px 0 0;
+    color:#313131;
+    font-weight:600;
+}
+#_address
+{
+    padding:3px 6px 3px 6px;
+}
+.Separator
+{
+    height:6px;
+}
+       
+p, div
+{
+    font-size:14px;
+}
+img
+{
+    border:0;
+}
+
+/* v2 starts */

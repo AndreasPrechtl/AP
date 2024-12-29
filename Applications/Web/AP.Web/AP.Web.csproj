@@ -135,7 +135,7 @@
       <Project>{9DF09AC2-5F9C-470F-8E2E-FA22F75D0143}</Project>
       <Name>AP.Security.Cryptography</Name>
     </ProjectReference>
-    <ProjectReference Include="..\AP.UI\AP.UI.csproj">
+    <ProjectReference Include="..\..\AP.UI\AP.UI.csproj">
       <Project>{89dafbdc-01d1-423b-aacf-55ed0b0fa6ce}</Project>
       <Name>AP.UI</Name>
     </ProjectReference>

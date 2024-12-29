@@ -1,0 +1,31 @@
+﻿<mvc:ApplicationSettings xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"                         
+                         xmlns:sys="clr-namespace:System;assembly=mscorlib"     
+                         xmlns:mvc="http://andreas-prechtl.net/web/mvc/xaml"   
+                         xmlns:ap="http://andreas-prechtl.net/web/mvc/xaml"                       
+                         ContentDirectory="~/Content"
+                         UserContentDirectory="~/UserContent"
+                         UseAjaxNavigation="False"                         
+                         PagedViewModelSize="2"
+                         MaximumWidgetEntries="7"
+                         MaximumPagerLinks="7"
+                         MaximumMenuEntries="7">
+    <mvc:ApplicationSettings.SiteMapProviders>
+        <!--<mvc:XamlSiteMapProvider FileName="{mvc:ServerPath ~/App_Data/SiteMap.xaml}" Name="DefaultSiteMapProvider" />-->
+    </mvc:ApplicationSettings.SiteMapProviders>
+
+    <mvc:ApplicationSettings.AuthorizationProviders>
+        <!--<mvc:XamlAuthorizationProvider FileName="{mvc:ServerPath ~/App_Data/Authorization.xaml}" Name="DefaultAuthorizationProvider" />-->
+    </mvc:ApplicationSettings.AuthorizationProviders>
+
+    <!--
+    <mvc:ApplicationSettings.RepositoryProviders>
+        <kalkbrenner:ApplicationRepositoryFactory />
+    </mvc:ApplicationSettings.RepositoryProviders>
+    -->
+
+    <mvc:ApplicationSettings.SettingsProviders>
+        <!--insert more settings providers here-->
+        <!--this one was just a test-->
+        <!--<kalkbrenner:GallerySettingsProvider />-->
+    </mvc:ApplicationSettings.SettingsProviders>
+</mvc:ApplicationSettings>

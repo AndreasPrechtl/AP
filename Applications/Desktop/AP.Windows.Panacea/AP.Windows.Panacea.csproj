@@ -76,7 +76,7 @@
       <Project>{6a0af5ae-f247-4e53-9b50-e0e406bd6729}</Project>
       <Name>AP.IO</Name>
     </ProjectReference>
-    <ProjectReference Include="..\AP.Panacea\AP.Panacea.csproj">
+    <ProjectReference Include="..\..\AP.Panacea\AP.Panacea.csproj">
       <Project>{23d59b37-207e-4cce-94c7-c4f1e4df130a}</Project>
       <Name>AP.Panacea</Name>
     </ProjectReference>
@@ -84,11 +84,11 @@
       <Project>{c2faf7e3-9a26-4cf0-a3c1-85a577479252}</Project>
       <Name>AP.Routing</Name>
     </ProjectReference>
-    <ProjectReference Include="..\AP.Security\AP.Security.csproj">
+    <ProjectReference Include="..\..\Security\AP.Security\AP.Security.csproj">
       <Project>{93ab9398-d080-4b25-b2c5-324e4625623c}</Project>
       <Name>AP.Security</Name>
     </ProjectReference>
-    <ProjectReference Include="..\AP.UI\AP.UI.csproj">
+    <ProjectReference Include="..\..\AP.UI\AP.UI.csproj">
       <Project>{89dafbdc-01d1-423b-aacf-55ed0b0fa6ce}</Project>
       <Name>AP.UI</Name>
     </ProjectReference>

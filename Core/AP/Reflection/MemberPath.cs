@@ -121,11 +121,7 @@ public sealed class MemberPath : IComparable
 
     public SegmentList Segments => _segments;
 
-    public MemberPath(string memberPath)
-        : this(New.Enumerable<string>(memberPath))
-    { }
-
-    public MemberPath(IEnumerable<string> segments)
+    public MemberPath(params IEnumerable<string> segments)
     {
         SegmentList s = SegmentList.Create(segments);
         _segments = s;

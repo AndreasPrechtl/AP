@@ -12,25 +12,35 @@ public sealed class GenericHelper
         ArgumentNullException.ThrowIfNull(manager);
 
         _manager = manager;
-        manager.Disposed += manager_Disposed;
+        manager.Disposed += HandleManagerDisposed;
     }
 
-    void manager_Disposed(object sender, EventArgs e)
+    void HandleManagerDisposed(object sender, EventArgs e)
     {
         IConverterManager manager = _manager;
 
         if (manager != null)
         {
-            _manager.Disposed -= manager_Disposed;
-            _manager = null;
+            _manager.Disposed -= HandleManagerDisposed;
+            _manager = null!;
         }
     }
 
-    public TOutput Convert<TInput, TOutput>(TInput input, CultureInfo? inputCulture = null, CultureInfo? outputCulture = null) => _manager.GetConverter<TInput, TOutput>().Convert(input, inputCulture, outputCulture);
-
-    public bool CanConvert<TInput, TOutput>(TInput input, CultureInfo? inputCulture = null, CultureInfo? outputCulture = null)
+    public TOutput? Convert<TInput, TOutput>(TInput input, CultureInfo? inputCulture = null, CultureInfo? outputCulture = null)
+        where TInput : notnull
     {
-        Converter<TInput, TOutput> converter = _manager.GetConverter<TInput, TOutput>();
+        var converter = _manager.GetConverter<TInput, TOutput>();
+        
+        if (converter is not null)
+            return converter.Convert(input, inputCulture, outputCulture) ?? default;
+
+        return default;
+    }
+
+    public bool CanConvert<TInput, TOutput>(TInput input, CultureInfo? inputCulture = null, CultureInfo? outputCulture = null) 
+        where TInput : notnull
+    {
+        var converter = _manager.GetConverter<TInput, TOutput>();
 
         if (converter != null)
             return converter.CanConvert(input, inputCulture, outputCulture);
@@ -38,13 +48,14 @@ public sealed class GenericHelper
         return false;
     }
 
-    public bool TryConvert<TInput, TOutput>(TInput input, out TOutput output, CultureInfo? inputCulture = null, CultureInfo? outputCulture = null)
+    public bool TryConvert<TInput, TOutput>(TInput input, out TOutput? output, CultureInfo? inputCulture = null, CultureInfo? outputCulture = null)
+        where TInput : notnull
     {
-        Converter<TInput, TOutput> converter = _manager.GetConverter<TInput, TOutput>();
+        var converter = _manager.GetConverter<TInput, TOutput>();
         output = default;
 
         if (converter != null)
-            return converter.TryConvert(input, out output, inputCulture, outputCulture);
+            return converter.TryConvert(input, out output!, inputCulture, outputCulture);
 
         return false;
     }

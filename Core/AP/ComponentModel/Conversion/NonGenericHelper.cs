@@ -26,8 +26,8 @@ public sealed class NonGenericHelper
         }
     }
 
-    public object Convert(object input, Type outputType, CultureInfo? inputCulture = null, CultureInfo? outputCulture = null) =>
-        _manager.GetConverter(input.GetType(), outputType)!.Convert(input, inputCulture, outputCulture);
+    public object? Convert(object input, Type outputType, CultureInfo? inputCulture = null, CultureInfo? outputCulture = null) 
+        => _manager.GetConverter(input.GetType(), outputType)?.Convert(input, inputCulture, outputCulture);
 
     public bool CanConvert(object input, Type outputType, CultureInfo? inputCulture = null, CultureInfo? outputCulture = null)
     {

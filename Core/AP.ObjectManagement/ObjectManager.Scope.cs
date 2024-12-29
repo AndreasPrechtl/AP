@@ -67,8 +67,8 @@ public partial class ObjectManager
             foreach (object instance in _cache.Values)
                 instance.TryDispose();
             
-            _manager = null;                
-            _cache = null;
+            _manager = null!;
+            _cache = null!;
         }
 
         #endregion

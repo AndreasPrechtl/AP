@@ -14,12 +14,7 @@ public abstract class ObjectLifetimeBase<TBase> : DisposableObject, IObjectLifet
 
     #region IObjectLifetimeInternal Members
 
-    public object Key => _key;
-
-    //object IObjectLifetimeInternal.Instance
-    //{
-    //    get { return this.Instance; }
-    //}
+    public object Key => _key!;
 
     #endregion
 }

@@ -11,7 +11,6 @@ public sealed class AlwaysNewLifetime<TBase> : ObjectLifetimeBase<TBase>
         : base(key)
     {
         ArgumentNullException.ThrowIfNull(activator);
-
         _activator = activator;
     }
 

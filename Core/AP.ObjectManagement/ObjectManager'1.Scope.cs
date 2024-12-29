@@ -3,6 +3,7 @@
 namespace AP.ComponentModel.ObjectManagement;
 
 public partial class ObjectManager<TSuper>
+    where TSuper : notnull
 {
     public sealed class Scope : IObjectManagementScope<TSuper>
     {
@@ -17,16 +18,16 @@ public partial class ObjectManager<TSuper>
 
         #region IObjectManagementScope<TSuper> Members
 
-        public ManagedInstance<TBase>? GetInstance<TBase>(object? key = null) 
-            where TBase : TSuper 
+        public ManagedInstance<TBase>? GetInstance<TBase>(object? key = null)
+            where TBase : TSuper
             => _inner.GetInstance<TBase>(key);
 
-        public IEnumerable<ManagedInstance<TBase>?> GetInstances<TBase>() 
-            where TBase : TSuper 
+        public IEnumerable<ManagedInstance<TBase>?> GetInstances<TBase>()
+            where TBase : TSuper
             => _inner.GetInstances<TBase>();
 
         public bool TryGetInstance<TBase>(out ManagedInstance<TBase>? instance, object? key = null) 
-            where TBase : TSuper 
+            where TBase : TSuper
             => _inner.TryGetInstance<TBase>(out instance, key);
 
         #endregion

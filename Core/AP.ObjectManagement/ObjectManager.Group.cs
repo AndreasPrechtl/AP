@@ -8,7 +8,7 @@ public partial class ObjectManager
     private class Group : IEnumerable<Item>
     {
         private readonly Dictionary<object, Item> _map = [];
-        private Item _default;
+        private Item _default = null!;
         private readonly object SyncRoot = new();
 
         public void Register(IObjectLifetimeInternal lifetime, bool disposeOnRelease = true)
@@ -62,12 +62,12 @@ public partial class ObjectManager
 
         public void Release(object? key = null)
         {
-            Item item = null;
+            Item item = null!;
 
             if (key == null)
             {
                 item = _default;
-                _default = null;
+                _default = null!;
             }
             else
             {
@@ -97,11 +97,11 @@ public partial class ObjectManager
 
             if (key != null)
             {
-                if (r = _map.TryGetValue(key, out Item lt))
-                    lifetime = lt.Lifetime;
+                if (r = _map.TryGetValue(key, out var lt))
+                    lifetime = lt!.Lifetime;
             }
             else if (r = (_default != null))
-                lifetime = _default.Lifetime;                    
+                lifetime = _default!.Lifetime;                    
 
             return r;
         }

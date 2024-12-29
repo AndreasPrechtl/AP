@@ -40,15 +40,12 @@ public sealed partial class ObjectManager<TSuper> : DisposableObject, IObjectMan
 
     public bool TryGetObjectLifetime<TBase>(out ObjectLifetimeBase<TBase>? lifetime, object? key = null) 
         where TBase : TSuper
-    {
-        lifetime = null;
-        return _inner.TryGetLifetime<TBase>(out lifetime, key);
-    }
+        => _inner.TryGetLifetime<TBase>(out lifetime, key);
 
     public ManagedInstance<TBase> GetInstance<TBase>(object? key = null)
         where TBase : TSuper => _inner.GetInstance<TBase>(key);
 
-    public bool TryGetInstance<TBase>(out ManagedInstance<TBase> instance, object? key = null)
+    public bool TryGetInstance<TBase>(out ManagedInstance<TBase>? instance, object? key = null)
         where TBase : TSuper => _inner.TryGetInstance<TBase>(out instance, key);
 
     public void Clear() => _inner.Clear();

@@ -7,6 +7,7 @@ internal interface IScopeLifetimeInternal
 { }
 
 public sealed class ScopeLifetime<TBase> : ObjectLifetimeBase<TBase>, IScopeLifetimeInternal
+    where TBase : class
 {
     private sealed class Lookup : Dictionary<ScopeLifetime<TBase>, TBase>
     { }
@@ -18,7 +19,6 @@ public sealed class ScopeLifetime<TBase> : ObjectLifetimeBase<TBase>, IScopeLife
         : base(key)
     {
         ArgumentNullException.ThrowIfNull(activator);
-
         _activator = activator;
     }
 
@@ -26,7 +26,7 @@ public sealed class ScopeLifetime<TBase> : ObjectLifetimeBase<TBase>, IScopeLife
 
     protected override void CleanUpResources()
     {
-        _activator = null;
+        _activator = null!;
         base.CleanUpResources();
     }
 }

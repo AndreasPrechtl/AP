@@ -56,7 +56,7 @@ public abstract class ManagedObjects : StaticType
         where TBase : notnull 
         => Manager.GetInstance<TBase>(key);
 
-    public static bool TryGetInstance<TBase>(out ManagedInstance<TBase> instance, object? key = null)
+    public static bool TryGetInstance<TBase>(out ManagedInstance<TBase>? instance, object? key = null)
         where TBase : notnull 
         => Manager.TryGetInstance<TBase>(out instance, key);
 
@@ -70,7 +70,7 @@ public abstract class ManagedObjects : StaticType
         where TBase : notnull
         => Manager.Contains<TBase>(key);
 
-    public static bool TryGetObjectLifetime<TBase>(out ObjectLifetimeBase<TBase> lifetime, object? key = null)
+    public static bool TryGetObjectLifetime<TBase>(out ObjectLifetimeBase<TBase>? lifetime, object? key = null)
         where TBase : notnull 
         => Manager.TryGetLifetime<TBase>(out lifetime, key);
 

@@ -24,7 +24,9 @@ public static class ObjectManagerExtensions
     //    return false;
     //}
 
-    public static void Release<TBase>(this IObjectManager manager, ObjectLifetimeBase<TBase> lifetime) => manager.Release<TBase>(lifetime.Key);
+    public static void Release<TBase>(this IObjectManager manager, ObjectLifetimeBase<TBase> lifetime)
+        where TBase : notnull
+        => manager.Release<TBase>(lifetime.Key);
 
     //public static TBase GetInstance<TSuper, TBase>(this IObjectManager<TSuper> manager, object key = null)
     //    where TBase : TSuper
@@ -51,5 +53,7 @@ public static class ObjectManagerExtensions
     //}
 
     public static void Release<TSuper, TBase>(this IObjectManager<TSuper> manager, ObjectLifetimeBase<TBase> lifetime)
-        where TBase : TSuper => manager.Release<TBase>(lifetime.Key);
+        where TSuper : notnull
+        where TBase : TSuper => 
+        manager.Release<TBase>(lifetime.Key);
 }

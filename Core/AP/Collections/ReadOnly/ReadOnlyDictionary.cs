@@ -10,13 +10,11 @@ namespace AP.Collections.ReadOnly;
 public partial class ReadOnlyDictionary<TKey, TValue> : IDictionaryView<TKey, TValue>
     where TKey : notnull
 {
+    public static readonly ReadOnlyDictionary<TKey, TValue> Empty = new([]);
+
     private readonly AP.Collections.Dictionary<TKey, TValue> _inner;
     private readonly KeyCollection _keys;
     private readonly ValueCollection _values;
-
-    private static readonly ReadOnlyDictionary<TKey, TValue> s_empty = new([]);
-    
-    public static ReadOnlyDictionary<TKey, TValue> Empty => s_empty;
 
     private static AP.Collections.Dictionary<TKey, TValue> CreateInner(IEnumerable<KeyValuePair<TKey, TValue>> collection, IEqualityComparer<TKey> keyComparer, IEqualityComparer<TValue> valueComparer)
     {

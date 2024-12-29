@@ -9,13 +9,10 @@ namespace AP.Collections.ReadOnly;
 [Serializable, DebuggerDisplay("Count = {Count}"), ComVisible(false), System.ComponentModel.ReadOnly(true)]
 public class ReadOnlyList<T> : IListView<T>, IEqualityComparerUser<T>, System.Collections.Generic.IList<T>
 {
-    private static readonly ReadOnlyList<T> s_empty = new(null!, null!);
-
-    public static ReadOnlyList<T> Empty => s_empty;
+    public static readonly ReadOnlyList<T> Empty = new(null!, null!);
 
     private readonly AP.Collections.List<T> _inner;
- 
-    
+     
     private static AP.Collections.List<T> CreateInner(IEnumerable<T> collection, IEqualityComparer<T> comparer)
     {
         ArgumentNullException.ThrowIfNull(collection);

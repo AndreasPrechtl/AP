@@ -10,11 +10,10 @@ namespace AP.Collections.ReadOnly;
 [Serializable, DebuggerDisplay("Count = {Count}"), ComVisible(false), System.ComponentModel.ReadOnly(true), Sorted(true)]
 public class ReadOnlySortedList<T> : IListView<T>, IComparerUser<T>, System.Collections.Generic.IList<T>
 {
+    public static readonly ReadOnlySortedList<T> Empty = new([]);
+
     private readonly AP.Collections.SortedList<T> _inner;
-    private static readonly ReadOnlySortedList<T> s_empty = new ReadOnlySortedList<T>([]);
-
-    public static ReadOnlySortedList<T> Empty => s_empty;
-
+    
     private static AP.Collections.SortedList<T> CreateInner(IEnumerable<T> collection, IComparer<T> comparer)
     {
         ArgumentNullException.ThrowIfNull(collection);

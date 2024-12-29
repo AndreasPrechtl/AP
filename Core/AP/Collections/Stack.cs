@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections;
 using SCG = System.Collections.Generic;
+using AP.Linq;
 
 namespace AP.Collections;
 
@@ -68,9 +69,7 @@ public class Stack<T> : IStack<T>, IEqualityComparerUser<T>
             yield return _inner.Pop();
     }
 
-    public void Push(T item) => _inner.Push(item);
-
-    public void Push(IEnumerable<T> items)
+    public void Push(params IEnumerable<T> items)
     {
         foreach (T item in items)
             _inner.Push(item);

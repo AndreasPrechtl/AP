@@ -8,10 +8,9 @@ namespace AP.Collections.ReadOnly;
 [Serializable, System.ComponentModel.ReadOnly(true), Sorted(true)]
 public class ReadOnlySortedSet<T> : ISetView<T>, IComparerUser<T>, System.Collections.Generic.ISet<T>
 {
-    private readonly AP.Collections.SortedSet<T> _inner;
-    private static readonly ReadOnlySortedSet<T> s_empty = new ReadOnlySortedSet<T>([]);
+    public static readonly ReadOnlySortedSet<T> Empty = new([]);
 
-    public static ReadOnlySortedSet<T> Empty => s_empty;
+    private readonly AP.Collections.SortedSet<T> _inner;
 
     private static AP.Collections.SortedSet<T> CreateInner(IEnumerable<T> collection, IComparer<T> comparer)
     {

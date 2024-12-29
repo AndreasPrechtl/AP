@@ -12,11 +12,11 @@ public interface ISet<T> : ISetView<T>, System.Collections.Generic.ISet<T>
     /// UnionWith
     /// </summary>
     /// <param name="items"></param>
-    void Add(IEnumerable<T> items);
+    void Add(params IEnumerable<T> items);
 
     /// <summary>
     /// SymmetricExceptWith
     /// </summary>
     /// <param name="items"></param>
-    void Remove(IEnumerable<T> items);        
+    void Remove(params IEnumerable<T> items);        
 }

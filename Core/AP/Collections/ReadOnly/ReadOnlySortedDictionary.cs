@@ -11,13 +11,12 @@ namespace AP.Collections.ReadOnly;
 public partial class ReadOnlySortedDictionary<TKey, TValue> : IDictionaryView<TKey, TValue>, System.Collections.Generic.IReadOnlyDictionary<TKey, TValue>
     where TKey : notnull
 {
+    public static readonly ReadOnlySortedDictionary<TKey, TValue> Empty = new(new Dictionary<TKey, TValue>(0));
+
     private readonly AP.Collections.SortedDictionary<TKey, TValue> _inner;
     private readonly KeyCollection _keys;
     private readonly ValueCollection _values;
-    private static readonly ReadOnlySortedDictionary<TKey, TValue> s_empty = new ReadOnlySortedDictionary<TKey, TValue>(new Dictionary<TKey, TValue>(0));
-
-    public static ReadOnlySortedDictionary<TKey, TValue> Empty => s_empty;
-
+    
     private static AP.Collections.SortedDictionary<TKey, TValue> CreateInner(IEnumerable<KeyValuePair<TKey, TValue>> collection, IComparer<TKey> keyComparer, IEqualityComparer<TValue> valueComparer)
     {
         ArgumentNullException.ThrowIfNull(collection);

@@ -7,10 +7,9 @@ namespace AP.Collections.ReadOnly;
 [Serializable, System.ComponentModel.ReadOnly(true)]
 public class ReadOnlySet<T> : ISetView<T>, IEqualityComparerUser<T>, System.Collections.Generic.ISet<T>
 {
-    private readonly AP.Collections.Set<T> _inner;
-    private static readonly ReadOnlySet<T> s_empty = new ReadOnlySet<T>([]);
+    public static readonly ReadOnlySet<T> Empty = new([]);
 
-    public static ReadOnlySet<T> Empty => s_empty;
+    private readonly AP.Collections.Set<T> _inner;
 
     private static AP.Collections.Set<T> CreateInner(IEnumerable<T> collection, IEqualityComparer<T> comparer)
     {

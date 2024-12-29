@@ -68,9 +68,7 @@ public class Queue<T> : IQueue<T>, IEqualityComparerUser<T>
             yield return _inner.Dequeue();
     }
 
-    public void Enqueue(T item) => _inner.Enqueue(item);
-
-    public void Enqueue(IEnumerable<T> items)
+    public void Enqueue(params IEnumerable<T> items)
     {
         foreach (T item in items)
             _inner.Enqueue(item);

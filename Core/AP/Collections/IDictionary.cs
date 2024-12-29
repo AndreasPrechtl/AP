@@ -6,17 +6,15 @@ public interface IDictionary<TKey, TValue> : IDictionaryView<TKey, TValue>, Syst
     where TKey : notnull
 {
     new bool Add(TKey key, TValue value);
-    new bool Add(KeyValuePair<TKey, TValue> item);        
-    void Add(IEnumerable<KeyValuePair<TKey, TValue>> items);
+    void Add(params IEnumerable<KeyValuePair<TKey, TValue>> items);
 
     bool Update(TKey key, TValue value);
-    bool Update(KeyValuePair<TKey, TValue> item);
-    void Update(IEnumerable<KeyValuePair<TKey, TValue>> items);
+    void Update(params IEnumerable<KeyValuePair<TKey, TValue>> items);
 
     // new TValue this[TKey key] { get; set; }
     
     bool Remove(KeyValuePair<TKey, TValue> item, bool compareValues = false);
-    void Remove(IEnumerable<TKey> keys);
+    void Remove(params IEnumerable<TKey> keys);
     void Remove(IEnumerable<KeyValuePair<TKey, TValue>> items, bool compareValues = false);
             
     // new void Clear();

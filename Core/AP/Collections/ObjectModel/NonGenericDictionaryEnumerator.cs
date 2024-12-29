@@ -20,7 +20,7 @@ public sealed class NonGenericDictionaryEnumerator<TKey, TValue> : IDictionaryEn
 
     #region IDictionaryEnumerator Members
 
-    public DictionaryEntry Entry => new DictionaryEntry(_inner.Current.Key, _inner.Current.Value);
+    public DictionaryEntry Entry => new(_inner.Current.Key, _inner.Current.Value);
 
     public object Key => _inner.Current.Key;
 

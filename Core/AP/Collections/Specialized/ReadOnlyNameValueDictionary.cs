@@ -5,7 +5,7 @@ namespace AP.Collections.Specialized;
 
 public class ReadOnlyNameValueDictionary<T> : AP.Collections.ReadOnly.ReadOnlyDictionary<string, T>
 {
-    private static readonly ReadOnlyNameValueDictionary<T> s_empty = new ReadOnlyNameValueDictionary<T>([]);
+    private static readonly ReadOnlyNameValueDictionary<T> s_empty = new([]);
 
     public new static ReadOnlyNameValueDictionary<T> Empty => s_empty;
     

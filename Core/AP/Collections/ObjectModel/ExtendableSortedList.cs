@@ -46,9 +46,7 @@ public abstract class ExtendableSortedList<T> : ListBase<T>, IComparerUser<T>
 
     public override string ToString() => _inner.ToString();
 
-    public override int Add(T item) => _inner.Add(item);
-
-    public override void Add(IEnumerable<T> items) => _inner.Add(items);
+    public override void Add(IEnumerable<T> collection) => _inner.Add(collection);
 
     public override void Remove(int index, int count = 1) => _inner.Remove(index, count);
 

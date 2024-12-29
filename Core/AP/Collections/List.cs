@@ -161,19 +161,11 @@ public class List<T> : IUnsortedList<T>, IEqualityComparerUser<T>
         }
     }
 
-    public int Add(T item)
-    {
-        _inner.Add(item);
-        return _inner.Count - 1;
-    }
+    public void Add(params IEnumerable<T> items) => _inner.AddRange(items);
+    
+    public void Insert(int index, params IEnumerable<T> items) => _inner.InsertRange(index, items);
 
-    public void Add(IEnumerable<T> items) => _inner.AddRange(items);
-
-    public void Insert(int index, T item) => _inner.Insert(index, item);
-
-    public void Insert(int index, IEnumerable<T> items) => _inner.InsertRange(index, items);
-
-    public void Replace(int index, IEnumerable<T> items)
+    public void Replace(int index, params IEnumerable<T> items)
     {
         if (index < 0 || index >= _inner.Count)
             throw new IndexOutOfRangeException("index");
@@ -300,6 +292,8 @@ public class List<T> : IUnsortedList<T>, IEqualityComparerUser<T>
 
     #region System.Collections.Generic.IList<T> Members
 
+    void System.Collections.Generic.IList<T>.Insert(int index, T item) => _inner.Insert(index, item);
+    
     int System.Collections.Generic.IList<T>.IndexOf(T item) => _inner.IndexOf(item);
 
     void System.Collections.Generic.IList<T>.RemoveAt(int index) => _inner.RemoveAt(index);
@@ -328,7 +322,7 @@ public class List<T> : IUnsortedList<T>, IEqualityComparerUser<T>
     bool System.Collections.Generic.ICollection<T>.IsReadOnly => false;
 
     void System.Collections.Generic.ICollection<T>.CopyTo(T[] array, int arrayIndex) => CollectionsHelper.CopyTo(this, array, arrayIndex);
-
+        
     #endregion
 
     #region IEqualityComparerUser<T> Members

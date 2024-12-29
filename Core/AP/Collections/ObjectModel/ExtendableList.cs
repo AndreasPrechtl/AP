@@ -47,17 +47,13 @@ public abstract class ExtendableList<T> : ListBase<T>, IUnsortedList<T>, IEquali
 
     public override string ToString() => _inner.ToString();
 
-    public override int Add(T item) => _inner.Add(item);
+    public override void Add(params IEnumerable<T> items) => _inner.Add(items);
 
-    public override void Add(IEnumerable<T> items) => _inner.Add(items);
-
-    public virtual void Insert(int index, T item) => _inner.Insert(index, item);
-
-    public virtual void Insert(int index, IEnumerable<T> items) => _inner.Insert(index, items);
+    public virtual void Insert(int index, params IEnumerable<T> items) => _inner.Insert(index, items);
 
     public override void Remove(int index, int count = 1) => _inner.Remove(index, count);
 
-    public virtual void Replace(int index, IEnumerable<T> items) { }
+    public virtual void Replace(int index, params IEnumerable<T> items) { }
 
     public virtual void Move(int index, int newIndex, int count = 1) => _inner.Move(index, newIndex, count);
 
@@ -88,6 +84,8 @@ public abstract class ExtendableList<T> : ListBase<T>, IUnsortedList<T>, IEquali
     public override IEnumerator<T> GetEnumerator() => _inner.GetEnumerator();
 
     #region System.Collections.Generic.IList<T> Members
+
+    void System.Collections.Generic.IList<T>.Insert(int index, T item) => this.Insert(index, item);
 
     void System.Collections.Generic.IList<T>.RemoveAt(int index) => this.Remove(index, 1);
 

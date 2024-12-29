@@ -73,10 +73,10 @@ public class FreezableList<T> : ExtendableList<T>, IFreezable
 
     #endregion
 
-    public override int Add(T item)
+    public override void Add(params IEnumerable<T> collection)
     {
         AssertCanWrite();
-        return base.Add(item);
+        base.Add(collection);
     }
 
     public override void Clear()
@@ -85,10 +85,10 @@ public class FreezableList<T> : ExtendableList<T>, IFreezable
         base.Clear();
     }
 
-    public override void Insert(int index, T item)
+    public override void Insert(int index, params IEnumerable<T> collection)
     {
         AssertCanWrite();
-        base.Insert(index, item);
+        base.Insert(index, collection);
     }
     
     protected override void SetItem(int index, T item)
@@ -109,21 +109,9 @@ public class FreezableList<T> : ExtendableList<T>, IFreezable
         base.Remove(index, count);
     }
 
-    public override void Insert(int index, IEnumerable<T> items)
-    {
-        AssertCanWrite();
-        base.Insert(index, items);
-    }
-    
     public override void Remove(T item, SelectionMode mode = SelectionMode.First)
     {
         AssertCanWrite();
         base.Remove(item, mode);
-    }
-
-    public override void Add(IEnumerable<T> collection)
-    {
-        AssertCanWrite();
-        base.Add(collection);
     }
 }

@@ -6,14 +6,8 @@ namespace AP.Collections.ObjectModel;
 public abstract class ListBase<T> : CollectionBase<T>, AP.Collections.IList<T>
 {
     #region IList<T> Members
-    
-    public abstract int Add(T item);
 
-    public virtual void Add(IEnumerable<T> items)
-    {
-        foreach (T item in items)
-            this.Add(item);
-    }
+    public abstract void Add(params IEnumerable<T> items);
 
     public virtual void Remove(T item, SelectionMode mode = SelectionMode.First)
     {

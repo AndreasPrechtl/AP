@@ -105,22 +105,6 @@ public class File : FileSystemEntry
     /// </summary>
     public virtual void Clear() => System.IO.File.Open(this.FullName, FileMode.Truncate).Dispose();
 
-    // todo: AccessControl
-    ///// <summary>
-    ///// Gets or sets the file security.
-    ///// </summary>
-    //public virtual new System.Security.AccessControl.FileSecurity Security
-    //{
-    //    get
-    //    {
-    //        return System.IO.File.GetAccessControl(this.FullName);
-    //    }
-    //    set
-    //    {
-    //        System.IO.File.SetAccessControl(this.FullName, value);
-    //    }
-    //}
-
     /// <summary>
     /// Gets or sets the file attributes.
     /// </summary>

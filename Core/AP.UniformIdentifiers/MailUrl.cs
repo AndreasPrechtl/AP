@@ -26,7 +26,7 @@ public class MailUrl : UrlBase, IUriWithUserName
         if (cleaned.StartsWith("mailto:", StringComparison.InvariantCultureIgnoreCase))
             cleaned.Remove(0, 7);
 
-        string[] split = cleaned.Split(New.Array('@')).ToArray();
+        string[] split = cleaned.Split(['@']);
 
         if (split.Length != 2)
             throw new ArgumentException("Invalid mailto format");
@@ -45,7 +45,7 @@ public class MailUrl : UrlBase, IUriWithUserName
         
             UrlQuery q = new(query);
 
-            // retrive the subject parameter(s)
+            // retrieve the subject parameter(s)
             if (q.Contains("subject", out ISetView<string> subject))
                 this.Subject = Uri.UnescapeDataString(subject.First());
 

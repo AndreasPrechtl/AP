@@ -1,11 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using AP.ComponentModel;
-using AP.Data;
-using AP.Collections.Specialized;
 using AP.Collections;
 
 namespace AP.Security
@@ -39,7 +34,7 @@ namespace AP.Security
                 get { return _loginName; }
             }
 
-            public override bool Equals(object obj)
+            public override bool Equals(object? obj)
             {
                 if (obj == null)
                     return false;
@@ -78,7 +73,7 @@ namespace AP.Security
 
             if (permissionEntry.Key != null)
             {
-                Activity parent = null;
+                Activity? parent = null;
 
                 while ((parent = Activities.GetParent(activity.Name)) != null)
                 {

@@ -1,5 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <ItemGroup>
+    <ProjectReference Include="..\AP.ComponentModel\AP.ComponentModel.csproj" />
     <ProjectReference Include="..\AP\AP.csproj" />
   </ItemGroup>
 </Project>

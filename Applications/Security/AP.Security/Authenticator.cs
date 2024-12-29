@@ -10,7 +10,7 @@ namespace AP.Security
         public abstract bool TryAuthenticateByName(string userName, string password);
         public abstract bool TryAuthenticateByEmailAddress(string emailAddress, string password, out string userName);
 
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
             if (obj == null)
                 return false;

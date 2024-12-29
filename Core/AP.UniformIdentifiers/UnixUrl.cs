@@ -44,7 +44,7 @@ public sealed class UnixUrl : UriBase, IAbsoluteOrRelativeUri, IHierarchicalUri,
 
         this.Path = unclean.Length > 0 && unclean[0] == '/' ? sb.Insert(0, '/').ToString() : sb.ToString();
 
-        _parent = new Deferrable<UnixUrl>(this.CreateParent, false);
+        _parent = new(this.CreateParent);
     }
 
     public override string Scheme => @"/";
@@ -105,9 +105,9 @@ public sealed class UnixUrl : UriBase, IAbsoluteOrRelativeUri, IHierarchicalUri,
 
     #region IHierarchicalUri Members
 
-    private readonly Deferrable<UnixUrl> _parent;
+    private readonly Lazy<UnixUrl?> _parent;
 
-    public UnixUrl Parent => _parent.Value;
+    public UnixUrl? Parent => _parent.Value;
 
     private UnixUrl? CreateParent()
     {
@@ -130,9 +130,9 @@ public sealed class UnixUrl : UriBase, IAbsoluteOrRelativeUri, IHierarchicalUri,
         return null;
     }
 
-    IHierarchicalUri IHierarchicalUri.Parent => this.Parent;
+    IHierarchicalUri? IHierarchicalUri.Parent => this.Parent;
 
-    public bool HasParent => _parent.IsValueActive;
+    public bool HasParent => Parent is not null;
 
     #endregion
 }

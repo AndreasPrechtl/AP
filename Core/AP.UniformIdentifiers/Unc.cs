@@ -21,7 +21,7 @@ public class Unc : UrlBase, IFileUri, IAbsoluteOrRelativeUri
     public const char AlternativeSeparator = '/';
     
     private static readonly char[] _reservedCharacters = ['*', ':', '?', '"', '/', '\\', '<', '>', '|', '\0', '\t', '\r', '\n', '\b'];
-    private readonly Deferrable<Unc> _parent;
+    private readonly Lazy<Unc?> _parent;
 
     public static char[] ReservedCharacters => (char[])_reservedCharacters.Clone();
 
@@ -69,7 +69,7 @@ public class Unc : UrlBase, IFileUri, IAbsoluteOrRelativeUri
         char[] reserved = _reservedCharacters;
         char driveLetter = '\0';
         
-        string[] cleaned = sb.Split(New.Array(separator));
+        string[] cleaned = sb.Split([separator]);
 
         int i = 0;
 
@@ -126,7 +126,7 @@ public class Unc : UrlBase, IFileUri, IAbsoluteOrRelativeUri
                     parts.Add(segment);
                 }
                 if (validateSegment && segment.IndexOfAny(reserved) > -1)
-                    ExceptionHelper.ThrowArgumentException(() => pathSegments, "Contains illegal characters");
+                    throw new ArgumentException("Contains illegal characters", paramName: nameof(pathSegments));
             }
             i++;
         }
@@ -163,14 +163,14 @@ public class Unc : UrlBase, IFileUri, IAbsoluteOrRelativeUri
     }
 
     public Unc(string unc, Host? host = null, string? shareName = null, bool? isSecure = null, ushort? port = null)
-        : this(New.Array(unc), host, shareName, isSecure, port)
+        : this([unc], host, shareName, isSecure, port)
     {
         this.OriginalString = unc;
     }
     
     private Unc()
     {        
-        _parent = new Deferrable<Unc>(CreateParent);
+        _parent = new(CreateParent);
     }
 
     protected override void BuildFullName(ref StringBuilder builder)
@@ -275,18 +275,16 @@ public class Unc : UrlBase, IFileUri, IAbsoluteOrRelativeUri
 
     #region IHierarchicalUri Members
 
-    public Unc Parent => _parent.Value;
+    public Unc? Parent => _parent.Value;
 
-    protected Unc CreateParent() =>
-        // todo sth. ffs. :)
-        // rip that code from httpurl
-
-
+    protected Unc? CreateParent() =>
+        // todo:
+        // rip that code from httpUrl
         null;
 
-    public bool HasParent => _parent.IsValueActive;
+    public bool HasParent => Parent is not null;
 
-    IHierarchicalUri IHierarchicalUri.Parent => this.Parent;
+    IHierarchicalUri? IHierarchicalUri.Parent => this.Parent;
 
     #endregion
 }

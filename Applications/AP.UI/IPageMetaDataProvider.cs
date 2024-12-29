@@ -1,6 +1,4 @@
-﻿using AP.UniversalIdentifiers;
-
-namespace AP.UI
+﻿namespace AP.UI
 {
     public interface IPageMetaDataProvider 
     {

@@ -14,14 +14,13 @@ public sealed class IPv6 : Host
 
     public override Host Loopback => s_loopback;
 
-    private readonly Deferrable<ReadOnlyList<ushort>> _bits;
-    private readonly Deferrable<string> _value;
+    private readonly Lazy<ReadOnlyList<ushort>> _bits;
+    private readonly Lazy<string> _value;
     private readonly BigInteger _address;
 
     private static BigInteger ToAddress(ushort[] value)
     {
-        if (value.Length != 8)
-            ExceptionHelper.ThrowArgumentOutOfRangeException(() => value);
+        ArgumentOutOfRangeException.ThrowIfNotEqual(value.Length, 8);
 
         return
             ((BigInteger)value[0] << 112) +
@@ -43,12 +42,15 @@ public sealed class IPv6 : Host
         s_loopback = new IPv6(1);
     }
 
-    private static bool IsOutOfRange(BigInteger value) => value < 0 || value > MaxValue;
+    private static void ThrowIfOutOfRange(BigInteger value) 
+    {
+        ArgumentOutOfRangeException.ThrowIfNegative(value);
+        ArgumentOutOfRangeException.ThrowIfGreaterThan(value, MaxValue);
+    }
 
     private static ushort[] ToBits(BigInteger value)
     {
-        if (IsOutOfRange(value))
-            ExceptionHelper.ThrowArgumentOutOfRangeException(() => value);
+        ThrowIfOutOfRange(value);
 
         return
         [
@@ -71,7 +73,7 @@ public sealed class IPv6 : Host
         IPAddress ip = IPAddress.Parse(value);
 
         if (ip.AddressFamily != System.Net.Sockets.AddressFamily.InterNetworkV6)
-            ExceptionHelper.ThrowArgumentException(() => value, "not a valid IPv6 address");
+            throw new ArgumentException($"not a valid IPv6 address: {value}", paramName: nameof(value));
 
         return (ushort[])_numbersField.GetValue(ip)!;
     }
@@ -111,24 +113,23 @@ public sealed class IPv6 : Host
     public IPv6(string value)
         : this(ToBits(value = value.Trim()))
     {
-        _value.Value = value;
+        _value = new(value);
     }
 
     public IPv6(ushort[] value)
         : this(ToAddress(value))
     {
-        _bits.Value = new ReadOnlyList<ushort>(value);
+        _bits = new(new ReadOnlyList<ushort>(value));
     }
 
     public IPv6(BigInteger value)
         : base((IComparable)value)
     {
-        if (IsOutOfRange(value))
-            ExceptionHelper.ThrowArgumentOutOfRangeException(() => value);
+        ThrowIfOutOfRange(value);
         
         _address = value;
-        _bits = new Deferrable<ReadOnlyList<ushort>>(() => new ReadOnlyList<ushort>(ToBits(_address)));
-        _value = new Deferrable<string>(() => ToString(this.Bits));
+        _bits = new Lazy<ReadOnlyList<ushort>>(() => new ReadOnlyList<ushort>(ToBits(_address)));
+        _value = new Lazy<string>(() => ToString(this.Bits));
     }
 
     public BigInteger Address => _address;

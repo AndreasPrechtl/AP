@@ -25,11 +25,11 @@ public abstract class UriBase : IUri
 
     //public string FullName { get; protected set; }
 
-    private readonly Deferrable<string> _fullName;
+    private readonly Lazy<string> _fullName;
 
     protected UriBase()
     {
-        _fullName = new Deferrable<string>
+        _fullName = new Lazy<string>
         (
             () =>
             {

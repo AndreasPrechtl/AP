@@ -292,7 +292,7 @@ public abstract class WebResourceUrlBase : UrlBase, IUriWithUserName, IPasswordP
     protected WebResourceUrlBase()
         : base()
     {
-        _parent = new Deferrable<WebResourceUrlBase>(CreateParent);
+        _parent = new Lazy<WebResourceUrlBase>(CreateParent);
         this.Query = UrlQuery.Empty;
         this.Fragments = UrlFragments.Empty;
     }
@@ -414,13 +414,13 @@ public abstract class WebResourceUrlBase : UrlBase, IUriWithUserName, IPasswordP
 
     #region IHierarchicalUri Members
 
-    protected readonly Deferrable<WebResourceUrlBase> _parent;
+    protected readonly Lazy<WebResourceUrlBase?> _parent;
 
-    IHierarchicalUri IHierarchicalUri.Parent => _parent.Value;
+    IHierarchicalUri? IHierarchicalUri.Parent => this.Parent;
 
-    public WebResourceUrlBase Parent => _parent.Value;
+    public WebResourceUrlBase? Parent => _parent?.Value;
 
-    public bool HasParent => _parent.IsValueActive;
+    public bool HasParent => this.Parent is not null;
 
     /// <summary>
     /// Creates an empty instance used for simplified parent creation

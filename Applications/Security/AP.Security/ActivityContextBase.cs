@@ -1,8 +1,5 @@
 ﻿using System.Collections.Generic;
-using AP.Collections;
-using AP.ComponentModel;
 using AP.Data;
-using AP.Linq;
 using System.Linq;
 
 namespace AP.Security
@@ -12,19 +9,19 @@ namespace AP.Security
         public Activity Create(string name, string description, IEnumerable<KeyValuePair<User, PermissionType>> users, IEnumerable<KeyValuePair<Role, PermissionType>> roles)
         {
             return this.Create(name, description,
-                               users != null ? users.Select(u => new KeyValuePair<string, PermissionType>(u.Key.Name, u.Value)) : null,
-                               roles != null ? roles.Select(r => new KeyValuePair<string, PermissionType>(r.Key.Name, r.Value)) : null
+                               users != null ? users.Select(u => new KeyValuePair<string, PermissionType>(u.Key.Name, u.Value)) : [],
+                               roles != null ? roles.Select(r => new KeyValuePair<string, PermissionType>(r.Key.Name, r.Value)) : []
                               );
         }
 
         public Activity Create(string name, string description)
         {
-            return this.Create(name, description, (IEnumerable<KeyValuePair<string, PermissionType>>)null, null);
+            return this.Create(name, description, (IEnumerable<KeyValuePair<string, PermissionType>>)null!, null!);
         }
 
         public Activity Create(string name, string description, IEnumerable<KeyValuePair<string, PermissionType>> users, IEnumerable<KeyValuePair<string, PermissionType>> roles)
         {
-            return this.OnCreate(name, description, users ?? New.Enumerable<KeyValuePair<string, PermissionType>>(), roles ?? New.Enumerable<KeyValuePair<string, PermissionType>>());
+            return this.OnCreate(name, description, users ?? [], roles ?? []);
         }
 
         protected abstract Activity OnCreate(string name, string description, IEnumerable<KeyValuePair<string, PermissionType>> users, IEnumerable<KeyValuePair<string, PermissionType>> roles);
@@ -43,7 +40,7 @@ namespace AP.Security
         public abstract void DeleteUserPermission(string activityName, string userName);
         public abstract void DeleteRolePermission(string activityName, string roleName);
 
-        public abstract Activity GetParent(string activityName);
+        public abstract Activity? GetParent(string activityName);
         public abstract IQueryable<Activity> GetChildren(string activityName);
 
         public abstract void Delete(string activityName);

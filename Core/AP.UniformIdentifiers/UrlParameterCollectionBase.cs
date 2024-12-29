@@ -12,7 +12,7 @@ namespace AP.UniformIdentifiers;
 [DebuggerDisplay("{Value}")]
 public abstract class UrlParameterCollectionBase : ReadOnlyDictionary<string, ISetView<string>>
 {
-    private readonly Deferrable<string> _value;
+    private readonly Lazy<string> _value;
 
     public string Value => _value.Value;
 
@@ -56,7 +56,7 @@ public abstract class UrlParameterCollectionBase : ReadOnlyDictionary<string, IS
     protected UrlParameterCollectionBase(IDictionaryView<string, ISetView<string>> inner)
         : base(inner)
     {
-        _value = new Deferrable<string>
+        _value = new Lazy<string>
         (
             () =>
             {

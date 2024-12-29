@@ -60,8 +60,8 @@ public sealed class IPv4 : Host
 
     public override Host Loopback => s_loopback;
 
-    private readonly Deferrable<ReadOnlyList<byte>> _bits;
-    private readonly Deferrable<string> _value;
+    private readonly Lazy<ReadOnlyList<byte>> _bits;
+    private readonly Lazy<string> _value;
     private readonly uint _address;
 
     public static new IPv4 Parse(string host) => new(host);
@@ -84,22 +84,22 @@ public sealed class IPv4 : Host
         : this(ToBits(value = value.Trim()))
     {
         // safe - forced into becoming a uint - so if there's an error - it won't even use a crappy string
-        _value.Value = value;
+        _value = new(value);
     }
 
     public IPv4(byte[] value)
         : this(ToAddress(value))
     {
         // safe to set - it is not readonly - and the deferrable has already been initialized by the uint ctor - and the byte array is already good to be used
-        _bits.Value = new ReadOnlyList<byte>(value);
+        _bits = new(new ReadOnlyList<byte>(value));
     }
 
     public IPv4(uint value)
         : base((IComparable)value)
     {
         _address = value;
-        _bits = new Deferrable<ReadOnlyList<byte>>(() => new ReadOnlyList<byte>(ToBits(_address)));
-        _value = new Deferrable<string>(() => ToString(this.Bits));
+        _bits = new(() => new ReadOnlyList<byte>(ToBits(_address)));
+        _value = new(() => ToString(this.Bits));
     }
 
     public uint Address => _address;

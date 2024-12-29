@@ -2,7 +2,6 @@
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Json;
 using System.Runtime.Serialization.Formatters.Binary;
-using Uno.Xaml;
 
 namespace AP.Serialization;
 

@@ -17,20 +17,10 @@ public abstract class Expressions : System.Linq.Expressions.Expression
     }
 
     public static MethodCallExpression StaticCall(Type type, string methodName, Type[] typeArguments, params Expression[] arguments) => Expression.Call(type, methodName, typeArguments, arguments);
-    public static MethodCallExpression StaticCall(MethodInfo method, IEnumerable<Expression> arguments) => Expression.Call(method, arguments);
-    public static MethodCallExpression StaticCall(MethodInfo method, params Expression[] arguments) => Expression.Call(method, arguments);
-    public static MethodCallExpression StaticCall(MethodInfo method, Expression arg0) => Expression.Call(method, arg0);
-    public static MethodCallExpression StaticCall(MethodInfo method, Expression arg0, Expression arg1) => Expression.Call(method, arg0, arg1);
-    public static MethodCallExpression StaticCall(MethodInfo method, Expression arg0, Expression arg1, Expression arg2) => Expression.Call(method, arg0, arg1, arg2);
-    public static MethodCallExpression StaticCall(MethodInfo method, Expression arg0, Expression arg1, Expression arg2, Expression arg3) => Expression.Call(method, arg0, arg1, arg2, arg3);
-    public static MethodCallExpression StaticCall(MethodInfo method, Expression arg0, Expression arg1, Expression arg2, Expression arg3, Expression arg4) => Expression.Call(method, arg0, arg1, arg2, arg3, arg4);
-
-    public static MethodCallExpression InstanceCall(Expression instance, string methodName, Type[] typeArguments, params Expression[] arguments) => Expression.Call(instance, methodName, typeArguments, arguments);
-    public static MethodCallExpression InstanceCall(Expression instance, MethodInfo method, params Expression[] arguments) => Expression.Call(instance, method, arguments);
-    public static MethodCallExpression InstanceCall(Expression instance, MethodInfo method, IEnumerable<Expression> arguments) => Expression.Call(instance, method, arguments);
-    public static MethodCallExpression InstanceCall(Expression instance, MethodInfo method) => Expression.Call(instance, method);
-    public static MethodCallExpression InstanceCall(Expression instance, MethodInfo method, Expression arg0, Expression arg1) => Expression.Call(instance, method, arg0, arg1);
-    public static MethodCallExpression InstanceCall(Expression instance, MethodInfo method, Expression arg0, Expression arg1, Expression arg2) => Expression.Call(instance, method, arg0, arg1, arg2);
+    public static MethodCallExpression StaticCall(MethodInfo method, params IEnumerable<Expression> arguments) => Expression.Call(method, arguments);
+    
+    public static MethodCallExpression InstanceCall(Expression instance, string methodName, Type[] typeArguments, params IEnumerable<Expression> arguments) => Expression.Call(instance, methodName, typeArguments, [..arguments]);
+    public static MethodCallExpression InstanceCall(Expression instance, MethodInfo method, params IEnumerable<Expression> arguments) => Expression.Call(instance, method, arguments);    
 
     /// <summary>
     /// Converts a delegate to an Expression

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
-using AP.ComponentModel;
+using AP.Linq;
 
 namespace AP.Linq;
 
@@ -14,7 +14,7 @@ public static class QueryableExtensions
     private const string ThenBy = "ThenBy";
     private const string ThenByDescending = "ThenByDescending";
 
-    // alternate code if some conflics will pop up
+    // alternate code if some conflicts will pop up
     //public static IQueryable<T> Reverse<T>(this IQueryable<T> source, bool reverseThenByExpressions = true)
     //{
     //    OrderExpressionVisitor visitor = new OrderExpressionVisitor { _reverseThenByExpressions = reverseThenByExpressions };

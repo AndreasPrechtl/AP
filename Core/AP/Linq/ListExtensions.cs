@@ -7,17 +7,6 @@ namespace AP.Linq;
 
 public static class ListExtensions
 {
-    //public static void MoveItemsTo(this IList from, IList to)
-    //{
-    //    for (IEnumerator enumerator = from.GetEnumerator(); enumerator.MoveNext(); )
-        //{
-        //    object current = enumerator.Current;
-        //    enumerator = null;
-        //    from.Remove(current);
-        //    to.Add(current);
-        //    enumerator = from.GetEnumerator();
-        //}
-    //}
     public static ReadOnlyList<TElement> AsReadOnly<TElement>(this System.Collections.Generic.IList<TElement> source)
     {
         ArgumentNullException.ThrowIfNull(source);
@@ -27,27 +16,34 @@ public static class ListExtensions
 
     public static void Insert<T>(this System.Collections.Generic.IList<T> list, int index, params IEnumerable<T> items)
     {
-        if (list is AP.Collections.List<T>)
-            ((AP.Collections.List<T>)list).Insert(index, items);
-        else if (list is AP.Collections.ObjectModel.ExtendableList<T>)
-            ((AP.Collections.ObjectModel.ExtendableList<T>)list).Insert(index, items);
-        else if (list is System.Collections.Generic.List<T>)
-            ((System.Collections.Generic.List<T>) list).InsertRange(index, items);
-        else
+        switch (list)
         {
-            foreach (T item in items)
-                list.Insert(index++, item);
+            case Collections.List<T> list1:
+                list1.Insert(index, items);
+                break;
+            case Collections.ObjectModel.ExtendableList<T> list2:
+                list2.Insert(index, items);
+                break;
+            case System.Collections.Generic.List<T> list3:
+                list3.InsertRange(index, items);
+                break;
+            default:
+                {
+                    foreach (T item in items)
+                        list.Insert(index++, item);
+                    break;
+                }
         }
     }
 
     public static void RemoveAt<T>(this System.Collections.Generic.IList<T> list, int index, int count)
     {
-        if (list is AP.Collections.List<T>)
-            ((AP.Collections.List<T>)list).Remove(index, count);
-        else if (list is AP.Collections.ObjectModel.ExtendableList<T>)
-            ((AP.Collections.ObjectModel.ExtendableList<T>)list).Remove(index, count);
-        else if (list is System.Collections.Generic.List<T>)
-            ((System.Collections.Generic.List<T>)list).RemoveRange(index, count);
+        if (list is AP.Collections.List<T> list1)
+            list1.Remove(index, count);
+        else if (list is AP.Collections.ObjectModel.ExtendableList<T> list2)
+            list2.Remove(index, count);
+        else if (list is System.Collections.Generic.List<T> list3)
+            list3.RemoveRange(index, count);
         else
         {
             ArgumentOutOfRangeException.ThrowIfNegative(index);
@@ -60,18 +56,18 @@ public static class ListExtensions
 
     public static void Move<T>(this System.Collections.Generic.IList<T> list, int index, int newIndex, int count = 1)
     {
-        if (list is AP.Collections.IUnsortedList<T>)
-            ((AP.Collections.IUnsortedList<T>)list).Move(index, newIndex, count);
+        if (list is AP.Collections.IUnsortedList<T> list1)
+            list1.Move(index, newIndex, count);
         else
             CollectionsHelper.Move<T>(list, index, newIndex, count);            
     }
     public static bool TryGetItem<T>(this System.Collections.Generic.IList<T> list, int index, out T? value)
     {
-        if (list is AP.Collections.IListView<T>)
-            return ((AP.Collections.IListView<T>)list).TryGetItem(index, out value);
+        if (list is AP.Collections.IListView<T> view)
+            return view.TryGetItem(index, out value);
 
-        if (list is AP.Collections.IUnsortedList<T>)
-            return ((AP.Collections.IUnsortedList<T>)list).TryGetItem(index, out value);
+        if (list is AP.Collections.IUnsortedList<T> list1)
+            return list1.TryGetItem(index, out value);
 
         if (index < list.Count)
         {

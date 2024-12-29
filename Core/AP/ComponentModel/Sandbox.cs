@@ -48,22 +48,7 @@ public class Sandbox : DisposableObject
     /// </summary>
     /// <param name="sender"></param>
     /// <param name="exception"></param>
-    private void Notify(object sender, Exception exception) => this.OnErrorOccured(this.CreateErrorLoggerEventArgs(this.CreateExceptionInfo(sender, exception)));
-
-    /// <summary>
-    /// Creates the ErrorLoggerEventArgs
-    /// </summary>
-    /// <param name="errorInfo"></param>
-    /// <returns></returns>
-    protected virtual ErrorLoggerEventArgs CreateErrorLoggerEventArgs(ExceptionInfo errorInfo) => new(errorInfo);
-
-    /// <summary>
-    /// Creates an ErrorInfo object
-    /// </summary>
-    /// <param name="sender"></param>
-    /// <param name="exception"></param>
-    /// <returns></returns>
-    protected virtual ExceptionInfo CreateExceptionInfo(object sender, Exception exception) => new(sender, exception);
+    private void Notify(object sender, Exception exception) => this.OnErrorOccured(new ErrorLoggerEventArgs(new ExceptionInfo(sender, exception)));
 
     /// <summary>
     /// Notifies the event listeners

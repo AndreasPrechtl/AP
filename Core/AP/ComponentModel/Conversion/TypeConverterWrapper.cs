@@ -11,6 +11,7 @@ public enum UsedTypeConverterMethod
 }
 
 public sealed class TypeConverterWrapper<TInput, TOutput> : Converter<TInput, TOutput>
+    where TInput : notnull
 {   
     private readonly TypeConverter _converter;
     private readonly UsedTypeConverterMethod _usedConversionMethod;
@@ -43,11 +44,11 @@ public sealed class TypeConverterWrapper<TInput, TOutput> : Converter<TInput, TO
             return _converter.CanConvertFrom(_inputType);
     }
 
-    public override TOutput Convert(TInput input, CultureInfo? inputCulture = null, CultureInfo? outputCulture = null)
+    public override TOutput? Convert(TInput input, CultureInfo? inputCulture = null, CultureInfo? outputCulture = null)
     {
         if (_usedConversionMethod == UsedTypeConverterMethod.To)
-            return (TOutput)_converter.ConvertTo(input, typeof(TOutput));
+            return (TOutput?)_converter.ConvertTo(input, typeof(TOutput));
         else
-            return (TOutput)_converter.ConvertFrom(input);
+            return (TOutput?)_converter.ConvertFrom(input);
     }
 }

@@ -14,7 +14,7 @@ public interface IContextUser : AP.IDisposable
 /// </summary>
 /// <typeparam name="TContext"></typeparam>
 public interface IContextUser<out TContext> : IContextUser
-    where TContext : class, AP.IDisposable
+    where TContext : notnull, AP.IDisposable
 {
     new TContext Context { get; }
 }

@@ -3,7 +3,7 @@ using System.IO;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Runtime.Serialization.Json;
-using Uno.Xaml;
+
 
 namespace AP.Serialization;
 
@@ -26,33 +26,6 @@ public abstract class Deserialize : StaticType
     /// <param name="xaml">The xaml string.</param>
     /// <returns>The object.</returns>
     public static object Xaml(string xaml) => XamlServices.Parse(xaml);
-
-    /// <summary>
-    /// Deserializes a byte array into an object.
-    /// </summary>
-    /// <param name="binaries">The byte array.</param>
-    /// <returns>The object.</returns>
-    public static object Binaries(byte[] binaries)
-    {
-        object obj = null;
-
-        using (MemoryStream stream = new(binaries))
-        {
-            stream.Position = 0;
-            BinaryFormatter serializer = new();
-
-            obj = serializer.Deserialize(stream);
-        }
-        return obj;
-    }
-
-    /// <summary>
-    /// Deserializes a byte array into an object.
-    /// </summary>
-    /// <typeparam name="T">The type the object should be cast to.</typeparam>
-    /// <param name="binaries">The byte array.</param>
-    /// <returns>The object.</returns>        
-    public static T Binaries<T>(byte[] binaries) => (T)Binaries(binaries);
 
     /// <summary>
     /// Deserializes a Json string into an object and casts it into the desired generic type.

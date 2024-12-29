@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 
 namespace AP;
 
@@ -36,6 +37,13 @@ public interface IDisposable : System.IDisposable, System.IAsyncDisposable
     /// </summary>
     /// <param name="contextKey">The key for disposing the object</param>
     void Dispose(object contextKey);
+
+    /// <summary>
+    /// Disposes the object by utilizing a key
+    /// </summary>
+    /// <param name="contextKey">The key for disposing the object</param>
+    /// <returns>The ValueTask to await.</returns>
+    ValueTask DisposeAsync(object contextKey);
 
     /// <summary>
     /// Indicates if the object has been disposed

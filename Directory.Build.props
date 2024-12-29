@@ -12,9 +12,4 @@
 		<NugetPackageOnBuild>true</NugetPackageOnBuild>
 	</PropertyGroup>
 
-	<ItemGroup>		
-		<ProjectReference Include="..\AP\AP.csproj" Condition="$(ProjectName) != AP" />
-	</ItemGroup>
-
-
 </Project>

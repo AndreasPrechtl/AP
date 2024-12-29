@@ -8,7 +8,7 @@ namespace AP;
 /// Used as a base class for IDisposable implementations, does not contain a finalizer
 /// </summary>
 [SuppressMessage("Microsoft.Design", "CA1063:ImplementIDisposableCorrectly", Justification = "IDisposable is implemented correctly - yet simplified for less complexity on child classes")]
-public abstract class DisposableObject : IDisposable
+public abstract class DisposableObject : AP.IDisposable
 {
     private bool _isDisposed;
 

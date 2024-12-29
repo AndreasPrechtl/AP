@@ -18,7 +18,7 @@ public class NameValueDictionary<T> : AP.Collections.Dictionary<string, T>
         foreach (PropertyDescriptor descriptor in TypeDescriptor.GetProperties(obj))
         {
             if (descriptor.PropertyType.Is(t))
-                dictionary.Add(descriptor.Name, (T)descriptor.GetValue(obj));
+                dictionary.Add(descriptor.Name, (T)descriptor.GetValue(obj)!);
         }
 
         return dictionary;
@@ -49,7 +49,7 @@ public class NameValueDictionary<T> : AP.Collections.Dictionary<string, T>
     { }
 
     public NameValueDictionary(IEnumerable<KeyValuePair<string, T>> dictionary, StringComparison keyComparison = StringComparison.Ordinal, IEqualityComparer<T>? valueComparer = null)
-        : this(dictionary, Strings.GetComparer(keyComparison), valueComparer)
+        : this(dictionary, Strings.GetComparer(keyComparison), valueComparer!)
     { }
 
     public NameValueDictionary(IEnumerable<KeyValuePair<string, T>> dictionary, IEqualityComparer<string> keyComparer, IEqualityComparer<T> valueComparer)

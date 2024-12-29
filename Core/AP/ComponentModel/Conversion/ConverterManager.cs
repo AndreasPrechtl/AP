@@ -151,7 +151,7 @@ public sealed partial class ConverterManager : DisposableObject, IConverterManag
         return null;
     }
 
-    private Converter? GetConverter(Key key, bool advancedSearch = true, bool createAndRegisterAlternatives = true)
+    private Converter? GetConverter(Key key, bool advancedSearch = true, bool createAndRegisterAlternatives = true)        
     {
         var item = this.GetItem(key, advancedSearch);
 

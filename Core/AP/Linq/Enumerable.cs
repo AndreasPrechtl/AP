@@ -38,7 +38,7 @@ public static class Enumerable
 
     public static ReadOnlyList<TSource> ToReadOnlyList<TSource>(this IEnumerable<TSource> source) => new(source);
 
-    public static Set<TSource> ToSet<TSource>(this IEnumerable<TSource> source, IEqualityComparer<TSource>? comparer = null) => new(source, comparer);
+    public static Set<TSource> ToSet<TSource>(this IEnumerable<TSource> source, IEqualityComparer<TSource>? comparer = null) => new(source, comparer!);
 
     public static ReadOnlySet<TSource> ToReadOnlySet<TSource>(this IEnumerable<TSource> source) => new(source);
 

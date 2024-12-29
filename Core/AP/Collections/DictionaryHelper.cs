@@ -70,10 +70,10 @@ internal static class DictionaryHelper
     public static bool ContainsKeyValuePair<TKey, TValue>(SortedDictionary<TKey, TValue> dictionary, KeyValuePair<TKey, TValue> keyValuePair, bool compareValues = true)
         where TKey : notnull
     {
-        bool hasKey = dictionary.Contains(keyValuePair.Key, out TValue ve);
+        bool hasKey = dictionary.TryGetValue(keyValuePair.Key, out TValue? value);
 
         if (hasKey && compareValues)
-            return dictionary.ValueComparer.Equals(keyValuePair.Value, ve);
+            return dictionary.ValueComparer.Equals(keyValuePair.Value, value!);
 
         return hasKey;
     }

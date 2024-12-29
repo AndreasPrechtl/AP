@@ -19,7 +19,7 @@ public class Queue<T> : IQueue<T>, IEqualityComparerUser<T>
     { }
 
     public Queue(int capacity)
-        : this(capacity, null)
+        : this(capacity, null!)
     { }
     
     public Queue(int capacity, IEqualityComparer<T> comparer)
@@ -27,11 +27,11 @@ public class Queue<T> : IQueue<T>, IEqualityComparerUser<T>
     { }
 
     public Queue(IEnumerable<T> collection)
-        : this(collection, null)
+        : this(collection, null!)
     { }
 
     public Queue(IEnumerable<T> collection, IEqualityComparer<T> comparer)
-        : this(collection == null ? null : new SCG.Queue<T>(collection), comparer ?? EqualityComparer<T>.Default)
+        : this(collection == null ? null! : new SCG.Queue<T>(collection), comparer ?? EqualityComparer<T>.Default)
     { }
 
     protected Queue(SCG.Queue<T> inner, IEqualityComparer<T> comparer)

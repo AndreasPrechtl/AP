@@ -3,19 +3,19 @@ using System.ComponentModel;
 
 namespace AP.ComponentModel.Conversion;
 
+// todo: revisit that pattern, it's bad
 public abstract class Converters : StaticType
 {
-    private static IConverterManager _current;
+    private static IConverterManager _current = null!;
     public static readonly object SyncRoot = new();
 
-    protected Converters()
-        : base()
+    protected Converters()        
     { }
 
     public static IConverterManager Manager
     {
-        get => _current;
-        set
+        get => _current!;
+        internal set
         {
             lock (SyncRoot)
             {
@@ -27,20 +27,13 @@ public abstract class Converters : StaticType
         }
     }
 
-    public static bool HasManager
-    {
-        get
-        {
-            lock (SyncRoot) 
-                return _current != null;
-        }
-    }
+    public static bool HasManager => _current != null;
 
-    public static GenericHelper Generic => Manager.Generic;
-    public static NonGenericHelper NonGeneric => Manager.NonGeneric;
+    public static GenericHelper Generic => Manager!.Generic;
+    public static NonGenericHelper NonGeneric => Manager!.NonGeneric;
 
-    private static ExtendedTypeDescriptionProvider _extendedTypeDescriptionProvider;
-    private static TypeDescriptionProvider _originalTypeDescriptionProvider;
+    private static ExtendedTypeDescriptionProvider _extendedTypeDescriptionProvider = null!;
+    private static TypeDescriptionProvider _originalTypeDescriptionProvider = null!;
 
     public static bool UseExtendedTypeConverters
     {
@@ -57,31 +50,27 @@ public abstract class Converters : StaticType
                     {
                         TypeDescriptionProvider original = TypeDescriptor.GetProvider(t);
 
-                        lock (original)
+                        ExtendedTypeDescriptionProvider extended = new(original);
+
+                        lock (extended)
                         {
-                            ExtendedTypeDescriptionProvider extended = new(original);
+                            TypeDescriptor.RemoveProvider(original, t);
+                            TypeDescriptor.AddProvider(extended, t);
 
-                            lock (extended)
-                            {
-                                TypeDescriptor.RemoveProvider(original, t);
-                                TypeDescriptor.AddProvider(extended, t);
-
-                                _extendedTypeDescriptionProvider = extended;
-                                _originalTypeDescriptionProvider = original;
-                            }
-                        }
+                            _extendedTypeDescriptionProvider = extended;
+                            _originalTypeDescriptionProvider = original;
+                        }                    
                     }
                     else
                     {
-                        lock (_originalTypeDescriptionProvider)
-                            lock (_extendedTypeDescriptionProvider)
-                            {
-                                TypeDescriptor.RemoveProvider(_extendedTypeDescriptionProvider, t);
-                                TypeDescriptor.AddProvider(_originalTypeDescriptionProvider, t);
+                        lock (SyncRoot)                            
+                        {
+                            TypeDescriptor.RemoveProvider(_extendedTypeDescriptionProvider!, t);
+                            TypeDescriptor.AddProvider(_originalTypeDescriptionProvider!, t);
 
-                                _extendedTypeDescriptionProvider = null;
-                                _originalTypeDescriptionProvider = null;
-                            }
+                            _extendedTypeDescriptionProvider = null!;
+                            _originalTypeDescriptionProvider = null!;
+                        }
                     }
                 }
             }
@@ -94,32 +83,32 @@ public abstract class Converters : StaticType
         {
             UseExtendedTypeConverters = false;
             IConverterManager current = _current;
-            _current = null;
+            _current = null!;
             
             if (disposeManager)
                 current.Dispose();                
         }                        
     }
 
-    public static Converter GetConverter(Type inputType, Type outputType)
+    public static Converter? GetConverter(Type inputType, Type outputType)
     {
         if (HasManager)
         {
-            Converter c = Manager.GetConverter(inputType, outputType);
+            var c = Manager.GetConverter(inputType, outputType);
             if (c != null)
                 return c;
         }
 
         if (UseExtendedTypeConverters)
         {
-            TypeConverter typeConverter = _originalTypeDescriptionProvider.GetTypeDescriptor(inputType).GetConverter();
+            var typeConverter = _originalTypeDescriptionProvider.GetTypeDescriptor(inputType)?.GetConverter();
 
-            if (typeConverter.CanConvertFrom(inputType))
+            if (typeConverter?.CanConvertFrom(inputType) is true)
                 return (Converter)New.Instance(typeof(TypeConverterWrapper<,>).MakeGenericType(inputType, outputType), typeConverter, UsedTypeConverterMethod.From);
 
-            typeConverter = _originalTypeDescriptionProvider.GetTypeDescriptor(outputType).GetConverter();
+            typeConverter = _originalTypeDescriptionProvider.GetTypeDescriptor(outputType)?.GetConverter();
 
-            if (typeConverter.CanConvertTo(outputType))
+            if (typeConverter?.CanConvertTo(outputType) is true)
                 return (Converter)New.Instance(typeof(TypeConverterWrapper<,>).MakeGenericType(inputType, outputType), typeConverter, UsedTypeConverterMethod.To);                
         }
 
@@ -127,6 +116,7 @@ public abstract class Converters : StaticType
     }
 
     public static Converter<TInput, TOutput>? GetConverter<TInput, TOutput>()
+        where TInput : notnull
     {
         if (HasManager)
         {
@@ -167,8 +157,9 @@ public abstract class Converters : StaticType
     }
 
     public static Converter<TInput, TOutput> Register<TInput, TOutput>(TypeConverter converter, UsedTypeConverterMethod method)
+        where TInput : notnull
     {
-        Converter<TInput, TOutput> c = new TypeConverterWrapper<TInput, TOutput>(converter, method);
+        var c = new TypeConverterWrapper<TInput, TOutput>(converter, method);
 
         _current.Register(c);
 
@@ -176,8 +167,9 @@ public abstract class Converters : StaticType
     }
     
     public static Converter<TInput, TOutput> Register<TInput, TOutput>(Convert<TInput, TOutput> converter)
+        where TInput : notnull
     {
-        Converter<TInput, TOutput> c = new ConvertDelegateWrapper<TInput, TOutput>(converter);
+        var c = new ConvertDelegateWrapper<TInput, TOutput>(converter);
 
         _current.Register(c);
 

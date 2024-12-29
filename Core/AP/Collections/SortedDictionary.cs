@@ -203,18 +203,9 @@ public partial class SortedDictionary<TKey, TValue> : IDictionary<TKey, TValue>
 
     public bool Remove(TKey key) => _inner.Remove(key);
 
-    public bool Contains(TKey key, out TValue value) => _inner.TryGetValue(key, out value);
-
-    public bool TryGetValue(TKey key, out TValue value)
-    {
-        if (key == null)
-        {
-            value = default;
-            return false;
-        }
-
-        return _inner.TryGetValue(key, out value);
-    }
+#pragma warning disable CS8767 // Nullability of reference types in type of parameter doesn't match implicitly implemented member (possibly because of nullability attributes).
+    public bool TryGetValue(TKey key, out TValue? value) => _inner.TryGetValue(key, out value);
+#pragma warning restore CS8767 // Nullability of reference types in type of parameter doesn't match implicitly implemented member (possibly because of nullability attributes).
 
     public TValue this[TKey key]
     {
@@ -281,7 +272,7 @@ public partial class SortedDictionary<TKey, TValue> : IDictionary<TKey, TValue>
     {
         if (compareValues)
         {
-            return _inner.TryGetValue(keyValuePair.Key, out TValue value) && _valueComparer.Equals(keyValuePair.Value, value);
+            return _inner.TryGetValue(keyValuePair.Key, out TValue? value) && _valueComparer.Equals(keyValuePair.Value, value);
         }
 
         return _inner.ContainsKey(keyValuePair.Key);

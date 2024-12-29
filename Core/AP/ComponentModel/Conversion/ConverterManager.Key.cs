@@ -20,11 +20,18 @@ public partial class ConverterManager
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
-            Key key = (Key)obj;
-        
-            return this == obj || InputType == key.InputType && OutputType == key.OutputType;
+            if (obj is null)
+                return false;
+
+            if (obj == this)
+                return true;
+
+            if (obj is Key key)
+                return this.InputType == key.InputType && this.OutputType == key.OutputType;
+
+            return false;
         }
 
         public override int GetHashCode() => InputType.GetHashCode() & OutputType.GetHashCode();

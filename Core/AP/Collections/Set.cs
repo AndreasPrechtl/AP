@@ -27,15 +27,15 @@ public class Set<T> : ISet<T>, IEqualityComparerUser<T>
     }
 
     public Set()
-        : this(CreateInnerSet(null, null))
+        : this(CreateInnerSet(null!, null!))
     { }
 
     public Set(IEnumerable<T> collection)
-        : this(CreateInnerSet(collection, null))
+        : this(CreateInnerSet(collection, null!))
     { }
 
     public Set(IEqualityComparer<T> comparer)
-        : this(CreateInnerSet(null, comparer))
+        : this(CreateInnerSet(null!, comparer))
     { }
 
     public Set(IEnumerable<T> collection, IEqualityComparer<T> comparer)

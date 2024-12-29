@@ -74,8 +74,6 @@ public abstract partial class ExtendableDictionary<TKey, TValue> : DictionaryBas
 
     public override bool Contains(KeyValuePair<TKey, TValue> item, bool compareValues = false) => _inner.Contains(item, compareValues);
 
-    public override bool Contains(TKey key, out TValue value) => _inner.Contains(key, out value);
-
     public override bool ContainsKey(TKey key) => _inner.ContainsKey(key);
 
     public override bool ContainsValue(TValue value) => _inner.ContainsValue(value);

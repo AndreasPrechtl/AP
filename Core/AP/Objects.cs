@@ -73,7 +73,7 @@ public static class Objects
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <returns></returns>
-    public static T NewOrUnintialized<T>()
+    public static T NewOrUninitialized<T>()
     {
         T instance;
         Type type = typeof(T);
@@ -160,9 +160,12 @@ public static class Objects
     /// <returns></returns>
     public static TInto Merge<TFrom, TInto>(TFrom from, TInto into, bool overwrite = false)
     {
-        foreach (FieldInfo fromField in from.GetType().GetFields(Reflect.AllFields))
+        ArgumentNullException.ThrowIfNull(from);
+        ArgumentNullException.ThrowIfNull(into);
+
+        foreach (var fromField in from.GetType().GetFields(Reflect.AllFields))
         {
-            foreach (FieldInfo intoField in into.GetType().GetFields(Reflect.AllFields))
+            foreach (var intoField in into.GetType().GetFields(Reflect.AllFields))
             {
                 if ((fromField.Name == intoField.Name && !intoField.IsInitOnly)) // && (overwrite || intoField.GetValue(into).IsNullOrDefault())))
                 {

@@ -41,7 +41,7 @@ public abstract class ExtendableQueue<T> : QueueBase<T>, IEqualityComparerUser<T
 
     public new ExtendableQueue<T> Clone() => (ExtendableQueue<T>)this.OnClone();
 
-    public override string ToString() => _inner.ToString();
+    public override string ToString() => _inner.ToString()!;
 
     #region IQueue<T> Members
 

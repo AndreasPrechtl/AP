@@ -7,9 +7,11 @@ public interface IConverterManager : AP.IDisposable
     GenericHelper Generic { get; }
     NonGenericHelper NonGeneric { get; }
 
-    void Register(Converter converter);        
-    
-    Converter<TInput, TOutput>? GetConverter<TInput, TOutput>();        
+    void Register(Converter converter);
+
+    Converter<TInput, TOutput>? GetConverter<TInput, TOutput>()
+        where TInput : notnull;        
+
     Converter? GetConverter(Type inputType, Type outputType);
 
     bool Contains(Converter converter);        

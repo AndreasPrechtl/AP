@@ -10,11 +10,11 @@ namespace AP.ComponentModel.Conversion;
 /// </summary>
 public sealed class ExtendedTypeConverter : TypeConverter
 {
-    private readonly IConverterManager _manager;
+    private readonly IConverterManager? _manager;
     private readonly Type _type;
     private readonly TypeConverter _inner;
 
-    public ExtendedTypeConverter(Type? type, IConverterManager manager, TypeConverter? inner)
+    public ExtendedTypeConverter(Type? type, IConverterManager? manager, TypeConverter? inner)
     {
         ArgumentNullException.ThrowIfNull(type);
 
@@ -27,30 +27,27 @@ public sealed class ExtendedTypeConverter : TypeConverter
 
     public Type Type => _type;
 
-    public IConverterManager Manager => _manager;
-    public bool HasManager => _inner != null;
+    public IConverterManager? Manager => _manager;
+    public bool HasManager => _manager != null;
 
     public TypeConverter Inner => _inner;
 
     public override bool CanConvertFrom(ITypeDescriptorContext? context, Type sourceType) => 
         base.CanConvertFrom(context, sourceType) 
         || (context?.Instance != null 
-        && this.HasManager 
-        && _manager.NonGeneric.CanConvert(sourceType, context.Instance.GetType()));
+        && _manager?.NonGeneric.CanConvert(sourceType, context.Instance.GetType()) is true);
 
     public override bool CanConvertTo(ITypeDescriptorContext? context, Type? destinationType) => 
         base.CanConvertTo(context, destinationType)
         || (context?.Instance != null
-        && this.HasManager
-        && _manager.NonGeneric.CanConvert(destinationType!, context.Instance.GetType()));
+        && _manager?.NonGeneric.CanConvert(destinationType!, context.Instance.GetType()) is true);
 
     public override object? ConvertFrom(ITypeDescriptorContext? context, System.Globalization.CultureInfo? culture, object? value)
     {
-
         if (base.CanConvertFrom(context, value!.GetType()))
             return base.ConvertFrom(context, culture, value);
 
-        if (context?.Instance != null && this.HasManager && _manager.NonGeneric.TryConvert(value!, context.Instance.GetType(), out var output, null, culture))
+        if (context?.Instance != null && _manager?.NonGeneric.TryConvert(value!, context.Instance.GetType(), out var output, null, culture) is true)
             return output;
 
         return null;
@@ -61,7 +58,7 @@ public sealed class ExtendedTypeConverter : TypeConverter
         if (base.CanConvertTo(context, destinationType))
             return base.ConvertTo(context, culture, value, destinationType);
 
-        if (context != null && this.HasManager && _manager.NonGeneric.TryConvert(value!, destinationType, out object? output, null, culture))
+        if (context != null && _manager?.NonGeneric.TryConvert(value!, destinationType, out object? output, null, culture) is true)
             return output;
 
         return null;

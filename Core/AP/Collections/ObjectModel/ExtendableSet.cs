@@ -15,11 +15,11 @@ public abstract class ExtendableSet<T> : SetBase<T>, IEqualityComparerUser<T>
     { }
 
     protected ExtendableSet(params IEnumerable<T> collection)
-        : this(collection, null)
+        : this(collection, null!)
     { }
 
     protected ExtendableSet(IEqualityComparer<T> comparer)
-        : this(null, comparer)
+        : this(null!, comparer)
     { }
 
     protected ExtendableSet(IEnumerable<T> collection, IEqualityComparer<T> comparer)

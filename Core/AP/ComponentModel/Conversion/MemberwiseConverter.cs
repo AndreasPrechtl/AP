@@ -9,9 +9,11 @@ namespace AP.ComponentModel.Conversion;
 /// <typeparam name="TInput"></typeparam>
 /// <typeparam name="TOutput"></typeparam>
 public class MemberwiseConverter<TInput, TOutput> : Converter<TInput, TOutput>
+    where TInput : notnull
 {
-    public override TOutput Convert(TInput input, System.Globalization.CultureInfo? inputCulture = null, System.Globalization.CultureInfo? outputCulture = null) =>
-        // this one will be the next brainbuster...
-
+    public override TOutput? Convert(TInput input, System.Globalization.CultureInfo? inputCulture = null, System.Globalization.CultureInfo? outputCulture = null)        
+    {
+        // todo: this one will be the next brainbuster...
         throw new NotImplementedException();
+    }
 }

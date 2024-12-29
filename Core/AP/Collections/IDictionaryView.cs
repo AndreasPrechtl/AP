@@ -9,8 +9,9 @@ public interface IDictionaryView<TKey, TValue> : ICollection<KeyValuePair<TKey, 
     new ICollection<TValue> Values { get; }
 
     bool Contains(KeyValuePair<TKey, TValue> item, bool compareValues = false);
-    bool Contains(TKey key, out TValue value);
 
+    new bool TryGetValue(TKey key, out TValue? value);
+    
     new bool ContainsKey(TKey key);
     bool ContainsValue(TValue value);
 

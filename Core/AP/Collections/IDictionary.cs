@@ -7,12 +7,7 @@ public interface IDictionary<TKey, TValue> : IDictionaryView<TKey, TValue>, Syst
 {
     new bool Add(TKey key, TValue value);
     new bool Add(KeyValuePair<TKey, TValue> item);        
-    void Add(IEnumerable<KeyValuePair<TKey, TValue>> items);        
-    
-    // moved to DictionaryExtensions
-    //void AddOrUpdate(TKey key, TValue value);
-    //void AddOrUpdate(KeyValuePair<TKey, TValue> item);        
-    //void AddOrUpdate(IEnumerable<KeyValuePair<TKey, TValue>> items);
+    void Add(IEnumerable<KeyValuePair<TKey, TValue>> items);
 
     bool Update(TKey key, TValue value);
     bool Update(KeyValuePair<TKey, TValue> item);

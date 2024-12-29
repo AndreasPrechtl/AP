@@ -84,13 +84,14 @@ public abstract partial class DictionaryBase<TKey, TValue> : CollectionBase<KeyV
     {
         if (compareValues)
         {
-            return this.Contains(item.Key, out TValue? value) && value!.Equals(item.Value);
+            return this.TryGetValue(item.Key, out TValue? value) && object.Equals(value, item.Value);
         }
 
         return this.ContainsKey(item.Key);
     }
 
-    public virtual bool Contains(TKey key, out TValue value)
+#pragma warning disable CS8767 // Nullability of reference types in type of parameter doesn't match implicitly implemented member (possibly because of nullability attributes).
+    public virtual bool TryGetValue(TKey key, out TValue? value)
     {
         foreach (var item in this)
         {
@@ -100,21 +101,10 @@ public abstract partial class DictionaryBase<TKey, TValue> : CollectionBase<KeyV
                 return true;
             }
         }
-
-        value = default!;
+        value = default;
         return false;
     }
-
-    public virtual bool TryGetValue(TKey key, out TValue value)
-    {
-        if (key == null)
-        {
-            value = default;
-            return false;
-        }
-
-        return this.Contains(key, out value);
-    }
+#pragma warning restore CS8767 // Nullability of reference types in type of parameter doesn't match implicitly implemented member (possibly because of nullability attributes).
 
     public virtual bool ContainsKey(TKey key)
     {
@@ -128,7 +118,7 @@ public abstract partial class DictionaryBase<TKey, TValue> : CollectionBase<KeyV
     public virtual bool ContainsValue(TValue value)
     {
         foreach (var item in this)
-            if (value.Equals(item.Value))
+            if (object.Equals(value, item.Value))
                 return true;
         
         return false;
@@ -155,7 +145,7 @@ public abstract partial class DictionaryBase<TKey, TValue> : CollectionBase<KeyV
     #endregion
 
     #region IReadOnlyDictionary<TKey,TValue> Members
-
+        
     IEnumerable<TKey> IReadOnlyDictionary<TKey, TValue>.Keys => _keys;
 
     IEnumerable<TValue> IReadOnlyDictionary<TKey, TValue>.Values => _values;
@@ -171,9 +161,7 @@ public abstract partial class DictionaryBase<TKey, TValue> : CollectionBase<KeyV
     System.Collections.Generic.ICollection<TValue> System.Collections.Generic.IDictionary<TKey, TValue>.Values => _values;
 
     public abstract bool Remove(TKey key);
-
-    bool System.Collections.Generic.IDictionary<TKey, TValue>.TryGetValue(TKey key, out TValue value) => this.Contains(key, out value);
-
+    
     public abstract TValue this[TKey key]
     {
         get;

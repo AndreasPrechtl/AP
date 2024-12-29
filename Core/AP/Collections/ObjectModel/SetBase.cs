@@ -71,7 +71,7 @@ public abstract class SetBase<T> : CollectionBase<T>, ISet<T>
         {
             foreach (T y in other)
             {
-                if (x.Equals(y))
+                if (object.Equals(x, y))
                     ++matches;
             }
         }

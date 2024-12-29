@@ -28,15 +28,15 @@ public class SortedSet<T> : ISet<T>, IComparerUser<T>
     }
 
     public SortedSet()
-        : this(CreateInnerSet(null, null))
+        : this(CreateInnerSet(null!, null!))
     { }
 
     public SortedSet(IEnumerable<T> collection)
-        : this(CreateInnerSet(collection, null))
+        : this(CreateInnerSet(collection, null!))
     { }
 
     public SortedSet(IComparer<T> comparer)
-        : this(CreateInnerSet(null, comparer))
+        : this(CreateInnerSet(null!, comparer))
     { }
     
     public SortedSet(IEnumerable<T> collection, IComparer<T> comparer)

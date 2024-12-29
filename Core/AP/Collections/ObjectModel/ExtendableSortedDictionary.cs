@@ -25,7 +25,7 @@ public abstract partial class ExtendableSortedDictionary<TKey, TValue> : Diction
     { }
 
     protected ExtendableSortedDictionary(IComparer<TKey> keyComparer, IEqualityComparer<TValue> valueComparer)
-        : this(null, keyComparer, valueComparer)
+        : this(null!, keyComparer, valueComparer)
     { }
 
     protected ExtendableSortedDictionary(IEnumerable<KeyValuePair<TKey, TValue>> dictionary, IComparer<TKey> keyComparer, IEqualityComparer<TValue> valueComparer)
@@ -57,9 +57,7 @@ public abstract partial class ExtendableSortedDictionary<TKey, TValue> : Diction
     public override bool Remove(KeyValuePair<TKey, TValue> item, bool compareValues = false) => _inner.Remove(item, compareValues);
 
     public override bool Remove(TKey key) => _inner.Remove(key);
-
-    public override bool Contains(TKey key, out TValue value) => _inner.Contains(key, out value);
-
+    
     public override TValue this[TKey key]
     {
         get => _inner[key];

@@ -151,7 +151,7 @@ public static class EnumerableExtensions
     {
         if (source is IOrderedEnumerable<TSource>)
         {
-            FieldInfo fi = source.GetType().GetField("descending", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.GetField | BindingFlags.SetField);
+            var fi = source.GetType().GetField("descending", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.GetField | BindingFlags.SetField);
 
             if (fi != null)
             {

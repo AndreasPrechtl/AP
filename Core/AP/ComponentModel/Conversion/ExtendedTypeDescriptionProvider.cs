@@ -17,10 +17,10 @@ internal sealed class ExtendedTypeDescriptionProvider : TypeDescriptionProvider
         _original = original;
     }
 
-    public override ICustomTypeDescriptor GetTypeDescriptor(Type objectType, object instance)
+    public override ICustomTypeDescriptor? GetTypeDescriptor(Type objectType, object? instance)
     {
-        ICustomTypeDescriptor original = base.GetTypeDescriptor(objectType, instance);
-        ICustomTypeDescriptor extended = new ExtendedTypeDescriptor(original, objectType, instance);
+        var original = base.GetTypeDescriptor(objectType, instance)!;
+        var extended = new ExtendedTypeDescriptor(original, objectType, instance!);
 
         return extended;
     }

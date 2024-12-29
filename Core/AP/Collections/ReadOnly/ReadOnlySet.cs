@@ -20,7 +20,7 @@ public class ReadOnlySet<T> : ISetView<T>, IEqualityComparerUser<T>, System.Coll
     }
 
     public ReadOnlySet(params IEnumerable<T> collection)
-        : this(collection, null)
+        : this(collection, null!)
     { }
 
     public ReadOnlySet(IEnumerable<T> collection, IEqualityComparer<T> comparer)

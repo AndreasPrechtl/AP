@@ -20,16 +20,16 @@ public abstract class Converter
 
     #region internals
 
-    internal abstract object ConvertInternal(object input, CultureInfo? inputCulture = null, CultureInfo? outputCulture = null);
+    internal abstract object? ConvertInternal(object input, CultureInfo? inputCulture = null, CultureInfo? outputCulture = null);
     internal abstract bool CanConvertInternal(object input, CultureInfo? inputCulture = null, CultureInfo? outputCulture = null);
-    internal abstract bool TryConvertInternal(object input, out object output, CultureInfo? inputCulture = null, CultureInfo? outputCulture = null);
+    internal abstract bool TryConvertInternal(object input, out object? output, CultureInfo? inputCulture = null, CultureInfo? outputCulture = null);
 
     #endregion
 
     #region IConverter Members
 
     [MethodImpl(256)]
-    public object Convert(object input, CultureInfo? inputCulture = null, CultureInfo? outputCulture = null) => this.ConvertInternal(input, inputCulture, outputCulture);
+    public object? Convert(object input, CultureInfo? inputCulture = null, CultureInfo? outputCulture = null) => this.ConvertInternal(input, inputCulture, outputCulture);
 
     [MethodImpl(256)]
     public bool CanConvert(object input, CultureInfo? inputCulture = null, CultureInfo? outputCulture = null) => this.CanConvertInternal(input, inputCulture, outputCulture);

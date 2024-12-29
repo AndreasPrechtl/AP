@@ -18,7 +18,7 @@ public class SortedList<T> : IList<T>, IComparerUser<T>
     { }
 
     public SortedList(int capacity)
-        : this(capacity, null)
+        : this(capacity, null!)
     { }
 
     public SortedList(int capacity, IComparer<T> comparer)
@@ -26,7 +26,7 @@ public class SortedList<T> : IList<T>, IComparerUser<T>
     { }
 
     public SortedList(IEnumerable<T> collection)
-        : this(collection, null)
+        : this(collection, null!)
     { }
 
     public SortedList(IEnumerable<T> collection, IComparer<T> comparer)
@@ -44,7 +44,7 @@ public class SortedList<T> : IList<T>, IComparerUser<T>
         _comparer = comparer;
     }
 
-    public override string ToString() => _inner!.ToString();
+    public override string ToString() => _inner.ToString()!;
 
     #region ISortedList<T> Members
 
@@ -222,7 +222,7 @@ public class SortedList<T> : IList<T>, IComparerUser<T>
         if (b)
             item = _inner[index];
         else
-            item = default;
+            item = default!;
 
         return b;
     }

@@ -47,7 +47,7 @@ public sealed class NonGenericDictionaryEnumerator<TKey, TValue> : IDictionaryEn
         if (inner != null)
         {
             inner.Dispose();
-            _inner = null;
+            _inner = null!;
         }
     }
 

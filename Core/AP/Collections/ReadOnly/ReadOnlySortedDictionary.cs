@@ -58,18 +58,7 @@ public partial class ReadOnlySortedDictionary<TKey, TValue> : IDictionaryView<TK
 
     public bool Contains(KeyValuePair<TKey, TValue> item, bool compareValues = false) => _inner.Contains(item, compareValues);
 
-    public bool Contains(TKey key, out TValue value) => _inner.Contains(key, out value);
-
-    public bool TryGetValue(TKey key, out TValue value)
-    {
-        if (key == null)
-        {
-            value = default;
-            return false;
-        }
-
-        return this.Contains(key, out value);
-    }
+    public bool TryGetValue(TKey key, out TValue? value) => _inner.TryGetValue(key, out value!);
 
     public bool ContainsKey(TKey key) => _inner.ContainsKey(key);
 
@@ -116,6 +105,8 @@ public partial class ReadOnlySortedDictionary<TKey, TValue> : IDictionaryView<TK
     #endregion
 
     #region IReadOnlyDictionary<TKey,TValue> Members
+
+    bool IReadOnlyDictionary<TKey, TValue>.TryGetValue(TKey key, out TValue value) => this.TryGetValue(key, out value!);
 
     IEnumerable<TKey> IReadOnlyDictionary<TKey, TValue>.Keys => _keys;
 

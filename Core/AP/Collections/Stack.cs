@@ -19,7 +19,7 @@ public class Stack<T> : IStack<T>, IEqualityComparerUser<T>
     { }
 
     public Stack(int capacity)
-        : this(capacity, null)
+        : this(capacity, null!)
     { }
     
     public Stack(int capacity, IEqualityComparer<T> comparer)
@@ -27,11 +27,11 @@ public class Stack<T> : IStack<T>, IEqualityComparerUser<T>
     { }
 
     public Stack(IEnumerable<T> collection)
-        : this(collection, null)
+        : this(collection, null!)
     { }
 
     public Stack(IEnumerable<T> collection, IEqualityComparer<T> comparer)
-        : this(collection == null ? null : new SCG.Stack<T>(collection), comparer ?? EqualityComparer<T>.Default)
+        : this(collection == null ? null! : new SCG.Stack<T>(collection), comparer ?? EqualityComparer<T>.Default)
     { }
 
     protected Stack(SCG.Stack<T> inner, IEqualityComparer<T> comparer)
@@ -44,7 +44,7 @@ public class Stack<T> : IStack<T>, IEqualityComparerUser<T>
         _comparer = comparer;
     }
 
-    public override string ToString() => _inner.ToString();
+    public override string ToString() => _inner.ToString()!;
 
     public static Stack<T> Wrap(SCG.Stack<T> stack, IEqualityComparer<T> comparer) => new(stack, comparer);
 

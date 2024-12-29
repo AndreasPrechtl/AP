@@ -64,11 +64,7 @@ public abstract class DisposableObject : IDisposable
     /// <summary>
     /// Throws an exception if the object has already been disposed.
     /// </summary>
-    protected void ThrowIfDisposed()
-    {
-        if (_isDisposed)
-            throw new ObjectDisposedException("Object is already disposed", default(Exception));
-    }
+    protected void ThrowIfDisposed() => ObjectDisposedException.ThrowIf(_isDisposed, this);
 
     public override bool Equals(object? obj)
     {

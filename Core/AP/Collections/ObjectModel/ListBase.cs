@@ -68,7 +68,7 @@ public abstract class ListBase<T> : CollectionBase<T>, AP.Collections.IList<T>
                     int i = 0;                    
                     foreach (T current in this)
                     {
-                        if (current.Equals(item))
+                        if (object.Equals(current, item))
                             return i;
 
                         ++i;
@@ -77,9 +77,9 @@ public abstract class ListBase<T> : CollectionBase<T>, AP.Collections.IList<T>
                 }
             case SelectionMode.Last:
 
-                for (int i = this.Count; --i > -1; )
+                for (int i = this.Count; i --> 0; )
                 {
-                    if (this[i].Equals(item))
+                    if (object.Equals(this[i], item))
                         return i;
                 }
                 return -1;

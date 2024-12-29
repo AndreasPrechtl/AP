@@ -16,9 +16,6 @@ public static class DictionaryExtensions
     public static bool Update<TKey, TValue>(this System.Collections.Generic.IDictionary<TKey, TValue> dictionary, KeyValuePair<TKey, TValue> item)
         where TKey : notnull
     {
-        if (dictionary is AP.Collections.IDictionary<TKey, TValue> d)
-            d.Update(item);
-
         return Update(dictionary, item.Key, item.Value);
     }
 
@@ -26,8 +23,8 @@ public static class DictionaryExtensions
         where TKey : notnull
     {
         if (dictionary is AP.Collections.IDictionary<TKey, TValue> d)
-            d.Update(key, value);
-
+            return d.Update(key, value);
+        
         bool b = dictionary.ContainsKey(key);
         
         if (b)
@@ -36,14 +33,16 @@ public static class DictionaryExtensions
         return b;
     }
 
-    public static void Update<TKey, TValue>(this System.Collections.Generic.IDictionary<TKey, TValue> dictionary, IEnumerable<KeyValuePair<TKey, TValue>> items)
+    public static void Update<TKey, TValue>(this System.Collections.Generic.IDictionary<TKey, TValue> dictionary, params IEnumerable<KeyValuePair<TKey, TValue>> items)
         where TKey : notnull
     {
         if (dictionary is AP.Collections.IDictionary<TKey, TValue> d)
             d.Update(items);
-
-        foreach (KeyValuePair<TKey, TValue> kvp in items)
-            Update(dictionary, kvp);
+        else
+        {
+            foreach (KeyValuePair<TKey, TValue> kvp in items)
+                Update(dictionary, kvp);
+        }
     }
 
     /// <summary>
@@ -102,9 +101,6 @@ public static class DictionaryExtensions
     public static bool Add<TKey, TValue>(this System.Collections.Generic.IDictionary<TKey, TValue> dictionary, KeyValuePair<TKey, TValue> item)
         where TKey : notnull
     {
-        if (dictionary is AP.Collections.IDictionary<TKey, TValue> d)
-            return d.Add(item);
-
         bool b = dictionary.ContainsKey(item.Key);
 
         if (!b)
@@ -113,7 +109,7 @@ public static class DictionaryExtensions
         return b;
     }
 
-    public static void Add<TKey, TValue>(this System.Collections.Generic.IDictionary<TKey, TValue> dictionary, IEnumerable<KeyValuePair<TKey, TValue>> items)
+    public static void Add<TKey, TValue>(this System.Collections.Generic.IDictionary<TKey, TValue> dictionary, params IEnumerable<KeyValuePair<TKey, TValue>> items)
         where TKey : notnull
     {
         if (dictionary is AP.Collections.IDictionary<TKey, TValue> d)
@@ -125,7 +121,7 @@ public static class DictionaryExtensions
         }
     }
 
-    public static void Remove<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, IEnumerable<KeyValuePair<TKey, TValue>> items)
+    public static void Remove<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, params IEnumerable<KeyValuePair<TKey, TValue>> items)
         where TKey : notnull
     {
         if (dictionary is AP.Collections.IDictionary<TKey, TValue> d)
@@ -136,17 +132,4 @@ public static class DictionaryExtensions
                 dictionary.Remove(kvp);
         }
     }
-
-
-
-    //public static Dictionary<TKey, TValue> ToDictionary<TKey, TValue>(this IEnumerable<KeyValuePair<TKey, TValue>> dictionary, IEqualityComparer<TKey> comparer = null)
-    //{
-    //    if (dictionary is IDictionary<TKey, TValue>)
-    //        return new Dictionary<TKey, TValue>((IDictionary<TKey, TValue>)dictionary, comparer);
-        
-    //    Dictionary<TKey, TValue> d = new Dictionary<TKey, TValue>(comparer);
-    //    d.AddRange(dictionary);
-
-    //    return d;
-    //}
 }

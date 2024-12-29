@@ -10,7 +10,7 @@ public static class QueueExtensions
     public static ReadOnlyList<TElement> AsReadOnly<TElement>(this IQueue<TElement> queue) => new(queue);
     public static ReadOnlyList<TElement> AsReadOnly<TElement>(this System.Collections.Generic.Queue<TElement> queue) => new(queue);
 
-    public static void Enqueue<T>(this IQueue<T> queue, IEnumerable<T> items)
+    public static void Enqueue<T>(this IQueue<T> queue, params IEnumerable<T> items)
     {
         foreach (T item in items)
             queue.Enqueue(item);

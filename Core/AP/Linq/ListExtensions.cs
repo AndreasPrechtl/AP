@@ -25,7 +25,7 @@ public static class ListExtensions
         return new ReadOnlyList<TElement>(source);
     }
 
-    public static void Insert<T>(this System.Collections.Generic.IList<T> list, int index, IEnumerable<T> items)
+    public static void Insert<T>(this System.Collections.Generic.IList<T> list, int index, params IEnumerable<T> items)
     {
         if (list is AP.Collections.List<T>)
             ((AP.Collections.List<T>)list).Insert(index, items);

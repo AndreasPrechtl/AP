@@ -15,7 +15,7 @@ public sealed class AlwaysNewLifetime<TBase> : ObjectLifetimeBase<TBase>
         _activator = activator;
     }
 
-    public override ManagedInstance<TBase> Instance => new ManagedInstance<TBase>(_activator(), true);
+    public override ManagedInstance<TBase> Instance => new(_activator(), true);
 
     protected override void CleanUpResources()
     {

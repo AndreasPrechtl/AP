@@ -7,7 +7,7 @@ namespace AP.UniformIdentifiers;
 
 public sealed class IPv4 : Host
 {
-    private static readonly IPv4 s_loopback = new IPv4(16777343);
+    private static readonly IPv4 s_loopback = new(16777343);
 
     private static uint ToAddress(byte[] value)
     {

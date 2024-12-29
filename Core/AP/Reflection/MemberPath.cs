@@ -110,7 +110,7 @@ public sealed class MemberPath : IComparable
             return new SegmentList(list, sb.ToString());
         }
 
-        public new SegmentList Clone() => new SegmentList(this.ToReadOnlyList(), _value);
+        public new SegmentList Clone() => new(this.ToReadOnlyList(), _value);
     }
 
     private readonly string _name;

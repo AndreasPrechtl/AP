@@ -31,7 +31,7 @@ public sealed class DeferrableLifetime<TBase> : ObjectLifetimeBase<TBase>
 
     public bool IsInstanceActive => _inner.IsValueActive;
 
-    public override ManagedInstance<TBase> Instance => new ManagedInstance<TBase>(_inner.Value, false);
+    public override ManagedInstance<TBase> Instance => new(_inner.Value, false);
 
     protected override void CleanUpResources()
     {

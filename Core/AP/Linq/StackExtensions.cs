@@ -9,7 +9,7 @@ public static class StackExtensions
 {
     public static ReadOnlyList<TElement> AsReadOnly<TElement>(this IStack<TElement> stack) => new(stack);
     public static ReadOnlyList<TElement> AsReadOnly<TElement>(this System.Collections.Generic.Stack<TElement> stack) => new(stack);
-    public static void Push<T>(this System.Collections.Generic.Stack<T> stack, IEnumerable<T> items)
+    public static void Push<T>(this System.Collections.Generic.Stack<T> stack, params IEnumerable<T> items)
     {
         foreach (T item in items)
             stack.Push(item);

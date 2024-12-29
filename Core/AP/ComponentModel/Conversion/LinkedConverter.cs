@@ -6,6 +6,7 @@ using AP.Collections;
 namespace AP.ComponentModel.Conversion;
 
 internal sealed class LinkedConverter<TInput, TOutput> : Converter<TInput, TOutput>
+    where TInput : notnull
 {
     private readonly IListView<Converter> _converters;
     public IListView<Converter> Converters => _converters;

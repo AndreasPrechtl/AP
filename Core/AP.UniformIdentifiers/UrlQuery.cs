@@ -22,7 +22,7 @@ public class UrlQuery : UrlParameterCollectionBase
 
     public sealed override string ToString() => this.Value;
 
-    private static readonly UrlQuery s_empty = new UrlQuery();
+    private static readonly UrlQuery s_empty = new();
 
     public new static UrlQuery Empty => s_empty;
 }

@@ -22,7 +22,7 @@ public sealed class ScopeLifetime<TBase> : ObjectLifetimeBase<TBase>, IScopeLife
         _activator = activator;
     }
 
-    public override ManagedInstance<TBase> Instance => new ManagedInstance<TBase>(_activator(), false);
+    public override ManagedInstance<TBase> Instance => new(_activator(), false);
 
     protected override void CleanUpResources()
     {

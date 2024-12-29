@@ -17,7 +17,7 @@ public static class CollectionExtensions
         }
     }
 
-    public static void Add<T>(this ICollection<T> collection, IEnumerable<T> items)
+    public static void Add<T>(this ICollection<T> collection, params IEnumerable<T> items)
     {
         switch (collection)
         {
@@ -53,7 +53,7 @@ public static class CollectionExtensions
             AP.Collections.CollectionsHelper.Replace<T>(collection, items, newItems);
     }
     
-    public static void Remove<T>(this ICollection<T> collection, IEnumerable<T> items)
+    public static void Remove<T>(this ICollection<T> collection, params IEnumerable<T> items)
     {
         if (collection is ISet<T> set)
             set.ExceptWith(items);

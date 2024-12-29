@@ -33,7 +33,7 @@ namespace AP.UI
 
             int count = source.Count();
 
-            // truncates the int (-> no need for ceiling and substracting 1)
+            // truncates the int (-> no need for ceiling and subtracting 1)
             int lastPageStartIndex = (count / pageSize) * pageSize;
 
             var q = from c in source

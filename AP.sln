@@ -5,8 +5,6 @@ VisualStudioVersion = 17.9.34622.214
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{B571EEDA-0CF8-44E0-A414-F2A44BD8D34F}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Security", "Security", "{CB673ABB-1332-477F-8089-C151BC616E97}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AP.Data", "Data\AP.Data\AP.Data.csproj", "{D5451AB1-4819-405B-BC26-791CB892F2C0}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AP.Data.EntityFrameworkCore", "Data\AP.Data.EntityFrameworkCore\AP.Data.EntityFrameworkCore.csproj", "{9981FC63-0421-4FA3-8743-58549AD10985}"

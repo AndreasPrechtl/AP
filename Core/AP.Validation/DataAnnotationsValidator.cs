@@ -26,7 +26,7 @@ public class DataAnnotationsValidator<TTarget> : Validator<TTarget>
     private void ValidateProperty(object container, PropertyInfo property, MemberPath basePath, AP.Collections.List<ValidationMessage> messages)
     {
         Attribute[] attributes = Attribute.GetCustomAttributes(property.PropertyType, typeof(ValidationAttribute), true);
-        MemberPath currentPath = new(basePath.Segments.Concat(New.Enumerable(property.Name)));
+        MemberPath currentPath = new(basePath.Segments.Concat([property.Name]));
         
         if (attributes != null && attributes.Length > 0)
         {

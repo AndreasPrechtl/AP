@@ -1,23 +1,25 @@
-﻿using Uno.Xaml;
+﻿// todo: move class out to separate assembly and basically use json for configs
 
-namespace AP.Configuration;
+//using Uno.Xaml;
 
-/// <summary>
-/// Specialized provider for working with Xaml files.
-/// </summary>
-/// <typeparam name="TContent">The content type.</typeparam>
-public class XamlContentProvider<TContent> : FileContentProviderBase<TContent>
-{
-    protected XamlContentProvider(string? name = null)
-        : base(name: name)
-    { }
+//namespace AP.Configuration;
 
-    public XamlContentProvider(string fileName, string? name = null)
-        : base(fileName, name)
-    { }
+///// <summary>
+///// Specialized provider for working with Xaml files.
+///// </summary>
+///// <typeparam name="TContent">The content type.</typeparam>
+//public class XamlContentProvider<TContent> : FileContentProviderBase<TContent>
+//{
+//    protected XamlContentProvider(string? name = null)
+//        : base(name: name)
+//    { }
 
-    protected override TContent ReadContent()
-    {
-        return (TContent)XamlServices.Load(this.FileName);         
-    }
-}
+//    public XamlContentProvider(string fileName, string? name = null)
+//        : base(fileName, name)
+//    { }
+
+//    protected override TContent ReadContent()
+//    {
+//        return (TContent)XamlServices.Load(this.FileName);         
+//    }
+//}

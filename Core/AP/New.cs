@@ -1,9 +1,9 @@
-﻿using System;
+﻿using AP.Linq;
+using AP.Reflection;
+using System;
 using System.Collections.Generic;
-using AP.Collections;
-using AP.Collections.ReadOnly;
-using AP.Collections.Specialized;
 using System.Runtime.CompilerServices;
+using System.Runtime.Serialization;
 
 namespace AP;
 
@@ -20,28 +20,56 @@ public abstract class New : StaticType
     /// <param name="args"></param>
     /// <returns></returns>
     [MethodImpl((MethodImplOptions)256)]
-    public static T Instance<T>(params object[] args) => Objects.New<T>(args);
+    public static T Instance<T>(params IEnumerable<object?> args)
+        where T : notnull
+        => args.IsEmpty() ? System.Activator.CreateInstance<T>() : (T)System.Activator.CreateInstance(typeof(T), args)!;
 
     /// <summary>
-    /// Short method for System.Activator.CreateInstance&lt;T&gt;
+    /// Short method that returns an uninitialized object - use with caution as no constructors are used - might break some lazy/deferred loading scenarios
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    /// <param name="args"></param>
     /// <returns></returns>
     [MethodImpl((MethodImplOptions)256)]
-    public static T Object<T>(params object[] args) => Objects.New<T>(args);
+    public static T Uninitialized<T>()
+        where T : notnull 
+        => (T)Uninitialized(typeof(T));
 
-    public static TException Exception<TException>(string message, Exception? innerException = null)
-        where TException : Exception
+    /// <summary>
+    /// Short method that returns an uninitialized object - use with caution as no constructors are used - might break some lazy/deferred loading scenarios
+    /// </summary>
+    /// <param name="type">The type.</param>
+    /// <returns></returns>
+    [MethodImpl((MethodImplOptions)256)]
+    public static object Uninitialized(Type type) => FormatterServices.GetUninitializedObject(type);
+
+    /// <summary>
+    /// Creates either a new or uninitialized object.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <returns></returns>
+    public static T NewOrUninitialized<T>()
+        where T : notnull
+        => (T)NewOrUninitialized(typeof(T));
+
+    /// <summary>
+    /// Creates either a new or uninitialized object.
+    /// </summary>
+    /// <param name="type">The type of the object to create.</param>
+    /// <returns>The object.</returns>
+    public static object NewOrUninitialized(Type type)
     {
-        if (innerException != null)
-            return New.Instance<TException>(message, innerException);
+        object instance;
 
-        return New.Instance<TException>(message);
+        if (type.IsAnonymous())
+            instance = Uninitialized(type);
+        else
+        {
+            try { instance = Instance(type); }
+            catch { instance = Uninitialized(type); }
+        }
+
+        return instance;
     }
-
-    public static TException Exception<TException>(string message)
-        where TException : Exception => New.Instance<TException>(message);
 
     /// <summary>
     /// Short method for System.Activator.CreateInstance
@@ -51,7 +79,7 @@ public abstract class New : StaticType
     /// <param name="args"></param>
     /// <returns></returns>
     [MethodImpl((MethodImplOptions)256)]
-    public static object Instance(Type type, params object[] args) => New.Instance(type, args);
+    public static object Instance(Type type, params IEnumerable<object> args) => New.Instance(type, args);
 
     /// <summary>
     /// Short method for System.Activator.CreateInstance
@@ -60,7 +88,7 @@ public abstract class New : StaticType
     /// <param name="args"></param>
     /// <returns></returns>
     [MethodImpl((MethodImplOptions)256)]
-    public static object Object(Type type, params object[] args) => New.Instance(type, args);
+    public static object Object(Type type, params IEnumerable<object> args) => New.Instance(type, args);
 
     /// <summary>
     /// Creates a new System.Guid
@@ -68,7 +96,6 @@ public abstract class New : StaticType
     /// <returns>The Guid</returns>
     [MethodImpl((MethodImplOptions)256)]
     public static Guid Guid() => System.Guid.NewGuid();
-
 
     /// <summary>
     /// Creates a new Deferrable
@@ -78,88 +105,24 @@ public abstract class New : StaticType
     /// <param name="isFrozen"></param>
     /// <returns></returns>
     [MethodImpl((MethodImplOptions)256)]
-    public static Deferrable<T> Deferrable<T>(Activator<T>? activator = null, bool isFrozen = true) => new(activator, isFrozen);
-
-    /// <summary>
-    /// Clearly only a cosmetic method - instead of creating the array like new string[] { "1234", "foo", "bar" };
-    /// you can use New.Array("1234", "foo", "bar")
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="parameters"></param>
-    /// <returns></returns>
-    [MethodImpl((MethodImplOptions)256)]
-    public static T[] Array<T>(params T[] parameters) => parameters;
-
-    /// <summary>
-    /// Casts an Array to an IEnumerable - probably helpful for methods overloaded with both: params T[] and IEnumerable&lt;T&gt;
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="parameters"></param>
-    /// <returns></returns>
-    [MethodImpl((MethodImplOptions)256)]
-    public static IEnumerable<T> Enumerable<T>(params T[] parameters) => parameters;
+    public static Deferrable<T> Deferrable<T>(Activator<T>? activator = null, bool isFrozen = true)
+        where T : notnull
+        => new(activator, isFrozen);    
 
     [MethodImpl((MethodImplOptions)256)]
-    public static AP.Collections.List<T> List<T>(params T[] items) => new(items);
+    public static AP.Collections.List<T> List<T>(params IEnumerable<T> items) => new(items);
 
     [MethodImpl((MethodImplOptions)256)]
-    public static AP.Collections.Set<T> Set<T>(params T[] items) => new(items);
+    public static AP.Collections.Set<T> Set<T>(params IEnumerable<T> items) => new(items);
 
     [MethodImpl((MethodImplOptions)256)]
-    public static AP.Collections.Queue<T> Queue<T>(params T[] items) => new(items);
+    public static AP.Collections.Queue<T> Queue<T>(params IEnumerable<T> items) => new(items);
 
     [MethodImpl((MethodImplOptions)256)]
-    public static AP.Collections.Stack<T> Stack<T>(params T[] items) => new(items);
-
-    //[MethodImpl((MethodImplOptions)256)]
-    //public static CollectionBase<T> Collection<T>(params T[] items)
-    //{
-    //    return new CollectionBase<T>(items);
-    //}
+    public static AP.Collections.Stack<T> Stack<T>(params IEnumerable<T> items) => new(items);
 
     [MethodImpl((MethodImplOptions)256)]
     public static AP.Collections.Dictionary<TKey, TValue> Dictionary<TKey, TValue>(params KeyValuePair<TKey, TValue>[] dictionary)
         where TKey : notnull
         => new(dictionary);
-
-    //[MethodImpl((MethodImplOptions)256)]
-    //public static Collections.Dictionary<TKey, TValue> Dictionary<TKey, TValue>(IEnumerable<KeyValuePair<TKey, TValue>> dictionary), IEqualityComparer<TKey> keyComparer = null, IEqualityComparer<TValue> valueComparer = null)
-    //{
-    //    return new AP.Collections.Dictionary<TKey, TValue>(dictionary, keyComparer, valueComparer);
-    //}
-
-    //[MethodImpl((MethodImplOptions)256)]
-    //public static Collections.Dictionary<TKey, TValue> Dictionary<TKey, TValue>(IEnumerable<KeyValuePair<TKey, TValue>> dictionary, IKeyValuePairEqualityComparer<TKey, TValue> comparer = null)
-    //{
-    //    return new AP.Collections.Dictionary<TKey, TValue>(dictionary, comparer);
-    //}
-
-    //[MethodImpl((MethodImplOptions)256)]
-    //public static NameValueDictionary<T> NameValueDictionary<T>(IEnumerable<KeyValuePair<string, T>> dictionary, IEqualityComparer<string> nameComparer = null, IEqualityComparer<T> valueComparer = null)
-    //{
-    //    return new NameValueDictionary<T>(dictionary, nameComparer, valueComparer);
-    //}
-
-    [MethodImpl((MethodImplOptions)256)]
-    public static NameValueDictionary<T> NameValueDictionary<T>(params KeyValuePair<string, T>[] dictionary) => new(dictionary);
-
-    [MethodImpl((MethodImplOptions)256)]
-    public static ReadOnlyNameValueDictionary<T> ReadOnlyNameValueDictionary<T>(IEnumerable<KeyValuePair<string, T>> dictionary) => new(dictionary);
-
-    [MethodImpl((MethodImplOptions)256)]
-    public static ReadOnlyNameValueDictionary<T> ReadOnlyNameValueDictionary<T>(params KeyValuePair<string, T>[] dictionary) => new(dictionary);
-
-    [MethodImpl((MethodImplOptions)256)]
-    public static ReadOnlyList<T> ReadOnlyList<T>(params T[] items) => new(items);
-
-    [MethodImpl((MethodImplOptions)256)]
-    public static ReadOnlyDictionary<TKey, TValue> ReadOnlyDictionary<TKey, TValue>(params KeyValuePair<TKey, TValue>[] dictionary)
-        where TKey : notnull
-        => new(dictionary);
-
-    [MethodImpl((MethodImplOptions)256)]
-    public static ReadOnlySet<T> ReadOnlySet<T>(params T[] items) => new(items);
-
-    [MethodImpl((MethodImplOptions)256)]
-    public static ReadOnlyEnumerable<T> ReadOnlyEnumerable<T>(params T[] items) => new(items);
 }

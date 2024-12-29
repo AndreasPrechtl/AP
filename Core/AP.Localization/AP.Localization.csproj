@@ -5,4 +5,8 @@
     <PackageReference Include="Microsoft.Extensions.Localization.Abstractions" Version="7.0.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\AP\AP.csproj" />
+  </ItemGroup>
+
 </Project>

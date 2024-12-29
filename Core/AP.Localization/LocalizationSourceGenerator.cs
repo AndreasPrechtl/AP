@@ -1,4 +1,5 @@
-﻿using Microsoft.CodeAnalysis;
+﻿using AP.Collections;
+using Microsoft.CodeAnalysis;
 using System.Text;
 
 namespace AP.Localization
@@ -89,7 +90,7 @@ namespace AP.Localization
         private readonly Dictionary<string, (string locale, string value)[]> Translations;            
         private string Namespace { get; set; }
         private string ClassName { get; set; }
-        public IReadOnlyList<string> Languages { get; private set; }
+        public IListView<string> Languages { get; private set; }
 
         public void Initialize(GeneratorInitializationContext context)
         {
@@ -114,7 +115,7 @@ namespace AP.Localization
                 });
         }
         
-        private IReadOnlyList<string> LoadLanguagesInternal() => new string[] { "Default" }.Concat(this.LoadLanguages()).ToArray();
-        protected virtual IReadOnlyList<string> LoadLanguages() => new string[] { "de_DE", "en_US" };
+        private IListView<string> LoadLanguagesInternal() => New.List(["Default", ..this.LoadLanguages()]);
+        protected virtual IListView<string> LoadLanguages() => New.List(["de_DE", "en_US"]);
     }
 }

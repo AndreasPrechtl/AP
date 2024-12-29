@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace AP.Data;
 
@@ -20,33 +21,27 @@ public class EntitySet<TEntity> : IEntitySet<TEntity>
         _inner = entitySet;
     }
 
+    #region IQuery<TEntity> Members
+
     public IQueryable<TEntity> Query() => _inner.Query();
+
+    #endregion
 
     #region ICreate<TEntity> Members
 
-    public virtual void Create(TEntity entity) => _inner.Create(entity);
-
-    public virtual void Create(IEnumerable<TEntity> entities) => _inner.Create(entities);
+    public virtual void Create(params IEnumerable<TEntity> entities) => _inner.Create(entities);
 
     #endregion
 
     #region IUpdate<TEntity> Members
-
-    public virtual void Update(TEntity entity) => _inner.Update(entity);
-
-    public virtual void Update(IEnumerable<TEntity> entities) => _inner.Update(entities);
-
-    public virtual Collections.IListView<TEntity> Update(System.Linq.Expressions.Expression<Predicate<TEntity>> where, Action<TEntity> action) => _inner.Update(where, action);
-
+        
+    public virtual void Update(params IEnumerable<TEntity> entities) => _inner.Update(entities);
+    
     #endregion
 
     #region IDelete<TEntity> Members
 
-    public virtual void Delete(TEntity entity) => _inner.Delete(entity);
-
-    public virtual void Delete(IEnumerable<TEntity> entities) => _inner.Delete(entities);
-
-    public virtual Collections.IListView<TEntity> Delete(System.Linq.Expressions.Expression<Predicate<TEntity>> where) => _inner.Delete(where);
+    public virtual void Delete(params IEnumerable<TEntity> entities) => _inner.Delete(entities);
 
     #endregion
 

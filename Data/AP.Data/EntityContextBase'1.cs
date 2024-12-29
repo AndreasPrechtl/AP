@@ -3,7 +3,7 @@
 namespace AP.Data;
 
 /// <summary>
-/// Baseclass for EntityContexts with an external DataProvider.
+/// Base class for EntityContexts with an external DataProvider.
 /// </summary>
 /// <typeparam name="TDataProvider">The DataProvider.</typeparam>
 public abstract class EntityContextBase<TDataProvider> : EntityContextBase
@@ -24,7 +24,7 @@ public abstract class EntityContextBase<TDataProvider> : EntityContextBase
         }            
     }
 
-    protected EntityContextBase(TDataProvider dataContext, bool ownsProvider = true, SaveMode saveMode = Data.SaveMode.Default, object? contextKey = null)
+    protected EntityContextBase(TDataProvider dataContext, bool ownsProvider = true, SaveMode saveMode = SaveMode.Default, object? contextKey = null)
         : base(saveMode, contextKey)
     {
         ArgumentNullException.ThrowIfNull(dataContext);
@@ -54,6 +54,6 @@ public abstract class EntityContextBase<TDataProvider> : EntityContextBase
         if (_canDisposeContext && _inner != null)
             _inner.TryDispose();
 
-        _inner = null;
+        _inner = null!;
     }
 }

@@ -36,21 +36,11 @@ public class EntityModel<TEntityContext> : IEntityModel, IEntityContextUser<TEnt
 
     public IQueryable<TEntity> Query<TEntity>() where TEntity : class => this.GetEntitySet<TEntity>().Query();
 
-    public void Create<TEntity>(TEntity entity) where TEntity : class => this.GetEntitySet<TEntity>().Create(entity);
-
-    public void Create<TEntity>(IEnumerable<TEntity> entities) where TEntity : class => this.GetEntitySet<TEntity>().Create(entities);
-
-    public void Update<TEntity>(TEntity entity) where TEntity : class => this.GetEntitySet<TEntity>().Update(entity);
-
-    public void Update<TEntity>(IEnumerable<TEntity> entities) where TEntity : class => this.GetEntitySet<TEntity>().Update(entities);
-
-    public Collections.IListView<TEntity> Update<TEntity>(Expression<Predicate<TEntity>> where, Action<TEntity> action) where TEntity : class => this.GetEntitySet<TEntity>().Update(where, action);
-
-    public void Delete<TEntity>(TEntity entity) where TEntity : class => this.GetEntitySet<TEntity>().Delete(entity);
-
-    public void Delete<TEntity>(IEnumerable<TEntity> entities) where TEntity : class => this.GetEntitySet<TEntity>().Delete(entities);
-
-    public Collections.IListView<TEntity> Delete<TEntity>(Expression<Predicate<TEntity>> where) where TEntity : class => this.GetEntitySet<TEntity>().Delete(where);
+    public void Create<TEntity>(params IEnumerable<TEntity> entities) where TEntity : class => this.GetEntitySet<TEntity>().Create(entities);
+        
+    public void Update<TEntity>(params IEnumerable<TEntity> entities) where TEntity : class => this.GetEntitySet<TEntity>().Update(entities);
+        
+    public void Delete<TEntity>(params IEnumerable<TEntity> entities) where TEntity : class => this.GetEntitySet<TEntity>().Delete(entities);
 
     public IEntitySet<TEntity> GetEntitySet<TEntity>() where TEntity : class => this.EntityContext.GetEntitySet<TEntity>();
 

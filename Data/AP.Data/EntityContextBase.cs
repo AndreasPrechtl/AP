@@ -1,30 +1,42 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace AP.Data;
+
+// todo: rework change tracking/saving
 
 /// <summary>
 /// Base class for a DataContext - it is also a FinalizableObject to ensure timely resource cleanup.
 /// </summary>
 public abstract class EntityContextBase : FinalizableObject, IEntityContext
 {
-    private readonly SaveMode _saveMode;
+    protected readonly CancellationTokenSource cancellationTokenSource = new();
 
-    protected EntityContextBase(SaveMode saveMode = SaveMode.Default, object? contextKey = null)
-        : base(contextKey)
+    private class ChangeEntry()
     {
-        _saveMode = saveMode;
+        public object Entity { get; set; }
+        public Action Action { get; set; }
     }
+
+    private readonly AP.Collections.List<ChangeEntry> _changes = [];
+    
+
+    protected EntityContextBase(object? contextKey = null)
+        : base(contextKey)
+    { }
 
     #region IEntityContext Members
     
-    public void Save()
+    public async Task Save(CancellationToken cancellationToken = default)
     {
         this.ThrowIfDisposed();
-        this.OnSave();
+        await this.OnSave(cancellationToken);
     }
 
-    protected abstract void OnSave();
+    protected abstract Task OnSave(CancellationToken cancellationToken);
 
     public void Discard()
     {
@@ -34,51 +46,13 @@ public abstract class EntityContextBase : FinalizableObject, IEntityContext
 
     protected abstract void OnDiscard();
 
-    public SaveMode SaveMode
-    {
-        get
-        {
-            this.ThrowIfDisposed();
-            return _saveMode;
-        }
-    }
-
     #endregion
 
     #region Helper Methods
     
-    //private void RegisterChangeInternal<TEntity>(IEnumerable<TEntity> entities, Action<TEntity> action)
-    //{
-    //    if ((_saveMode & Data.SaveMode.Batch) == Data.SaveMode.Batch)
-    //    {
-    //        foreach (TEntity entity in entities)
-    //            action(entity);
-
-    //        this.Save();
-
-    //        return;
-    //    }
-
-    //    if ((_saveMode & Data.SaveMode.Entry) == Data.SaveMode.Entry)
-    //    {
-    //        foreach (TEntity entity in entities)
-    //        {
-    //            action(entity);
-    //            this.Save();
-    //        }
-    //        return;
-    //    }
-
-    //    foreach (TEntity entity in entities)
-    //        action(entity);
-    //}
-
     private void RegisterChangeInternal<TEntity>(TEntity entity, bool isBatchPart, Action<TEntity> action) where TEntity : class
     {
-        action(entity);
-
-        if ((_saveMode & Data.SaveMode.Entry) == Data.SaveMode.Entry || (!isBatchPart && (_saveMode & Data.SaveMode.Batch) == Data.SaveMode.Batch))
-            this.Save();
+        _changes.Add(new() { entity = entity, Action = action(entity) });
     }
 
     #endregion
@@ -94,12 +68,6 @@ public abstract class EntityContextBase : FinalizableObject, IEntityContext
         this.RegisterChangeInternal(entity, isBatchPart, this.OnCreation<TEntity>);
     }
     
-    //internal void RegisterForCreation<TEntity>(IEnumerable<TEntity> entities) where TEntity : class
-    //{
-    //    this.ThrowIfDisposed();
-    //    this.RegisterChangeInternal(entities, this.OnCreation<TEntity>);
-    //}
-
     #endregion
 
     #region IUpdate Members
@@ -109,36 +77,6 @@ public abstract class EntityContextBase : FinalizableObject, IEntityContext
         this.ThrowIfDisposed();
         this.RegisterChangeInternal(entity, isBatchPart, this.OnRegisterForUpdate<TEntity>);
     }
-
-    //internal void RegisterForUpdate<TEntity>(IEnumerable<TEntity> entities) where TEntity : class
-    //{
-    //    this.ThrowIfDisposed();
-    //    this.RegisterChangeInternal(entities, this.OnRegisterForUpdate<TEntity>);
-    //}
-
-    //internal void RegisterForUpdate<TEntity>(Expression<Predicate<TEntity>> where, Expression<Action<TEntity>> action) where TEntity : class
-    //{
-    //    this.ThrowIfDisposed();
-    //    this.OnRegisterForUpdate<TEntity>(where, action);
-    //}
-
-    //protected virtual void OnRegisterForUpdate<TEntity>(Expression<Predicate<TEntity>> where, Expression<Action<TEntity>> action) where TEntity : class
-    //{
-    //    Expression<Func<TEntity, bool>> w = where.Cast<Func<TEntity, bool>>();
-
-    //    IQueryable<TEntity> entities = this.OnQuery<TEntity>().Where(w);
-
-    //    Action<TEntity> a = action.Compile();
-
-    //    // quick fix so I don't have to re-implement all the logic for this one
-    //    Action<TEntity> changer = delegate(TEntity p)
-    //    {
-    //        a(p);
-    //        this.OnRegisterForUpdate(p);
-    //    };
-        
-    //    this.RegisterChangeInternal<TEntity>(entities, changer);
-    //}
 
     protected abstract void OnRegisterForUpdate<TEntity>(TEntity entity) where TEntity : class;
     
@@ -247,11 +185,6 @@ public abstract class EntityContextBase : FinalizableObject, IEntityContext
 
     protected override void CleanUpResources()
     {
-        if ((_saveMode & Data.SaveMode.Disposal) == Data.SaveMode.Disposal)
-            this.Save();
-        
-        //else // rollback or simply do nothing? - well this can be customized by overriding this method
-        //    this.OnDiscard();
 
         base.CleanUpResources();
     }

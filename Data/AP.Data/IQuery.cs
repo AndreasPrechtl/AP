@@ -5,11 +5,11 @@ namespace AP.Data;
 
 public interface IQuery
 {
-    Task<IQueryable<TEntity>> Query<TEntity>() where TEntity : class;
+    IQueryable<TEntity> Query<TEntity>() where TEntity : class;
 }
 
 public interface IQuery<out TEntity>
     where TEntity : class
 {
-    Task<IQueryable<TEntity>> Query();
+    IQueryable<TEntity> Query();
 }    

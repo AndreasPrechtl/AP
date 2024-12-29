@@ -8,13 +8,3 @@ public partial interface IEntityModel :
     IEntitySetProvider,
     IEntityFactory
 { }
-
-//public partial interface IParallelEntityModel :
-//   IParallelQuery,
-//   IParallelInsert,
-//   IParallelUpdate,
-//   IParallelDelete,
-//   AP.IDisposable,
-//   IEntitySetProvider,
-//   IEntityFactory
-//{ }

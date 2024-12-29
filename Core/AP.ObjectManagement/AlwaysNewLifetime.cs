@@ -3,6 +3,7 @@
 namespace AP.ComponentModel.ObjectManagement;
 
 public sealed class AlwaysNewLifetime<TBase> : ObjectLifetimeBase<TBase>
+    where TBase : notnull
 {
     private Activator<TBase> _activator;
     
@@ -18,7 +19,7 @@ public sealed class AlwaysNewLifetime<TBase> : ObjectLifetimeBase<TBase>
 
     protected override void CleanUpResources()
     {
-        _activator = null;
+        _activator = null!;
         base.CleanUpResources();
     }
 }

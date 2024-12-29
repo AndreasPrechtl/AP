@@ -17,11 +17,17 @@ public partial class ObjectManager<TSuper>
 
         #region IObjectManagementScope<TSuper> Members
 
-        public ManagedInstance<TBase> GetInstance<TBase>(object? key = null) where TBase : TSuper => _inner.GetInstance<TBase>(key);
+        public ManagedInstance<TBase>? GetInstance<TBase>(object? key = null) 
+            where TBase : TSuper 
+            => _inner.GetInstance<TBase>(key);
 
-        public IEnumerable<ManagedInstance<TBase>> GetInstances<TBase>() where TBase : TSuper => _inner.GetInstances<TBase>();
+        public IEnumerable<ManagedInstance<TBase>?> GetInstances<TBase>() 
+            where TBase : TSuper 
+            => _inner.GetInstances<TBase>();
 
-        public bool TryGetInstance<TBase>(out ManagedInstance<TBase> instance, object? key = null) where TBase : TSuper => _inner.TryGetInstance<TBase>(out instance, key);
+        public bool TryGetInstance<TBase>(out ManagedInstance<TBase>? instance, object? key = null) 
+            where TBase : TSuper 
+            => _inner.TryGetInstance<TBase>(out instance, key);
 
         #endregion
 
@@ -29,7 +35,7 @@ public partial class ObjectManager<TSuper>
 
         public void Dispose()
         {
-            _manager = null;
+            _manager = null!;
             _inner.Dispose();
         }
 

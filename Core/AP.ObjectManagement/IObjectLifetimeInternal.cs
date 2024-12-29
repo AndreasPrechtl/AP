@@ -3,5 +3,4 @@
 internal interface IObjectLifetimeInternal : AP.IDisposable
 {
     object Key { get; }
-    //object Instance { get; }
 }

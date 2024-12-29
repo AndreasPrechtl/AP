@@ -4,6 +4,7 @@ using System.Collections.Generic;
 namespace AP.ComponentModel.ObjectManagement;
 
 public sealed partial class ObjectManager<TSuper> : DisposableObject, IObjectManager<TSuper>, IObjectManagerInternal
+    where TSuper : notnull
 {
     private ObjectManager _inner;
 
@@ -16,7 +17,7 @@ public sealed partial class ObjectManager<TSuper> : DisposableObject, IObjectMan
     void _inner_Disposing(object sender, EventArgs e)
     {
         _inner.Disposing -= _inner_Disposing;
-        _inner = null;
+        _inner = null!;
     }
 
     public bool Contains<TBase>(object? key = null)
@@ -69,7 +70,7 @@ public sealed partial class ObjectManager<TSuper> : DisposableObject, IObjectMan
         if (_inner != null && !_inner.IsDisposed)
             _inner.Dispose();
         
-        _inner = null;
+        _inner = null!;
     }
 
     #endregion      

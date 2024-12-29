@@ -1,8 +1,9 @@
 ﻿namespace AP.ComponentModel.ObjectManagement;
 
 public abstract class ObjectLifetimeBase<TBase> : DisposableObject, IObjectLifetimeInternal
+    where TBase : notnull
 {
-    private readonly object _key;
+    private readonly object? _key;
 
     protected ObjectLifetimeBase(object? key = null)
     {

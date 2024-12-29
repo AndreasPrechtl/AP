@@ -20,6 +20,7 @@ public partial class ObjectManager
         #region IObjectManagementScope Members
 
         public ManagedInstance<TBase> GetInstance<TBase>(object? key = null)
+            where TBase : notnull
         {
             ObjectLifetimeBase<TBase> lifetime = _manager.GetLifetime<TBase>(key);
             ManagedInstance<TBase> instance = lifetime.Instance;
@@ -32,6 +33,7 @@ public partial class ObjectManager
         }
 
         public IEnumerable<ManagedInstance<TBase>> GetInstances<TBase>()
+            where TBase : notnull
         {       
             foreach (ObjectLifetimeBase<TBase> lifetime in _manager.GetLifetimes<TBase>())
             {
@@ -43,7 +45,7 @@ public partial class ObjectManager
                     lock (SyncRoot)
                     {
                         // look into the cache and add it if it's not yet there.
-                        if (!_cache.TryGetValue(scoped, out object instance))
+                        if (!_cache.TryGetValue(scoped, out var instance))
                             _cache.Add(scoped, instance = lifetime.Instance.Value);
                     }
                 }
@@ -51,7 +53,9 @@ public partial class ObjectManager
             return _manager.GetInstances<TBase>();
         }
 
-        public bool TryGetInstance<TBase>(out ManagedInstance<TBase> instance, object? key = null) => _manager.TryGetInstance<TBase>(out instance, key);
+        public bool TryGetInstance<TBase>(out ManagedInstance<TBase>? instance, object? key = null)
+            where TBase : notnull
+            => _manager.TryGetInstance<TBase>(out instance, key);
 
         #endregion
 

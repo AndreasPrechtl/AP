@@ -7,18 +7,18 @@ namespace AP.ComponentModel.ObjectManagement;
 
 public interface IObjectManager : AP.IDisposable
 {
-    ObjectLifetimeBase<TBase> Register<TBase>(ObjectLifetimeBase<TBase> lifetime, bool disposeOnRelease = true);
-    ObjectLifetimeBase<TBase> GetLifetime<TBase>(object? key = null);        
-    bool Contains<TBase>(object? key = null);
-    bool TryGetLifetime<TBase>(out ObjectLifetimeBase<TBase> lifetime, object? key = null);        
-    void Release<TBase>(object? key = null);        
+    ObjectLifetimeBase<TBase> Register<TBase>(ObjectLifetimeBase<TBase> lifetime, bool disposeOnRelease = true) where TBase : notnull;
+    ObjectLifetimeBase<TBase> GetLifetime<TBase>(object? key = null) where TBase : notnull;        
+    bool Contains<TBase>(object? key = null) where TBase : notnull;
+    bool TryGetLifetime<TBase>(out ObjectLifetimeBase<TBase>? lifetime, object? key = null) where TBase : notnull;        
+    void Release<TBase>(object? key = null) where TBase : notnull;        
     void Clear();
 
-    ManagedInstance<TBase> GetInstance<TBase>(object? key = null);
-    bool TryGetInstance<TBase>(out ManagedInstance<TBase> instance, object? key = null);
+    ManagedInstance<TBase> GetInstance<TBase>(object? key = null) where TBase : notnull;
+    bool TryGetInstance<TBase>(out ManagedInstance<TBase> instance, object? key = null) where TBase : notnull;
 
-    IEnumerable<ObjectLifetimeBase<TBase>> GetLifetimes<TBase>();
-    IEnumerable<ManagedInstance<TBase>> GetInstances<TBase>();
+    IEnumerable<ObjectLifetimeBase<TBase>> GetLifetimes<TBase>() where TBase : notnull;
+    IEnumerable<ManagedInstance<TBase>> GetInstances<TBase>() where TBase : notnull;
 
     IObjectManagementScope GetScope();
 
@@ -28,12 +28,13 @@ public interface IObjectManager : AP.IDisposable
 
 public interface IObjectManagementScope : System.IDisposable
 {
-    ManagedInstance<TBase> GetInstance<TBase>(object? key = null);
-    IEnumerable<ManagedInstance<TBase>> GetInstances<TBase>();
-    bool TryGetInstance<TBase>(out ManagedInstance<TBase> instance, object? key = null);
+    ManagedInstance<TBase> GetInstance<TBase>(object? key = null) where TBase : notnull;
+    IEnumerable<ManagedInstance<TBase>> GetInstances<TBase>() where TBase : notnull;
+    bool TryGetInstance<TBase>(out ManagedInstance<TBase> instance, object? key = null) where TBase : notnull;
 }
 
 public interface IObjectManager<TSuper> : AP.IDisposable
+    where TSuper : notnull
 {
     ObjectLifetimeBase<TBase> Register<TBase>(ObjectLifetimeBase<TBase> lifetime, bool disposeOnRelease = true) where TBase : TSuper;
     bool Contains<TBase>(object? key = null) where TBase : TSuper;        
@@ -55,6 +56,7 @@ public interface IObjectManager<TSuper> : AP.IDisposable
 }
 
 public interface IObjectManagementScope<TSuper> : System.IDisposable
+    where TSuper : notnull
 {
     ManagedInstance<TBase> GetInstance<TBase>(object? key = null) where TBase : TSuper;
     IEnumerable<ManagedInstance<TBase>> GetInstances<TBase>() where TBase : TSuper;

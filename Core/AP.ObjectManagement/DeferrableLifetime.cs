@@ -3,6 +3,7 @@
 namespace AP.ComponentModel.ObjectManagement;
 
 public sealed class DeferrableLifetime<TBase> : ObjectLifetimeBase<TBase>
+    where TBase : notnull
 {
     private Deferrable<TBase> _inner;
     
@@ -38,8 +39,8 @@ public sealed class DeferrableLifetime<TBase> : ObjectLifetimeBase<TBase>
 
         if (this.IsInstanceActive)
         {
-            _inner.Value.TryDispose();
-            _inner = null;
+            _inner?.Value?.TryDispose();
+            _inner = null!;
         }
     }
 }

@@ -9,11 +9,12 @@ internal interface IManagedInstanceInternal : System.IDisposable
 }
 
 public sealed class ManagedInstance<TBase> : System.IDisposable, IWrapper<TBase>, IManagedInstanceInternal
+    where TBase : notnull
 {
     private TBase _value;
     private readonly bool _canDisposeInstance;
     private bool _isDisposed;
-    private Action _callback;
+    private Action? _callback;
 
     /// <summary>
     /// Creates a new ManagedInstance.
@@ -22,8 +23,7 @@ public sealed class ManagedInstance<TBase> : System.IDisposable, IWrapper<TBase>
     /// <param name="canDisposeInstance">When true, the instance will disposed alongside.</param>
     public ManagedInstance(TBase instance, bool canDisposeInstance = false, Action? disposedCallback = null)            
     {
-        if (instance == null)
-            throw new ArgumentNullException(nameof(instance));
+        ArgumentNullException.ThrowIfNull(instance);
 
         _value = instance;
         _canDisposeInstance = canDisposeInstance;
@@ -49,11 +49,7 @@ public sealed class ManagedInstance<TBase> : System.IDisposable, IWrapper<TBase>
         this.Dispose();
     }
 
-    private void ThrowIfDisposed()
-    {
-        if (_isDisposed)
-            throw new ObjectDisposedException("Object is already disposed", (Exception)null);
-    }
+    private void ThrowIfDisposed() => ObjectDisposedException.ThrowIf(_isDisposed, this);
 
     #region IWrapper<TBase> Members
 
@@ -88,15 +84,12 @@ public sealed class ManagedInstance<TBase> : System.IDisposable, IWrapper<TBase>
 
         _isDisposed = true;
         
-        Action callback = _callback;
+        _callback?.Invoke();
 
-        if (callback != null)
-            callback();
-        
-        _value = default;
+        _value = default!;
     }
 
-    public override bool Equals(object obj)
+    public override bool Equals(object? obj)
     {
         this.ThrowIfDisposed();
 
@@ -107,21 +100,21 @@ public sealed class ManagedInstance<TBase> : System.IDisposable, IWrapper<TBase>
             return true;
 
         if (obj is IManagedInstanceInternal)
-            return _value.Equals(((IManagedInstanceInternal)obj).Value);
+            return _value!.Equals(((IManagedInstanceInternal)obj).Value);
 
-        return _value.Equals(obj);
+        return _value!.Equals(obj);
     }
 
     public override int GetHashCode()
     {
         this.ThrowIfDisposed();
-        return _value.GetHashCode();
+        return _value!.GetHashCode();
     }
 
     public override string ToString()
     {
         this.ThrowIfDisposed();
-        return _value.ToString();
+        return _value!.ToString()!;
     }
 
     public static implicit operator TBase(ManagedInstance<TBase> instance)

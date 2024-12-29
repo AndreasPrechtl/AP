@@ -12,19 +12,20 @@ public sealed partial class ObjectManager : FinalizableObject, IObjectManager, I
         : this(null)
     { }
     
-    internal ObjectManager(IObjectManagerInternal parent)
+    internal ObjectManager(IObjectManagerInternal? parent)
     {
         if (parent == null && !ManagedObjects.HasManager)
             ManagedObjects.Manager = this;
     }
     
     public ObjectLifetimeBase<TBase> Register<TBase>(ObjectLifetimeBase<TBase> lifetime, bool disposeOnRelease = true)
+        where TBase : notnull
     {
         base.ThrowIfDisposed();
 
         Type groupKey = typeof(TBase);
 
-        if (_map.TryGetValue(groupKey, out Group group))
+        if (_map.TryGetValue(groupKey, out var group))
             group.Register(lifetime);
         else
         {
@@ -50,15 +51,18 @@ public sealed partial class ObjectManager : FinalizableObject, IObjectManager, I
     //    return _map[type].Get(null).Instance;
     //}
 
-    public ManagedInstance<TBase> GetInstance<TBase>(object? key = null) => this.GetLifetime<TBase>(key).Instance;
+    public ManagedInstance<TBase> GetInstance<TBase>(object? key = null)
+        where TBase : notnull 
+        => this.GetLifetime<TBase>(key).Instance;
 
     public IEnumerable<ObjectLifetimeBase<TBase>> GetLifetimes<TBase>()
+        where TBase : notnull
     {
         base.ThrowIfDisposed();
 
         Type type = typeof(TBase);
 
-        if (_map.TryGetValue(type, out Group group))
+        if (_map.TryGetValue(type, out var group))
             foreach (Item item in group)
                 yield return (ObjectLifetimeBase<TBase>)item.Lifetime;
         else
@@ -66,62 +70,61 @@ public sealed partial class ObjectManager : FinalizableObject, IObjectManager, I
     }
 
     public IEnumerable<ManagedInstance<TBase>> GetInstances<TBase>()
+        where TBase : notnull
     {
         foreach (ObjectLifetimeBase<TBase> lifetime in this.GetLifetimes<TBase>())
             yield return lifetime.Instance;
     }
 
     public ObjectLifetimeBase<TBase> GetLifetime<TBase>(object? key = null)
+        where TBase : notnull
     {
         base.ThrowIfDisposed();
-
-        //Group g = null;
-
-        //if (_map.TryGetValue(typeof(TBase), out g))
-          // return g.Get(key);
-        
-        // or throw an error?
 
         return (ObjectLifetimeBase<TBase>)_map[typeof(TBase)].Get(key);
     }
 
     public bool TryGetInstance<TBase>(out ManagedInstance<TBase>? instance, object? key = null)
+        where TBase : notnull
     {
         base.ThrowIfDisposed();
 
         instance = null;
         bool r = false;
 
-        if (r = this.TryGetLifetime<TBase>(out ObjectLifetimeBase<TBase> lifetime, key))
-            instance = lifetime.Instance;
+        if (r = this.TryGetLifetime<TBase>(out var lifetime, key))
+            instance = lifetime!.Instance;
 
         return r;
     }
 
     public bool TryGetLifetime<TBase>(out ObjectLifetimeBase<TBase>? lifetime, object? key = null)
+        where TBase : notnull
     {
         base.ThrowIfDisposed();
 
         lifetime = null;
         bool r = false;
 
-        if (r = _map.TryGetValue(typeof(TBase), out Group group))
+        if (r = _map.TryGetValue(typeof(TBase), out var group))
         {
-            if (r = group.TryGetValue(out IObjectLifetimeInternal lt, key))
-                lifetime = (ObjectLifetimeBase<TBase>)lt;
+            if (r = group!.TryGetValue(out var lt, key))
+                lifetime = (ObjectLifetimeBase<TBase>)lt!;
         }
 
         return r;
     }
 
     public bool Contains<TBase>(object? key = null)
+        where TBase : notnull
     {
         base.ThrowIfDisposed();
 
-        return (_map.TryGetValue(typeof(TBase), out Group g) && g.Contains(key));
+        return (_map.TryGetValue(typeof(TBase), out var group) && group!.Contains(key));
     }
 
     public void Release<TBase>(object? key = null)
+        where TBase : notnull
     {
         this.ThrowIfDisposed();
         Type groupKey = typeof(TBase);

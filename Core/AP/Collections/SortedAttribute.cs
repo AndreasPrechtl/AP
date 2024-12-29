@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace AP.ComponentModel;
+namespace AP.Collections;
 
 [AttributeUsage(AttributeTargets.Class | AttributeTargets.Struct | AttributeTargets.Interface | AttributeTargets.Property | AttributeTargets.Field | AttributeTargets.Method | AttributeTargets.Parameter)]
 public sealed class SortedAttribute : Attribute

@@ -73,6 +73,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AP.Web.Panacea.DemoApp", "A
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AP.Cryptography", "Core\AP.Cryptography\AP.Cryptography.csproj", "{B59A09AD-9B73-49D8-ACC3-B8665D6875C0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AP.Security.EntityFramework", "Applications\Security\AP.Security.EntityFramework\AP.Security.EntityFramework.csproj", "{9EF7061D-EC15-4205-9BC3-5ED6B6D90F4C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -175,6 +177,10 @@ Global
 		{B59A09AD-9B73-49D8-ACC3-B8665D6875C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B59A09AD-9B73-49D8-ACC3-B8665D6875C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B59A09AD-9B73-49D8-ACC3-B8665D6875C0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9EF7061D-EC15-4205-9BC3-5ED6B6D90F4C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9EF7061D-EC15-4205-9BC3-5ED6B6D90F4C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9EF7061D-EC15-4205-9BC3-5ED6B6D90F4C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9EF7061D-EC15-4205-9BC3-5ED6B6D90F4C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -198,6 +204,7 @@ Global
 		{C60BC5A7-32B6-4266-AB13-4B7F55B7B6D4} = {86C8100A-A3E8-4B4B-AF7E-B72C7F7CAEC8}
 		{FA98D4BA-36E3-41CA-AADC-F30DF003420F} = {9424588A-7FD6-4FC6-BA3F-19B6CE30BE01}
 		{2A0FDAB7-A8AB-4557-B398-7D650D5FF84B} = {9424588A-7FD6-4FC6-BA3F-19B6CE30BE01}
+		{9EF7061D-EC15-4205-9BC3-5ED6B6D90F4C} = {2A7AABF6-1E26-4B13-B75D-3C84E80B6F56}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5F55BB60-3537-44BC-AB10-E3338D267B94}

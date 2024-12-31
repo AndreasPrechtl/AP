@@ -1,6 +1,6 @@
 ﻿namespace AP.UniformIdentifiers;
 
-public interface ISecurableUri : IRemotableUri
+public interface ISecurableUri : IRemoteUri
 {
     bool IsSecure { get; }
 }

@@ -18,7 +18,7 @@ namespace AP.Panacea
         /// <summary>
         /// Gets the ApplicationCore.
         /// </summary>
-        /// <remarks>Should be implemented explicitely.</remarks>
+        /// <remarks>Should be implemented explicitly.</remarks>
         ApplicationCore<TRequest, TResponse> Core { get; }
 
         IObjectManager ObjectManager { get; }

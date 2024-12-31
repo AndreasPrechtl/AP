@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.Objects;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
@@ -19,7 +18,7 @@ namespace AP.UI
             get { return _results; }
         }
 
-        private static PagedResultSet<T> CreateResultSet(IQueryable<T> source, Expression<Func<T, TKey>> keySelector, Linq.SortDirection sortDirection, int currentPage, int pageSize, IComparer<TKey> keyComparer)
+        private static PagedResultSet<T> CreateResultSet(IQueryable<T> source, Expression<Func<T, TKey>> keySelector, SortDirection sortDirection, int currentPage, int pageSize, IComparer<TKey> keyComparer)
         {
             //if (sortDirection == SortDirection.Unsorted)
             //    throw new ArgumentOutOfRangeException("sortDirection");

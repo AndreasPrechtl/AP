@@ -168,7 +168,7 @@ namespace AP.Routing
             if (_dictionaryToParameters != null)
                 return _dictionaryToParameters(dictionary);
 
-            TParameters parameters = Objects.NewOrUnintialized<TParameters>();
+            TParameters parameters = New.OrUninitialized<TParameters>();
                         
             const BindingFlags flags = BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.GetProperty | BindingFlags.SetProperty | BindingFlags.GetField | BindingFlags.GetProperty;
 

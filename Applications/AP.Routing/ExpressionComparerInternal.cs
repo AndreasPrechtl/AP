@@ -28,7 +28,7 @@ namespace AP.Routing
         /// <returns>Returns true if both expressions are invoking the same targets, using the same parameters.</returns>
         public bool Compare(Expression<ResultCreator<TParameters>> routeExpression, Expression<ResultCreator> contextExpression)
         {
-            _parameters = Objects.NewOrUnintialized<TParameters>();
+            _parameters = New.OrUninitialized<TParameters>();
             _parameterExpression = routeExpression.Parameters[0];
 
             return this.Visit(routeExpression.Body, contextExpression.Body);

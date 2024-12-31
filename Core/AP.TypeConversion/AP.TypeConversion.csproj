@@ -6,4 +6,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\AP.ComponentModel\AP.ComponentModel.csproj" />
+    <ProjectReference Include="..\AP\AP.csproj" />
+  </ItemGroup>
+
 </Project>

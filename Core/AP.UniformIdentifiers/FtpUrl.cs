@@ -39,5 +39,5 @@ public class FtpUrl : WebResourceUrlBase
 
     public override string Scheme => System.Uri.UriSchemeFtp;
 
-    public new FtpUrl Parent => (FtpUrl)base.Parent;
+    public new FtpUrl? Parent => (FtpUrl?)base.Parent;
 }

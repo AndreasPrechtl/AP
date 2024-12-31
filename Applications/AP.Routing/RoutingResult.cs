@@ -17,7 +17,7 @@ namespace AP.Routing
     public class RoutingResult<TContext>
         where TContext : RoutingContext
     {      
-        private readonly Deferrable<object> _value;
+        private readonly Lazy<object> _value;
         private readonly IUri _resultUri;
         private readonly ResultType _type;
         private readonly TContext _context;
@@ -31,7 +31,7 @@ namespace AP.Routing
         /// <param name="route">The route.</param>
         /// <param name="resultUri">The result uri.</param>
         /// <param name="value">The wrapped activator.</param>        
-        protected RoutingResult(ResultType type, TContext context, IRoute<TContext> route, IUri resultUri, Deferrable<object> value)
+        protected RoutingResult(ResultType type, TContext context, IRoute<TContext> route, IUri resultUri, Lazy<object> value)
         {
             if (context == null)
                 throw new ArgumentNullException("context");
@@ -54,7 +54,7 @@ namespace AP.Routing
             if (route == null)
                 throw new ArgumentNullException("route");
 
-            return new RoutingResult<TContext>(ResultType.Allowed, context, route, resultUri, new Deferrable<object>(new Activator<object>(resultCreator)));
+            return new RoutingResult<TContext>(ResultType.Allowed, context, route, resultUri, new(new Activator<object>(resultCreator)));
         }
 
         public static RoutingResult<TContext> Denied(TContext context, IRoute<TContext> route, IUri uri = null)

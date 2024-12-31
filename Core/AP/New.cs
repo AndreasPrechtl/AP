@@ -21,7 +21,6 @@ public abstract class New : StaticType
     /// <returns></returns>
     [MethodImpl((MethodImplOptions)256)]
     public static T Instance<T>(params IEnumerable<object?> args)
-        where T : notnull
         => args.IsEmpty() ? System.Activator.CreateInstance<T>() : (T)System.Activator.CreateInstance(typeof(T), args)!;
 
     /// <summary>
@@ -31,7 +30,6 @@ public abstract class New : StaticType
     /// <returns></returns>
     [MethodImpl((MethodImplOptions)256)]
     public static T Uninitialized<T>()
-        where T : notnull 
         => (T)Uninitialized(typeof(T));
 
     /// <summary>
@@ -47,16 +45,15 @@ public abstract class New : StaticType
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <returns></returns>
-    public static T NewOrUninitialized<T>()
-        where T : notnull
-        => (T)NewOrUninitialized(typeof(T));
+    public static T OrUninitialized<T>()        
+        => (T)OrUninitialized(typeof(T));
 
     /// <summary>
     /// Creates either a new or uninitialized object.
     /// </summary>
     /// <param name="type">The type of the object to create.</param>
     /// <returns>The object.</returns>
-    public static object NewOrUninitialized(Type type)
+    public static object OrUninitialized(Type type)
     {
         object instance;
 

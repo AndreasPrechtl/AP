@@ -1,8 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <ItemGroup>
     <ProjectReference Include="..\..\Core\AP.ComponentModel\AP.ComponentModel.csproj" />
+    <ProjectReference Include="..\..\Core\AP.UniformIdentifiers\AP.UniformIdentifiers.csproj" />
     <ProjectReference Include="..\..\Core\AP\AP.csproj" />
     <ProjectReference Include="..\AP.Configuration\AP.Configuration.csproj" />
+    <ProjectReference Include="..\AP.ObjectManagement\AP.ObjectManagement.csproj" />
+    <ProjectReference Include="..\AP.Routing\AP.Routing.csproj" />
+    <ProjectReference Include="..\AP.UI\AP.UI.csproj" />
     <ProjectReference Include="..\Security\AP.Security\AP.Security.csproj" />
   </ItemGroup>
 </Project>

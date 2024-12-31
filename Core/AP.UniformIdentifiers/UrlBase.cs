@@ -6,7 +6,7 @@ namespace AP.UniformIdentifiers;
 // validation regex:
 //          \b(((\S+)?)(@|mailto\:|(news|(ht|f)tp(s?))\://)\S+)\b 
 [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2240:ImplementISerializableCorrectly"), Serializable]
-public abstract class UrlBase : UriBase, IRemotableUri
+public abstract class UrlBase : UriBase, IRemoteUri
 {
     #region IRemotableUri Members
 

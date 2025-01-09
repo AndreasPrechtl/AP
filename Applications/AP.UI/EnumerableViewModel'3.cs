@@ -20,8 +20,7 @@ namespace AP.UI
 
         public EnumerableViewModel(IEnumerable<T> source, LinkCreator<TKey, TLink> linkCreator, KeySelector<T, TKey> keySelector, TKey currentKey, SortDirection sortDirection = SortDirection.Ascending, IComparer<TKey> keyComparer = null)
         {
-            if (linkCreator == null)
-                throw new ArgumentNullException("linkCreator");
+            ArgumentNullException.ThrowIfNull(linkCreator);
 
             EnumerableViewModel<T, TKey> vm = new EnumerableViewModel<T, TKey>(source, keySelector, currentKey, sortDirection);
             

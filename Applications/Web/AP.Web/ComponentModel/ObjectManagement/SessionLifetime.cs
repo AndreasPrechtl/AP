@@ -22,8 +22,7 @@ namespace AP.Web.objectManagement
         public SessionLifetime(Activator<TBase> activator, object key = null)
             : base(key)
         {
-            if (activator == null)
-                throw new ArgumentNullException("activator");
+            ArgumentNullException.ThrowIfNull(activator);
 
             _activator = activator;
         }

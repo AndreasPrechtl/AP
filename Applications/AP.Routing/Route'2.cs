@@ -43,11 +43,9 @@ namespace AP.Routing
         {
             if (action == RoutingAction.Allow)
             {
-                if (expression == null)
-                    throw new ArgumentNullException("expression");
+                ArgumentNullException.ThrowIfNull(expression);
 
-                if (uriSegments == null)
-                    throw new ArgumentNullException("uriSegments");
+                ArgumentNullException.ThrowIfNull(uriSegments);
 
                 if (uriSegments.Count == 0)
                     throw new ArgumentOutOfRangeException("uriSegments");

@@ -23,18 +23,15 @@ namespace AP.UI
 
         public QueryableViewModel(IQueryable<T> source, LinkCreator<TKey, TNavigation> linkCreator, Expression<KeySelector<T, TKey>> keySelector, TKey currentKey, SortDirection sortDirection = SortDirection.Ascending, IComparer<TKey> keyComparer = null)
         {
-            if (source == null)
-                throw new ArgumentNullException("source");
+            ArgumentNullException.ThrowIfNull(source);
 
             // this will only return true if the key is a ref type - otherwise - if I compare to IsDefault() it would result in an exception for a key that is int(0)
             if (currentKey == null)
                 throw new ArgumentNullException("currentKey");
 
-            if (keySelector == null)
-                throw new ArgumentNullException("keySelector");
+            ArgumentNullException.ThrowIfNull(keySelector);
 
-            if (linkCreator == null)
-                throw new ArgumentNullException("linkCreator");
+            ArgumentNullException.ThrowIfNull(linkCreator);
 
             _results = CreateResultSet(source, linkCreator, keySelector.Cast<Func<T, TKey>>(), currentKey, sortDirection, keyComparer);
         }

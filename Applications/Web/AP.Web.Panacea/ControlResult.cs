@@ -15,8 +15,7 @@ namespace AP.Panacea.Web
 
         public ControlResult(IUri uri, Encoding encoding = null)
         {
-            if (uri == null)
-                throw new ArgumentNullException("uri");
+            ArgumentNullException.ThrowIfNull(uri);
 
             this.Uri = uri;
             this.Encoding = encoding ?? DefaultEncoding;

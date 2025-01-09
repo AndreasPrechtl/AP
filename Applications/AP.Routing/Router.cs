@@ -67,7 +67,7 @@ namespace AP.Routing
         /// </summary>
         /// <param name="context">The routing context.</param>
         /// <returns>The uri.</returns>
-        public IUri GetUri(TContext context)
+        public IUri? GetUri(TContext context)
         {
             ResultType resultType;
             object parameters;
@@ -87,10 +87,9 @@ namespace AP.Routing
         /// <param name="resultType">The resultType enum.</param>
         /// <param name="parameters">The parameters for creating the result and resultUri.</param>
         /// <returns>The matching route or null.</returns>
-        private IRoute<TContext> FindRoute(TContext context, out ResultType resultType, out object parameters)
+        private IRoute<TContext>? FindRoute(TContext context, out ResultType resultType, out object? parameters)
         {
-            if (context == null)
-                throw new ArgumentNullException("context");
+            ArgumentNullException.ThrowIfNull(context);
 
             foreach (IRoute<TContext> route in _routes)
             {              
@@ -148,13 +147,13 @@ namespace AP.Routing
                 {
                     string name = ((TemplateUriSegment)segment).Name;
                  
-                    PropertyInfo property = parameters.GetType().GetProperty(name, flags);
+                    var property = parameters.GetType().GetProperty(name, flags);
 
                     if (property != null)
                     {
                         Delegate getter = property.CreateGetterDelegate();
 
-                        Converter<object, string> converter = this.GetPropertyConverter(property);
+                        Converter<object, string> converter = this.GetPropertyConverter(property)!;
 
                         parts.Add(converter(getter.DynamicInvoke()));
                     }
@@ -171,7 +170,7 @@ namespace AP.Routing
         /// <returns>The converter. Currently returns a delegate wrapper for the TypeConverter.ConvertToString method.</returns>
         protected virtual Converter<object, string> GetPropertyConverter(PropertyInfo property)
         {
-            return new Converter<object, string>(TypeDescriptor.GetConverter(property.PropertyType).ConvertToString);
+            return new Converter<object, string>(TypeDescriptor.GetConverter(property.PropertyType)!.ConvertToString!);
         }
 
         /// <summary>

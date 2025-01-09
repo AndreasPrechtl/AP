@@ -205,8 +205,7 @@ namespace AP.Web
 
         public virtual void SendMail(MailMessage message, bool throwException = false)
         {
-            if (message == null)
-                throw new ArgumentNullException("message");
+            ArgumentNullException.ThrowIfNull(message);
 
             if (message.From == null)
                 message.From = this.DefaultFromEmailAddress;

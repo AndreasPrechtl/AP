@@ -28,8 +28,7 @@ namespace AP.Web.objectManagement
         public CacheLifetime(Activator<TBase> activator, object key = null, DateTime? expirationDate = null, TimeSpan? slidingExpirationTime = null, CacheItemPriority priority = CacheItemPriority.Default)
             : base(key)
         {
-            if (activator == null)
-                throw new ArgumentNullException("activator");
+            ArgumentNullException.ThrowIfNull(activator);
 
             _activator = activator;
             _expirationDate = expirationDate ?? Cache.NoAbsoluteExpiration;

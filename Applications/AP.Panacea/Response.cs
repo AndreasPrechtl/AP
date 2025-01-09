@@ -42,8 +42,7 @@ namespace AP.Panacea
         /// <param name="message"></param>
         protected Response(Guid id, ResponseType type, object result, IUri uri, Request request, object parameters, string message)
         {
-            if (request == null)            
-                throw new ArgumentNullException("request");
+            ArgumentNullException.ThrowIfNull(request);
 
             if (uri == null && type != ResponseType.RouteNotFound)
                 throw new ArgumentNullException("uri");

@@ -12,8 +12,7 @@ namespace AP.Panacea.Web
         
         public PageResult(IUri uri)
         {
-            if (uri == null)
-                throw new ArgumentNullException("uri");
+            ArgumentNullException.ThrowIfNull(uri);
 
             this.Uri = uri;
         }

@@ -23,8 +23,7 @@ namespace AP.UI.SiteMapping
         public SiteMap(SiteMapEntry<TKey> root)
             : this()
         {
-            if (root == null)
-                throw new ArgumentNullException("root");
+            ArgumentNullException.ThrowIfNull(root);
 
             _root = root;
         }

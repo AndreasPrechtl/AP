@@ -40,8 +40,7 @@ namespace AP.Panacea
         /// <param name="responseLogger">The response logger.</param>
         public ApplicationCore(IApplication<TRequest, TResponse> application, IObjectManager objectManager = null, Router<TRequest> router = null, SiteMap<TRequest> siteMap = null, AP.Security.MembershipContextBase membershipContext = null, IRequestFilter<TRequest> requestLogger = null, IResponseFilter<TResponse> responseLogger = null)
         {
-            if (application == null)
-                throw new ArgumentNullException("application");
+            ArgumentNullException.ThrowIfNull(application);
 
             _application = application;
             _objectManager = objectManager ?? ManagedObjects.Manager;
@@ -83,8 +82,7 @@ namespace AP.Panacea
         /// <param name="request">The request.</param>
         public void InitializeRequest(TRequest request)
         {
-            if (request == null)
-                throw new ArgumentNullException("request");
+            ArgumentNullException.ThrowIfNull(request);
 
             request.User = request.User = request.User ?? _application.CurrentUser;
             request.Referrer = request.Referrer ?? _application.CurrentUri;

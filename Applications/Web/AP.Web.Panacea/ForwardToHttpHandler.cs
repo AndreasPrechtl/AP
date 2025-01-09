@@ -15,8 +15,7 @@ namespace AP.Panacea.Web
 
         public ForwardToHttpHandler(Type httpHandlerType)
         {
-            if (httpHandlerType == null)
-                throw new ArgumentNullException("httpHandlerType");
+            ArgumentNullException.ThrowIfNull(httpHandlerType);
 
             if (!typeof(IHttpHandler).IsAssignableFrom(httpHandlerType))
                 throw new ArgumentException("httpHandlerType does not implement IHttpHandler");

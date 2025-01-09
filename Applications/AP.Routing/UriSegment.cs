@@ -8,9 +8,8 @@ namespace AP.Routing
                 
         internal UriSegment(string value, UriSegmentType type)
         {
-            if (value == null)
-                throw new ArgumentNullException("value");
-            
+            ArgumentNullException.ThrowIfNull(value);
+
             _value = value;
             _type = type;
         }

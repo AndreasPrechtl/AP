@@ -18,8 +18,7 @@ namespace AP.Routing
         public RoutingContext(IUri uri, object sender = null)
             : this(uri, null, sender)
         {
-            if (uri == null)
-                throw new ArgumentNullException("uri");
+            ArgumentNullException.ThrowIfNull(uri);
         }
 
         /// <summary>
@@ -30,8 +29,7 @@ namespace AP.Routing
         public RoutingContext(Expression<ResultCreator> expression, object sender = null)
             : this(null, expression, sender)
         {
-            if (expression == null)
-                throw new ArgumentNullException("expression");
+            ArgumentNullException.ThrowIfNull(expression);
         }
 
         /// <summary>

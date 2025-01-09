@@ -14,8 +14,7 @@ namespace AP.Panacea
         public NavigatingEventArgs(INavigator<TRequest, TResponse> navigator, TRequest request, bool updateUri = true)
             : base(navigator, updateUri)
         {
-            if (request == null)
-                throw new ArgumentNullException("request");
+            ArgumentNullException.ThrowIfNull(request);
 
             this.Request = request;
         }

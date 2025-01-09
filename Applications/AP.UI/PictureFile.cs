@@ -1,11 +1,7 @@
 ﻿namespace AP.UI
 {
-    public class PictureFile : AP.IO.File
+    public class PictureFile(string fullName) : AP.IO.File(fullName)
     {
-        public PictureFile(string fullName)
-            : base(fullName)
-        { }
-
-        public string Thumbnail { get; set; }
+        public string? Thumbnail { get; init; } = null;
     }
 }

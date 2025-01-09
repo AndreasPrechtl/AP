@@ -33,8 +33,7 @@ namespace AP.Routing
         /// <param name="value">The wrapped activator.</param>        
         protected RoutingResult(ResultType type, TContext context, IRoute<TContext> route, IUri resultUri, Lazy<object> value)
         {
-            if (context == null)
-                throw new ArgumentNullException("context");
+            ArgumentNullException.ThrowIfNull(context);
 
             _type = type;
             _context = context;
@@ -45,23 +44,19 @@ namespace AP.Routing
 
         public static RoutingResult<TContext> Allowed(TContext context, IRoute<TContext> route, IUri resultUri, ResultCreator resultCreator)
         {
-            if (resultUri == null)
-                throw new ArgumentNullException("resultUri");
+            ArgumentNullException.ThrowIfNull(resultUri);
 
-            if (resultCreator == null)
-                throw new ArgumentNullException("resultCreator");
+            ArgumentNullException.ThrowIfNull(resultCreator);
 
-            if (route == null)
-                throw new ArgumentNullException("route");
+            ArgumentNullException.ThrowIfNull(route);
 
             return new RoutingResult<TContext>(ResultType.Allowed, context, route, resultUri, new(new Activator<object>(resultCreator)));
         }
 
         public static RoutingResult<TContext> Denied(TContext context, IRoute<TContext> route, IUri uri = null)
         {
-            if (route == null)
-                throw new ArgumentNullException("route");
-            
+            ArgumentNullException.ThrowIfNull(route);
+
             return new RoutingResult<TContext>(ResultType.Denied, context, route, uri, null);
         }
 

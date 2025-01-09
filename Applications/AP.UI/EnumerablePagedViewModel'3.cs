@@ -39,11 +39,9 @@ namespace AP.UI
         
         public EnumerablePagedViewModel(IEnumerable<T> source, LinkCreator<TLink> linkCreator, KeySelector<T, TKey> keySelector, int currentPage = 0, int pageSize = 1, SortDirection sortDirection = SortDirection.Ascending, IComparer<TKey> keyComparer = null)
         {
-            if (source == null)
-                throw new ArgumentNullException("source");
+            ArgumentNullException.ThrowIfNull(source);
 
-            if (linkCreator == null)
-                throw new ArgumentNullException("linkCreator");
+            ArgumentNullException.ThrowIfNull(linkCreator);
 
             _results = CreateResultSet(source, linkCreator, keySelector, sortDirection, currentPage, pageSize, keyComparer);
         }

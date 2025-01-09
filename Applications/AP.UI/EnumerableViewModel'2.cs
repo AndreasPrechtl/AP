@@ -109,11 +109,9 @@ namespace AP.UI
         
         public EnumerableViewModel(IEnumerable<T> source, KeySelector<T, TKey> keySelector, TKey currentKey, SortDirection sortDirection = SortDirection.Ascending, IComparer<TKey> keyComparer = null)
         {
-            if (source == null)
-                throw new ArgumentNullException("source");
+            ArgumentNullException.ThrowIfNull(source);
 
-            if (keySelector == null)
-                throw new ArgumentNullException("keySelector");
+            ArgumentNullException.ThrowIfNull(keySelector);
 
             if (sortDirection == Linq.SortDirection.Unsorted)
                 throw new ArgumentException("sortDirection");

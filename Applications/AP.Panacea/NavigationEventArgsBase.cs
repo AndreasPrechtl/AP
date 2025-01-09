@@ -15,8 +15,7 @@ namespace AP.Panacea
 
         internal NavigationEventArgsBase(INavigator<TRequest, TResponse> navigator, bool updateCurrentUri = true)
         {
-            if (navigator == null)
-                throw new ArgumentNullException("navigator");
+            ArgumentNullException.ThrowIfNull(navigator);
 
             this.Navigator = navigator;
             this.UpdateCurrentUri = updateCurrentUri;

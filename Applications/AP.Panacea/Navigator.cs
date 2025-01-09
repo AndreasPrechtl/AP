@@ -26,8 +26,7 @@ namespace AP.Panacea
         /// <param name="applicationIsNavigator">Determines if the application should be used as the Navigator reference for the event args, default is false.</param>
         public Navigator(IApplication<TRequest, TResponse> application, bool applicationIsNavigator = false)
         {
-            if (application == null)
-                throw new ArgumentNullException("application");
+            ArgumentNullException.ThrowIfNull(application);
 
             application.Disposed += Application_Disposed;
             _application = application;

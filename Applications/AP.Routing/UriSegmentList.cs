@@ -45,8 +45,7 @@ namespace AP.Routing
 
         private static Tuple<AP.Collections.IListView<UriSegment>, string> CreateInnerList(IEnumerable<UriSegment> segments)
         {
-            if (segments == null)
-                throw new ArgumentNullException("segments");
+            ArgumentNullException.ThrowIfNull(segments);
 
             StringBuilder sb = new StringBuilder();
 
@@ -93,8 +92,7 @@ namespace AP.Routing
 
         private static Tuple<AP.Collections.IListView<UriSegment>, string> CreateInnerList(string segments)
         {
-            if (segments == null)
-                throw new ArgumentNullException("segments");
+            ArgumentNullException.ThrowIfNull(segments);
 
             string original = segments;
             

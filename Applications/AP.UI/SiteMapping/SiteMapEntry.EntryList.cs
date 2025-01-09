@@ -27,8 +27,7 @@ namespace AP.UI.SiteMapping
 
             private static AP.Collections.IListView<SiteMapEntry<TKey>> CreateInnerList(SiteMapEntry<TKey> entry, IEnumerable<SiteMapEntry<TKey>> collection)
             {
-                if (entry == null)
-                    throw new ArgumentNullException("entry");
+                ArgumentNullException.ThrowIfNull(entry);
 
                 AP.Collections.List<SiteMapEntry<TKey>> entries = new AP.Collections.List<SiteMapEntry<TKey>>();
 

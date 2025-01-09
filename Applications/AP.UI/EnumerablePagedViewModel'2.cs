@@ -11,11 +11,9 @@ namespace AP.UI
 
         public EnumerablePagedViewModel(IEnumerable<T> source, KeySelector<T, TKey> keySelector, int currentPage = 0, int pageSize = 1, SortDirection sortDirection = SortDirection.Ascending, IComparer<TKey> keyComparer = null)
         {
-            if (source == null)
-                throw new ArgumentNullException("source");
+            ArgumentNullException.ThrowIfNull(source);
 
-            if (keySelector == null)
-                throw new ArgumentNullException("keySelector");
+            ArgumentNullException.ThrowIfNull(keySelector);
 
             if (currentPage < 0)
                 throw new ArgumentOutOfRangeException("currentPage");

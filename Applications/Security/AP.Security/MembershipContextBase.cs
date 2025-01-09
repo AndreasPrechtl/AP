@@ -17,8 +17,7 @@ namespace AP.Security
                 if (string.IsNullOrWhiteSpace(loginName))
                     throw new ArgumentException("loginName cannot be null or whitespace");
 
-                if (authenticator == null)
-                    throw new ArgumentNullException("authenticator");
+                ArgumentNullException.ThrowIfNull(authenticator);
 
                 _loginName = loginName; 
                 _authenticator = authenticator;

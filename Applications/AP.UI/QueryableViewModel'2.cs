@@ -23,15 +23,13 @@ namespace AP.UI
 
         public QueryableViewModel(IQueryable<T> source, Expression<KeySelector<T, TKey>> keySelector, TKey currentKey, SortDirection sortDirection = SortDirection.Ascending, IComparer<TKey> keyComparer = null)
         {
-            if (source == null)
-                throw new ArgumentNullException("source");
-            
+            ArgumentNullException.ThrowIfNull(source);
+
             if (currentKey == null)
                 throw new ArgumentNullException("currentKey");
 
-            if (keySelector == null)
-                throw new ArgumentNullException("keySelector");
-            
+            ArgumentNullException.ThrowIfNull(keySelector);
+
             if (sortDirection == SortDirection.Unsorted)
                 throw new ArgumentOutOfRangeException("sortDirection");
          

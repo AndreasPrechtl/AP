@@ -11,9 +11,9 @@ namespace AP;
 /// </summary>
 public static class StringBuilderExtensions
 {
-    public static IEnumerable<char> AsEnumerable(this StringBuilder builder) => builder.ToString().AsEnumerable();//int l = builder.Length;//for (int i = 0; i < l; i++)//    yield return builder[i];
+    public static IEnumerable<char> AsEnumerable(this StringBuilder builder) => builder.ToString().AsEnumerable();
 
-    public static IEnumerator<char> GetEnumerator(this StringBuilder builder) => builder.ToString().GetEnumerator();//return AsEnumerable(builder).GetEnumerator();
+    public static IEnumerator<char> GetEnumerator(this StringBuilder builder) => builder.ToString().GetEnumerator();
 
     public static bool IsNullOrEmpty(this StringBuilder builder) => builder == null || builder.IsEmpty();
 
@@ -27,11 +27,11 @@ public static class StringBuilderExtensions
 
     public static string[] Split(this StringBuilder builder, string separator = " ", StringSplitOptions options = StringSplitOptions.None, StringComparison comparisonType = StringComparison.Ordinal) => builder.ToString().Split(separator, options, comparisonType);
 
-    public static string[] Split(this StringBuilder builder, char[] separators, StringSplitOptions options = StringSplitOptions.None) => builder.ToString().Split(separators, options);//int l = builder.Length;//List<string> split = new List<string>();//StringBuilder sb = new StringBuilder(builder.ToString());//for (int i = 0; i < sb.Length; i++)//{//    if (separators.Contains(sb[i]))//    {//        string s = sb.Substring(0, i).ToString();//        split.Add(s);//        if (options == StringSplitOptions.None)//            split.Add(string.Empty); // null or string.Empty ?//        i = 0;//    }//}//return EnumerableExtensions.AsReadOnly(split);
+    public static string[] Split(this StringBuilder builder, char[] separators, StringSplitOptions options = StringSplitOptions.None) => builder.ToString().Split(separators, options);
 
     public static string[] Split(this StringBuilder builder, string[] separators, StringSplitOptions options = StringSplitOptions.RemoveEmptyEntries) => builder.ToString().Split(separators, options);
 
-    public static bool StartsWith(this StringBuilder builder, string value, StringComparison comparisonType = StringComparison.Ordinal) => builder.ToString().StartsWith(value, comparisonType);//ExceptionHelper.ThrowOnArgumentNullException(() => value);//int builderLength = builder.Length;//int valueLength = value.Length;//if (builderLength < valueLength)//    return false;//StringBuilder sb = new StringBuilder(valueLength);//for (int i = 0; i < valueLength; i++)//    sb.Append(builder[i]);//return sb.ToString().Equals(value, comparisonType);
+    public static bool StartsWith(this StringBuilder builder, string value, StringComparison comparisonType = StringComparison.Ordinal) => builder.ToString().StartsWith(value, comparisonType);
 
     /// <summary>
     /// Removes whitespace characters from the start and the end

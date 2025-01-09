@@ -140,8 +140,7 @@ namespace AP.Web
 
         protected virtual MailMessage CreateErrorMail(Exception exception)
         {
-            ExceptionHelper.AssertNotNull(() => exception);
-
+            ArgumentNullException.ThrowIfNull(exception);
             HttpRequest request = HttpRequest.Current;
             
             string body = string.Format

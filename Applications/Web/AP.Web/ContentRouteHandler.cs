@@ -12,7 +12,7 @@ namespace AP.Web
         private readonly string _path;
         public ContentRouteHandler(string path)
         {
-            ExceptionHelper.AssertNotNull(path, "path");
+            ArgumentNullException.ThrowIfNullOrWhiteSpace(path);
             _path = path;
         }
 

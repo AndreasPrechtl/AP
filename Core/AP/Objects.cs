@@ -20,10 +20,14 @@ public static class Objects
     /// <param name="value">The value.</param>
     /// <returns>Returns a disposable object.</returns>
     [MethodImpl((MethodImplOptions)256)]
-    public static AP.IContextDependentDisposable AsDisposable<T>(T value, object contextKey = null) where T : notnull => new AP.DisposableWrapper<T>(value, contextKey);
+    public static AP.IContextDependentDisposable AsDisposable<T>(T value, object? contextKey = null, bool canDisposeValue = true) 
+        where T : notnull 
+        => new AP.DisposableWrapper<T>(value, contextKey, canDisposeValue);
 
     [MethodImpl((MethodImplOptions)256)]
-    public static ValueTask<AP.IContextDependentDisposable> AsAsyncDisposable<T>(T value) where T : notnull => ValueTask.FromResult((AP.IContextDependentDisposable)new AP.DisposableWrapper<T>(value));
+    public static ValueTask<AP.IContextDependentDisposable> AsAsyncDisposable<T>(T value, object? contextKey = null, bool canDisposeValue = true) 
+        where T : notnull 
+        => ValueTask.FromResult((AP.IContextDependentDisposable)new AP.DisposableWrapper<T>(value, canDisposeValue));
 
     /// <summary>
     /// Disposes an object.

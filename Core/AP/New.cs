@@ -21,7 +21,7 @@ public abstract class New : StaticType
     /// <returns></returns>
     [MethodImpl((MethodImplOptions)256)]
     public static T Instance<T>(params IEnumerable<object?> args)
-        => args.IsEmpty() ? System.Activator.CreateInstance<T>() : (T)System.Activator.CreateInstance(typeof(T), args)!;
+        => args.IsEmpty() ? Activator.CreateInstance<T>() : (T)Activator.CreateInstance(typeof(T), args)!;
 
     /// <summary>
     /// Short method that returns an uninitialized object - use with caution as no constructors are used - might break some lazy/deferred loading scenarios

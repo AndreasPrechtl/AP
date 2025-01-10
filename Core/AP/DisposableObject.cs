@@ -11,6 +11,7 @@ namespace AP;
 public abstract class DisposableObject : AP.IContextDependentDisposable
 {
     private bool _isDisposed;
+    private object? _contextKey;
 
     /// <summary>
     /// Fired when the object is about to be disposed.
@@ -22,7 +23,10 @@ public abstract class DisposableObject : AP.IContextDependentDisposable
     /// </summary>
     public event DisposedEventHandler? Disposed;
 
-    private object? _contextKey;
+    /// <summary>
+    /// The context key for disposing the object.
+    /// </summary>
+    protected object? ContextKey => _contextKey;
 
     /// <summary>
     /// Creates a new inherited DisposableObject
@@ -32,9 +36,6 @@ public abstract class DisposableObject : AP.IContextDependentDisposable
     {
         _contextKey = contextKey;
     }
-
-    void IDisposable.Dispose() => this.Dispose();
-    ValueTask IAsyncDisposable.DisposeAsync() => this.DisposeAsync();
 
     internal virtual void SuppressFinalizeIfNeeded() { }
        
@@ -135,10 +136,10 @@ public abstract class DisposableObject : AP.IContextDependentDisposable
         return ValueTask.CompletedTask;
     }
 
-    /// <summary>
-    /// The context key for disposing the object.
-    /// </summary>
-    protected object? ContextKey => _contextKey;
+#pragma warning disable CA1816 // Dispose methods should call SuppressFinalize
+    void IDisposable.Dispose() => this.Dispose();
+    ValueTask IAsyncDisposable.DisposeAsync() => this.DisposeAsync();
+#pragma warning restore CA1816 // Dispose methods should call SuppressFinalize
 
     #endregion
 }

@@ -128,9 +128,9 @@ public static class EnumerableExtensions
         }
     }
 
-    public static bool IsNullOrEmpty<T>(this IEnumerable<T> enumerable)
+    public static bool IsNullOrEmpty<T>(this IEnumerable<T>? enumerable)
     {
-        return enumerable.IsNull() || enumerable.IsEmpty<T>();
+        return enumerable.IsNull() || enumerable!.IsEmpty<T>();
     }
 
     public static IOrderedEnumerable<TSource> Sort<TSource, TKey>(this IEnumerable<TSource> source, KeySelector<TSource, TKey> keySelector, SortDirection sortDirection, IComparer<TKey>? keyComparer = null) => Sort(source, (Func<TSource, TKey>)keySelector.Invoke, sortDirection, keyComparer);

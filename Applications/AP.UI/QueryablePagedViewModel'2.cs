@@ -2,23 +2,19 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 using AP.Collections;
-using AP.ComponentModel;
+using AP.Collections.ReadOnly;
 using AP.Linq;
 using AP.Reflection;
 
 namespace AP.UI
 {
     public sealed class QueryablePagedViewModel<T, TKey> : IPagedViewModel<T>
+        where TKey : notnull
     {
-        private PagedResultSet<T> Results
-        {
-            get { return _results; }
-        }
+        private PagedResultSet<T> Results => _results;
 
-        private static PagedResultSet<T> CreateResultSet(IQueryable<T> source, Expression<Func<T, TKey>> keySelector, SortDirection sortDirection, int currentPage, int pageSize, IComparer<TKey> keyComparer)
+        private static PagedResultSet<T> CreateResultSet(IQueryable<T> source, Expression<Func<T, TKey>> keySelector, SortDirection sortDirection, int currentPage, int pageSize, IComparer<TKey>? keyComparer)
         {
             //if (sortDirection == SortDirection.Unsorted)
             //    throw new ArgumentOutOfRangeException("sortDirection");
@@ -64,7 +60,7 @@ namespace AP.UI
             var res = q.FirstOrDefault();
 
             if (res == null)
-                return new PagedResultSet<T>(null, null, null, null, null, pageSize, currentPage, count, sortDirection);
+                return new PagedResultSet<T>(ReadOnlyList<T>.Empty, ReadOnlyList<T>.Empty, ReadOnlyList<T>.Empty, ReadOnlyList<T>.Empty, ReadOnlyList<T>.Empty, pageSize, currentPage, count, sortDirection);
 
             return new PagedResultSet<T>
             (   
@@ -80,10 +76,9 @@ namespace AP.UI
 
         private readonly PagedResultSet<T> _results;
 
-        public QueryablePagedViewModel(IQueryable<T> source, Expression<KeySelector<T, TKey>> keySelector, int currentPage = 0, int pageSize = 1, SortDirection sortDirection = SortDirection.Ascending, IComparer<TKey> keyComparer = null)
+        public QueryablePagedViewModel(IQueryable<T> source, Expression<KeySelector<T, TKey>> keySelector, int currentPage = 0, int pageSize = 1, SortDirection sortDirection = SortDirection.Ascending, IComparer<TKey>? keyComparer = null)
         {
             ArgumentNullException.ThrowIfNull(source);
-
             ArgumentNullException.ThrowIfNull(keySelector);
 
             if (keyComparer == null && !keySelector.ReturnType.Is(typeof(IComparable<TKey>)))
@@ -94,63 +89,24 @@ namespace AP.UI
 
         #region IPagedViewModel<T,IEnumerable<T>> Members
 
-        public int PageCount
-        {
-            get { return this.Results.PageCount; }
-        }
+        public int PageCount => this.Results.PageCount;
+        public int PageSize => this.Results.PageSize;
+        public int CurrentPage => this.Results.CurrentPage;
+        public int Count => this.Results.Count;
 
-        public int PageSize
-        {
-            get { return this.Results.PageSize; }
-        }
+        public IListView<T> First => this.Results.First;
+        public IListView<T> Previous => this.Results.Previous;
+        public IListView<T> Current => this.Results.Current;
+        public IListView<T> Next => this.Results.Next;
+        public IListView<T> Last => this.Results.Last;
 
-        public int CurrentPage
-        {
-            get { return this.Results.CurrentPage; }
-        }
+        public bool HasFirst => this.Results.HasFirst;
+        public bool HasPrevious => this.Results.HasPrevious;
+        public bool HasCurrent => this.Results.HasCurrent;
+        public bool HasNext => this.Results.HasNext;
+        public bool HasLast => this.Results.HasLast;
 
-        public int Count { get { return this.Results.Count; } }
-
-        public IListView<T> First
-        {
-            get { return this.Results.First; }
-        }
-
-        public IListView<T> Previous
-        {
-            get { return this.Results.Previous; }
-        }
-
-        public IListView<T> Current
-        {
-            get { return this.Results.Current; }
-        }
-
-        public IListView<T> Next
-        {
-            get
-            {
-                return this.Results.Next;
-            }
-        }
-
-        public IListView<T> Last
-        {
-            get
-            {
-                return this.Results.Last;
-            }
-        }
-
-        public bool HasFirst { get { return this.Results.HasFirst; } }
-        public bool HasPrevious { get { return this.Results.HasPrevious; } }
-
-        public bool HasCurrent { get { return this.Results.HasCurrent; } }
-
-        public bool HasNext { get { return this.Results.HasNext; } }
-        public bool HasLast { get { return this.Results.HasLast; } }
-
-        public SortDirection SortDirection { get { return this.Results.SortDirection; } }
+        public SortDirection SortDirection => this.Results.SortDirection;
 
         #endregion
     }

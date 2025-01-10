@@ -21,7 +21,7 @@ namespace AP.UI
             get { return _results; }
         }
 
-        public QueryableViewModel(IQueryable<T> source, Expression<KeySelector<T, TKey>> keySelector, TKey currentKey, SortDirection sortDirection = SortDirection.Ascending, IComparer<TKey> keyComparer = null)
+        public QueryableViewModel(IQueryable<T> source, Expression<KeySelector<T, TKey>> keySelector, TKey currentKey, SortDirection sortDirection = SortDirection.Ascending, IComparer<TKey>? keyComparer = null)
         {
             ArgumentNullException.ThrowIfNull(source);
 
@@ -36,7 +36,7 @@ namespace AP.UI
             _results = CreateResultSet(source, keySelector.Cast<Func<T, TKey>>(), currentKey, sortDirection, keyComparer);
         }
 
-        private static ResultSet<T> CreateResultSet(IQueryable<T> source, Expression<Func<T,TKey>> keySelector, TKey currentKey, SortDirection sortDirection, IComparer<TKey> keyComparer)
+        private static ResultSet<T> CreateResultSet(IQueryable<T> source, Expression<Func<T,TKey>> keySelector, TKey currentKey, SortDirection sortDirection, IComparer<TKey>? keyComparer)
         {
             // create the required expressions
             var lessExpression = ExpressionHelper.CreateComparisonExpression(currentKey, keySelector, ComparisonOperator.Less, keyComparer);
@@ -68,7 +68,7 @@ namespace AP.UI
             var res = q.FirstOrDefault();
 
             if (res == null)
-                return new ResultSet<T>(default(T), default(T), default(T), default(T), default(T), 0, sortDirection);
+                return new ResultSet<T>(default, default, default, default, default, 0, sortDirection);
 
             if (sortDirection == SortDirection.Ascending)
                 return new ResultSet<T>(res.First, res.Previous, res.Current, res.Next, res.Last, res.Count, sortDirection);

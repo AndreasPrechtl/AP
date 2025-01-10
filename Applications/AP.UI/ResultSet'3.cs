@@ -1,48 +1,24 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using AP.Linq;
 
 namespace AP.UI
 {
     internal class ResultSet<T, TNavigation, TKey> : IViewModel<T, TNavigation>
+        where TKey : notnull
     {
-        private readonly T _current;
-
-        public T Current
-        {
-            get
-            {
-                if (!this.HasCurrent)
-                    throw new Exception("Current");
-
-                return _current;
-            }
-        }
+        private readonly T? _current;
 
         private readonly LinkCreator<TKey, TNavigation> _linkCreator;
-
-        private readonly int _count;
-        
-        private readonly TKey _first;
-        private readonly TKey _previous;
-        private readonly TKey _next;
-        private readonly TKey _last;
-
-        private readonly SortDirection _sortDirection;
-
-        public SortDirection SortDirection
-        {
-            get { return _sortDirection; }
-        }
-
-        public ResultSet(TKey first, TKey previous, T current, TKey next, TKey last, LinkCreator<TKey, TNavigation> linkCreator, int count, SortDirection sortDirection)
+        private readonly TKey? _first;
+        private readonly TKey? _previous;
+        private readonly TKey? _next;
+        private readonly TKey? _last;
+               
+        public ResultSet(TKey? first, TKey? previous, T? current, TKey? next, TKey? last, LinkCreator<TKey, TNavigation> linkCreator, int count, SortDirection sortDirection)
         {
             _linkCreator = linkCreator;
-            _count = count;
-            _sortDirection = sortDirection;
+            Count = count;
+            SortDirection = sortDirection;
 
             if (count > 0)
             {
@@ -54,6 +30,8 @@ namespace AP.UI
             }
         }
 
+        public SortDirection SortDirection { get; }
+
         public TNavigation First
         {
             get
@@ -61,7 +39,7 @@ namespace AP.UI
                 if (!HasFirst)
                     throw new Exception("First");
 
-                return _linkCreator(_first);
+                return _linkCreator(_first!);
             }
         }
         public TNavigation Previous
@@ -71,7 +49,18 @@ namespace AP.UI
                 if (!this.HasPrevious)
                     throw new Exception("Previous");
 
-                return _linkCreator(_previous);
+                return _linkCreator(_previous!);
+            }
+        }
+
+        public T Current
+        {
+            get
+            {
+                if (!this.HasCurrent)
+                    throw new Exception("Current");
+
+                return _current!;
             }
         }
 
@@ -82,7 +71,7 @@ namespace AP.UI
                 if (!this.HasNext)
                     throw new Exception("Next");
 
-                return _linkCreator(_next);
+                return _linkCreator(_next!);
             }
         }
 
@@ -93,35 +82,18 @@ namespace AP.UI
                 if (!this.HasLast)
                     throw new Exception("Last");
 
-                return _linkCreator(_last);
+                return _linkCreator(_last!);
             }
         }
 
         #region IViewModel<T,TNavigation> Members
 
-        public int Count
-        {
-            get { return _count; }
-        }
-
-        public bool HasFirst { get { return this.HasPrevious; } }
-
-        public bool HasPrevious
-        {
-            get { return !_previous.IsDefault(); }
-        }
-
-        public bool HasCurrent
-        {
-            get { return !_current.IsDefault(); }
-        }
-
-        public bool HasNext
-        {
-            get { return !_next.IsDefault(); }
-        }
-
-        public bool HasLast { get { return this.HasNext; } }
+        public int Count { get; }
+        public bool HasFirst => this.HasPrevious;
+        public bool HasPrevious => !_previous.IsDefault();
+        public bool HasCurrent => !_current.IsDefault();
+        public bool HasNext => !_next.IsDefault();
+        public bool HasLast => this.HasNext;
 
         #endregion
     }

@@ -1,21 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using AP.ComponentModel;
 using AP.Linq;
-using System.Linq.Expressions;
 
 namespace AP.UI
 {
     public sealed class EnumerableViewModel<T, TKey> : IViewModel<T>
+        where TKey : notnull
     {
         private readonly ResultSet<T> _results;
-        
-        private ResultSet<T> Results
-        {
-            get { return _results; }
-        }
 
         private static ResultSet<T> CreateResultSet(IEnumerable<T> source, TKey currentKey, KeySelector<T, TKey> keySelector, SortDirection sortDirection, IComparer<TKey> keyComparer)
         {
@@ -23,16 +15,16 @@ namespace AP.UI
 
             int count = 0;
                 
-            T first = default(T);
-            T previous = default(T);
-            T current = default(T);
-            T next = default(T);
-            T last = default(T);
+            T? first = default;
+            T? previous = default;
+            T? current = default;
+            T? next = default;
+            T? last = default;
 
-            TKey firstKey = default(TKey);
-            TKey previousKey = default(TKey);
-            TKey nextKey = default(TKey);
-            TKey lastKey = default(TKey);
+            TKey? firstKey = default;
+            TKey? previousKey = default;
+            TKey? nextKey = default;
+            TKey? lastKey = default;
 
             bool firstInitialized = false;
             bool lastInitialized = false;
@@ -102,60 +94,33 @@ namespace AP.UI
             return new ResultSet<T>(last, next, current, previous, first, count, sortDirection);
         }
 
-        public SortDirection SortDirection
-        {
-            get { return this.Results.SortDirection; }
-        }
-        
-        public EnumerableViewModel(IEnumerable<T> source, KeySelector<T, TKey> keySelector, TKey currentKey, SortDirection sortDirection = SortDirection.Ascending, IComparer<TKey> keyComparer = null)
+        public SortDirection SortDirection => _results.SortDirection;
+
+        public EnumerableViewModel(IEnumerable<T> source, KeySelector<T, TKey> keySelector, TKey currentKey, SortDirection sortDirection = SortDirection.Ascending, IComparer<TKey>? keyComparer = null)
         {
             ArgumentNullException.ThrowIfNull(source);
-
             ArgumentNullException.ThrowIfNull(keySelector);
-
-            if (sortDirection == Linq.SortDirection.Unsorted)
-                throw new ArgumentException("sortDirection");
-
-            if (currentKey == null)
-                throw new ArgumentNullException("currentKey");
+            ArgumentNullException.ThrowIfNull(currentKey);
+            ArgumentOutOfRangeException.ThrowIfEqual((int)sortDirection, (int)SortDirection.Unsorted);
 
             _results = CreateResultSet(source, currentKey, keySelector, sortDirection, keyComparer ?? Comparer<TKey>.Default);
         }
 
         #region IViewModel<T> Members
 
-        public int Count { get { return this.Results.Count; } }
+        public int Count => _results.Count;
 
-        public T First
-        {
-            get { return this.Results.First; }
-        }
+        public T First => _results.First;
+        public T Previous => _results.Previous;
+        public T Current => _results.Current;
+        public T Next => _results.Next;
+        public T Last => _results.Last;
 
-        public T Previous
-        {
-            get { return this.Results.Previous; }
-        }
-
-        public T Current
-        {
-            get { return this.Results.Current; }
-        }
-
-        public T Next
-        {
-            get { return this.Results.Next; }
-        }
-
-        public T Last
-        {
-            get { return this.Results.Last; }
-        }
-
-        public bool HasFirst { get { return this.Results.HasFirst; } }
-        public bool HasPrevious { get { return this.Results.HasPrevious; } }
-        public bool HasCurrent { get { return this.Results.HasCurrent; } }
-        public bool HasNext { get { return this.Results.HasNext; } }
-        public bool HasLast { get { return this.Results.HasLast; } }
+        public bool HasFirst => _results.HasFirst;
+        public bool HasPrevious => _results.HasPrevious;
+        public bool HasCurrent => _results.HasCurrent;
+        public bool HasNext => _results.HasNext;
+        public bool HasLast => _results.HasLast;
 
         #endregion
     }

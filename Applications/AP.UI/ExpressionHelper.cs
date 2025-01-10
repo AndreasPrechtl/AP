@@ -13,12 +13,12 @@ namespace AP.UI
         private const string _compare = "Compare";
         private const string _compareTo = "CompareTo";
 
-        public static Expression<Func<T, bool>> CreateComparisonExpression<T, TKey>(TKey currentKey, Expression<Func<T, TKey>> keySelector, ComparisonOperator op, IComparer<TKey> keyComparer)
+        public static Expression<Func<T, bool>> CreateComparisonExpression<T, TKey>(TKey currentKey, Expression<Func<T, TKey>> keySelector, ComparisonOperator op, IComparer<TKey>? keyComparer)
         {
             ConstantExpression zeroExpression = Expression.Constant(0);
             ConstantExpression currentKeyExpression = Expression.Constant(currentKey);
 
-            Expression compare = null;
+            Expression compare = null!;
 
             if (keyComparer != null)
             {
@@ -26,7 +26,7 @@ namespace AP.UI
                 (
                     Expression.Constant(keyComparer),
                     _compare,
-                    null,
+                    [],
                     keySelector.Body, currentKeyExpression
                 );
             }
@@ -41,15 +41,14 @@ namespace AP.UI
                     currentKeyExpression  // the key of the current item that's already been retrieved                         
                 );
             }
-            BinaryExpression binary = null;
 
-            if (op == ComparisonOperator.Greater)
-                binary = Expression.GreaterThan(compare, zeroExpression);
-            else if (op == ComparisonOperator.Less)
-                binary = Expression.LessThan(compare, zeroExpression);
-            else
-                binary = Expression.Equal(compare, zeroExpression);
-
+            BinaryExpression binary = op switch
+            {
+                ComparisonOperator.Greater => Expression.GreaterThan(compare, zeroExpression),
+                ComparisonOperator.Less => Expression.LessThan(compare, zeroExpression),
+                _ => Expression.Equal(compare, zeroExpression),
+            };
+            
             return Expression.Lambda<Func<T, bool>>(binary, keySelector.Parameters);
         }
     }

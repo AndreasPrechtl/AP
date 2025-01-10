@@ -4,65 +4,46 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AP.Collections;
+using AP.Collections.ReadOnly;
 using AP.Linq;
 
 namespace AP.UI
 {
     internal sealed class PagedResultSet<T> : IPagedViewModel<T>
     {
-        public IListView<T> Current
-        {
-            get
-            {
-                if (!this.HasCurrent)
-                    throw new Exception("Current");
+        private readonly IListView<T> _first = ReadOnlyList<T>.Empty;
+        private readonly IListView<T> _previous = ReadOnlyList<T>.Empty;
+        private readonly IListView<T> _current = ReadOnlyList<T>.Empty;
+        private readonly IListView<T> _next = ReadOnlyList<T>.Empty;
+        private readonly IListView<T> _last = ReadOnlyList<T>.Empty;
 
-                return _current;
-            }
-        }
-        
-        private readonly SortDirection _sortDirection;
-        public SortDirection SortDirection { get { return _sortDirection; } }
-        
-        public bool HasFirst { get { return _first != null; } }
-        public bool HasPrevious { get { return _previous != null; } }
-        public bool HasCurrent { get { return _current != null; } }
-        public bool HasNext { get { return _next != null; } }
-        public bool HasLast { get { return _last != null; } }
+        public SortDirection SortDirection { get; }
+        public int Count { get; }
+        public int CurrentPage { get; }
+        public int PageCount { get; }
+        public int PageSize { get; }
 
-        private readonly int _count;
-        private readonly int _currentPage;
-        private readonly int _pageSize;
-        private readonly int _pageCount;
-
-        private readonly IListView<T> _first;
-        private readonly IListView<T> _previous;
-
-        private readonly IListView<T> _current;
-
-        private readonly IListView<T> _next;
-        private readonly IListView<T> _last;
-
-        public int Count { get { return _count; } }
-        public int CurrentPage { get { return _currentPage; } }
-        public int PageCount { get { return _pageCount; } }
-        public int PageSize { get { return _pageSize; } }
+        public bool HasFirst => !_first.IsEmpty();
+        public bool HasPrevious => !_previous.IsEmpty();
+        public bool HasCurrent => !_current.IsEmpty();
+        public bool HasNext => !_next.IsEmpty();
+        public bool HasLast => !_last.IsEmpty();
 
         public PagedResultSet(IListView<T> first, IListView<T> previous, IListView<T> current, IListView<T> next, IListView<T> last, int pageSize, int currentPage, int count, SortDirection sortDirection)
         {
-            _pageSize = pageSize;
-            _currentPage = currentPage;
-            _count = count;
-            _sortDirection = sortDirection;
-            _pageCount = (int)Math.Ceiling((double)count / pageSize);
+            PageSize = pageSize;
+            CurrentPage = currentPage;
+            Count = count;
+            SortDirection = sortDirection;
+            PageCount = (int)Math.Ceiling((double)count / pageSize);
 
-            if (_pageCount > 0)
+            if (PageCount > 0)
             {
-                _first = first.IsDefaultOrEmpty() ? null : first;
-                _previous = previous.IsDefaultOrEmpty() ? null : previous;
-                _current = current.IsDefaultOrEmpty() ? null : current;
-                _next = next.IsDefaultOrEmpty() ? null : next;
-                _last = last.IsDefaultOrEmpty() ? null : last;
+                _first = first ?? ReadOnlyList<T>.Empty;
+                _previous = previous ?? ReadOnlyList<T>.Empty;
+                _current = current ?? ReadOnlyList<T>.Empty;
+                _next = next ?? ReadOnlyList<T>.Empty;
+                _last = last ?? ReadOnlyList<T>.Empty;        
             }
         }
         
@@ -73,7 +54,7 @@ namespace AP.UI
                 if (!HasFirst)
                     throw new Exception("First");
 
-                return _first;
+                return _first!;
             }
         }
         public IListView<T> Previous
@@ -83,7 +64,18 @@ namespace AP.UI
                 if (!this.HasPrevious)
                     throw new Exception("Previous");
 
-                return _previous;
+                return _previous!;
+            }
+        }
+
+        public IListView<T> Current
+        {
+            get
+            {
+                if (!this.HasCurrent)
+                    throw new Exception("Current");
+
+                return _current!;
             }
         }
 
@@ -94,7 +86,7 @@ namespace AP.UI
                 if (!this.HasNext)
                     throw new Exception("Next");
 
-                return _next;
+                return _next!;
             }
         }
 
@@ -105,7 +97,7 @@ namespace AP.UI
                 if (!this.HasLast)
                     throw new Exception("Last");
 
-                return _last;
+                return _last!;
             }
         }
     }

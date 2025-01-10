@@ -1,15 +1,54 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using AP.Linq;
 
 namespace AP.UI
 {
     internal class ResultSet<T> : IViewModel<T>
     {
-        private readonly T _current;
+        private readonly T? _first;
+        private readonly T? _previous;
+        private readonly T? _current;
+        private readonly T? _next;
+        private readonly T? _last;
+
+        public SortDirection SortDirection { get; }
+
+        public ResultSet(T? first, T? previous, T? current, T? next, T? last, int count, SortDirection sortDirection)
+        {
+            Count = count;
+            SortDirection = sortDirection;
+
+            if (count > 0)
+            {
+                _current = current;
+                _first = first ?? previous;
+                _previous = previous;
+                _next = next;
+                _last = last ?? next;
+            }
+        }
+
+        public T First
+        {
+            get
+            {
+                if (!HasFirst)
+                    throw new Exception("First");
+
+                return _first!;
+            }
+        }
+
+        public T Previous
+        {
+            get
+            {
+                if (!this.HasPrevious)
+                    throw new Exception("Previous");
+
+                return _previous!;
+            }
+        }
 
         public T Current
         {
@@ -22,55 +61,6 @@ namespace AP.UI
             }
         }
 
-        private readonly int _count;
-
-        private readonly T _first;
-        private readonly T _previous;
-        private readonly T _next;
-        private readonly T _last;
-        private readonly SortDirection _sortDirection;
-
-        public SortDirection SortDirection
-        {
-            get { return _sortDirection; }
-        }
-
-        public ResultSet(T first, T previous, T current, T next, T last, int count, SortDirection sortDirection)
-        {
-            _count = count;
-            _sortDirection = sortDirection;
-
-            if (count > 0)
-            {
-                _current = current;
-                _first = first.IsDefault() ? previous : first;
-                _previous = previous;
-                _next = next;
-                _last = last.IsDefault() ? next : last;
-            }
-        }
-
-        public T First
-        {
-            get
-            {
-                if (!HasFirst)
-                    throw new Exception("First");
-
-                return _first;
-            }
-        }
-        public T Previous
-        {
-            get
-            {
-                if (!this.HasPrevious)
-                    throw new Exception("Previous");
-
-                return _previous;
-            }
-        }
-
         public T Next
         {
             get
@@ -78,7 +68,7 @@ namespace AP.UI
                 if (!this.HasNext)
                     throw new Exception("Next");
 
-                return _next;
+                return _next!;
             }
         }
 
@@ -89,35 +79,19 @@ namespace AP.UI
                 if (!this.HasLast)
                     throw new Exception("Last");
 
-                return _last;
+                return _last!;
             }
         }
 
         #region IViewModel<T,T> Members
 
-        public int Count
-        {
-            get { return _count; }
-        }
+        public int Count { get; }
 
-        public bool HasFirst { get { return this.HasPrevious; } }
-
-        public bool HasPrevious
-        {
-            get { return !_previous.IsDefault(); }
-        }
-
-        public bool HasCurrent
-        {
-            get { return !_current.IsDefault(); }
-        }
-
-        public bool HasNext
-        {
-            get { return !_next.IsDefault(); }
-        }
-
-        public bool HasLast { get { return this.HasNext; } }
+        public bool HasFirst => this.HasPrevious;
+        public bool HasPrevious => !_previous.IsDefault();
+        public bool HasCurrent => !_current.IsDefault();
+        public bool HasNext => !_next.IsDefault();
+        public bool HasLast => this.HasNext;
 
         #endregion
     }

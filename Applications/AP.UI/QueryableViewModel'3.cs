@@ -21,16 +21,11 @@ namespace AP.UI
             get { return _results; }
         }
 
-        public QueryableViewModel(IQueryable<T> source, LinkCreator<TKey, TNavigation> linkCreator, Expression<KeySelector<T, TKey>> keySelector, TKey currentKey, SortDirection sortDirection = SortDirection.Ascending, IComparer<TKey> keyComparer = null)
+        public QueryableViewModel(IQueryable<T> source, LinkCreator<TKey, TNavigation> linkCreator, Expression<KeySelector<T, TKey>> keySelector, TKey currentKey, SortDirection sortDirection = SortDirection.Ascending, IComparer<TKey>? keyComparer = null)
         {
             ArgumentNullException.ThrowIfNull(source);
-
-            // this will only return true if the key is a ref type - otherwise - if I compare to IsDefault() it would result in an exception for a key that is int(0)
-            if (currentKey == null)
-                throw new ArgumentNullException("currentKey");
-
+            ArgumentNullException.ThrowIfNull(currentKey);
             ArgumentNullException.ThrowIfNull(keySelector);
-
             ArgumentNullException.ThrowIfNull(linkCreator);
 
             _results = CreateResultSet(source, linkCreator, keySelector.Cast<Func<T, TKey>>(), currentKey, sortDirection, keyComparer);
@@ -68,12 +63,12 @@ namespace AP.UI
             var res = q.FirstOrDefault();
 
             if (res == null)
-                return new ResultSet<T, TNavigation, TKey>(default(TKey), default(TKey), default(T), default(TKey), default(TKey), linkCreator, 0, sortDirection);
+                return new ResultSet<T, TNavigation, TKey>(default!, default!, default!, default!, default!, linkCreator, 0, sortDirection);
             
             if (sortDirection == SortDirection.Ascending)
                 return new ResultSet<T, TNavigation, TKey>(res.First, res.Previous, res.Current, res.Next, res.Last, linkCreator, res.Count, sortDirection);
 
-            // descending sortdirection? switch the parameters
+            // descending sortDirection? switch the parameters
             return new ResultSet<T, TNavigation, TKey>(res.Last, res.Next, res.Current, res.Previous, res.First, linkCreator, res.Count, sortDirection);
         }
 

@@ -12,13 +12,16 @@ namespace AP.UI.SiteMapping
             protected set { _root = value; }
         }
 
-        public bool FindEntry(TKey key, out SiteMapEntry<TKey> entry, bool returnTemporaryEntry = true)
+        public bool FindEntry(TKey key, out SiteMapEntry<TKey>? entry, bool returnTemporaryEntry = true)
         {
             return this.Root.FindEntry(key, out entry, returnTemporaryEntry);
         }
 
-        protected SiteMap()
-        { }
+
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
+        protected SiteMap() { }
+#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
+
 
         public SiteMap(SiteMapEntry<TKey> root)
             : this()

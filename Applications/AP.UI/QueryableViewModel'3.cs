@@ -1,25 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using AP.Collections;
 using AP.Linq;
 using System.Linq.Expressions;
-using System.Reflection.Emit;
-using System.Collections.ObjectModel;
-using System.Reflection;
-using AP.ComponentModel;
 
 namespace AP.UI
 {
     public sealed class QueryableViewModel<T, TNavigation, TKey> : IViewModel<T, TNavigation>
+        where TKey : notnull
     {
         private readonly ResultSet<T, TNavigation, TKey> _results;
-
-        private ResultSet<T, TNavigation, TKey> Results
-        {
-            get { return _results; }
-        }
 
         public QueryableViewModel(IQueryable<T> source, LinkCreator<TKey, TNavigation> linkCreator, Expression<KeySelector<T, TKey>> keySelector, TKey currentKey, SortDirection sortDirection = SortDirection.Ascending, IComparer<TKey>? keyComparer = null)
         {
@@ -31,7 +21,7 @@ namespace AP.UI
             _results = CreateResultSet(source, linkCreator, keySelector.Cast<Func<T, TKey>>(), currentKey, sortDirection, keyComparer);
         }
 
-        private static ResultSet<T, TNavigation, TKey> CreateResultSet(IQueryable<T> source, LinkCreator<TKey, TNavigation> linkCreator, Expression<Func<T, TKey>> keySelector, TKey currentKey, SortDirection sortDirection, IComparer<TKey> keyComparer)
+        private static ResultSet<T, TNavigation, TKey> CreateResultSet(IQueryable<T> source, LinkCreator<TKey, TNavigation> linkCreator, Expression<Func<T, TKey>> keySelector, TKey currentKey, SortDirection sortDirection, IComparer<TKey>? keyComparer)
         {
             // create the required expressions
             var lessExpression = ExpressionHelper.CreateComparisonExpression(currentKey, keySelector, ComparisonOperator.Less, keyComparer);
@@ -72,46 +62,24 @@ namespace AP.UI
             return new ResultSet<T, TNavigation, TKey>(res.Last, res.Next, res.Current, res.Previous, res.First, linkCreator, res.Count, sortDirection);
         }
 
-        public SortDirection SortDirection
-        {
-            get { return this.Results.SortDirection; }
-        }
+        public SortDirection SortDirection => _results.SortDirection;
 
 
         #region IViewModel<T> Members
 
-        public int Count { get { return this.Results.Count; } }
+        public int Count => _results.Count;
 
-        public TNavigation First
-        {
-            get { return this.Results.First; }
-        }
+        public TNavigation First => _results.First;
+        public TNavigation Previous => _results.Previous;
+        public T Current => _results.Current;
+        public TNavigation Next => _results.Next;
+        public TNavigation Last => _results.Last;
 
-        public TNavigation Previous
-        {
-            get { return this.Results.Previous; }
-        }
-
-        public T Current
-        {
-            get { return this.Results.Current; }
-        }
-
-        public TNavigation Next
-        {
-            get { return this.Results.Next; }
-        }
-
-        public TNavigation Last
-        {
-            get { return this.Results.Last; }
-        }
-
-        public bool HasFirst { get { return this.Results.HasFirst; } }
-        public bool HasPrevious { get { return this.Results.HasPrevious; } }
-        public bool HasCurrent { get { return this.Results.HasCurrent; } }
-        public bool HasNext { get { return this.Results.HasNext; } }
-        public bool HasLast { get { return this.Results.HasLast; } }
+        public bool HasFirst => _results.HasFirst;
+        public bool HasPrevious => _results.HasPrevious;
+        public bool HasCurrent => _results.HasCurrent;
+        public bool HasNext => _results.HasNext;
+        public bool HasLast => _results.HasLast;
 
         #endregion
     }

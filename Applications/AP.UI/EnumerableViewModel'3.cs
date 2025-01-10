@@ -34,11 +34,11 @@ namespace AP.UI
 
         public int Count => _results.Count;
 
-        public TLink? First => _results.First;
-        public TLink? Previous => _results.Previous;
+        public TLink First => _results.First;
+        public TLink Previous => _results.Previous;
         public T Current => _results.Current;
-        public TLink? Next => _results.Next;
-        public TLink? Last => _results.Last;
+        public TLink Next => _results.Next;
+        public TLink Last => _results.Last;
 
         public bool HasFirst => _results.HasFirst;
         public bool HasPrevious => _results.HasPrevious;

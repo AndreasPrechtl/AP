@@ -10,20 +10,7 @@ namespace AP.UI.SiteMapping
     {
         public sealed class EntryList : AP.Collections.ReadOnly.ReadOnlyList<SiteMapEntry<TKey>>
         {
-            private static volatile EntryList _empty;
-            
-            public static new EntryList Empty 
-            { 
-                get 
-                { 
-                    EntryList empty = _empty;
-
-                    if (empty == null)
-                        _empty = empty = new EntryList(AP.Collections.ReadOnly.ReadOnlyList<SiteMapEntry<TKey>>.Empty);
-
-                    return empty;
-                }
-            }
+            public new static readonly EntryList Empty = new(AP.Collections.ReadOnly.ReadOnlyList<SiteMapEntry<TKey>>.Empty);
 
             private static AP.Collections.IListView<SiteMapEntry<TKey>> CreateInnerList(SiteMapEntry<TKey> entry, IEnumerable<SiteMapEntry<TKey>> collection)
             {
@@ -31,7 +18,7 @@ namespace AP.UI.SiteMapping
 
                 AP.Collections.List<SiteMapEntry<TKey>> entries = new AP.Collections.List<SiteMapEntry<TKey>>();
 
-                SiteMapEntry<TKey> last = null;
+                SiteMapEntry<TKey>? last = null;
 
                 // iterate and set the necessary relations
                 foreach (SiteMapEntry<TKey> current in collection)

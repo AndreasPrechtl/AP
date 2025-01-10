@@ -1,3 +1,4 @@
+using AP.Linq;
 using System;
 using System.Collections.Generic;
 
@@ -5,14 +6,10 @@ namespace AP.UI.SiteMapping
 {
     public partial class SiteMapEntry<TKey>
     {
-        private bool _isTemporary;
-        private readonly TKey _target;
-        private readonly PageMetaData _data;
-
-        internal SiteMap<TKey> _siteMap;
-        internal SiteMapEntry<TKey> _parent;
-        internal SiteMapEntry<TKey> _next;
-        internal SiteMapEntry<TKey> _previous;
+        internal SiteMap<TKey>? _siteMap;
+        internal SiteMapEntry<TKey>? _parent;
+        internal SiteMapEntry<TKey>? _next;
+        internal SiteMapEntry<TKey>? _previous;
         private EntryList _children;
 
         /// <summary>
@@ -22,7 +19,7 @@ namespace AP.UI.SiteMapping
         {
             get
             {
-                SiteMap<TKey> sm = this.SiteMap;
+                var sm = this.SiteMap;
 
                 if (sm != null)
                     return sm.Root;
@@ -34,15 +31,9 @@ namespace AP.UI.SiteMapping
             }
         }
 
-        public bool HasData { get { return _data != null; } }
+        public bool HasData { get { return Data != null; } }
 
-        public bool IsRoot
-        {
-            get
-            {
-                return _parent == null || this.Root == this;
-            }
-        }
+        public bool IsRoot => _parent is null || this.Root == this;
 
         /// <summary>
         /// Returns true when the Entry has a parent.
@@ -55,7 +46,7 @@ namespace AP.UI.SiteMapping
         // but it doesn't have to be added into the parent's entry list
         public SiteMapEntry<TKey> Parent 
         { 
-            get { return _parent; }           
+            get { return _parent!; }           
             protected set 
             {
                 if (!value.IsTemporary)
@@ -65,21 +56,21 @@ namespace AP.UI.SiteMapping
             }
         }
 
-        public SiteMapEntry<TKey> Next { get { return _next; } }
-        public SiteMapEntry<TKey> Previous { get { return _previous; } }
+        public SiteMapEntry<TKey>? Next => _next;
+        public SiteMapEntry<TKey>? Previous => _previous;
 
-        public TKey Target { get { return _target; } }
-        public PageMetaData Data { get { return _data; } }
-        public bool IsTemporary { get { return _isTemporary; } }
+        public TKey Target { get; }
+        public PageMetaData? Data { get; }
+        public bool IsTemporary { get; private set; }
 
         /// <summary>
         /// Gets the SiteMap. Returns null if the Entry wasn't added to a SiteMap.
         /// </summary>
-        public SiteMap<TKey> SiteMap
+        public SiteMap<TKey>? SiteMap
         {
             get
             {
-                SiteMap<TKey> sm = _siteMap;
+                var sm = _siteMap;
 
                 if (sm == null && _parent != null)
                     _siteMap = sm = _parent.SiteMap;
@@ -88,7 +79,7 @@ namespace AP.UI.SiteMapping
             }
             internal set
             {
-                _siteMap = value;
+                _siteMap = value!;
             }
         }
 
@@ -105,21 +96,21 @@ namespace AP.UI.SiteMapping
 
         public bool HasTarget
         {
-            get { return _target != null; }
+            get { return Target is not null; }
         }
 
-        public SiteMapEntry(TKey target = default(TKey), PageMetaData data = default(PageMetaData), IEnumerable<SiteMapEntry<TKey>> children = null)
+        public SiteMapEntry(TKey target, PageMetaData? data = null, params IEnumerable<SiteMapEntry<TKey>> children)
         {
-            _target = target;
-            _data = data;
+            Target = target;
+            Data = data;
 
             // Use the virtual member or not? I think it is a better design without doing that.
-            _children = children != null ? new EntryList(this, children) : EntryList.Empty;
+            _children = children.IsNullOrEmpty() is true ? EntryList.Empty : new EntryList(this, children);
 
             //_isTemporary = isTemporary;
         }
 
-        public virtual bool FindEntry(TKey target, out SiteMapEntry<TKey> entry, bool returnTemporaryEntry = true)
+        public virtual bool FindEntry(TKey target, out SiteMapEntry<TKey>? entry, bool returnTemporaryEntry = true)
         {
             if (target == null)
                 throw new ArgumentNullException("target");
@@ -127,7 +118,7 @@ namespace AP.UI.SiteMapping
             entry = null;
 
             // if the targets already match - return the entry itself.
-            if (this.HasTarget && _target.Equals(target))
+            if (this.HasTarget && Target!.Equals(target) is true)
             {
                 entry = this;
                 return true;
@@ -139,15 +130,15 @@ namespace AP.UI.SiteMapping
                 return this.TryCreateTemporaryEntry(target, out entry);
 
             // create a list of temporary entries to further narrow down the results
-            AP.Collections.List<SiteMapEntry<TKey>> temporaryEntries = new AP.Collections.List<SiteMapEntry<TKey>>();
+            AP.Collections.List<SiteMapEntry<TKey>> temporaryEntries = [];
 
             foreach (SiteMapEntry<TKey> current in children)
             {
-                // if the recursion yields results - analyse the result, if it's just a temporary item - add it to the list - otherwise return the found entry directly
+                // if the recursion yields results - analyze the result, if it's just a temporary item - add it to the list - otherwise return the found entry directly
                 if (current.FindEntry(target, out entry, returnTemporaryEntry))
                 {
                     // that will only happen if returnTemporaryEntry == true
-                    if (!entry.IsTemporary)
+                    if (entry?.IsTemporary is true)
                         temporaryEntries.Add(entry);
                     else
                         return true;
@@ -171,7 +162,7 @@ namespace AP.UI.SiteMapping
             return false;
         }
 
-        protected virtual bool FilterTemporaryEntries(AP.Collections.IListView<SiteMapEntry<TKey>> temporaryEntries, out SiteMapEntry<TKey> entry)
+        protected virtual bool FilterTemporaryEntries(AP.Collections.IListView<SiteMapEntry<TKey>> temporaryEntries, out SiteMapEntry<TKey>? entry)
         {
             // change that algorithm to analyze the depth or just make it return the first entry
             if (temporaryEntries.Count > 0)
@@ -196,7 +187,7 @@ namespace AP.UI.SiteMapping
                 throw new ArgumentException("entry already has a parent");
 
             entry._parent = this;
-            entry._isTemporary = true;
+            entry.IsTemporary = true;
         }
 
         /// <summary>
@@ -211,39 +202,31 @@ namespace AP.UI.SiteMapping
             entry = new SiteMapEntry<TKey>(target);
             this.MakeTemporary(entry);
 
-            return true;            
+            return true;
         }
 
-        public override string ToString()
-        {
-            return this.HasTarget ? this.Target.ToString() : base.ToString();
-        }
+        public override string? ToString() => this.HasTarget ? this.Target!.ToString() : base.ToString();
 
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
             if (obj == this)
                 return true;
 
-            if (obj == null)
+            if (obj is null)
                 return false;
 
             // don't need to compare it when I don't have anything else to compare it with
             if (!this.HasTarget)
                 return false;
 
-            if (obj is SiteMapEntry<TKey>)
-            {
-                SiteMapEntry<TKey> other = (SiteMapEntry<TKey>)obj;
-
-                return other.HasTarget && this.Target.Equals(other.Target);
+            if (obj is SiteMapEntry<TKey> other)
+            {                
+                return other.HasTarget && this.HasTarget && this.Target!.Equals(other.Target);
             }
 
             return false;
         }
 
-        public override int GetHashCode()
-        {
-            return this.HasTarget ? this.Target.GetHashCode() : base.GetHashCode();
-        }
+        public override int GetHashCode() => this.HasTarget ? this.Target!.GetHashCode() : base.GetHashCode();
     }
 }

@@ -57,7 +57,7 @@ namespace AP.UI
                 if (!this.HasCurrent)
                     throw new Exception("Current");
 
-                return _current;
+                return _current!;
             }
         }
 

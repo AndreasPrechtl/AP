@@ -20,7 +20,7 @@ public delegate void DisposedEventHandler(object sender, EventArgs e);
 /// <summary>
 /// Extends the System.IDisposable by exposing events; listening objects can run cleanup code without implementing IDisposable on their own.
 /// </summary>
-public interface IDisposable : System.IDisposable, System.IAsyncDisposable
+public interface IContextDependentDisposable : System.IDisposable, System.IAsyncDisposable
 {
     /// <summary>
     /// Event occurs when the object is about to be disposed

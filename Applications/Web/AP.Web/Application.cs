@@ -134,8 +134,8 @@ namespace AP.Web
             if (handler != null)
                 handler(this, new ApplicationEventArgs(this.Context));
 
-            if (_objectManager.IsValueActive)
-                _objectManager.Reset();            
+            if (_objectManager.IsValueCreated)
+                _objectManager.TryDispose();            
         }
 
         protected virtual MailMessage CreateErrorMail(Exception exception)

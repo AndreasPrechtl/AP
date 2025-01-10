@@ -2,7 +2,7 @@
 
 namespace AP.ComponentModel.Conversion;
 
-public interface IConverterManager : AP.IDisposable
+public interface IConverterManager : AP.IContextDependentDisposable
 {
     GenericHelper Generic { get; }
     NonGenericHelper NonGeneric { get; }

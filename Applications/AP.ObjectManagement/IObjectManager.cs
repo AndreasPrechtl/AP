@@ -5,7 +5,7 @@ namespace AP.ComponentModel.ObjectManagement;
 //public delegate void ScopeCreated(object sender, EventArgs e);
 //public delegate void ScopeDisposed(object sender, EventArgs e);
 
-public interface IObjectManager : AP.IDisposable
+public interface IObjectManager : AP.IContextDependentDisposable
 {
     ObjectLifetimeBase<TBase> Register<TBase>(ObjectLifetimeBase<TBase> lifetime, bool disposeOnRelease = true) where TBase : notnull;
     ObjectLifetimeBase<TBase> GetLifetime<TBase>(object? key = null) where TBase : notnull;        
@@ -33,7 +33,7 @@ public interface IObjectManagementScope : System.IDisposable
     bool TryGetInstance<TBase>(out ManagedInstance<TBase>? instance, object? key = null) where TBase : notnull;
 }
 
-public interface IObjectManager<TSuper> : AP.IDisposable
+public interface IObjectManager<TSuper> : AP.IContextDependentDisposable
     where TSuper : notnull
 {
     ObjectLifetimeBase<TBase> Register<TBase>(ObjectLifetimeBase<TBase> lifetime, bool disposeOnRelease = true) where TBase : TSuper;

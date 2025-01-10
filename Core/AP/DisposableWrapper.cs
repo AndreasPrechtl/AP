@@ -2,7 +2,7 @@
 
 namespace AP;
 
-internal interface IDisposableWrapperInternal : AP.IDisposable
+internal interface IDisposableWrapperInternal : AP.IContextDependentDisposable
 {
     object Value { get; }
 }
@@ -25,8 +25,8 @@ public sealed class DisposableWrapper<T> : DisposableObject, IWrapper<T>, IDispo
         _value = value; 
         _canDisposeInstance = canDisposeValue;
         
-        if (value is AP.IDisposable disposable)
-            disposable.Disposing += this.OnValueDisposing;             
+        if (value is AP.IContextDependentDisposable disposable)
+            disposable.Disposing += this.OnValueDisposing;
     }
 
     public bool CanDisposeInstance => _canDisposeInstance;
@@ -44,7 +44,7 @@ public sealed class DisposableWrapper<T> : DisposableObject, IWrapper<T>, IDispo
     {
         T value = _value;
 
-        if (value is AP.IDisposable disposable)
+        if (value is AP.IContextDependentDisposable disposable)
             disposable.Disposing -= this.OnValueDisposing;
         
         this.Dispose();
@@ -60,10 +60,10 @@ public sealed class DisposableWrapper<T> : DisposableObject, IWrapper<T>, IDispo
             T value = _value;
             if (value != null)
             {
-                if (value is AP.IDisposable disposable)
+                if (value is AP.IContextDependentDisposable disposable)
                     disposable.Disposing -= this.OnValueDisposing;
 
-                value.TryDispose();
+                value.TryDispose(base.ContextKey);
             }                
         }
         _value = default!;

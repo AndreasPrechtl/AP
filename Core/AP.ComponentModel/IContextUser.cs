@@ -3,9 +3,9 @@
 /// <summary>
 /// An interface for types that use disposable objects.
 /// </summary>
-public interface IContextUser : AP.IDisposable
+public interface IContextUser : AP.IContextDependentDisposable
 {
-    AP.IDisposable Context { get; }
+    AP.IContextDependentDisposable Context { get; }
     bool OwnsContext { get; }
 }
 
@@ -14,7 +14,7 @@ public interface IContextUser : AP.IDisposable
 /// </summary>
 /// <typeparam name="TContext"></typeparam>
 public interface IContextUser<out TContext> : IContextUser
-    where TContext : notnull, AP.IDisposable
+    where TContext : notnull, AP.IContextDependentDisposable
 {
     new TContext Context { get; }
 }

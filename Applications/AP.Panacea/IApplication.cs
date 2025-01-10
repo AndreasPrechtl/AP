@@ -11,7 +11,7 @@ using System.Text;
 
 namespace AP.Panacea
 {
-    public interface IApplication<TRequest, TResponse> : INavigator<TRequest, TResponse>, AP.IDisposable        
+    public interface IApplication<TRequest, TResponse> : INavigator<TRequest, TResponse>, AP.IContextDependentDisposable        
         where TRequest : Request
         where TResponse : Response
     {

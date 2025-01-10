@@ -5,5 +5,5 @@ public interface IEntityContext :
     IEntitySetProvider, 
     IEntityFactory, 
     IPersist, 
-    AP.IDisposable
+    AP.IContextDependentDisposable
 { }

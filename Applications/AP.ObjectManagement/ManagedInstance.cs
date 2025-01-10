@@ -29,8 +29,8 @@ public sealed class ManagedInstance<TBase> : System.IDisposable, IWrapper<TBase>
         _canDisposeInstance = canDisposeInstance;
         _callback = disposedCallback;
 
-        if (instance is AP.IDisposable)
-            ((AP.IDisposable)instance).Disposing += this.OnValueDisposing;   
+        if (instance is AP.IContextDependentDisposable)
+            ((AP.IContextDependentDisposable)instance).Disposing += this.OnValueDisposing;   
     }
 
     public static ManagedInstance<TBase> Create(TBase instance, bool canDisposeInstance = false) => new(instance, canDisposeInstance);
@@ -44,7 +44,7 @@ public sealed class ManagedInstance<TBase> : System.IDisposable, IWrapper<TBase>
         TBase value = _value;
 
         if (value != null)
-            ((AP.IDisposable)value).Disposing -= this.OnValueDisposing;
+            ((AP.IContextDependentDisposable)value).Disposing -= this.OnValueDisposing;
         
         this.Dispose();
     }
@@ -76,8 +76,8 @@ public sealed class ManagedInstance<TBase> : System.IDisposable, IWrapper<TBase>
 
         if (_canDisposeInstance && value != null)
         {
-            if (value is AP.IDisposable)
-                ((AP.IDisposable)value).Disposing -= this.OnValueDisposing;
+            if (value is AP.IContextDependentDisposable)
+                ((AP.IContextDependentDisposable)value).Disposing -= this.OnValueDisposing;
 
             value.TryDispose();
         }

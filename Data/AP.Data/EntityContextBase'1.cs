@@ -32,9 +32,9 @@ public abstract class EntityContextBase<TDataProvider> : EntityContextBase
         _inner = dataContext;
         _canDisposeContext = ownsProvider;
 
-        if (!ownsProvider && dataContext is AP.IDisposable)
+        if (!ownsProvider && dataContext is AP.IContextDependentDisposable)
         {
-            ((AP.IDisposable)dataContext).Disposed += DataContextDisposed;
+            ((AP.IContextDependentDisposable)dataContext).Disposed += DataContextDisposed;
         }
     }
 
@@ -42,7 +42,7 @@ public abstract class EntityContextBase<TDataProvider> : EntityContextBase
     {
         if (_inner != null)
         {
-            ((AP.IDisposable)_inner).Disposing -= this.DataContextDisposed;
+            ((AP.IContextDependentDisposable)_inner).Disposing -= this.DataContextDisposed;
             this.CleanUpResources();
         }
     }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace AP.Logging;
@@ -62,7 +63,7 @@ public class StreamingLogWriter : LogWriterBase
         // the problem however - I cannot read items off the writer queue
         // meaning: as long as it isn't flushed the reader can't read the newly added objects
         // I should probably use the IProducerConsumerCollection interface?
-        Task task = new            (
+        Task task = new(
             delegate ()
             {
                 const string begin = "<!-- entry begin -->";
@@ -82,17 +83,13 @@ public class StreamingLogWriter : LogWriterBase
                             {
                                 stream.Seek(0, SeekOrigin.Begin);
                                 writer.WriteLine(begin);
-                                writer.Write(Serialization.Serialize.Xaml(entry));
+                                writer.Write(JsonSerializer.Serialize(entry, options: new() { NewLine = string.Empty }));
                             }
-
-                            stream = null;
                         }
                     }
                     finally
                     {
-                        if (stream != null)
-                            stream.Dispose();
-
+                        stream?.TryDispose();
                     }
                 }
             }

@@ -3,7 +3,7 @@
 /// <summary>
 /// Interface for providers.
 /// </summary>
-public interface IProvider : AP.IDisposable
+public interface IProvider : AP.IContextDependentDisposable
 {
     string Name { get; }
 }

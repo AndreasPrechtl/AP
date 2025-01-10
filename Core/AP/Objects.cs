@@ -20,42 +20,103 @@ public static class Objects
     /// <param name="value">The value.</param>
     /// <returns>Returns a disposable object.</returns>
     [MethodImpl((MethodImplOptions)256)]
-    public static AP.IDisposable AsDisposable<T>(T value) where T : notnull => new AP.DisposableWrapper<T>(value);
+    public static AP.IContextDependentDisposable AsDisposable<T>(T value, object contextKey = null) where T : notnull => new AP.DisposableWrapper<T>(value, contextKey);
 
     [MethodImpl((MethodImplOptions)256)]
-    public static ValueTask<AP.IDisposable> AsAsyncDisposable<T>(T value) where T : notnull => ValueTask.FromResult((AP.IDisposable)new AP.DisposableWrapper<T>(value));
+    public static ValueTask<AP.IContextDependentDisposable> AsAsyncDisposable<T>(T value) where T : notnull => ValueTask.FromResult((AP.IContextDependentDisposable)new AP.DisposableWrapper<T>(value));
 
     /// <summary>
     /// Disposes an object.
     /// </summary>
     /// <param name="value">The object.</param>
-    public static void Dispose(this object value)
+    public static async ValueTask DisposeAsync(this object value, object? contextKey = null)
     {
-        if (value is System.IDisposable disposable)
+        if (contextKey is not null && value is AP.IContextDependentDisposable contextDependentDisposable)
+        {
+            await contextDependentDisposable.DisposeAsync(contextKey);
+            return;
+        }
+
+        if (value is IAsyncDisposable asyncDisposable)
+        {
+            await asyncDisposable.DisposeAsync();
+            return;
+        }
+
+        if (value is IDisposable disposable)
+        {
             disposable.Dispose();
+        }
     }
-    
+
+    /// <summary>
+    /// Disposes an object.
+    /// </summary>
+    /// <param name="value">The object.</param>
+    public static void Dispose(this object value, object? contextKey = null)
+    {
+        if (contextKey is not null && value is AP.IContextDependentDisposable contextDependentDisposable)
+        {
+            contextDependentDisposable.Dispose(contextKey);
+            return;
+        }
+
+        if (value is IDisposable disposable)
+        {
+            disposable.Dispose();            
+        }
+    }
+
     /// <summary>
     /// Tries to dispose an object.
     /// </summary>
     /// <param name="value">The object.</param>
     /// <returns></returns>
-    public static bool TryDispose(this object value)
+    public static async ValueTask<bool> TryDisposeAsync(this object value, object? contextKey = null)
     {
-        if (value is System.IDisposable disposable)
+        try
         {
-            try
+            if (contextKey is not null && value is AP.IContextDependentDisposable contextDependentDisposable)
+            {
+                await contextDependentDisposable.DisposeAsync(contextKey);
+                return true;
+            }
+
+            if (value is IAsyncDisposable asyncDisposable)
+            {
+                await asyncDisposable.DisposeAsync();
+                return true;
+            }
+        }
+        catch { }
+
+        return false;
+    }
+
+    /// <summary>
+    /// Tries to dispose an object.
+    /// </summary>
+    /// <param name="value">The object.</param>
+    /// <returns></returns>
+    public static bool TryDispose(this object value, object? contextKey = null)
+    {
+        try
+        {
+            if (contextKey is not null && value is AP.IContextDependentDisposable contextDependentDisposable)
+            {
+                contextDependentDisposable.Dispose(contextKey);
+                return true;
+            }
+
+            if (value is IDisposable disposable)
             {
                 disposable.Dispose();
                 return true;
             }
-            catch (Exception)
-            {
-                return false;
-            }
         }
-
-        return true;
+        catch { }
+        
+        return false;
     }
 
     [MethodImpl((MethodImplOptions)256)]
@@ -83,7 +144,7 @@ public static class Objects
         {
             foreach (var intoField in into.GetType().GetFields(Reflect.AllFields))
             {
-                if ((fromField.Name == intoField.Name && !intoField.IsInitOnly)) // && (overwrite || intoField.GetValue(into).IsNullOrDefault())))
+                if (fromField.Name == intoField.Name && !intoField.IsInitOnly) // && (overwrite || intoField.GetValue(into).IsNullOrDefault())))
                 {
                     try
                     {

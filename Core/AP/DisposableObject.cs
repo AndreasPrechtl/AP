@@ -8,7 +8,7 @@ namespace AP;
 /// Used as a base class for IDisposable implementations, does not contain a finalizer
 /// </summary>
 [SuppressMessage("Microsoft.Design", "CA1063:ImplementIDisposableCorrectly", Justification = "IDisposable is implemented correctly - yet simplified for less complexity on child classes")]
-public abstract class DisposableObject : AP.IDisposable
+public abstract class DisposableObject : AP.IContextDependentDisposable
 {
     private bool _isDisposed;
 
@@ -33,10 +33,10 @@ public abstract class DisposableObject : AP.IDisposable
         _contextKey = contextKey;
     }
 
-    void System.IDisposable.Dispose() => this.Dispose();
+    void IDisposable.Dispose() => this.Dispose();
+    ValueTask IAsyncDisposable.DisposeAsync() => this.DisposeAsync();
 
-    internal virtual void SuppressFinalizeIfNeeded()
-    { }
+    internal virtual void SuppressFinalizeIfNeeded() { }
        
     /// <summary>
     /// Raises the Disposing event
@@ -53,8 +53,12 @@ public abstract class DisposableObject : AP.IDisposable
     /// <summary>
     /// Customizable cleanup code.
     /// </summary>
-    protected virtual void CleanUpResources()
-    { }
+    protected abstract void CleanUpResources();
+
+    /// <summary>
+    /// Customizable cleanup code for async disposals.
+    /// </summary>
+    protected abstract Task CleanUpResourcesAsync();
 
     /// <summary>
     /// Returns true when the object has been disposed.
@@ -92,13 +96,18 @@ public abstract class DisposableObject : AP.IDisposable
     /// <param name="contextKey">The contextKey for disposing the object.</param>        
     public void Dispose(object? contextKey = null)
     {            
+        DisposeInternalAsync(CleanUpResources, contextKey);
+    }
+
+    private void DisposeInternalAsync(Action cleanup, object? contextKey = null)
+    {
         if (!_isDisposed)
         {
             if (_contextKey?.Equals(contextKey) is true)
             {
                 this.OnDisposing(EventArgs.Empty);
 
-                try { this.CleanUpResources(); }
+                try { cleanup(); }
                 catch (Exception) { }
 
                 _isDisposed = true;
@@ -116,11 +125,13 @@ public abstract class DisposableObject : AP.IDisposable
         }
     }
 
-    ValueTask IAsyncDisposable.DisposeAsync() => this.DisposeAsync();
-
+    /// <summary>
+    /// Disposes the instance asynchronously.
+    /// </summary>
+    /// <param name="contextKey">The contextKey for disposing the object.</param>        
     public ValueTask DisposeAsync(object? contextKey = null)
     {
-        this.Dispose(contextKey);
+        DisposeInternalAsync(async () => await CleanUpResourcesAsync(), contextKey);
         return ValueTask.CompletedTask;
     }
 

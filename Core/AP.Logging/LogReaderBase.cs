@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using System.Text.Json;
 
 namespace AP.Logging;
 
@@ -97,7 +98,7 @@ public class StreamingLogReader : LogReaderBase
                                 sb.Append(current);
                                 current = reader.ReadLine()!;
                             }
-                            entries.Add(Serialization.Deserialize.Xaml<LogEntry>(sb.ToString()));
+                            entries.Add(JsonSerializer.Deserialize<LogEntry>(sb.ToString())!);
                             sb.Clear();
                         }
                     }

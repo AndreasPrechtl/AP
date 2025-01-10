@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 
 namespace AP;
 
@@ -52,24 +53,27 @@ public sealed class DisposableWrapper<T> : DisposableObject, IWrapper<T>, IDispo
 
     protected override void CleanUpResources()
     {
-        if (base.IsDisposed)
-            return;
-
-        if (_canDisposeInstance)
-        {
-            T value = _value;
-            if (value != null)
-            {
-                if (value is AP.IContextDependentDisposable disposable)
-                    disposable.Disposing -= this.OnValueDisposing;
-
-                value.TryDispose(base.ContextKey);
-            }                
-        }
-        _value = default!;
-
-        base.CleanUpResources();
+        CleanUpResourcesInternal(() => _value?.TryDispose(this.ContextKey));
     }
+
+    protected override ValueTask CleanUpResourcesAsync()
+    {
+        CleanUpResourcesInternal(async () => await _value.TryDisposeAsync(this.ContextKey));
+        return ValueTask.CompletedTask;
+    }
+
+    private void CleanUpResourcesInternal(Action cleanup)
+    {
+        T? value = _value;
+        if (value is AP.IContextDependentDisposable disposable)
+            disposable.Disposing -= this.OnValueDisposing;
+
+        if (_canDisposeInstance && value is not null)
+            cleanup();
+
+        _value = default!;
+    }
+
 
     public override bool Equals(object? obj)
     {

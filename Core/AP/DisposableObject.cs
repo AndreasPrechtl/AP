@@ -58,7 +58,7 @@ public abstract class DisposableObject : AP.IContextDependentDisposable
     /// <summary>
     /// Customizable cleanup code for async disposals.
     /// </summary>
-    protected abstract Task CleanUpResourcesAsync();
+    protected abstract ValueTask CleanUpResourcesAsync();
 
     /// <summary>
     /// Returns true when the object has been disposed.
@@ -96,10 +96,10 @@ public abstract class DisposableObject : AP.IContextDependentDisposable
     /// <param name="contextKey">The contextKey for disposing the object.</param>        
     public void Dispose(object? contextKey = null)
     {            
-        DisposeInternalAsync(CleanUpResources, contextKey);
+        DisposeInternal(CleanUpResources, contextKey);
     }
 
-    private void DisposeInternalAsync(Action cleanup, object? contextKey = null)
+    private void DisposeInternal(Action cleanup, object? contextKey = null)
     {
         if (!_isDisposed)
         {
@@ -131,7 +131,7 @@ public abstract class DisposableObject : AP.IContextDependentDisposable
     /// <param name="contextKey">The contextKey for disposing the object.</param>        
     public ValueTask DisposeAsync(object? contextKey = null)
     {
-        DisposeInternalAsync(async () => await CleanUpResourcesAsync(), contextKey);
+        DisposeInternal(async () => await CleanUpResourcesAsync(), contextKey);
         return ValueTask.CompletedTask;
     }
 
